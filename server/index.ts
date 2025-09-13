@@ -37,9 +37,11 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Serve our COVA Light static files
-  app.use('/light', express.static('.', { 
-    index: 'index.html',
+  const server = await registerRoutes(app);
+
+  // Serve COVA cosmic theme static files first (before Vite setup)
+  app.use(express.static('.', { 
+    index: false, // Don't serve index.html automatically for all routes
     setHeaders: (res, path) => {
       if (path.endsWith('.html')) {
         res.setHeader('Content-Type', 'text/html');
@@ -47,7 +49,10 @@ app.use((req, res, next) => {
     }
   }));
 
-  const server = await registerRoutes(app);
+  // Serve our main cosmic theme on root
+  app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: '.' });
+  });
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
@@ -57,9 +62,7 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // React version available at /react route
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
