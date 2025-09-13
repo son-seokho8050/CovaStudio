@@ -1,346 +1,91 @@
-// COVA Light 웹사이트 JavaScript 기능
+const $ = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
 
-// DOM이 로드되면 초기화
-document.addEventListener('DOMContentLoaded', function() {
-    initializeTheme();
-    renderAllContent();
-    setupEventListeners();
-    setupSmoothScrolling();
+function renderPhilosophy(){
+  const p = COVA_DATA.philosophy;
+  $("#philosophyContent").innerHTML = `
+    <div class="card">
+      <h3>핵심 3축</h3>
+      <ul class="check">${p.pillars.map(x=>`<li>${x}</li>`).join("")}</ul>
+      <p class="muted">${p.loop}</p>
+      <p class="muted">${p.mode}</p>
+      <p class="muted">${p.iep}</p>
+    </div>`;
+}
+
+function renderList(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
+function renderOrdered(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
+
+function renderTable(targetId, rows){
+  const thead = `<thead><tr><th>주차</th><th>질문</th></tr></thead>`;
+  const tbody = `<tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</tbody>`;
+  $(targetId).innerHTML = thead + tbody;
+}
+
+function renderFAQ(){
+  const wrap = $("#faqList");
+  wrap.innerHTML = COVA_DATA.faq.map(([q,a])=>`
+    <details><summary>${q}</summary><div class="muted" style="margin-top:8px">${a}</div></details>
+  `).join("");
+}
+
+function initNav(){
+  const btn = $(".nav-toggle");
+  const list = $(".nav-list");
+  btn.addEventListener("click", ()=> list.classList.toggle("open"));
+  $$(".nav-list a").forEach(a=>a.addEventListener("click", ()=> list.classList.remove("open")));
+}
+
+function initTheme(){
+  const btn = $("#themeToggle");
+  btn.addEventListener("click", ()=>{
+    document.documentElement.classList.toggle("light");
+    btn.textContent = document.documentElement.classList.contains("light") ? "☀️" : "🌙";
+  });
+}
+
+// Light theme (optional)
+const lightCSS = document.createElement("style");
+lightCSS.textContent = `
+  .light { --bg:#ffffff; --card:#f6f7f9; --text:#111318; --muted:#5f6c7b; --accent:#176bff; --pill:#e9edf3; }
+  .light .site-header{background:rgba(255,255,255,.85);border-color:#e5e7eb}
+  .light .nav-list a:hover{background:#eef2f6}
+  .light .table th{background:#e9edf3}
+`;
+document.head.appendChild(lightCSS);
+
+// Mount all
+document.addEventListener("DOMContentLoaded", ()=>{
+  renderPhilosophy();
+
+  // G1
+  renderList("#g1DayLoop", COVA_DATA.g1.dayLoop);
+  renderOrdered("#g1ThreeDay", COVA_DATA.g1.threeDay);
+  renderList("#g1Monthly", COVA_DATA.g1.monthly);
+  renderList("#g1Checkbell", COVA_DATA.g1.checkbell);
+
+  // G2
+  renderList("#g2DayLoop", COVA_DATA.g2.dayLoop);
+  renderOrdered("#g2ThreeDay", COVA_DATA.g2.threeDay);
+  renderList("#g2Monthly", COVA_DATA.g2.monthly);
+  renderList("#g2Gates", COVA_DATA.g2.gates);
+
+  // Kick-Off tables
+  renderTable("#kickG1", COVA_DATA.kickoff.g1);
+  renderTable("#kickG2", COVA_DATA.kickoff.g2);
+
+  // Step-Zero
+  renderOrdered("#szDaily", COVA_DATA.stepZero.daily);
+  renderList("#szRubric", COVA_DATA.stepZero.rubric);
+  renderList("#sz12w", COVA_DATA.stepZero.twelveWeeks);
+
+  // KPI
+  renderList("#kpiCommon", COVA_DATA.kpi.common);
+  renderList("#kpiG2", COVA_DATA.kpi.g2);
+
+  // FAQ
+  renderFAQ();
+
+  initNav();
+  initTheme();
 });
-
-// 테마 관리
-function initializeTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
-    
-    setTheme(initialTheme);
-}
-
-function setTheme(theme) {
-    const themeButton = document.getElementById('themeToggle');
-    
-    if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        if (themeButton) themeButton.textContent = '☀️';
-    } else {
-        document.documentElement.classList.remove('dark');
-        if (themeButton) themeButton.textContent = '🌙';
-    }
-    
-    localStorage.setItem('theme', theme);
-}
-
-function toggleTheme() {
-    const isDark = document.documentElement.classList.contains('dark');
-    const newTheme = isDark ? 'light' : 'dark';
-    setTheme(newTheme);
-    console.log(`Theme switched to ${newTheme}`);
-}
-
-// 모든 콘텐츠 렌더링
-function renderAllContent() {
-    renderPhilosophy();
-    renderGrade1();
-    renderGrade2();
-    renderKickOff();
-    renderStepZero();
-    renderKPI();
-    renderFAQ();
-}
-
-// 철학 섹션 렌더링
-function renderPhilosophy() {
-    const container = document.getElementById('philosophyContent');
-    if (!container) return;
-    
-    const data = window.COVA_DATA.philosophy;
-    container.innerHTML = `
-        <div class="card">
-            <h3>🎯 핵심 철학</h3>
-            <ul class="check">
-                ${data.pillars.map(pillar => `<li>${pillar}</li>`).join('')}
-            </ul>
-        </div>
-        <div class="card">
-            <h3>🔄 학습 구조</h3>
-            <p><strong>루프:</strong> ${data.loop}</p>
-            <p><strong>모드:</strong> ${data.mode}</p>
-            <p><strong>소통:</strong> ${data.iep}</p>
-        </div>
-    `;
-}
-
-// 고1 커리큘럼 렌더링
-function renderGrade1() {
-    const data = window.COVA_DATA.g1;
-    
-    // 하루 루프
-    const dayLoopEl = document.getElementById('g1DayLoop');
-    if (dayLoopEl) {
-        dayLoopEl.innerHTML = data.dayLoop.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 3일 루프
-    const threeDayEl = document.getElementById('g1ThreeDay');
-    if (threeDayEl) {
-        threeDayEl.innerHTML = data.threeDay.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 월별 커리큘럼
-    const monthlyEl = document.getElementById('g1Monthly');
-    if (monthlyEl) {
-        monthlyEl.innerHTML = data.monthly.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 체크벨
-    const checkbellEl = document.getElementById('g1Checkbell');
-    if (checkbellEl) {
-        checkbellEl.innerHTML = data.checkbell.map(item => `<li>${item}</li>`).join('');
-    }
-}
-
-// 고2 커리큘럼 렌더링
-function renderGrade2() {
-    const data = window.COVA_DATA.g2;
-    
-    // 하루 루프
-    const dayLoopEl = document.getElementById('g2DayLoop');
-    if (dayLoopEl) {
-        dayLoopEl.innerHTML = data.dayLoop.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 3일 루프
-    const threeDayEl = document.getElementById('g2ThreeDay');
-    if (threeDayEl) {
-        threeDayEl.innerHTML = data.threeDay.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 월별 커리큘럼
-    const monthlyEl = document.getElementById('g2Monthly');
-    if (monthlyEl) {
-        monthlyEl.innerHTML = data.monthly.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 루프 게이트
-    const gatesEl = document.getElementById('g2Gates');
-    if (gatesEl) {
-        gatesEl.innerHTML = data.gates.map(item => `<li>${item}</li>`).join('');
-    }
-}
-
-// Kick-Off 렌더링
-function renderKickOff() {
-    const kickoffData = window.COVA_DATA.kickoff;
-    
-    // 고1 질문 매트릭스
-    const kickG1El = document.getElementById('kickG1');
-    if (kickG1El) {
-        let html = '<thead><tr><th>주차</th><th>질문</th></tr></thead><tbody>';
-        kickoffData.g1.forEach(row => {
-            html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
-        });
-        html += '</tbody>';
-        kickG1El.innerHTML = html;
-    }
-    
-    // 고2 질문 매트릭스
-    const kickG2El = document.getElementById('kickG2');
-    if (kickG2El) {
-        let html = '<thead><tr><th>주차</th><th>질문</th></tr></thead><tbody>';
-        kickoffData.g2.forEach(row => {
-            html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
-        });
-        html += '</tbody>';
-        kickG2El.innerHTML = html;
-    }
-}
-
-// Step-Zero 렌더링
-function renderStepZero() {
-    const data = window.COVA_DATA.stepZero;
-    
-    // 하루 루틴
-    const dailyEl = document.getElementById('szDaily');
-    if (dailyEl) {
-        dailyEl.innerHTML = data.daily.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 루브릭
-    const rubricEl = document.getElementById('szRubric');
-    if (rubricEl) {
-        rubricEl.innerHTML = data.rubric.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 12주 흐름
-    const flow12wEl = document.getElementById('sz12w');
-    if (flow12wEl) {
-        flow12wEl.innerHTML = data.twelveWeeks.map(item => `<li>${item}</li>`).join('');
-    }
-}
-
-// KPI 렌더링
-function renderKPI() {
-    const data = window.COVA_DATA.kpi;
-    
-    // 공통 KPI
-    const commonEl = document.getElementById('kpiCommon');
-    if (commonEl) {
-        commonEl.innerHTML = data.common.map(item => `<li>${item}</li>`).join('');
-    }
-    
-    // 고2 추가 KPI
-    const g2El = document.getElementById('kpiG2');
-    if (g2El) {
-        g2El.innerHTML = data.g2.map(item => `<li>${item}</li>`).join('');
-    }
-}
-
-// FAQ 렌더링
-function renderFAQ() {
-    const container = document.getElementById('faqList');
-    if (!container) return;
-    
-    container.innerHTML = window.COVA_DATA.faq.map(item => `
-        <details>
-            <summary>${item[0]}</summary>
-            <div>${item[1]}</div>
-        </details>
-    `).join('');
-}
-
-// 이벤트 리스너 설정
-function setupEventListeners() {
-    // 테마 토글
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
-    }
-    
-    // 모바일 네비게이션
-    const navToggle = document.querySelector('.nav-toggle');
-    const navList = document.querySelector('.nav-list');
-    
-    if (navToggle && navList) {
-        navToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            console.log('Mobile navigation toggled');
-        });
-        
-        // 네비게이션 링크 클릭시 모바일 메뉴 닫기
-        navList.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                navList.classList.remove('active');
-            }
-        });
-    }
-    
-    // 외부 클릭시 모바일 메뉴 닫기
-    document.addEventListener('click', (e) => {
-        if (navList && !navToggle.contains(e.target) && !navList.contains(e.target)) {
-            navList.classList.remove('active');
-        }
-    });
-}
-
-// 부드러운 스크롤 설정
-function setupSmoothScrolling() {
-    // 네비게이션 링크들에 부드러운 스크롤 적용
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                scrollToElement(this.getAttribute('href'));
-            }
-        });
-    });
-}
-
-// 요소로 부드럽게 스크롤
-function scrollToElement(selector) {
-    const element = document.querySelector(selector);
-    if (element) {
-        const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
-        const offsetTop = element.offsetTop - headerHeight - 20;
-        window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-        });
-    }
-}
-
-// 스크롤 애니메이션 (선택사항)
-function addScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // 애니메이션을 적용할 요소들 선택
-    document.querySelectorAll('.section').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-}
-
-// 페이지 로드 완료 후 애니메이션 적용
-window.addEventListener('load', () => {
-    addScrollAnimations();
-    console.log('COVA Light initialized');
-});
-
-// 유틸리티 함수들
-function formatTime(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return hours > 0 ? `${hours}시간 ${mins}분` : `${mins}분`;
-}
-
-function createProgressBar(current, total) {
-    const percentage = (current / total) * 100;
-    return `
-        <div style="background: var(--border); border-radius: 10px; height: 8px; overflow: hidden;">
-            <div style="background: var(--accent); height: 100%; width: ${percentage}%; transition: width 0.3s ease;"></div>
-        </div>
-        <small style="color: var(--muted);">${current}/${total} (${percentage.toFixed(1)}%)</small>
-    `;
-}
-
-// 로컬 스토리지 헬퍼
-function saveProgress(key, data) {
-    localStorage.setItem(`cova_${key}`, JSON.stringify(data));
-}
-
-function loadProgress(key) {
-    const data = localStorage.getItem(`cova_${key}`);
-    return data ? JSON.parse(data) : null;
-}
-
-// 에러 핸들링
-window.addEventListener('error', (e) => {
-    console.error('COVA Light Error:', e.error);
-});
-
-// 개발 모드 디버깅
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    window.covaDebug = {
-        data: window.COVA_DATA,
-        toggleTheme,
-        scrollToElement,
-        saveProgress,
-        loadProgress
-    };
-    console.log('COVA Light Debug Mode - window.covaDebug available');
-}
