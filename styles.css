@@ -4,17 +4,22 @@
 :root {
   /* Light Theme (Default) */
   --bg: hsl(0, 0%, 100%);
-  --bg-secondary: hsl(0, 0%, 98%);
-  --bg-tertiary: hsl(0, 0%, 96%);
+  --bg-secondary: hsl(220, 8%, 97%);
+  --bg-tertiary: hsl(220, 12%, 94%);
+  --bg-accent: hsl(220, 15%, 90%);
+  --bg-sophisticated: hsl(225, 25%, 85%);
   --card: hsl(0, 0%, 100%);
-  --text: hsl(0, 0%, 15%);
-  --text-secondary: hsl(0, 0%, 40%);
-  --text-tertiary: hsl(0, 0%, 60%);
-  --border: hsl(0, 0%, 90%);
-  --accent: hsl(0, 0%, 20%);
-  --accent-hover: hsl(0, 0%, 0%);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --card-elevated: hsl(220, 8%, 98%);
+  --text: hsl(220, 20%, 20%);
+  --text-secondary: hsl(220, 15%, 45%);
+  --text-tertiary: hsl(220, 10%, 65%);
+  --border: hsl(220, 8%, 88%);
+  --border-subtle: hsl(220, 5%, 92%);
+  --accent: hsl(220, 25%, 25%);
+  --accent-hover: hsl(220, 30%, 15%);
+  --accent-sophisticated: hsl(225, 20%, 35%);
+  --shadow: 0 1px 3px rgba(30, 41, 59, 0.08);
+  --shadow-lg: 0 4px 12px rgba(30, 41, 59, 0.12);
   
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -36,18 +41,23 @@
 
 /* Dark Theme */
 .dark {
-  --bg: hsl(0, 0%, 8%);
-  --bg-secondary: hsl(0, 0%, 12%);
-  --bg-tertiary: hsl(0, 0%, 16%);
-  --card: hsl(0, 0%, 10%);
-  --text: hsl(0, 0%, 95%);
-  --text-secondary: hsl(0, 0%, 70%);
-  --text-tertiary: hsl(0, 0%, 50%);
-  --border: hsl(0, 0%, 20%);
-  --accent: hsl(0, 0%, 85%);
-  --accent-hover: hsl(0, 0%, 100%);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --bg: hsl(220, 15%, 9%);
+  --bg-secondary: hsl(220, 12%, 12%);
+  --bg-tertiary: hsl(220, 10%, 16%);
+  --bg-accent: hsl(220, 8%, 20%);
+  --bg-sophisticated: hsl(225, 12%, 25%);
+  --card: hsl(220, 12%, 11%);
+  --card-elevated: hsl(220, 10%, 14%);
+  --text: hsl(220, 5%, 92%);
+  --text-secondary: hsl(220, 8%, 68%);
+  --text-tertiary: hsl(220, 6%, 48%);
+  --border: hsl(220, 8%, 22%);
+  --border-subtle: hsl(220, 6%, 18%);
+  --accent: hsl(220, 10%, 80%);
+  --accent-hover: hsl(220, 5%, 95%);
+  --accent-sophisticated: hsl(225, 15%, 75%);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Reset & Base */
@@ -209,13 +219,16 @@ a:hover {
   z-index: 1000;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-subtle);
   padding: var(--space-4) 0;
   transition: all 0.2s ease;
+  box-shadow: 0 1px 0 var(--border-subtle);
 }
 
 .dark .site-header {
-  background: rgba(32, 32, 32, 0.95);
+  background: rgba(20, 23, 31, 0.95);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 var(--border);
 }
 
 .site-header .container {
@@ -323,8 +336,21 @@ a:hover {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: var(--bg);
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
   padding: var(--space-24) 0;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center top, var(--bg-tertiary) 0%, transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .hero-content {
@@ -377,11 +403,36 @@ a:hover {
 /* Sections */
 .section {
   padding: var(--space-32) 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.section:nth-child(even) {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+}
+
+.section:nth-child(odd) {
+  background: var(--bg);
 }
 
 .section:last-of-type {
   border-bottom: none;
+}
+
+/* Special sophisticated sections */
+.section.sophisticated {
+  background: linear-gradient(135deg, var(--bg-accent) 0%, var(--bg-sophisticated) 100%);
+  color: var(--text);
+}
+
+.section.sophisticated .section-number {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--accent-sophisticated);
+}
+
+.section.sophisticated .card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
 }
 
 .container {
@@ -400,8 +451,8 @@ a:hover {
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text-tertiary);
-  background: var(--bg-secondary);
+  color: var(--accent-sophisticated);
+  background: var(--bg-accent);
   padding: var(--space-2) var(--space-3);
   border-radius: 0;
   display: inline-block;
@@ -409,6 +460,12 @@ a:hover {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.section-number:hover {
+  background: var(--bg-sophisticated);
+  color: var(--text);
 }
 
 .section-header h2 {
@@ -452,14 +509,34 @@ a:hover {
 /* Cards */
 .card {
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   padding: var(--space-8);
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-sophisticated), var(--bg-sophisticated));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
+  background: var(--card-elevated);
+  border-color: var(--border);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card h3 {
@@ -589,13 +666,24 @@ a:hover {
 
 /* Footer */
 .site-footer {
-  background: var(--bg-secondary);
+  background: linear-gradient(135deg, var(--bg-sophisticated) 0%, var(--bg-accent) 100%);
   border-top: 1px solid var(--border);
   padding: var(--space-20) var(--space-6);
   text-align: center;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-size: 0.75rem;
   letter-spacing: 0.02em;
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-sophisticated), transparent);
 }
 
 /* Responsive */
