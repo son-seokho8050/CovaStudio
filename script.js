@@ -220,7 +220,7 @@ function initDynamicTextEffects() {
         // Manually trigger animation if CSS transition doesn't work
         lines.forEach((line, index) => {
           console.log(`Animating line ${index + 1}:`, line.textContent);
-          line.style.transform = 'translateY(0) rotateX(0deg)';
+          line.style.transform = 'translateX(0)';
           line.style.opacity = '1';
           line.style.transition = 'all 1.4s cubic-bezier(0.215, 0.61, 0.355, 1)';
           line.style.transitionDelay = `${0.2 + index * 0.4}s`;
