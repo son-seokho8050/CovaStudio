@@ -124,8 +124,9 @@ body {
 
 .loading-progress {
   width: 200px;
-  margin: var(--space-6) auto;
+  margin: var(--space-12) auto;
   position: relative;
+  padding-top: var(--space-8);
 }
 
 .loading-bar {
@@ -149,13 +150,14 @@ body {
 
 .loading-percentage {
   position: absolute;
-  top: -64px;
+  top: -80px;
   right: 0;
   font-size: 3rem;
   color: var(--text);
   font-weight: 700;
   font-family: var(--font-display);
   letter-spacing: -0.05em;
+  z-index: 10;
 }
 
 .loading-subtitle {
@@ -852,6 +854,7 @@ a:hover {
 .hero-title-dynamic {
   perspective: 800px;
   transform-style: preserve-3d;
+  opacity: 1; /* Ensure always visible as fallback */
 }
 
 .hero-title-dynamic .line {
@@ -860,7 +863,7 @@ a:hover {
   margin-bottom: 0.2em;
 }
 
-.hero-title-dynamic .line span {
+.hero-title-dynamic.js-enabled .line span {
   display: block;
   transform: translateY(120%) rotateX(15deg);
   opacity: 0;
@@ -868,18 +871,18 @@ a:hover {
   transform-origin: center bottom;
 }
 
-.hero-title-dynamic.visible .line span {
+.hero-title-dynamic.js-enabled.visible .line span {
   transform: translateY(0) rotateX(0deg);
   opacity: 1;
 }
 
-.hero-title-dynamic .line:nth-child(1) span { 
+.hero-title-dynamic.js-enabled .line:nth-child(1) span { 
   transition-delay: 0.2s; 
 }
-.hero-title-dynamic .line:nth-child(2) span { 
+.hero-title-dynamic.js-enabled .line:nth-child(2) span { 
   transition-delay: 0.6s; 
 }
-.hero-title-dynamic .line:nth-child(3) span { 
+.hero-title-dynamic.js-enabled .line:nth-child(3) span { 
   transition-delay: 1.0s; 
 }
 
@@ -889,8 +892,10 @@ a:hover {
   text-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Fallback: Show title immediately if JavaScript doesn't load */
-.hero-title-dynamic:not(.js-enabled) .line span {
+/* Fallback: Show title immediately if JavaScript doesn't load or class not applied */
+.hero-title-dynamic:not(.js-enabled) .line span,
+.hero-title-dynamic .line span {
+  display: block;
   transform: translateY(0) rotateX(0deg);
   opacity: 1;
 }

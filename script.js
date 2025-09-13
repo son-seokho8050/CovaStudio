@@ -193,6 +193,7 @@ function initDynamicTextEffects() {
   // Handle hero title - enhanced with dramatic effects
   const heroTitle = document.querySelector('.hero-title-dynamic');
   if (heroTitle) {
+    console.log('Hero title found, initializing animation');
     heroTitle.classList.add('js-enabled');
     
     // Check if lines are already created
@@ -202,6 +203,7 @@ function initDynamicTextEffects() {
       heroTitle.innerHTML = lines.map(line => 
         `<span class="line"><span>${line}</span></span>`
       ).join('');
+      console.log('Hero title lines created');
     }
     
     // Create dramatic entrance with staggered timing
@@ -220,7 +222,9 @@ function initDynamicTextEffects() {
           }, 150);
         }, index * 200 + 400);
       });
-    }, 500); // Reduced delay for immediate effect
+    }, 1000); // Increased delay to wait for loading screen
+  } else {
+    console.log('Hero title not found');
   }
 
   // Observe all animated text elements
@@ -344,10 +348,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize loading screen first
   initLoadingScreen();
   
-  // Initialize dynamic text effects immediately for better responsiveness
+  // Initialize dynamic text effects after a short delay
   setTimeout(() => {
     initDynamicTextEffects();
-  }, 100);
+  }, 300);
   
   // Initialize other features after loading
   setTimeout(() => {
