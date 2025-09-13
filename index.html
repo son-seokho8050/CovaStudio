@@ -3,158 +3,196 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>COVA Light — 생각하며 그리는 학생</title>
-  <meta name="description" content="COVA Light: 고1 탐구 루틴, 고2 실전 브리지, 월요일 Kick-Off 루틴, Step-Zero, KPI·학부모 보고." />
+  <title>COVA — 코코미술학원 교육 시스템</title>
+  <meta name="description" content="COVA는 '생각하며 그리는 학생'을 만드는 코코미술학원의 핵심 교육 시스템입니다. 고1 탐구 중심 훈련부터 고2 실기력 강화까지 체계적인 학습 루프를 제공합니다." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 <header class="site-header">
-  <div class="brand">
-    <span class="logo">COVA</span>
-    <span class="tagline">생각하며 그리는 학생</span>
+  <div class="container">
+    <div class="brand">
+      <span class="logo">COVA</span>
+      <span class="tagline">생각하며 그리는 학생</span>
+    </div>
+    <nav class="nav">
+      <button class="nav-toggle" aria-label="메뉴 열기">☰</button>
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#philosophy">교육철학</a></li>
+        <li><a href="#g1">고1 커리큘럼</a></li>
+        <li><a href="#g2">고2 커리큘럼</a></li>
+        <li><a href="#kickoff">Kick-Off</a></li>
+        <li><a href="#stepzero">Step-Zero</a></li>
+        <li><a href="#kpi">KPI·보고</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <button id="themeToggle" class="theme-toggle" aria-label="테마 전환">☀️</button>
   </div>
-  <nav class="nav">
-    <button class="nav-toggle" aria-label="메뉴 열기">☰</button>
-    <ul class="nav-list">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#philosophy">철학·구조</a></li>
-      <li><a href="#g1">고1 커리큘럼</a></li>
-      <li><a href="#g2">고2 커리큘럼</a></li>
-      <li><a href="#kickoff">월요일 Kick-Off</a></li>
-      <li><a href="#stepzero">Step-Zero</a></li>
-      <li><a href="#kpi">KPI·보고</a></li>
-      <li><a href="#faq">FAQ·Contact</a></li>
-    </ul>
-  </nav>
-  <button id="themeToggle" class="theme-toggle" aria-label="테마 전환">🌙</button>
 </header>
 
 <main>
   <!-- Hero -->
-  <section id="home" class="section hero">
-    <h1>코코미술학원 <strong>COVA</strong> 수업운영 프로그램</h1>
-    <p><strong>"생각하며 그리는 학생"</strong>을 만드는 교육 철학을 기반으로,<br>
-       고1 탐구 중심 훈련에서 고2 실기력 강화와 전공적 사고 전환까지<br>
-       체계적인 학습 루프를 제공합니다.</p>
-    <a href="#philosophy" class="btn">시작하기</a>
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>코코미술학원 <strong>COVA</strong> 수업운영 프로그램</h1>
+      <p><strong>"생각하며 그리는 학생"</strong>을 만드는 교육 철학을 기반으로,<br>
+         고1 탐구 중심 훈련에서 고2 실기력 강화와 전공적 사고 전환까지<br>
+         체계적인 학습 루프를 제공합니다.</p>
+      <a href="#philosophy" class="btn">프로그램 알아보기</a>
+    </div>
   </section>
 
   <!-- Philosophy -->
   <section id="philosophy" class="section">
-    <h2>공통 철학·구조</h2>
-    <div id="philosophyContent"></div>
+    <div class="container">
+      <div class="section-header">
+        <h2>교육 철학</h2>
+      </div>
+      <div id="philosophyContent"></div>
+    </div>
   </section>
 
   <!-- Grade 1 -->
   <section id="g1" class="section">
-    <h2>고1 커리큘럼 (탐구 중심)</h2>
-    <div class="grid two">
-      <div>
-        <h3>하루 루프(3시간)</h3>
-        <ul id="g1DayLoop" class="check"></ul>
-        <h3>3일 루프</h3>
-        <ol id="g1ThreeDay"></ol>
+    <div class="container">
+      <div class="section-header">
+        <h2>고1 커리큘럼 (탐구 중심)</h2>
       </div>
-      <div>
-        <h3>월별 커리큘럼</h3>
-        <ul id="g1Monthly"></ul>
-        <h3>체크벨(4포인트)</h3>
-        <ul id="g1Checkbell" class="pill"></ul>
+      <div class="grid two">
+        <div class="card">
+          <h3>하루 루프 (3시간)</h3>
+          <ul id="g1DayLoop" class="check"></ul>
+          <h3>3일 루프</h3>
+          <ol id="g1ThreeDay"></ol>
+        </div>
+        <div class="card">
+          <h3>월별 커리큘럼</h3>
+          <ul id="g1Monthly"></ul>
+          <h3>체크벨 (4포인트)</h3>
+          <ul id="g1Checkbell" class="pill"></ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Grade 2 -->
   <section id="g2" class="section">
-    <h2>고2 커리큘럼 (실전 브리지)</h2>
-    <div class="grid two">
-      <div>
-        <h3>하루 루프(3시간)</h3>
-        <ul id="g2DayLoop" class="check"></ul>
-        <h3>3일 루프</h3>
-        <ol id="g2ThreeDay"></ol>
+    <div class="container">
+      <div class="section-header">
+        <h2>고2 커리큘럼 (실전 브리지)</h2>
       </div>
-      <div>
-        <h3>월별 커리큘럼</h3>
-        <ul id="g2Monthly"></ul>
-        <h3>루프 게이트(5항목)</h3>
-        <ul id="g2Gates" class="pill"></ul>
+      <div class="grid two">
+        <div class="card">
+          <h3>하루 루프 (3시간)</h3>
+          <ul id="g2DayLoop" class="check"></ul>
+          <h3>3일 루프</h3>
+          <ol id="g2ThreeDay"></ol>
+        </div>
+        <div class="card">
+          <h3>월별 커리큘럼</h3>
+          <ul id="g2Monthly"></ul>
+          <h3>루프 게이트 (5항목)</h3>
+          <ul id="g2Gates" class="pill"></ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Kick-Off -->
   <section id="kickoff" class="section">
-    <h2>월요일 Kick-Off 루틴 (12주)</h2>
-    <p>월요일 정규 수업 30분 전: 사고 질문 → 메모 → 드로잉 → 공유/피드백 → 정규 브리지</p>
-    <div class="grid two">
-      <div>
-        <h3>고1 질문 매트릭스</h3>
-        <table id="kickG1" class="table"></table>
+    <div class="container">
+      <div class="section-header">
+        <h2>월요일 Kick-Off 루틴</h2>
+        <p>월요일 정규 수업 30분 전: 사고 질문 → 메모 → 드로잉 → 공유/피드백 → 정규 브리지</p>
       </div>
-      <div>
-        <h3>고2 질문 매트릭스</h3>
-        <table id="kickG2" class="table"></table>
+      <div class="grid two">
+        <div>
+          <h3>고1 질문 매트릭스</h3>
+          <table id="kickG1" class="table"></table>
+        </div>
+        <div>
+          <h3>고2 질문 매트릭스</h3>
+          <table id="kickG2" class="table"></table>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Step-Zero -->
   <section id="stepzero" class="section">
-    <h2>Step-Zero (도입·자신감 루틴)</h2>
-    <div class="grid two">
-      <div>
-        <h3>하루(15~20′) 루틴</h3>
-        <ol id="szDaily"></ol>
-        <h3>루브릭(4항목)</h3>
-        <ul id="szRubric" class="pill"></ul>
+    <div class="container">
+      <div class="section-header">
+        <h2>Step-Zero (도입·자신감 루틴)</h2>
       </div>
-      <div>
-        <h3>12주 흐름</h3>
-        <ul id="sz12w"></ul>
-        <h3>주간 포트폴리오 시트</h3>
-        <details>
-          <summary>샘플 보기</summary>
-<pre class="card small">[Step-Zero 주간 포트폴리오]
-1) 질문: _______
-2) 메모(3~5줄): _______
-3) 드로잉(낙서/기호/색)
-4) 루브릭 한줄 피드백
-5) 정규 브리지 키워드
-6) 성과 3줄(시도/발견/다음)</pre>
-        </details>
+      <div class="grid two">
+        <div class="card">
+          <h3>하루 (15~20분) 루틴</h3>
+          <ol id="szDaily"></ol>
+          <h3>루브릭 (4항목)</h3>
+          <ul id="szRubric" class="pill"></ul>
+        </div>
+        <div class="card">
+          <h3>12주 흐름</h3>
+          <ul id="sz12w"></ul>
+          <h3>주간 포트폴리오 시트</h3>
+          <details>
+            <summary>샘플 보기</summary>
+            <div>
+              <p><strong>[Step-Zero 주간 포트폴리오]</strong></p>
+              <p>1) 질문: _______<br>
+                 2) 메모(3~5줄): _______<br>
+                 3) 드로잉(낙서/기호/색)<br>
+                 4) 루브릭 한줄 피드백<br>
+                 5) 정규 브리지 키워드<br>
+                 6) 성과 3줄(시도/발견/다음)</p>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- KPI & Reports -->
   <section id="kpi" class="section">
-    <h2>KPI·보고</h2>
-    <div class="grid two">
-      <div>
-        <h3>공통 KPI</h3>
-        <ul id="kpiCommon" class="check"></ul>
+    <div class="container">
+      <div class="section-header">
+        <h2>KPI·보고</h2>
       </div>
-      <div>
-        <h3>고2 추가 KPI</h3>
-        <ul id="kpiG2" class="check"></ul>
+      <div class="grid two">
+        <div class="card">
+          <h3>공통 KPI</h3>
+          <ul id="kpiCommon" class="check"></ul>
+        </div>
+        <div class="card">
+          <h3>고2 추가 KPI</h3>
+          <ul id="kpiG2" class="check"></ul>
+        </div>
       </div>
+      <details>
+        <summary>학부모 보고 패키지 샘플</summary>
+        <div>
+          <p><strong>[월간 리포트 요약]</strong></p>
+          <p>- Before/After 2컷<br>
+             - 성과 3줄<br>
+             - Kick-Off 포트폴리오 하이라이트 2장<br>
+             - 다음달 브리지 포인트</p>
+        </div>
+      </details>
     </div>
-    <details>
-      <summary>학부모 보고 패키지 샘플</summary>
-<pre class="card small">[월간 리포트 요약]
-- Before/After 2컷
-- 성과 3줄
-- Kick-Off 포트폴리오 하이라이트 2장
-- 다음달 브리지 포인트</pre>
-    </details>
   </section>
 
   <!-- FAQ & Contact -->
   <section id="faq" class="section">
-    <h2>FAQ · Contact</h2>
-    <div id="faqList" class="accordion"></div>
-    <p class="muted">문의: <a href="mailto:hello@cova.school">hello@cova.school</a></p>
+    <div class="container">
+      <div class="section-header">
+        <h2>FAQ · Contact</h2>
+      </div>
+      <div id="faqList" class="accordion"></div>
+      <div class="text-center">
+        <p class="muted">문의: <a href="mailto:hello@cova.school">hello@cova.school</a></p>
+      </div>
+    </div>
   </section>
 </main>
 

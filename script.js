@@ -39,20 +39,12 @@ function initNav(){
 function initTheme(){
   const btn = $("#themeToggle");
   btn.addEventListener("click", ()=>{
-    document.documentElement.classList.toggle("light");
-    btn.textContent = document.documentElement.classList.contains("light") ? "☀️" : "🌙";
+    document.documentElement.classList.toggle("dark");
+    btn.textContent = document.documentElement.classList.contains("dark") ? "🌙" : "☀️";
   });
 }
 
-// Light theme (optional)
-const lightCSS = document.createElement("style");
-lightCSS.textContent = `
-  .light { --bg:#ffffff; --card:#f6f7f9; --text:#111318; --muted:#5f6c7b; --accent:#176bff; --pill:#e9edf3; }
-  .light .site-header{background:rgba(255,255,255,.85);border-color:#e5e7eb}
-  .light .nav-list a:hover{background:#eef2f6}
-  .light .table th{background:#e9edf3}
-`;
-document.head.appendChild(lightCSS);
+// Additional theme styles are now in styles.css
 
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
