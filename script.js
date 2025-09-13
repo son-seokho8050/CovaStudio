@@ -44,40 +44,168 @@ function initTheme(){
   });
 }
 
-// Additional theme styles are now in styles.css
+// Loading Screen (inspired by internalities.eu)
+function initLoadingScreen() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  const percentage = document.querySelector('.loading-percentage');
+  
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    
+    percentage.textContent = Math.floor(progress) + '%';
+    
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 1000);
+      }, 500);
+    }
+  }, 150);
+}
+
+// Section Progress Tracking
+function initSectionProgress() {
+  const sections = document.querySelectorAll('.section');
+  const progressBars = document.querySelectorAll('.progress-bar');
+  
+  function updateProgress() {
+    const scrollTop = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    
+    sections.forEach((section, index) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const progressBar = progressBars[index];
+      
+      if (!progressBar) return;
+      
+      const startProgress = sectionTop - windowHeight;
+      const endProgress = sectionTop + sectionHeight;
+      
+      if (scrollTop >= startProgress && scrollTop <= endProgress) {
+        const progress = ((scrollTop - startProgress) / (endProgress - startProgress)) * 100;
+        progressBar.style.width = Math.max(0, Math.min(100, progress)) + '%';
+      }
+    });
+  }
+  
+  window.addEventListener('scroll', updateProgress);
+  updateProgress(); // Initial call
+}
+
+// Active Navigation Tracking
+function initActiveNavigation() {
+  const navLinks = document.querySelectorAll('.nav-list a');
+  const sections = document.querySelectorAll('.section');
+  
+  function updateActiveNav() {
+    const scrollTop = window.pageYOffset + 100;
+    
+    sections.forEach((section, index) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const navLink = navLinks[index + 1]; // +1 because first link is home
+      
+      if (!navLink) return;
+      
+      if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        navLink.classList.add('active');
+      }
+    });
+    
+    // Handle home section
+    if (scrollTop < sections[0]?.offsetTop) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      navLinks[0]?.classList.add('active');
+    }
+  }
+  
+  window.addEventListener('scroll', updateActiveNav);
+  updateActiveNav();
+}
+
+// Enhanced Smooth Scrolling
+function initSmoothScrolling() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const headerHeight = document.querySelector('.site-header').offsetHeight;
+        const targetPosition = target.offsetTop - headerHeight;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+// Interactive Card Hover Effects
+function initCardEffects() {
+  const cards = document.querySelectorAll('.card');
+  
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-8px) rotateX(2deg)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) rotateX(0deg)';
+    });
+  });
+}
 
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
-  renderPhilosophy();
+  // Initialize loading screen first
+  initLoadingScreen();
+  
+  // Initialize other features after loading
+  setTimeout(() => {
+    renderPhilosophy();
 
-  // G1
-  renderList("#g1DayLoop", COVA_DATA.g1.dayLoop);
-  renderOrdered("#g1ThreeDay", COVA_DATA.g1.threeDay);
-  renderList("#g1Monthly", COVA_DATA.g1.monthly);
-  renderList("#g1Checkbell", COVA_DATA.g1.checkbell);
+    // G1
+    renderList("#g1DayLoop", COVA_DATA.g1.dayLoop);
+    renderOrdered("#g1ThreeDay", COVA_DATA.g1.threeDay);
+    renderList("#g1Monthly", COVA_DATA.g1.monthly);
+    renderList("#g1Checkbell", COVA_DATA.g1.checkbell);
 
-  // G2
-  renderList("#g2DayLoop", COVA_DATA.g2.dayLoop);
-  renderOrdered("#g2ThreeDay", COVA_DATA.g2.threeDay);
-  renderList("#g2Monthly", COVA_DATA.g2.monthly);
-  renderList("#g2Gates", COVA_DATA.g2.gates);
+    // G2
+    renderList("#g2DayLoop", COVA_DATA.g2.dayLoop);
+    renderOrdered("#g2ThreeDay", COVA_DATA.g2.threeDay);
+    renderList("#g2Monthly", COVA_DATA.g2.monthly);
+    renderList("#g2Gates", COVA_DATA.g2.gates);
 
-  // Kick-Off tables
-  renderTable("#kickG1", COVA_DATA.kickoff.g1);
-  renderTable("#kickG2", COVA_DATA.kickoff.g2);
+    // Kick-Off tables
+    renderTable("#kickG1", COVA_DATA.kickoff.g1);
+    renderTable("#kickG2", COVA_DATA.kickoff.g2);
 
-  // Step-Zero
-  renderOrdered("#szDaily", COVA_DATA.stepZero.daily);
-  renderList("#szRubric", COVA_DATA.stepZero.rubric);
-  renderList("#sz12w", COVA_DATA.stepZero.twelveWeeks);
+    // Step-Zero
+    renderOrdered("#szDaily", COVA_DATA.stepZero.daily);
+    renderList("#szRubric", COVA_DATA.stepZero.rubric);
+    renderList("#sz12w", COVA_DATA.stepZero.twelveWeeks);
 
-  // KPI
-  renderList("#kpiCommon", COVA_DATA.kpi.common);
-  renderList("#kpiG2", COVA_DATA.kpi.g2);
+    // KPI
+    renderList("#kpiCommon", COVA_DATA.kpi.common);
+    renderList("#kpiG2", COVA_DATA.kpi.g2);
 
-  // FAQ
-  renderFAQ();
+    // FAQ
+    renderFAQ();
 
-  initNav();
-  initTheme();
+    initNav();
+    initTheme();
+    initSectionProgress();
+    initActiveNavigation();
+    initSmoothScrolling();
+    initCardEffects();
+  }, 100);
 });

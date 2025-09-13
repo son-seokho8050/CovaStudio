@@ -202,6 +202,205 @@ body {
   100% { transform: translateX(100vw) translateY(50px) rotate(-45deg); opacity: 0; }
 }
 
+/* Loading Screen (inspired by internalities.eu) */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--space-black);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.loading-logo {
+  font-family: var(--font-space);
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--star-gold);
+  margin-bottom: var(--space-6);
+  text-shadow: 0 0 30px var(--cosmic-glow);
+  animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+.loading-text {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-space);
+  letter-spacing: 0.1em;
+}
+
+.loading-progress {
+  width: 300px;
+  margin: var(--space-6) auto;
+  position: relative;
+}
+
+.loading-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(100, 200, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(135deg, var(--star-gold), var(--star-blue));
+  border-radius: 2px;
+  width: 0%;
+  animation: loadingProgress 3s ease-out forwards;
+  box-shadow: 0 0 20px var(--cosmic-glow);
+}
+
+.loading-percentage {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  font-family: var(--font-space);
+  font-size: 0.875rem;
+  color: var(--star-blue);
+}
+
+.loading-subtitle {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: var(--space-4);
+  opacity: 0.8;
+}
+
+.loading-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(1px 1px at 20% 30%, var(--star-white), transparent),
+    radial-gradient(1px 1px at 80% 20%, var(--star-blue), transparent),
+    radial-gradient(1px 1px at 40% 70%, var(--star-gold), transparent),
+    radial-gradient(1px 1px at 90% 80%, var(--star-white), transparent);
+  background-size: 100px 100px;
+  animation: loadingStars 8s linear infinite;
+}
+
+@keyframes logoGlow {
+  0% { text-shadow: 0 0 30px var(--cosmic-glow); }
+  100% { text-shadow: 0 0 50px var(--cosmic-glow), 0 0 80px var(--stellar-glow); }
+}
+
+@keyframes loadingProgress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes loadingStars {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-100px) rotate(360deg); }
+}
+
+/* Section Numbers & Progress (inspired by internalities.eu) */
+.section-header {
+  position: relative;
+  margin-bottom: var(--space-16);
+}
+
+.section-number {
+  font-family: var(--font-space);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--star-gold);
+  background: rgba(100, 200, 255, 0.1);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-number::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.section-number:hover::before {
+  left: 100%;
+}
+
+.section-progress {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: rgba(100, 200, 255, 0.2);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(135deg, var(--star-gold), var(--star-blue));
+  width: 0%;
+  transition: width 0.8s ease-out;
+  box-shadow: 0 0 10px var(--cosmic-glow);
+}
+
+/* Enhanced Navigation (numbered style) */
+.nav-list a {
+  font-family: var(--font-space);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.nav-list a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(135deg, var(--star-gold), var(--star-blue));
+  transition: width 0.3s ease;
+}
+
+.nav-list a:hover::after,
+.nav-list a.active::after {
+  width: 100%;
+}
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
