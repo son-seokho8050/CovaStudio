@@ -111,22 +111,22 @@ body {
   font-size: 3rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
   letter-spacing: -0.02em;
 }
 
 .loading-text {
   font-size: 1rem;
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-8);
   font-weight: 400;
 }
 
 .loading-progress {
   width: 200px;
-  margin: var(--space-12) auto;
+  margin: var(--space-16) auto;
   position: relative;
-  padding-top: var(--space-8);
+  padding-top: var(--space-12);
 }
 
 .loading-bar {
@@ -150,20 +150,21 @@ body {
 
 .loading-percentage {
   position: absolute;
-  top: -80px;
+  top: -100px;
   right: 0;
-  font-size: 3rem;
+  font-size: 4rem;
   color: var(--text);
-  font-weight: 700;
+  font-weight: 800;
   font-family: var(--font-display);
   letter-spacing: -0.05em;
   z-index: 10;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .loading-subtitle {
   font-size: 0.75rem;
   color: var(--text-tertiary);
-  margin-top: var(--space-4);
+  margin-top: var(--space-8);
   font-weight: 400;
   letter-spacing: 0.02em;
 }
@@ -893,7 +894,13 @@ a:hover {
 }
 
 /* Fallback: Show title immediately if JavaScript doesn't load or class not applied */
-.hero-title-dynamic:not(.js-enabled) .line span,
+.hero-title-dynamic:not(.js-enabled) .line span {
+  display: block;
+  transform: translateY(0) rotateX(0deg) !important;
+  opacity: 1 !important;
+}
+
+/* Default state for when no js-enabled class */
 .hero-title-dynamic .line span {
   display: block;
   transform: translateY(0) rotateX(0deg);

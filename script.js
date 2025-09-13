@@ -209,20 +209,32 @@ function initDynamicTextEffects() {
     // Create dramatic entrance with staggered timing
     setTimeout(() => {
       heroTitle.classList.add('visible');
-      console.log('Hero title animation triggered');
+      console.log('Hero title animation triggered - adding visible class');
+      console.log('Hero title classes:', heroTitle.className);
       
-      // Add sound-like visual effect
-      const lines = heroTitle.querySelectorAll('.line span');
-      console.log('Found hero lines:', lines.length);
-      lines.forEach((line, index) => {
-        setTimeout(() => {
-          line.style.transform += ' scale(1.02)';
+      // Force trigger animation by checking if visible class is applied
+      setTimeout(() => {
+        const lines = heroTitle.querySelectorAll('.line span');
+        console.log('Found hero lines for animation:', lines.length);
+        
+        // Manually trigger animation if CSS transition doesn't work
+        lines.forEach((line, index) => {
+          console.log(`Animating line ${index + 1}:`, line.textContent);
+          line.style.transform = 'translateY(0) rotateX(0deg)';
+          line.style.opacity = '1';
+          line.style.transition = 'all 1.4s cubic-bezier(0.215, 0.61, 0.355, 1)';
+          line.style.transitionDelay = `${0.2 + index * 0.4}s`;
+          
+          // Add scale effect
           setTimeout(() => {
-            line.style.transform = line.style.transform.replace(' scale(1.02)', '');
-          }, 150);
-        }, index * 200 + 400);
-      });
-    }, 1000); // Increased delay to wait for loading screen
+            line.style.transform += ' scale(1.02)';
+            setTimeout(() => {
+              line.style.transform = line.style.transform.replace(' scale(1.02)', '');
+            }, 150);
+          }, (0.2 + index * 0.4) * 1000 + 400);
+        });
+      }, 100);
+    }, 2000); // Increased delay to ensure loading screen is done
   } else {
     console.log('Hero title not found');
   }
