@@ -51,7 +51,7 @@ function initLoadingScreen() {
   
   let progress = 0;
   const interval = setInterval(() => {
-    progress += Math.random() * 12 + 8;
+    progress += Math.random() * 8 + 3; // Slower progress
     if (progress > 100) progress = 100;
     
     percentage.textContent = Math.floor(progress) + '%';
@@ -62,10 +62,10 @@ function initLoadingScreen() {
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
           loadingScreen.style.display = 'none';
-        }, 800);
-      }, 300);
+        }, 1200); // Longer fade out
+      }, 1000); // Longer wait time after 100%
     }
-  }, 100);
+  }, 200); // Slower interval
 }
 
 // Section Progress Tracking
@@ -166,11 +166,15 @@ function initCardEffects() {
 
 // Dynamic Text Movement Effects (inspired by ehyundai.com)
 function initDynamicTextEffects() {
+  // Mark document as JS enabled
+  document.documentElement.classList.add('js-enabled');
+  
   // Intersection Observer for text animations
   const textObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        console.log('Animation triggered for:', entry.target.className);
       }
     });
   }, {
@@ -178,15 +182,7 @@ function initDynamicTextEffects() {
     rootMargin: '0px 0px -50px 0px'
   });
 
-  // Observe all animated text elements
-  const animatedTexts = document.querySelectorAll(
-    '.text-reveal, .text-slide-left, .text-slide-right, .text-stagger, ' +
-    '.text-highlight, .section-title-dynamic, .text-scale-in, .text-rotate-in'
-  );
-  
-  animatedTexts.forEach(el => textObserver.observe(el));
-
-  // Split text into words for stagger effect
+  // Split text into words for stagger effect FIRST
   const staggerTexts = document.querySelectorAll('.text-stagger');
   staggerTexts.forEach(element => {
     const text = element.textContent;
@@ -194,15 +190,38 @@ function initDynamicTextEffects() {
     element.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
   });
 
-  // Split hero title into lines
+  // Handle hero title - ensure it works even if structure is already there
   const heroTitle = document.querySelector('.hero-title-dynamic');
   if (heroTitle) {
-    const text = heroTitle.innerHTML;
-    const lines = text.split('<br>');
-    heroTitle.innerHTML = lines.map(line => 
-      `<span class="line"><span>${line}</span></span>`
-    ).join('');
+    heroTitle.classList.add('js-enabled');
+    
+    // Check if lines are already created
+    if (!heroTitle.querySelector('.line')) {
+      const text = heroTitle.innerHTML;
+      const lines = text.split('<br>');
+      heroTitle.innerHTML = lines.map(line => 
+        `<span class="line"><span>${line}</span></span>`
+      ).join('');
+    }
+    
+    // Trigger hero animation immediately for better UX
+    setTimeout(() => {
+      heroTitle.classList.add('visible');
+    }, 500);
   }
+
+  // Observe all animated text elements
+  const animatedTexts = document.querySelectorAll(
+    '.text-reveal, .text-slide-left, .text-slide-right, .text-stagger, ' +
+    '.text-highlight, .section-title-dynamic, .text-scale-in, .text-rotate-in'
+  );
+  
+  animatedTexts.forEach(el => {
+    textObserver.observe(el);
+    el.classList.add('js-enabled');
+  });
+
+  console.log('Dynamic text effects initialized for', animatedTexts.length, 'elements');
 }
 
 // Parallax text movement on scroll
@@ -312,6 +331,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize loading screen first
   initLoadingScreen();
   
+  // Initialize dynamic text effects immediately for better responsiveness
+  initDynamicTextEffects();
+  
   // Initialize other features after loading
   setTimeout(() => {
     renderPhilosophy();
@@ -350,7 +372,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initActiveNavigation();
     initSmoothScrolling();
     initCardEffects();
-    initDynamicTextEffects();
     initParallaxText();
     initCounterAnimation();
     initTypingEffect();

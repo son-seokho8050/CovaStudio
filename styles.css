@@ -848,7 +848,7 @@ a:hover {
 
 /* Large hero text effects */
 .hero-title-dynamic {
-  overflow: hidden;
+  /* Ensure title is visible by default */
 }
 
 .hero-title-dynamic .line {
@@ -869,6 +869,11 @@ a:hover {
 .hero-title-dynamic .line:nth-child(1) span { transition-delay: 0.1s; }
 .hero-title-dynamic .line:nth-child(2) span { transition-delay: 0.3s; }
 .hero-title-dynamic .line:nth-child(3) span { transition-delay: 0.5s; }
+
+/* Fallback: Show title immediately if JavaScript doesn't load */
+.hero-title-dynamic:not(.js-enabled) .line span {
+  transform: translateY(0);
+}
 
 /* Section title effects */
 .section-title-dynamic {
