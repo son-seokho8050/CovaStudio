@@ -1,11 +1,9 @@
-// COVA 웹사이트 JavaScript 기능
+// COVA Light 웹사이트 JavaScript 기능
 
 // DOM이 로드되면 초기화
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
-    renderPhilosophySection();
-    renderCurriculumFeatures();
-    renderContactInfo();
+    renderAllContent();
     setupEventListeners();
     setupSmoothScrolling();
 });
@@ -20,14 +18,14 @@ function initializeTheme() {
 }
 
 function setTheme(theme) {
-    const themeIcon = document.querySelector('.theme-icon');
+    const themeButton = document.getElementById('themeToggle');
     
     if (theme === 'dark') {
         document.documentElement.classList.add('dark');
-        themeIcon.textContent = '☀️';
+        if (themeButton) themeButton.textContent = '☀️';
     } else {
         document.documentElement.classList.remove('dark');
-        themeIcon.textContent = '🌙';
+        if (themeButton) themeButton.textContent = '🌙';
     }
     
     localStorage.setItem('theme', theme);
@@ -40,158 +38,195 @@ function toggleTheme() {
     console.log(`Theme switched to ${newTheme}`);
 }
 
-// 교육 철학 섹션 렌더링
-function renderPhilosophySection() {
-    const container = document.getElementById('philosophy-grid');
-    if (!container) return;
-
-    container.innerHTML = covaData.philosophy.map((item, index) => `
-        <div class="philosophy-card" data-testid="card-philosophy-${index}">
-            <div class="philosophy-icon">${item.icon}</div>
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-        </div>
-    `).join('');
+// 모든 콘텐츠 렌더링
+function renderAllContent() {
+    renderPhilosophy();
+    renderGrade1();
+    renderGrade2();
+    renderKickOff();
+    renderStepZero();
+    renderKPI();
+    renderFAQ();
 }
 
-// 커리큘럼 특징 렌더링
-function renderCurriculumFeatures() {
-    // 고1 특징
-    const grade10Container = document.getElementById('grade10-features');
-    if (grade10Container) {
-        grade10Container.innerHTML = covaData.grade10Features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon grade10-icon">${feature.icon}</div>
-                <span class="feature-text">${feature.text}</span>
-            </div>
-        `).join('');
-    }
+// 철학 섹션 렌더링
+function renderPhilosophy() {
+    const container = document.getElementById('philosophyContent');
+    if (!container) return;
+    
+    container.innerHTML = covaData.philosophy.content;
+}
 
-    // 고2 특징
-    const grade11Container = document.getElementById('grade11-features');
-    if (grade11Container) {
-        grade11Container.innerHTML = covaData.grade11Features.map(feature => `
-            <div class="feature-item">
-                <div class="feature-icon grade11-icon">${feature.icon}</div>
-                <span class="feature-text">${feature.text}</span>
-            </div>
-        `).join('');
+// 고1 커리큘럼 렌더링
+function renderGrade1() {
+    const data = covaData.grade1;
+    
+    // 하루 루프
+    const dayLoopEl = document.getElementById('g1DayLoop');
+    if (dayLoopEl) {
+        dayLoopEl.innerHTML = data.dayLoop.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 3일 루프
+    const threeDayEl = document.getElementById('g1ThreeDay');
+    if (threeDayEl) {
+        threeDayEl.innerHTML = data.threeDay.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 월별 커리큘럼
+    const monthlyEl = document.getElementById('g1Monthly');
+    if (monthlyEl) {
+        monthlyEl.innerHTML = data.monthly.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 체크벨
+    const checkbellEl = document.getElementById('g1Checkbell');
+    if (checkbellEl) {
+        checkbellEl.innerHTML = data.checkbell.map(item => `<li>${item}</li>`).join('');
     }
 }
 
-// 연락처 정보 렌더링
-function renderContactInfo() {
-    const container = document.getElementById('contact-details');
-    if (!container) return;
+// 고2 커리큘럼 렌더링
+function renderGrade2() {
+    const data = covaData.grade2;
+    
+    // 하루 루프
+    const dayLoopEl = document.getElementById('g2DayLoop');
+    if (dayLoopEl) {
+        dayLoopEl.innerHTML = data.dayLoop.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 3일 루프
+    const threeDayEl = document.getElementById('g2ThreeDay');
+    if (threeDayEl) {
+        threeDayEl.innerHTML = data.threeDay.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 월별 커리큘럼
+    const monthlyEl = document.getElementById('g2Monthly');
+    if (monthlyEl) {
+        monthlyEl.innerHTML = data.monthly.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 루프 게이트
+    const gatesEl = document.getElementById('g2Gates');
+    if (gatesEl) {
+        gatesEl.innerHTML = data.gates.map(item => `<li>${item}</li>`).join('');
+    }
+}
 
-    container.innerHTML = covaData.contactInfo.map(info => `
-        <div class="contact-item">
-            <div class="contact-icon">${info.icon}</div>
-            <div class="contact-info-content">
-                <h4>${info.title}</h4>
-                <p>${info.content}</p>
-                <p class="description">${info.description}</p>
-            </div>
-        </div>
+// Kick-Off 렌더링
+function renderKickOff() {
+    const kickoffData = covaData.kickoff;
+    
+    // 고1 질문 매트릭스
+    const kickG1El = document.getElementById('kickG1');
+    if (kickG1El) {
+        let html = '<thead><tr><th>주차</th><th>관찰</th><th>분석</th><th>표현</th></tr></thead><tbody>';
+        kickoffData.grade1Questions.forEach(row => {
+            html += `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+        });
+        html += '</tbody>';
+        kickG1El.innerHTML = html;
+    }
+    
+    // 고2 질문 매트릭스
+    const kickG2El = document.getElementById('kickG2');
+    if (kickG2El) {
+        let html = '<thead><tr><th>주차</th><th>계획</th><th>실행</th><th>평가</th></tr></thead><tbody>';
+        kickoffData.grade2Questions.forEach(row => {
+            html += `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+        });
+        html += '</tbody>';
+        kickG2El.innerHTML = html;
+    }
+}
+
+// Step-Zero 렌더링
+function renderStepZero() {
+    const data = covaData.stepZero;
+    
+    // 하루 루틴
+    const dailyEl = document.getElementById('szDaily');
+    if (dailyEl) {
+        dailyEl.innerHTML = data.daily.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 루브릭
+    const rubricEl = document.getElementById('szRubric');
+    if (rubricEl) {
+        rubricEl.innerHTML = data.rubric.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 12주 흐름
+    const flow12wEl = document.getElementById('sz12w');
+    if (flow12wEl) {
+        flow12wEl.innerHTML = data.flow12w.map(item => `<li>${item}</li>`).join('');
+    }
+}
+
+// KPI 렌더링
+function renderKPI() {
+    const data = covaData.kpi;
+    
+    // 공통 KPI
+    const commonEl = document.getElementById('kpiCommon');
+    if (commonEl) {
+        commonEl.innerHTML = data.common.map(item => `<li>${item}</li>`).join('');
+    }
+    
+    // 고2 추가 KPI
+    const g2El = document.getElementById('kpiG2');
+    if (g2El) {
+        g2El.innerHTML = data.grade2.map(item => `<li>${item}</li>`).join('');
+    }
+}
+
+// FAQ 렌더링
+function renderFAQ() {
+    const container = document.getElementById('faqList');
+    if (!container) return;
+    
+    container.innerHTML = covaData.faq.map(item => `
+        <details>
+            <summary>${item.question}</summary>
+            <div>${item.answer}</div>
+        </details>
     `).join('');
 }
 
 // 이벤트 리스너 설정
 function setupEventListeners() {
     // 테마 토글
-    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
     }
-
-    // 모바일 메뉴
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu) {
-        mobileMenu.addEventListener('click', () => {
-            console.log('Mobile menu clicked');
-            // TODO: 모바일 메뉴 구현
+    
+    // 모바일 네비게이션
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav-list');
+    
+    if (navToggle && navList) {
+        navToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            console.log('Mobile navigation toggled');
+        });
+        
+        // 네비게이션 링크 클릭시 모바일 메뉴 닫기
+        navList.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navList.classList.remove('active');
+            }
         });
     }
-
-    // 히어로 섹션 버튼들
-    const learnMoreBtn = document.querySelector('[data-testid="button-learn-more"]');
-    if (learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', () => {
-            console.log('Learn more clicked');
-            scrollToElement('#curriculum');
-        });
-    }
-
-    const contactBtn = document.querySelector('[data-testid="button-contact"]');
-    if (contactBtn) {
-        contactBtn.addEventListener('click', () => {
-            console.log('Contact clicked');
-            scrollToElement('#contact');
-        });
-    }
-
-    // 커리큘럼 상세 버튼들
-    const grade10Details = document.querySelector('[data-testid="button-grade10-details"]');
-    if (grade10Details) {
-        grade10Details.addEventListener('click', () => {
-            console.log('Grade 10 details clicked');
-            // TODO: 고1 상세 정보 모달 또는 페이지
-        });
-    }
-
-    const grade11Details = document.querySelector('[data-testid="button-grade11-details"]');
-    if (grade11Details) {
-        grade11Details.addEventListener('click', () => {
-            console.log('Grade 11 details clicked');
-            // TODO: 고2 상세 정보 모달 또는 페이지
-        });
-    }
-
-    // 체험 수업 신청 버튼
-    const trialClassBtn = document.querySelector('[data-testid="button-trial-class"]');
-    if (trialClassBtn) {
-        trialClassBtn.addEventListener('click', () => {
-            console.log('Trial class clicked');
-            // TODO: 체험 수업 신청 폼 또는 연락처로 스크롤
-            scrollToElement('#contact');
-        });
-    }
-
-    // 연락처 폼 제출
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleContactForm);
-    }
-
-    // 철학 카드 클릭 이벤트
+    
+    // 외부 클릭시 모바일 메뉴 닫기
     document.addEventListener('click', (e) => {
-        const philosophyCard = e.target.closest('.philosophy-card');
-        if (philosophyCard) {
-            const index = philosophyCard.getAttribute('data-testid')?.split('-')[2];
-            console.log(`Philosophy card ${index} clicked`);
-            // TODO: 철학 상세 설명 모달 또는 애니메이션
+        if (navList && !navToggle.contains(e.target) && !navList.contains(e.target)) {
+            navList.classList.remove('active');
         }
     });
-}
-
-// 연락처 폼 처리
-function handleContactForm(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const data = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        message: formData.get('message')
-    };
-    
-    console.log('Form submitted:', data);
-    
-    // TODO: 실제 폼 제출 로직 구현
-    alert('문의가 접수되었습니다. 곧 연락드리겠습니다.');
-    
-    // 폼 초기화
-    e.target.reset();
 }
 
 // 부드러운 스크롤 설정
@@ -212,7 +247,8 @@ function setupSmoothScrolling() {
 function scrollToElement(selector) {
     const element = document.querySelector(selector);
     if (element) {
-        const offsetTop = element.offsetTop - 80; // 네비게이션 높이 고려
+        const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+        const offsetTop = element.offsetTop - headerHeight - 20;
         window.scrollTo({
             top: offsetTop,
             behavior: 'smooth'
@@ -220,23 +256,8 @@ function scrollToElement(selector) {
     }
 }
 
-// 스크롤 시 네비게이션 배경 조정
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.nav');
-    if (window.scrollY > 100) {
-        nav.style.background = document.documentElement.classList.contains('dark') 
-            ? 'rgba(8, 12, 16, 0.95)' 
-            : 'rgba(255, 255, 255, 0.95)';
-    } else {
-        nav.style.background = document.documentElement.classList.contains('dark') 
-            ? 'rgba(8, 12, 16, 0.8)' 
-            : 'rgba(255, 255, 255, 0.8)';
-    }
-});
-
-// 페이지 로드 애니메이션 (선택사항)
-function addPageLoadAnimations() {
-    // Intersection Observer를 사용한 스크롤 애니메이션
+// 스크롤 애니메이션 (선택사항)
+function addScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -252,7 +273,7 @@ function addPageLoadAnimations() {
     }, observerOptions);
 
     // 애니메이션을 적용할 요소들 선택
-    document.querySelectorAll('.philosophy-card, .curriculum-card, .contact-form-card').forEach(el => {
+    document.querySelectorAll('.section').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -261,4 +282,51 @@ function addPageLoadAnimations() {
 }
 
 // 페이지 로드 완료 후 애니메이션 적용
-window.addEventListener('load', addPageLoadAnimations);
+window.addEventListener('load', () => {
+    addScrollAnimations();
+    console.log('COVA Light initialized');
+});
+
+// 유틸리티 함수들
+function formatTime(minutes) {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    return hours > 0 ? `${hours}시간 ${mins}분` : `${mins}분`;
+}
+
+function createProgressBar(current, total) {
+    const percentage = (current / total) * 100;
+    return `
+        <div style="background: var(--border); border-radius: 10px; height: 8px; overflow: hidden;">
+            <div style="background: var(--accent); height: 100%; width: ${percentage}%; transition: width 0.3s ease;"></div>
+        </div>
+        <small style="color: var(--muted);">${current}/${total} (${percentage.toFixed(1)}%)</small>
+    `;
+}
+
+// 로컬 스토리지 헬퍼
+function saveProgress(key, data) {
+    localStorage.setItem(`cova_${key}`, JSON.stringify(data));
+}
+
+function loadProgress(key) {
+    const data = localStorage.getItem(`cova_${key}`);
+    return data ? JSON.parse(data) : null;
+}
+
+// 에러 핸들링
+window.addEventListener('error', (e) => {
+    console.error('COVA Light Error:', e.error);
+});
+
+// 개발 모드 디버깅
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.covaDebug = {
+        data: covaData,
+        toggleTheme,
+        scrollToElement,
+        saveProgress,
+        loadProgress
+    };
+    console.log('COVA Light Debug Mode - window.covaDebug available');
+}

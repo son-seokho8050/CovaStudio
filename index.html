@@ -1,195 +1,167 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COVA - 코코미술학원 | 생각하며 그리는 학생을 만드는 교육 프로그램</title>
-    <meta name="description" content="COVA는 단순히 잘 그리는 학생이 아닌 생각하며 그리는 학생을 만드는 코코미술학원의 혁신적인 교육 프로그램입니다. 탐구 중심 학습에서 실기력 강화까지 체계적인 미술 교육을 제공합니다.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>COVA Light — 생각하며 그리는 학생</title>
+  <meta name="description" content="COVA Light: 고1 탐구 루틴, 고2 실전 브리지, 월요일 Kick-Off 루틴, Step-Zero, KPI·학부모 보고." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="logo">COVA</div>
-            <div class="nav-links">
-                <a href="#philosophy">교육철학</a>
-                <a href="#curriculum">커리큘럼</a>
-                <a href="#contact">문의</a>
-            </div>
-            <div class="nav-actions">
-                <button id="theme-toggle" class="theme-toggle" data-testid="button-theme-toggle">
-                    <span class="theme-icon">🌙</span>
-                </button>
-                <button id="mobile-menu" class="mobile-menu" data-testid="button-mobile-menu">☰</button>
-            </div>
-        </div>
-    </nav>
+<header class="site-header">
+  <div class="brand">
+    <span class="logo">COVA</span>
+    <span class="tagline">생각하며 그리는 학생</span>
+  </div>
+  <nav class="nav">
+    <button class="nav-toggle" aria-label="메뉴 열기">☰</button>
+    <ul class="nav-list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#philosophy">철학·구조</a></li>
+      <li><a href="#g1">고1 커리큘럼</a></li>
+      <li><a href="#g2">고2 커리큘럼</a></li>
+      <li><a href="#kickoff">월요일 Kick-Off</a></li>
+      <li><a href="#stepzero">Step-Zero</a></li>
+      <li><a href="#kpi">KPI·보고</a></li>
+      <li><a href="#faq">FAQ·Contact</a></li>
+    </ul>
+  </nav>
+  <button id="themeToggle" class="theme-toggle" aria-label="테마 전환">🌙</button>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-image"></div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>생각하며 그리는 학생을<br><span class="highlight">만드는 교육</span></h1>
-            <p>COVA는 단순히 '잘 그리는 학생'이 아닌<br>'생각하며 그리는 학생'을 만드는 코코미술학원의 혁신적인 교육 프로그램입니다</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" data-testid="button-learn-more">프로그램 알아보기</button>
-                <button class="btn btn-outline" data-testid="button-contact">문의하기</button>
-            </div>
-        </div>
-    </section>
+<main>
+  <!-- Hero -->
+  <section id="home" class="section hero">
+    <h1>"잘 그리는 학생❌ → <strong>생각하며 그리는 학생⭕</strong>"</h1>
+    <p>COVA Light는 고1의 탐구 루틴과 고2의 실전 브리지를 연결합니다.  
+       매주 <strong>월요일 Kick-Off 30분</strong>으로 한 주를 여세요.</p>
+    <a href="#philosophy" class="btn">시작하기</a>
+  </section>
 
-    <!-- Philosophy Section -->
-    <section id="philosophy" class="philosophy">
-        <div class="container">
-            <div class="section-header">
-                <h2>COVA 교육 철학</h2>
-                <p>생각하며 그리는 학생을 만들기 위한 우리만의 교육 접근법은<br>단순한 기술 전수가 아닌 창의적 사고력 개발에 중점을 둡니다</p>
-            </div>
-            <div class="philosophy-grid" id="philosophy-grid">
-                <!-- Philosophy cards will be inserted here by JavaScript -->
-            </div>
-        </div>
-    </section>
+  <!-- Philosophy -->
+  <section id="philosophy" class="section">
+    <h2>공통 철학·구조</h2>
+    <div id="philosophyContent"></div>
+  </section>
 
-    <!-- Curriculum Section -->
-    <section id="curriculum" class="curriculum">
-        <div class="container">
-            <div class="section-header">
-                <h2>커리큘럼 진행 과정</h2>
-                <p>탐구 중심의 기초 과정에서 실기력 강화와 전공적 사고 전환까지<br>체계적인 단계별 학습 프로그램을 제공합니다</p>
-            </div>
-            <div class="curriculum-grid">
-                <!-- Grade 10 -->
-                <div class="curriculum-card">
-                    <div class="curriculum-header">
-                        <div class="badge grade10">고등학교 1학년</div>
-                        <h3>탐구 중심 훈련</h3>
-                    </div>
-                    <div class="curriculum-image">
-                        <img src="attached_assets/generated_images/Visual_journal_process_documentation_69469ecf.png" alt="Visual journal and process documentation">
-                    </div>
-                    <div class="curriculum-features" id="grade10-features">
-                        <!-- Features will be inserted here by JavaScript -->
-                    </div>
-                    <p>창작 과정의 기록과 분석을 통해 사고하는 습관을 기르고, 거장들의 작품과 비교하며 시각적 사고력을 개발합니다.</p>
-                    <button class="btn btn-outline-full" data-testid="button-grade10-details">자세히 보기 →</button>
-                </div>
+  <!-- Grade 1 -->
+  <section id="g1" class="section">
+    <h2>고1 커리큘럼 (탐구 중심)</h2>
+    <div class="grid two">
+      <div>
+        <h3>하루 루프(3시간)</h3>
+        <ul id="g1DayLoop" class="check"></ul>
+        <h3>3일 루프</h3>
+        <ol id="g1ThreeDay"></ol>
+      </div>
+      <div>
+        <h3>월별 커리큘럼</h3>
+        <ul id="g1Monthly"></ul>
+        <h3>체크벨(4포인트)</h3>
+        <ul id="g1Checkbell" class="pill"></ul>
+      </div>
+    </div>
+  </section>
 
-                <!-- Grade 11 -->
-                <div class="curriculum-card">
-                    <div class="curriculum-header">
-                        <div class="badge grade11">고등학교 2학년</div>
-                        <h3>실기력 강화 & 전공적 사고</h3>
-                    </div>
-                    <div class="curriculum-image">
-                        <img src="attached_assets/generated_images/Finished_student_artwork_gallery_eeceb8eb.png" alt="Finished student artwork gallery">
-                    </div>
-                    <div class="curriculum-features" id="grade11-features">
-                        <!-- Features will be inserted here by JavaScript -->
-                    </div>
-                    <p>탐구 기반의 사고력을 바탕으로 실제 완성도 높은 작품을 제작하고, 입시 실전 조건에서의 전문적 역량을 기릅니다.</p>
-                    <button class="btn btn-outline-full" data-testid="button-grade11-details">자세히 보기 →</button>
-                </div>
-            </div>
+  <!-- Grade 2 -->
+  <section id="g2" class="section">
+    <h2>고2 커리큘럼 (실전 브리지)</h2>
+    <div class="grid two">
+      <div>
+        <h3>하루 루프(3시간)</h3>
+        <ul id="g2DayLoop" class="check"></ul>
+        <h3>3일 루프</h3>
+        <ol id="g2ThreeDay"></ol>
+      </div>
+      <div>
+        <h3>월별 커리큘럼</h3>
+        <ul id="g2Monthly"></ul>
+        <h3>루프 게이트(5항목)</h3>
+        <ul id="g2Gates" class="pill"></ul>
+      </div>
+    </div>
+  </section>
 
-            <!-- Progression -->
-            <div class="progression">
-                <div class="progression-item">
-                    <span>탐구 중심</span>
-                    <span class="arrow">→</span>
-                    <span>실기력 강화</span>
-                    <span class="arrow">→</span>
-                    <span>전공적 사고</span>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Kick-Off -->
+  <section id="kickoff" class="section">
+    <h2>월요일 Kick-Off 루틴 (12주)</h2>
+    <p>월요일 정규 수업 30분 전: 사고 질문 → 메모 → 드로잉 → 공유/피드백 → 정규 브리지</p>
+    <div class="grid two">
+      <div>
+        <h3>고1 질문 매트릭스</h3>
+        <table id="kickG1" class="table"></table>
+      </div>
+      <div>
+        <h3>고2 질문 매트릭스</h3>
+        <table id="kickG2" class="table"></table>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>문의 및 상담</h2>
-                <p>COVA 프로그램에 대해 궁금한 점이 있으시면 언제든 문의해 주세요<br>전문 상담을 통해 자세한 안내를 도와드리겠습니다</p>
-            </div>
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <div class="contact-form-card">
-                    <h3>상담 신청</h3>
-                    <form id="contact-form" class="contact-form">
-                        <div class="form-group">
-                            <label for="name">이름 *</label>
-                            <input type="text" id="name" name="name" required placeholder="성함을 입력해 주세요" data-testid="input-name">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">연락처 *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="연락 가능한 번호를 입력해 주세요" data-testid="input-phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">문의 내용</label>
-                            <textarea id="message" name="message" rows="4" placeholder="궁금한 점이나 상담받고 싶은 내용을 적어주세요" data-testid="input-message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary-full" data-testid="button-submit-inquiry">상담 신청하기</button>
-                    </form>
-                </div>
+  <!-- Step-Zero -->
+  <section id="stepzero" class="section">
+    <h2>Step-Zero (도입·자신감 루틴)</h2>
+    <div class="grid two">
+      <div>
+        <h3>하루(15~20′) 루틴</h3>
+        <ol id="szDaily"></ol>
+        <h3>루브릭(4항목)</h3>
+        <ul id="szRubric" class="pill"></ul>
+      </div>
+      <div>
+        <h3>12주 흐름</h3>
+        <ul id="sz12w"></ul>
+        <h3>주간 포트폴리오 시트</h3>
+        <details>
+          <summary>샘플 보기</summary>
+<pre class="card small">[Step-Zero 주간 포트폴리오]
+1) 질문: _______
+2) 메모(3~5줄): _______
+3) 드로잉(낙서/기호/색)
+4) 루브릭 한줄 피드백
+5) 정규 브리지 키워드
+6) 성과 3줄(시도/발견/다음)</pre>
+        </details>
+      </div>
+    </div>
+  </section>
 
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <div class="contact-info-card">
-                        <h3>연락처 정보</h3>
-                        <div class="contact-details" id="contact-details">
-                            <!-- Contact details will be inserted here by JavaScript -->
-                        </div>
-                    </div>
+  <!-- KPI & Reports -->
+  <section id="kpi" class="section">
+    <h2>KPI·보고</h2>
+    <div class="grid two">
+      <div>
+        <h3>공통 KPI</h3>
+        <ul id="kpiCommon" class="check"></ul>
+      </div>
+      <div>
+        <h3>고2 추가 KPI</h3>
+        <ul id="kpiG2" class="check"></ul>
+      </div>
+    </div>
+    <details>
+      <summary>학부모 보고 패키지 샘플</summary>
+<pre class="card small">[월간 리포트 요약]
+- Before/After 2컷
+- 성과 3줄
+- Kick-Off 포트폴리오 하이라이트 2장
+- 다음달 브리지 포인트</pre>
+    </details>
+  </section>
 
-                    <!-- CTA Card -->
-                    <div class="cta-card">
-                        <h3>지금 바로 시작해보세요</h3>
-                        <p>COVA 프로그램의 체험 수업을 통해<br>새로운 미술 교육의 차이를 직접 경험해보세요</p>
-                        <button class="btn btn-cta" data-testid="button-trial-class">체험 수업 신청</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- FAQ & Contact -->
+  <section id="faq" class="section">
+    <h2>FAQ · Contact</h2>
+    <div id="faqList" class="accordion"></div>
+    <p class="muted">문의: <a href="mailto:hello@cova.school">hello@cova.school</a></p>
+  </section>
+</main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>COVA</h3>
-                    <p>생각하며 그리는 학생을 만드는<br>코코미술학원의 혁신적인 교육 프로그램</p>
-                </div>
-                <div class="footer-contact">
-                    <h4>연락처</h4>
-                    <div class="footer-details">
-                        <p>전화: 02-1234-5678</p>
-                        <p>이메일: info@cocoart.kr</p>
-                        <p>주소: 서울시 강남구 테헤란로</p>
-                    </div>
-                </div>
-                <div class="footer-hours">
-                    <h4>운영시간</h4>
-                    <div class="footer-details">
-                        <p>평일: 09:00 - 21:00</p>
-                        <p>토요일: 09:00 - 18:00</p>
-                        <p>일요일: 휴무</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 코코미술학원. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<footer class="site-footer">
+  <p>COVA Light © 2025 — 월요일 Kick-Off 루틴으로 한 주를 여세요.</p>
+</footer>
 
-    <script src="cova-data.js"></script>
-    <script src="script.js"></script>
+<script src="cova-data.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
