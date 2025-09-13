@@ -149,12 +149,13 @@ body {
 
 .loading-percentage {
   position: absolute;
-  top: -48px;
+  top: -64px;
   right: 0;
-  font-size: 1.5rem;
+  font-size: 3rem;
   color: var(--text);
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-display);
+  letter-spacing: -0.05em;
 }
 
 .loading-subtitle {

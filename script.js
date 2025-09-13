@@ -207,9 +207,11 @@ function initDynamicTextEffects() {
     // Create dramatic entrance with staggered timing
     setTimeout(() => {
       heroTitle.classList.add('visible');
+      console.log('Hero title animation triggered');
       
       // Add sound-like visual effect
       const lines = heroTitle.querySelectorAll('.line span');
+      console.log('Found hero lines:', lines.length);
       lines.forEach((line, index) => {
         setTimeout(() => {
           line.style.transform += ' scale(1.02)';
@@ -218,7 +220,7 @@ function initDynamicTextEffects() {
           }, 150);
         }, index * 200 + 400);
       });
-    }, 800); // Delayed for more dramatic effect
+    }, 500); // Reduced delay for immediate effect
   }
 
   // Observe all animated text elements
@@ -343,7 +345,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
   initLoadingScreen();
   
   // Initialize dynamic text effects immediately for better responsiveness
-  initDynamicTextEffects();
+  setTimeout(() => {
+    initDynamicTextEffects();
+  }, 100);
   
   // Initialize other features after loading
   setTimeout(() => {
