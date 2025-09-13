@@ -54,12 +54,26 @@ function renderPhilosophy() {
     const container = document.getElementById('philosophyContent');
     if (!container) return;
     
-    container.innerHTML = covaData.philosophy.content;
+    const data = window.COVA_DATA.philosophy;
+    container.innerHTML = `
+        <div class="card">
+            <h3>🎯 핵심 철학</h3>
+            <ul class="check">
+                ${data.pillars.map(pillar => `<li>${pillar}</li>`).join('')}
+            </ul>
+        </div>
+        <div class="card">
+            <h3>🔄 학습 구조</h3>
+            <p><strong>루프:</strong> ${data.loop}</p>
+            <p><strong>모드:</strong> ${data.mode}</p>
+            <p><strong>소통:</strong> ${data.iep}</p>
+        </div>
+    `;
 }
 
 // 고1 커리큘럼 렌더링
 function renderGrade1() {
-    const data = covaData.grade1;
+    const data = window.COVA_DATA.g1;
     
     // 하루 루프
     const dayLoopEl = document.getElementById('g1DayLoop');
@@ -88,7 +102,7 @@ function renderGrade1() {
 
 // 고2 커리큘럼 렌더링
 function renderGrade2() {
-    const data = covaData.grade2;
+    const data = window.COVA_DATA.g2;
     
     // 하루 루프
     const dayLoopEl = document.getElementById('g2DayLoop');
@@ -117,14 +131,14 @@ function renderGrade2() {
 
 // Kick-Off 렌더링
 function renderKickOff() {
-    const kickoffData = covaData.kickoff;
+    const kickoffData = window.COVA_DATA.kickoff;
     
     // 고1 질문 매트릭스
     const kickG1El = document.getElementById('kickG1');
     if (kickG1El) {
-        let html = '<thead><tr><th>주차</th><th>관찰</th><th>분석</th><th>표현</th></tr></thead><tbody>';
-        kickoffData.grade1Questions.forEach(row => {
-            html += `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+        let html = '<thead><tr><th>주차</th><th>질문</th></tr></thead><tbody>';
+        kickoffData.g1.forEach(row => {
+            html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
         });
         html += '</tbody>';
         kickG1El.innerHTML = html;
@@ -133,9 +147,9 @@ function renderKickOff() {
     // 고2 질문 매트릭스
     const kickG2El = document.getElementById('kickG2');
     if (kickG2El) {
-        let html = '<thead><tr><th>주차</th><th>계획</th><th>실행</th><th>평가</th></tr></thead><tbody>';
-        kickoffData.grade2Questions.forEach(row => {
-            html += `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+        let html = '<thead><tr><th>주차</th><th>질문</th></tr></thead><tbody>';
+        kickoffData.g2.forEach(row => {
+            html += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
         });
         html += '</tbody>';
         kickG2El.innerHTML = html;
@@ -144,7 +158,7 @@ function renderKickOff() {
 
 // Step-Zero 렌더링
 function renderStepZero() {
-    const data = covaData.stepZero;
+    const data = window.COVA_DATA.stepZero;
     
     // 하루 루틴
     const dailyEl = document.getElementById('szDaily');
@@ -161,13 +175,13 @@ function renderStepZero() {
     // 12주 흐름
     const flow12wEl = document.getElementById('sz12w');
     if (flow12wEl) {
-        flow12wEl.innerHTML = data.flow12w.map(item => `<li>${item}</li>`).join('');
+        flow12wEl.innerHTML = data.twelveWeeks.map(item => `<li>${item}</li>`).join('');
     }
 }
 
 // KPI 렌더링
 function renderKPI() {
-    const data = covaData.kpi;
+    const data = window.COVA_DATA.kpi;
     
     // 공통 KPI
     const commonEl = document.getElementById('kpiCommon');
@@ -178,7 +192,7 @@ function renderKPI() {
     // 고2 추가 KPI
     const g2El = document.getElementById('kpiG2');
     if (g2El) {
-        g2El.innerHTML = data.grade2.map(item => `<li>${item}</li>`).join('');
+        g2El.innerHTML = data.g2.map(item => `<li>${item}</li>`).join('');
     }
 }
 
@@ -187,10 +201,10 @@ function renderFAQ() {
     const container = document.getElementById('faqList');
     if (!container) return;
     
-    container.innerHTML = covaData.faq.map(item => `
+    container.innerHTML = window.COVA_DATA.faq.map(item => `
         <details>
-            <summary>${item.question}</summary>
-            <div>${item.answer}</div>
+            <summary>${item[0]}</summary>
+            <div>${item[1]}</div>
         </details>
     `).join('');
 }
@@ -322,7 +336,7 @@ window.addEventListener('error', (e) => {
 // 개발 모드 디버깅
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     window.covaDebug = {
-        data: covaData,
+        data: window.COVA_DATA,
         toggleTheme,
         scrollToElement,
         saveProgress,
