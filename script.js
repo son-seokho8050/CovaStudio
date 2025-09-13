@@ -190,7 +190,7 @@ function initDynamicTextEffects() {
     element.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
   });
 
-  // Handle hero title - ensure it works even if structure is already there
+  // Handle hero title - enhanced with dramatic effects
   const heroTitle = document.querySelector('.hero-title-dynamic');
   if (heroTitle) {
     heroTitle.classList.add('js-enabled');
@@ -204,10 +204,21 @@ function initDynamicTextEffects() {
       ).join('');
     }
     
-    // Trigger hero animation immediately for better UX
+    // Create dramatic entrance with staggered timing
     setTimeout(() => {
       heroTitle.classList.add('visible');
-    }, 500);
+      
+      // Add sound-like visual effect
+      const lines = heroTitle.querySelectorAll('.line span');
+      lines.forEach((line, index) => {
+        setTimeout(() => {
+          line.style.transform += ' scale(1.02)';
+          setTimeout(() => {
+            line.style.transform = line.style.transform.replace(' scale(1.02)', '');
+          }, 150);
+        }, index * 200 + 400);
+      });
+    }, 800); // Delayed for more dramatic effect
   }
 
   // Observe all animated text elements
