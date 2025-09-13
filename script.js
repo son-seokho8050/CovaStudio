@@ -164,6 +164,149 @@ function initCardEffects() {
   });
 }
 
+// Dynamic Text Movement Effects (inspired by ehyundai.com)
+function initDynamicTextEffects() {
+  // Intersection Observer for text animations
+  const textObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observe all animated text elements
+  const animatedTexts = document.querySelectorAll(
+    '.text-reveal, .text-slide-left, .text-slide-right, .text-stagger, ' +
+    '.text-highlight, .section-title-dynamic, .text-scale-in, .text-rotate-in'
+  );
+  
+  animatedTexts.forEach(el => textObserver.observe(el));
+
+  // Split text into words for stagger effect
+  const staggerTexts = document.querySelectorAll('.text-stagger');
+  staggerTexts.forEach(element => {
+    const text = element.textContent;
+    const words = text.split(' ');
+    element.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
+  });
+
+  // Split hero title into lines
+  const heroTitle = document.querySelector('.hero-title-dynamic');
+  if (heroTitle) {
+    const text = heroTitle.innerHTML;
+    const lines = text.split('<br>');
+    heroTitle.innerHTML = lines.map(line => 
+      `<span class="line"><span>${line}</span></span>`
+    ).join('');
+  }
+}
+
+// Parallax text movement on scroll
+function initParallaxText() {
+  const parallaxElements = document.querySelectorAll('.text-parallax');
+  
+  function updateParallax() {
+    const scrolled = window.pageYOffset;
+    
+    parallaxElements.forEach(element => {
+      const rate = scrolled * -0.3;
+      element.style.transform = `translateY(${rate}px)`;
+    });
+  }
+  
+  window.addEventListener('scroll', updateParallax);
+  updateParallax(); // Initial call
+}
+
+// Counter animation
+function initCounterAnimation() {
+  const counters = document.querySelectorAll('.counter');
+  
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.getAttribute('data-target'));
+        const increment = target / 50; // Animation duration control
+        let current = 0;
+        
+        const updateCounter = () => {
+          if (current < target) {
+            current += increment;
+            counter.textContent = Math.ceil(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            counter.textContent = target;
+          }
+        };
+        
+        updateCounter();
+        counterObserver.unobserve(counter);
+      }
+    });
+  });
+  
+  counters.forEach(counter => counterObserver.observe(counter));
+}
+
+// Text typing effect
+function initTypingEffect() {
+  const typingElements = document.querySelectorAll('.text-typing');
+  
+  const typingObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const element = entry.target;
+        const text = element.getAttribute('data-text') || element.textContent;
+        element.textContent = '';
+        element.style.width = '0';
+        
+        let i = 0;
+        const typeWriter = () => {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            element.style.width = `${(i + 1) * 0.6}em`;
+            i++;
+            setTimeout(typeWriter, 100);
+          } else {
+            element.style.borderRight = 'none';
+          }
+        };
+        
+        setTimeout(typeWriter, 500);
+        typingObserver.unobserve(element);
+      }
+    });
+  });
+  
+  typingElements.forEach(el => typingObserver.observe(el));
+}
+
+// Enhanced scroll-based animations with momentum
+function initMomentumAnimations() {
+  let scrollTimeout;
+  let isScrolling = false;
+  
+  function onScroll() {
+    if (!isScrolling) {
+      document.body.classList.add('scrolling');
+      isScrolling = true;
+    }
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      document.body.classList.remove('scrolling');
+      isScrolling = false;
+    }, 150);
+  }
+  
+  window.addEventListener('scroll', onScroll);
+}
+
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize loading screen first
@@ -207,5 +350,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initActiveNavigation();
     initSmoothScrolling();
     initCardEffects();
+    initDynamicTextEffects();
+    initParallaxText();
+    initCounterAnimation();
+    initTypingEffect();
+    initMomentumAnimations();
   }, 100);
 });
