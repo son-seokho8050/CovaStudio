@@ -44,14 +44,14 @@ function initTheme(){
   });
 }
 
-// Loading Screen (inspired by internalities.eu)
+// Loading Screen
 function initLoadingScreen() {
   const loadingScreen = document.getElementById('loadingScreen');
   const percentage = document.querySelector('.loading-percentage');
   
   let progress = 0;
   const interval = setInterval(() => {
-    progress += Math.random() * 15;
+    progress += Math.random() * 12 + 8;
     if (progress > 100) progress = 100;
     
     percentage.textContent = Math.floor(progress) + '%';
@@ -62,10 +62,10 @@ function initLoadingScreen() {
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
           loadingScreen.style.display = 'none';
-        }, 1000);
-      }, 500);
+        }, 800);
+      }, 300);
     }
-  }, 150);
+  }, 100);
 }
 
 // Section Progress Tracking
@@ -149,17 +149,17 @@ function initSmoothScrolling() {
   });
 }
 
-// Interactive Card Hover Effects
+// Card Hover Effects
 function initCardEffects() {
   const cards = document.querySelectorAll('.card');
   
   cards.forEach(card => {
     card.addEventListener('mouseenter', () => {
-      card.style.transform = 'translateY(-8px) rotateX(2deg)';
+      card.style.transform = 'translateY(-2px)';
     });
     
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateY(0) rotateX(0deg)';
+      card.style.transform = 'translateY(0)';
     });
   });
 }
