@@ -39,8 +39,8 @@ function initNav(){
 function initTheme(){
   const btn = $("#themeToggle");
   btn.addEventListener("click", ()=>{
-    document.documentElement.classList.toggle("dark");
-    btn.textContent = document.documentElement.classList.contains("dark") ? "🌙" : "☀️";
+    document.documentElement.classList.toggle("light");
+    btn.textContent = document.documentElement.classList.contains("light") ? "☀️" : "🌙";
   });
 }
 
