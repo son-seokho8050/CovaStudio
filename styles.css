@@ -723,7 +723,7 @@ a:hover {
 /* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 아래쪽 영역 표시 */
 .video-tile[data-video="video-3"] > video {
   object-fit: cover !important;
-  transform: translateY(12%) scale(1.1) !important;
+  transform: translateY(18%) scale(1.12) !important;
   transform-origin: center center !important;
 }
 
