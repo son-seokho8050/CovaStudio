@@ -355,15 +355,23 @@ function initMomentumAnimations() {
   window.addEventListener('scroll', onScroll);
 }
 
-// WAAPI Video Mosaic Controller - nagi-style coordinated movements
-class VideoMosaicController {
+// Production-Level Tile Mosaic Controller - nagi-style coordinated movements
+class TileMosaicController {
   constructor() {
     this.tiles = [];
     this.animations = [];
     this.isVisible = false;
     this.isPaused = false;
+    this.isPageHidden = false;
+    this.isReducedMotion = false;
+    this.isPerformanceMode = false;
     this.observer = null;
     this.container = null;
+    this.memoryThreshold = 100 * 1024 * 1024; // 100MB threshold
+    
+    // Performance monitoring
+    this.performanceObserver = null;
+    this.memoryUsage = { used: 0, total: 0 };
     
     // nagi animation patterns configuration
     this.animationConfigs = [
@@ -477,19 +485,27 @@ class VideoMosaicController {
   init() {
     this.container = document.querySelector('.video-mosaic-container');
     if (!this.container) {
-      console.warn('Video mosaic container not found');
+      console.warn('Tile mosaic container not found');
       return;
     }
 
     this.tiles = Array.from(this.container.querySelectorAll('.video-tile'));
+    
     if (this.tiles.length === 0) {
-      console.warn('No video tiles found');
+      console.warn('No tiles found');
       return;
     }
 
-    console.log(`VideoMosaicController initialized with ${this.tiles.length} tiles`);
+    console.log(`TileMosaicController initialized with ${this.tiles.length} tiles`);
+    
+    // Initialize all subsystems
+    this.checkReducedMotionPreference();
+    this.checkPerformanceMode();
     this.setupIntersectionObserver();
     this.setupPageVisibilityAPI();
+    this.setupPerformanceMonitoring();
+    this.setupErrorHandling();
+    this.setupMobileOptimizations();
     this.resetTilesToInitialState();
   }
 
@@ -497,11 +513,11 @@ class VideoMosaicController {
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !this.isVisible) {
-          console.log('Video mosaic became visible - starting animations');
+          console.log('Tile mosaic became visible - starting animations');
           this.isVisible = true;
           this.startAnimations();
         } else if (!entry.isIntersecting && this.isVisible) {
-          console.log('Video mosaic became hidden - pausing animations');
+          console.log('Tile mosaic became hidden - pausing animations');
           this.isVisible = false;
           this.pauseAnimations();
         }
@@ -519,14 +535,182 @@ class VideoMosaicController {
 
   setupPageVisibilityAPI() {
     document.addEventListener('visibilitychange', () => {
+      this.isPageHidden = document.hidden;
+      
       if (document.hidden) {
-        console.log('Page hidden - pausing video animations');
+        console.log('Page hidden - pausing animations');
         this.pauseAnimations();
-      } else if (this.isVisible) {
-        console.log('Page visible - resuming video animations');
+      } else if (this.isVisible && !this.isReducedMotion && !this.isPerformanceMode) {
+        console.log('Page visible - resuming animations');
         this.resumeAnimations();
       }
     });
+  }
+
+  checkReducedMotionPreference() {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.isReducedMotion = mediaQuery.matches;
+    
+    mediaQuery.addEventListener('change', (e) => {
+      this.isReducedMotion = e.matches;
+      
+      if (this.isReducedMotion) {
+        console.log('Reduced motion detected - stopping animations');
+        this.stopAnimations();
+        document.documentElement.classList.add('reduced-motion');
+      } else if (!this.isPerformanceMode && this.isVisible && !this.isPageHidden) {
+        console.log('Reduced motion disabled - starting animations');
+        document.documentElement.classList.remove('reduced-motion');
+        this.startAnimations();
+      }
+    });
+    
+    if (this.isReducedMotion) {
+      document.documentElement.classList.add('reduced-motion');
+    }
+  }
+
+  checkPerformanceMode() {
+    // Check localStorage for user preference
+    this.isPerformanceMode = localStorage.getItem('cova-performance-mode') === 'true';
+    
+    // Auto-detect low-end devices
+    if (!this.isPerformanceMode) {
+      const isLowEnd = this.detectLowEndDevice();
+      if (isLowEnd) {
+        this.isPerformanceMode = true;
+        localStorage.setItem('cova-performance-mode', 'true');
+        console.log('Low-end device detected - enabling performance mode');
+      }
+    }
+    
+    if (this.isPerformanceMode) {
+      document.documentElement.classList.add('performance-mode');
+      this.adjustPerformanceSettings();
+    }
+  }
+
+  detectLowEndDevice() {
+    // Check hardware concurrency (CPU cores)
+    const cores = navigator.hardwareConcurrency || 0;
+    
+    // Check memory (if available)
+    const memory = navigator.deviceMemory || 0;
+    
+    // Check connection type
+    const connection = navigator.connection;
+    const isSlowConnection = connection && 
+      (connection.effectiveType === 'slow-2g' || 
+       connection.effectiveType === '2g' || 
+       connection.effectiveType === '3g');
+    
+    return cores <= 2 || memory <= 2 || isSlowConnection;
+  }
+
+  adjustPerformanceSettings() {
+    // Increase animation durations for smoother performance
+    this.animationConfigs.forEach(config => {
+      config.duration *= 1.5;
+    });
+  }
+
+
+
+
+
+
+
+
+  setupPerformanceMonitoring() {
+    // Monitor memory usage if available
+    if ('memory' in performance) {
+      this.performanceMonitoringInterval = setInterval(() => {
+        const memory = performance.memory;
+        this.memoryUsage = {
+          used: memory.usedJSHeapSize,
+          total: memory.totalJSHeapSize
+        };
+        
+        // If memory usage is too high, enable performance mode
+        if (memory.usedJSHeapSize > this.memoryThreshold && !this.isPerformanceMode) {
+          console.log('High memory usage detected - enabling performance mode');
+          this.enablePerformanceMode();
+        }
+      }, 5000); // Check every 5 seconds
+    }
+  }
+
+  setupErrorHandling() {
+    // Store bound function for later removal
+    this.handleUnhandledRejection = (event) => {
+      if (event.reason && event.reason.message && 
+          event.reason.message.includes('Animation')) {
+        console.warn('WAAPI error caught:', event.reason);
+        event.preventDefault();
+        
+        // Try to recover by restarting animations
+        this.restartAnimationsWithDelay();
+      }
+    };
+    
+    // Global error handler for WAAPI
+    window.addEventListener('unhandledrejection', this.handleUnhandledRejection);
+  }
+
+  setupMobileOptimizations() {
+    const isMobile = window.innerWidth <= 768;
+    const isTouch = 'ontouchstart' in window;
+    
+    if (isMobile || isTouch) {
+      console.log('Mobile device detected - applying optimizations');
+      
+      // Adjust CSS custom properties for mobile
+      document.documentElement.style.setProperty('--tile-opacity-mobile', '0.6');
+      document.documentElement.style.setProperty('--grain-opacity-mobile', '0.08');
+      document.documentElement.style.setProperty('--vignette-opacity-mobile', '0.55');
+      
+      // Reduce animation complexity on mobile
+      this.animationConfigs.forEach(config => {
+        config.patterns = config.patterns.filter((_, index) => index % 2 === 0); // Keep every other keyframe
+        config.duration *= 1.2; // Slower animations
+      });
+    }
+  }
+
+  restartAnimationsWithDelay() {
+    this.stopAnimations();
+    setTimeout(() => {
+      if (this.isVisible && !this.isPageHidden && !this.isReducedMotion) {
+        this.startAnimations();
+      }
+    }, 2000);
+  }
+
+  enablePerformanceMode() {
+    this.isPerformanceMode = true;
+    localStorage.setItem('cova-performance-mode', 'true');
+    document.documentElement.classList.add('performance-mode');
+    this.adjustPerformanceSettings();
+    
+    if (this.animations.length > 0) {
+      this.stopAnimations();
+      this.startAnimations(); // Restart with new settings
+    }
+  }
+
+  disablePerformanceMode() {
+    this.isPerformanceMode = false;
+    localStorage.setItem('cova-performance-mode', 'false');
+    document.documentElement.classList.remove('performance-mode');
+    
+    // Reset animation durations
+    this.animationConfigs.forEach(config => {
+      config.duration = config.originalDuration || config.duration / 1.5;
+    });
+    
+    if (this.isVisible && !this.isPageHidden && !this.isReducedMotion) {
+      this.restart();
+    }
   }
 
   resetTilesToInitialState() {
@@ -623,11 +807,88 @@ class VideoMosaicController {
     }
   }
 
-  // Cleanup
+  // Enhanced cleanup with complete memory management
   destroy() {
+    console.log('TileMosaicController: Starting complete cleanup');
+    
+    // Stop all animations first
     this.stopAnimations();
+    
+    // Disconnect all observers
     if (this.observer) {
       this.observer.disconnect();
+      this.observer = null;
+    }
+    
+    // Clean up performance monitoring
+    if (this.performanceMonitoringInterval) {
+      clearInterval(this.performanceMonitoringInterval);
+      this.performanceMonitoringInterval = null;
+    }
+    
+    // Remove global error handler
+    window.removeEventListener('unhandledrejection', this.handleUnhandledRejection);
+    
+    // Clear CSS classes
+    document.documentElement.classList.remove(
+      'reduced-motion', 
+      'performance-mode'
+    );
+    
+    // Reset arrays and state
+    this.tiles = [];
+    this.animations = [];
+    this.isVisible = false;
+    this.isPaused = false;
+    this.isPageHidden = false;
+    this.container = null;
+    
+    console.log('TileMosaicController: Complete cleanup finished');
+  }
+
+  // Public API methods for external control
+  getStatus() {
+    return {
+      isVisible: this.isVisible,
+      isPaused: this.isPaused,
+      isPageHidden: this.isPageHidden,
+      isReducedMotion: this.isReducedMotion,
+      isPerformanceMode: this.isPerformanceMode,
+      tileCount: this.tiles.length,
+      activeAnimations: this.animations.length,
+      memoryUsage: this.memoryUsage
+    };
+  }
+
+  // Toggle performance mode externally
+  togglePerformanceMode() {
+    if (this.isPerformanceMode) {
+      this.disablePerformanceMode();
+    } else {
+      this.enablePerformanceMode();
+    }
+    
+    // Update UI toggle button if exists
+    this.updatePerformanceToggleUI();
+  }
+
+  updatePerformanceToggleUI() {
+    const toggleBtn = document.getElementById('performance-toggle');
+    if (toggleBtn) {
+      const icon = toggleBtn.querySelector('.toggle-icon');
+      const text = toggleBtn.querySelector('.toggle-text');
+      
+      if (this.isPerformanceMode) {
+        toggleBtn.classList.add('active');
+        if (icon) icon.textContent = '⚡';
+        if (text) text.textContent = '고성능 모드';
+        toggleBtn.setAttribute('aria-label', '고성능 모드 비활성화');
+      } else {
+        toggleBtn.classList.remove('active');
+        if (icon) icon.textContent = '🎬';
+        if (text) text.textContent = '영상 효과';
+        toggleBtn.setAttribute('aria-label', '고성능 모드 활성화');
+      }
     }
   }
 }
@@ -676,9 +937,47 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initTypingEffect();
     initMomentumAnimations();
     
-    // Initialize WAAPI Video Mosaic Controller
-    window.videoMosaicController = new VideoMosaicController();
-    window.videoMosaicController.init();
-    console.log('VideoMosaicController initialized and ready');
+    // Initialize WAAPI Tile Mosaic Controller
+    window.tileMosaicController = new TileMosaicController();
+    window.tileMosaicController.init();
+    console.log('TileMosaicController initialized and ready');
+    
+    // Set up performance toggle event listener
+    const performanceToggle = document.getElementById('performance-toggle');
+    if (performanceToggle) {
+      performanceToggle.addEventListener('click', () => {
+        if (window.tileMosaicController) {
+          window.tileMosaicController.togglePerformanceMode();
+          
+          // Provide user feedback
+          const status = window.tileMosaicController.getStatus();
+          console.log('Performance mode toggled:', status.isPerformanceMode ? 'ON' : 'OFF');
+        }
+      });
+      
+      // Initial UI update
+      if (window.tileMosaicController) {
+        window.tileMosaicController.updatePerformanceToggleUI();
+      }
+    }
+    
   }, 100);
+  
+  // Cleanup on page unload for memory management
+  window.addEventListener('beforeunload', () => {
+    if (window.tileMosaicController) {
+      console.log('Page unloading - cleaning up TileMosaicController');
+      window.tileMosaicController.destroy();
+    }
+  });
+  
+  // Handle page visibility changes globally
+  document.addEventListener('visibilitychange', () => {
+    if (window.tileMosaicController) {
+      const status = window.tileMosaicController.getStatus();
+      console.log('Page visibility changed:', document.hidden ? 'HIDDEN' : 'VISIBLE', 
+                  '- Performance mode:', status.isPerformanceMode, 
+                  '- Reduced motion:', status.isReducedMotion);
+    }
+  });
 });

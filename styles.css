@@ -94,6 +94,102 @@
   --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.8);
 }
 
+/* Accessibility and Performance States */
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.reduced-motion .video-tile {
+  animation: none !important;
+  transform: none !important;
+  opacity: 0.7 !important;
+}
+
+.performance-mode .video-tile {
+  will-change: auto;
+}
+
+.performance-mode .video-mosaic-container::before,
+.performance-mode .video-mosaic-container::after {
+  opacity: 0.5 !important;
+}
+
+.video-fallback .video-mosaic-container {
+  opacity: 0.3 !important;
+}
+
+.video-fallback .video-tile {
+  animation: none !important;
+  opacity: 0.4 !important;
+}
+
+.video-fallback .hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(112, 225, 184, 0.1) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(112, 225, 184, 0.05) 100%);
+  z-index: 2;
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+  .video-mosaic-container {
+    --video-opacity-mobile: 0.6;
+    --grain-opacity-mobile: 0.08;
+    --vignette-opacity-mobile: 0.55;
+  }
+  
+  .video-tile {
+    opacity: var(--video-opacity-mobile) !important;
+  }
+  
+  .performance-toggle .toggle-text {
+    display: none;
+  }
+  
+  .header-controls {
+    gap: var(--space-2);
+  }
+  
+  .performance-toggle {
+    padding: var(--space-2);
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+  }
+}
+
+/* Reduce animation complexity on low-end devices */
+@media (max-width: 480px), 
+       (prefers-reduced-motion: reduce),
+       screen and (max-device-width: 768px) and (-webkit-device-pixel-ratio: 1) {
+  .video-tile {
+    animation-duration: 1.5s !important;
+    animation-timing-function: ease-in-out !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .performance-toggle {
+    border-width: 2px;
+    background: transparent;
+  }
+  
+  .performance-toggle.active {
+    background: var(--text);
+    color: var(--bg);
+  }
+}
+
 /* Reset & Base */
 * {
   box-sizing: border-box;
@@ -463,6 +559,53 @@ a:hover {
 .nav-list a:hover::after,
 .nav-list a.active::after {
   width: 100%;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.performance-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  backdrop-filter: blur(10px);
+  height: 32px;
+  white-space: nowrap;
+}
+
+.performance-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+}
+
+.performance-toggle.active {
+  background: var(--accent-sophisticated);
+  color: #000000;
+  border-color: var(--accent-sophisticated);
+}
+
+.performance-toggle.active:hover {
+  background: var(--accent-hover);
+}
+
+.toggle-icon {
+  font-size: 0.75rem;
+}
+
+.toggle-text {
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .theme-toggle {
@@ -863,6 +1006,155 @@ a:hover {
   30% { transform: translate3d(-1px, 2px, 0) scale(1.001) !important; }
   60% { transform: translate3d(2px, -1px, 0) scale(0.999) !important; }
   90% { transform: translate3d(-2px, -1px, 0) scale(1.002) !important; }
+}
+
+/* CSS-Based Dynamic Video Backgrounds - Replace broken video elements */
+.css-video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 400% 400%;
+  background-position: center;
+  will-change: background-position, transform, opacity;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+  border-radius: 12px;
+}
+
+/* Unique gradient patterns for each tile */
+.video-tile[data-tile="tile-1"] .css-video-bg {
+  background: radial-gradient(ellipse at center, 
+    rgba(30, 40, 50, 0.9) 0%,
+    rgba(10, 20, 35, 0.8) 40%,
+    rgba(5, 15, 25, 0.9) 100%);
+  animation: dynamicBg1 12s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-2"] .css-video-bg {
+  background: linear-gradient(135deg,
+    rgba(40, 30, 50, 0.85) 0%,
+    rgba(25, 15, 35, 0.9) 50%,
+    rgba(15, 10, 25, 0.85) 100%);
+  animation: dynamicBg2 15s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-3"] .css-video-bg {
+  background: conic-gradient(from 45deg,
+    rgba(20, 35, 45, 0.9) 0%,
+    rgba(10, 25, 40, 0.8) 25%,
+    rgba(15, 20, 35, 0.9) 50%,
+    rgba(25, 30, 45, 0.85) 100%);
+  animation: dynamicBg3 10s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-4"] .css-video-bg {
+  background: radial-gradient(circle at 30% 70%,
+    rgba(35, 25, 45, 0.9) 0%,
+    rgba(20, 15, 30, 0.8) 60%,
+    rgba(10, 8, 20, 0.9) 100%);
+  animation: dynamicBg4 18s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-5"] .css-video-bg {
+  background: linear-gradient(225deg,
+    rgba(45, 35, 25, 0.85) 0%,
+    rgba(30, 20, 15, 0.9) 40%,
+    rgba(20, 15, 10, 0.85) 100%);
+  animation: dynamicBg5 14s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-6"] .css-video-bg {
+  background: radial-gradient(ellipse at 80% 20%,
+    rgba(25, 45, 35, 0.9) 0%,
+    rgba(15, 30, 25, 0.8) 50%,
+    rgba(8, 20, 15, 0.9) 100%);
+  animation: dynamicBg6 16s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-7"] .css-video-bg {
+  background: conic-gradient(from 180deg,
+    rgba(50, 30, 40, 0.85) 0%,
+    rgba(35, 20, 30, 0.9) 30%,
+    rgba(25, 15, 20, 0.85) 60%,
+    rgba(40, 25, 35, 0.9) 100%);
+  animation: dynamicBg7 11s ease-in-out infinite;
+}
+
+.video-tile[data-tile="tile-8"] .css-video-bg {
+  background: linear-gradient(45deg,
+    rgba(30, 50, 40, 0.9) 0%,
+    rgba(20, 35, 30, 0.8) 50%,
+    rgba(10, 25, 20, 0.9) 100%);
+  animation: dynamicBg8 13s ease-in-out infinite;
+}
+
+/* Dynamic background animation keyframes */
+@keyframes dynamicBg1 {
+  0%, 100% { background-position: 0% 0%; transform: scale(1) rotate(0deg); }
+  25% { background-position: 100% 25%; transform: scale(1.05) rotate(0.5deg); }
+  50% { background-position: 50% 100%; transform: scale(0.98) rotate(-0.3deg); }
+  75% { background-position: 75% 50%; transform: scale(1.02) rotate(0.2deg); }
+}
+
+@keyframes dynamicBg2 {
+  0%, 100% { background-position: 25% 25%; transform: scale(1) rotate(0deg); }
+  30% { background-position: 75% 10%; transform: scale(1.03) rotate(-0.4deg); }
+  60% { background-position: 10% 90%; transform: scale(0.97) rotate(0.6deg); }
+  90% { background-position: 90% 75%; transform: scale(1.01) rotate(-0.2deg); }
+}
+
+@keyframes dynamicBg3 {
+  0%, 100% { background-position: 50% 0%; transform: scale(1) rotate(0deg); }
+  20% { background-position: 100% 50%; transform: scale(1.04) rotate(0.3deg); }
+  40% { background-position: 75% 100%; transform: scale(0.96) rotate(-0.5deg); }
+  60% { background-position: 25% 75%; transform: scale(1.02) rotate(0.4deg); }
+  80% { background-position: 0% 25%; transform: scale(0.99) rotate(-0.1deg); }
+}
+
+@keyframes dynamicBg4 {
+  0%, 100% { background-position: 20% 80%; transform: scale(1) rotate(0deg); }
+  25% { background-position: 80% 20%; transform: scale(1.06) rotate(-0.3deg); }
+  50% { background-position: 60% 60%; transform: scale(0.94) rotate(0.7deg); }
+  75% { background-position: 40% 40%; transform: scale(1.03) rotate(-0.4deg); }
+}
+
+@keyframes dynamicBg5 {
+  0%, 100% { background-position: 75% 25%; transform: scale(1) rotate(0deg); }
+  35% { background-position: 25% 75%; transform: scale(1.02) rotate(0.2deg); }
+  70% { background-position: 85% 85%; transform: scale(0.98) rotate(-0.6deg); }
+}
+
+@keyframes dynamicBg6 {
+  0%, 100% { background-position: 10% 10%; transform: scale(1) rotate(0deg); }
+  40% { background-position: 90% 30%; transform: scale(1.05) rotate(0.5deg); }
+  80% { background-position: 30% 90%; transform: scale(0.95) rotate(-0.3deg); }
+}
+
+@keyframes dynamicBg7 {
+  0%, 100% { background-position: 60% 40%; transform: scale(1) rotate(0deg); }
+  30% { background-position: 40% 60%; transform: scale(1.04) rotate(-0.2deg); }
+  60% { background-position: 80% 20%; transform: scale(0.97) rotate(0.4deg); }
+  90% { background-position: 20% 80%; transform: scale(1.01) rotate(-0.1deg); }
+}
+
+@keyframes dynamicBg8 {
+  0%, 100% { background-position: 35% 65%; transform: scale(1) rotate(0deg); }
+  25% { background-position: 65% 35%; transform: scale(1.03) rotate(0.3deg); }
+  50% { background-position: 15% 85%; transform: scale(0.98) rotate(-0.4deg); }
+  75% { background-position: 85% 15%; transform: scale(1.01) rotate(0.1deg); }
+}
+
+/* Fallback for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .css-video-bg {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.6 !important;
+  }
 }
 
 /* 6. Dark mode enhancements for film effects */
