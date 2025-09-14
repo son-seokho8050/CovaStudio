@@ -350,20 +350,41 @@ a:hover {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-secondary) 100%);
+  background: var(--bg);
   padding: var(--space-24) 0;
   position: relative;
+  overflow: hidden;
 }
 
-.hero::before {
-  content: '';
+/* Video Background - nagi Style */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -2;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+/* Dark Overlay for Text Readability */
+.hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at center top, var(--bg-tertiary) 0%, transparent 70%);
-  opacity: 0.3;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -372,6 +393,9 @@ a:hover {
   margin: 0 auto;
   padding: 0 var(--space-6);
   max-width: 800px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
 }
 
 .hero h1 {
