@@ -660,11 +660,32 @@ a:hover {
   opacity: 0.85 !important;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-  /* CSS Variables for positioning and sizing */
-  left: var(--x, 0) !important;
-  top: var(--y, 0) !important;
-  width: var(--w, 100px) !important;
-  height: var(--h, 100px) !important;
+}
+
+/* Explicit positioning for each tile */
+.video-tile[data-tile="tile-1"] {
+  left: 60px; top: 80px; width: 320px; height: 180px;
+}
+.video-tile[data-tile="tile-2"] {
+  right: 100px; top: 120px; width: 280px; height: 200px;
+}
+.video-tile[data-tile="tile-3"] {
+  left: 400px; top: 60px; width: 240px; height: 140px;
+}
+.video-tile[data-tile="tile-4"] {
+  left: 80px; bottom: 160px; width: 300px; height: 220px;
+}
+.video-tile[data-tile="tile-5"] {
+  right: 80px; bottom: 200px; width: 260px; height: 160px;
+}
+.video-tile[data-tile="tile-6"] {
+  left: 450px; bottom: 100px; width: 220px; height: 180px;
+}
+.video-tile[data-tile="tile-7"] {
+  left: 700px; top: 200px; width: 200px; height: 120px;
+}
+.video-tile[data-tile="tile-8"] {
+  right: 200px; top: 340px; width: 180px; height: 140px;
 }
 
 /* nagi-style cinematic video elements */
@@ -1020,75 +1041,75 @@ a:hover {
   background-size: 400% 400%;
   background-position: center;
   will-change: background-position, transform, opacity;
-  mix-blend-mode: multiply;
-  opacity: 0.8;
+  mix-blend-mode: screen;
+  opacity: 0.95;
   border-radius: 12px;
 }
 
 /* Unique gradient patterns for each tile */
 .video-tile[data-tile="tile-1"] .css-video-bg {
   background: radial-gradient(ellipse at center, 
-    rgba(30, 40, 50, 0.9) 0%,
-    rgba(10, 20, 35, 0.8) 40%,
-    rgba(5, 15, 25, 0.9) 100%);
+    rgba(102, 126, 234, 0.9) 0%,
+    rgba(118, 75, 162, 0.8) 40%,
+    rgba(85, 100, 200, 0.9) 100%);
   animation: dynamicBg1 12s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-2"] .css-video-bg {
   background: linear-gradient(135deg,
-    rgba(40, 30, 50, 0.85) 0%,
-    rgba(25, 15, 35, 0.9) 50%,
-    rgba(15, 10, 25, 0.85) 100%);
+    rgba(240, 147, 251, 0.85) 0%,
+    rgba(245, 87, 108, 0.9) 50%,
+    rgba(255, 120, 200, 0.85) 100%);
   animation: dynamicBg2 15s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-3"] .css-video-bg {
   background: conic-gradient(from 45deg,
-    rgba(20, 35, 45, 0.9) 0%,
-    rgba(10, 25, 40, 0.8) 25%,
-    rgba(15, 20, 35, 0.9) 50%,
-    rgba(25, 30, 45, 0.85) 100%);
+    rgba(79, 172, 254, 0.9) 0%,
+    rgba(0, 242, 254, 0.8) 25%,
+    rgba(100, 200, 255, 0.9) 50%,
+    rgba(50, 150, 255, 0.85) 100%);
   animation: dynamicBg3 10s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-4"] .css-video-bg {
   background: radial-gradient(circle at 30% 70%,
-    rgba(35, 25, 45, 0.9) 0%,
-    rgba(20, 15, 30, 0.8) 60%,
-    rgba(10, 8, 20, 0.9) 100%);
+    rgba(67, 233, 123, 0.9) 0%,
+    rgba(56, 249, 215, 0.8) 60%,
+    rgba(100, 255, 180, 0.9) 100%);
   animation: dynamicBg4 18s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-5"] .css-video-bg {
   background: linear-gradient(225deg,
-    rgba(45, 35, 25, 0.85) 0%,
-    rgba(30, 20, 15, 0.9) 40%,
-    rgba(20, 15, 10, 0.85) 100%);
+    rgba(247, 112, 154, 0.85) 0%,
+    rgba(254, 225, 64, 0.9) 40%,
+    rgba(255, 150, 100, 0.85) 100%);
   animation: dynamicBg5 14s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-6"] .css-video-bg {
   background: radial-gradient(ellipse at 80% 20%,
-    rgba(25, 45, 35, 0.9) 0%,
-    rgba(15, 30, 25, 0.8) 50%,
-    rgba(8, 20, 15, 0.9) 100%);
+    rgba(168, 237, 234, 0.9) 0%,
+    rgba(254, 214, 227, 0.8) 50%,
+    rgba(200, 255, 240, 0.9) 100%);
   animation: dynamicBg6 16s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-7"] .css-video-bg {
   background: conic-gradient(from 180deg,
-    rgba(50, 30, 40, 0.85) 0%,
-    rgba(35, 20, 30, 0.9) 30%,
-    rgba(25, 15, 20, 0.85) 60%,
-    rgba(40, 25, 35, 0.9) 100%);
+    rgba(255, 154, 158, 0.85) 0%,
+    rgba(254, 207, 239, 0.9) 30%,
+    rgba(255, 180, 200, 0.85) 60%,
+    rgba(250, 120, 160, 0.9) 100%);
   animation: dynamicBg7 11s ease-in-out infinite;
 }
 
 .video-tile[data-tile="tile-8"] .css-video-bg {
   background: linear-gradient(45deg,
-    rgba(30, 50, 40, 0.9) 0%,
-    rgba(20, 35, 30, 0.8) 50%,
-    rgba(10, 25, 20, 0.9) 100%);
+    rgba(161, 140, 209, 0.9) 0%,
+    rgba(251, 194, 235, 0.8) 50%,
+    rgba(200, 160, 255, 0.9) 100%);
   animation: dynamicBg8 13s ease-in-out infinite;
 }
 
