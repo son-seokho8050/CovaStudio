@@ -459,6 +459,190 @@ a:hover {
   left: 100%;
 }
 
+/* Portfolio Section */
+.portfolio-intro {
+  text-align: center;
+  margin-bottom: var(--space-16);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portfolio-intro p {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+}
+
+.portfolio-container {
+  margin-top: var(--space-16);
+  position: relative;
+}
+
+.portfolio-grid {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: var(--space-4) 0 var(--space-8) 0;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.portfolio-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.program-card {
+  flex-shrink: 0;
+  width: 384px;
+  cursor: pointer;
+  group: relative;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.program-image {
+  position: relative;
+  width: 100%;
+  height: 224px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+}
+
+.program-visual {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  position: relative;
+  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.grade1-visual {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #4a4a4a 100%);
+}
+
+.grade2-visual {
+  background: linear-gradient(135deg, #2a2a2a 0%, #444 50%, #666 100%);
+}
+
+.kickoff-visual {
+  background: linear-gradient(135deg, #1a2a3a 0%, #2a4a6a 50%, #3a6a8a 100%);
+}
+
+.stepzero-visual {
+  background: linear-gradient(135deg, #2a1a3a 0%, #4a2a6a 50%, #6a3a8a 100%);
+}
+
+.philosophy-visual {
+  background: linear-gradient(135deg, #3a2a1a 0%, #6a4a2a 50%, #8a6a3a 100%);
+}
+
+.program-visual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,0.02) 2px,
+    rgba(255,255,255,0.02) 4px
+  );
+  opacity: 0.3;
+}
+
+.program-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.program-badge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 2;
+}
+
+.program-badge span {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.program-duration {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  z-index: 2;
+}
+
+.program-duration span {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: var(--text);
+}
+
+.program-info {
+  color: var(--text);
+}
+
+.program-info h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.program-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.program-info p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Program card hover effects - nagi style */
+.program-card:hover .program-visual,
+.program-card .program-visual:hover {
+  transform: scale(1.05) !important;
+}
+
+.program-card:hover .program-overlay,
+.program-card .program-overlay:hover {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+.program-card:hover .program-info h3,
+.program-card .program-info h3:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
 /* Sections */
 .section {
   padding: var(--space-32) 0;

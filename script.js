@@ -369,17 +369,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   setTimeout(() => {
     renderPhilosophy();
 
-    // G1
-    renderList("#g1DayLoop", COVA_DATA.g1.dayLoop);
-    renderOrdered("#g1ThreeDay", COVA_DATA.g1.threeDay);
-    renderList("#g1Monthly", COVA_DATA.g1.monthly);
-    renderList("#g1Checkbell", COVA_DATA.g1.checkbell);
-
-    // G2
-    renderList("#g2DayLoop", COVA_DATA.g2.dayLoop);
-    renderOrdered("#g2ThreeDay", COVA_DATA.g2.threeDay);
-    renderList("#g2Monthly", COVA_DATA.g2.monthly);
-    renderList("#g2Gates", COVA_DATA.g2.gates);
+    // G1 and G2 sections replaced with horizontal portfolio
+    // Portfolio content is now displayed in HTML with static structure
 
     // Kick-Off tables
     renderTable("#kickG1", COVA_DATA.kickoff.g1);
