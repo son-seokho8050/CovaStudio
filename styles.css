@@ -720,13 +720,12 @@ a:hover {
   object-fit: cover !important;
 }
 
-/* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 화면을 아래로 이동 */
+/* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 위쪽 영역 표시 */
 .video-tile[data-video="video-3"] > video {
-  position: relative !important;
   width: 100% !important;
-  height: 140% !important;
-  top: -30% !important;
+  height: 100% !important;
   object-fit: cover !important;
+  object-position: center 15% !important;
 }
 
 .video-tile video[data-video="video-3"] {
