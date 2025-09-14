@@ -724,8 +724,8 @@ a:hover {
 .video-tile[data-video="video-3"] > video {
   position: relative !important;
   width: 100% !important;
-  height: 130% !important;
-  top: -20% !important;
+  height: 140% !important;
+  top: -30% !important;
   object-fit: cover !important;
 }
 
