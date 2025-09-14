@@ -497,8 +497,8 @@ a:hover {
   overflow: hidden;
 }
 
-/* Dynamic Grid Video Gallery - nagi Style */
-.grid-video-gallery {
+/* Dynamic Mosaic Video Gallery - Absolute Positioning System */
+.video-mosaic-container {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
@@ -506,21 +506,22 @@ a:hover {
   height: 100% !important;
   z-index: 1 !important;
   overflow: hidden !important;
-  display: grid !important;
-  grid-template-columns: repeat(4, 1fr) !important;
-  grid-template-rows: repeat(3, 1fr) !important;
-  gap: 20px !important;
   padding: 40px !important;
   pointer-events: none !important;
 }
 
-.grid-item {
-  position: relative !important;
+.video-tile {
+  position: absolute !important;
   border-radius: 12px !important;
   overflow: hidden !important;
   opacity: 0.85 !important;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  /* CSS Variables for positioning and sizing */
+  left: var(--x, 0) !important;
+  top: var(--y, 0) !important;
+  width: var(--w, 100px) !important;
+  height: var(--h, 100px) !important;
 }
 
 .video-content {
@@ -564,52 +565,68 @@ a:hover {
   background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%) !important;
 }
 
-/* Grid positioning with dynamic scaling */
-.item-1 {
-  grid-column: 1 / 3 !important;
-  grid-row: 1 / 2 !important;
+/* Mosaic positioning with CSS variables - logical grid layout */
+[data-tile="tile-1"] {
+  --x: 0;
+  --y: 0;
+  --w: calc((100% - 120px) * 0.5);
+  --h: calc((100vh - 160px) * 0.33);
   animation: expandContract1 12s ease-in-out infinite !important;
 }
 
-.item-2 {
-  grid-column: 3 / 4 !important;
-  grid-row: 1 / 3 !important;
+[data-tile="tile-2"] {
+  --x: calc((100% - 120px) * 0.5 + 20px);
+  --y: 0;
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.66 + 20px);
   animation: expandContract2 15s ease-in-out infinite !important;
 }
 
-.item-3 {
-  grid-column: 4 / 5 !important;
-  grid-row: 1 / 2 !important;
+[data-tile="tile-3"] {
+  --x: calc((100% - 120px) * 0.75 + 40px);
+  --y: 0;
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.33);
   animation: scaleMove1 10s ease-in-out infinite !important;
 }
 
-.item-4 {
-  grid-column: 1 / 2 !important;
-  grid-row: 2 / 4 !important;
+[data-tile="tile-4"] {
+  --x: 0;
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.67);
   animation: expandContract3 18s ease-in-out infinite !important;
 }
 
-.item-5 {
-  grid-column: 2 / 4 !important;
-  grid-row: 2 / 3 !important;
+[data-tile="tile-5"] {
+  --x: calc((100% - 120px) * 0.25 + 20px);
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.33);
   animation: scaleMove2 14s ease-in-out infinite !important;
 }
 
-.item-6 {
-  grid-column: 4 / 5 !important;
-  grid-row: 2 / 4 !important;
+[data-tile="tile-6"] {
+  --x: calc((100% - 120px) * 0.75 + 40px);
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.67);
   animation: expandContract4 16s ease-in-out infinite !important;
 }
 
-.item-7 {
-  grid-column: 2 / 3 !important;
-  grid-row: 3 / 4 !important;
+[data-tile="tile-7"] {
+  --x: calc((100% - 120px) * 0.25 + 20px);
+  --y: calc((100vh - 160px) * 0.66 + 40px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.34);
   animation: scaleMove3 11s ease-in-out infinite !important;
 }
 
-.item-8 {
-  grid-column: 3 / 4 !important;
-  grid-row: 3 / 4 !important;
+[data-tile="tile-8"] {
+  --x: calc((100% - 120px) * 0.5 + 20px);
+  --y: calc((100vh - 160px) * 0.66 + 40px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.34);
   animation: expandContract5 13s ease-in-out infinite !important;
 }
 
