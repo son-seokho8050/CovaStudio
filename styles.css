@@ -491,7 +491,7 @@ a:hover {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: red !important; /* TEST: Should show red background */
+  background: var(--bg);
   padding: var(--space-24) 0;
   position: relative;
   overflow: hidden;
@@ -540,26 +540,27 @@ a:hover {
   font-weight: bold !important;
   font-size: 1.2rem !important;
   transition: all 0.3s ease !important;
+  opacity: 0.9 !important;
 }
 
 .panel-1 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
 }
 
 .panel-2 {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
 }
 
 .panel-3 {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
 }
 
 .panel-4 {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
 }
 
 .panel-5 {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%) !important;
 }
 
 /* Individual panel positioning and animations */
