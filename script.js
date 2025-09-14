@@ -355,6 +355,283 @@ function initMomentumAnimations() {
   window.addEventListener('scroll', onScroll);
 }
 
+// WAAPI Video Mosaic Controller - nagi-style coordinated movements
+class VideoMosaicController {
+  constructor() {
+    this.tiles = [];
+    this.animations = [];
+    this.isVisible = false;
+    this.isPaused = false;
+    this.observer = null;
+    this.container = null;
+    
+    // nagi animation patterns configuration
+    this.animationConfigs = [
+      {
+        id: 'tile-1',
+        duration: 12000,
+        delay: 0,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.3) translateX(-20px) translateY(-15px) rotate(-1deg)', opacity: 0.95, offset: 0.25 },
+          { transform: 'scale(0.9) translateX(15px) translateY(10px) rotate(1.5deg)', opacity: 0.75, offset: 0.5 },
+          { transform: 'scale(1.2) translateX(-10px) translateY(-8px) rotate(-0.5deg)', opacity: 0.9, offset: 0.75 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      },
+      {
+        id: 'tile-2',
+        duration: 15000,
+        delay: 2000,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(0.8) translateX(25px) translateY(-20px) rotate(2deg)', opacity: 0.7, offset: 0.3 },
+          { transform: 'scale(1.4) translateX(-18px) translateY(12px) rotate(-2.5deg)', opacity: 1.0, offset: 0.6 },
+          { transform: 'scale(1.1) translateX(8px) translateY(-5px) rotate(0.8deg)', opacity: 0.9, offset: 0.85 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+      },
+      {
+        id: 'tile-3',
+        duration: 10000,
+        delay: 1000,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.25) translateX(-12px) translateY(18px) rotate(-1.8deg)', opacity: 0.95, offset: 0.2 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.4 },
+          { transform: 'scale(0.85) translateX(22px) translateY(-15px) rotate(2.2deg)', opacity: 0.75, offset: 0.7 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+      },
+      {
+        id: 'tile-4',
+        duration: 18000,
+        delay: 3500,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.35) translateX(30px) translateY(-25px) rotate(3deg)', opacity: 1.0, offset: 0.15 },
+          { transform: 'scale(0.9) translateX(-25px) translateY(20px) rotate(-2.8deg)', opacity: 0.8, offset: 0.45 },
+          { transform: 'scale(1.15) translateX(12px) translateY(-8px) rotate(1.2deg)', opacity: 0.9, offset: 0.75 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+      },
+      {
+        id: 'tile-5',
+        duration: 14000,
+        delay: 1500,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(0.82) translateX(-15px) translateY(-18px) rotate(-1.5deg)', opacity: 0.7, offset: 0.35 },
+          { transform: 'scale(1.28) translateX(20px) translateY(15px) rotate(2.5deg)', opacity: 0.95, offset: 0.65 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.39, 0.575, 0.565, 1)'
+      },
+      {
+        id: 'tile-6',
+        duration: 16000,
+        delay: 4000,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.22) translateX(-28px) translateY(22px) rotate(-2.2deg)', opacity: 0.9, offset: 0.28 },
+          { transform: 'scale(0.88) translateX(18px) translateY(-12px) rotate(1.8deg)', opacity: 0.75, offset: 0.55 },
+          { transform: 'scale(1.4) translateX(-8px) translateY(5px) rotate(-0.8deg)', opacity: 1.0, offset: 0.82 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      },
+      {
+        id: 'tile-7',
+        duration: 11000,
+        delay: 800,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.18) translateX(35px) translateY(-30px) rotate(2.8deg)', opacity: 0.95, offset: 0.22 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.44 },
+          { transform: 'scale(0.85) translateX(-22px) translateY(18px) rotate(-2.5deg)', opacity: 0.7, offset: 0.66 },
+          { transform: 'scale(1.32) translateX(8px) translateY(-10px) rotate(1.2deg)', opacity: 1.0, offset: 0.88 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.6, -0.28, 0.735, 0.045)'
+      },
+      {
+        id: 'tile-8',
+        duration: 13000,
+        delay: 2800,
+        patterns: [
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(0.8) translateX(-32px) translateY(-25px) rotate(-3deg)', opacity: 0.7, offset: 0.25 },
+          { transform: 'scale(1.38) translateX(28px) translateY(20px) rotate(2.5deg)', opacity: 1.0, offset: 0.5 },
+          { transform: 'scale(1.05) translateX(-12px) translateY(-8px) rotate(-1deg)', opacity: 0.9, offset: 0.75 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
+        ],
+        easing: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)'
+      }
+    ];
+  }
+
+  init() {
+    this.container = document.querySelector('.video-mosaic-container');
+    if (!this.container) {
+      console.warn('Video mosaic container not found');
+      return;
+    }
+
+    this.tiles = Array.from(this.container.querySelectorAll('.video-tile'));
+    if (this.tiles.length === 0) {
+      console.warn('No video tiles found');
+      return;
+    }
+
+    console.log(`VideoMosaicController initialized with ${this.tiles.length} tiles`);
+    this.setupIntersectionObserver();
+    this.setupPageVisibilityAPI();
+    this.resetTilesToInitialState();
+  }
+
+  setupIntersectionObserver() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !this.isVisible) {
+          console.log('Video mosaic became visible - starting animations');
+          this.isVisible = true;
+          this.startAnimations();
+        } else if (!entry.isIntersecting && this.isVisible) {
+          console.log('Video mosaic became hidden - pausing animations');
+          this.isVisible = false;
+          this.pauseAnimations();
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '50px',
+      threshold: 0.1
+    });
+
+    if (this.container) {
+      this.observer.observe(this.container);
+    }
+  }
+
+  setupPageVisibilityAPI() {
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        console.log('Page hidden - pausing video animations');
+        this.pauseAnimations();
+      } else if (this.isVisible) {
+        console.log('Page visible - resuming video animations');
+        this.resumeAnimations();
+      }
+    });
+  }
+
+  resetTilesToInitialState() {
+    this.tiles.forEach((tile, index) => {
+      const config = this.animationConfigs[index];
+      if (config) {
+        const initialState = config.patterns[0];
+        tile.style.transform = initialState.transform;
+        tile.style.opacity = initialState.opacity;
+        tile.style.transformOrigin = 'center center';
+        tile.style.willChange = 'transform, opacity';
+      }
+    });
+  }
+
+  createTileAnimation(tile, config) {
+    const keyframes = config.patterns.map(pattern => ({
+      transform: pattern.transform,
+      opacity: pattern.opacity,
+      offset: pattern.offset
+    }));
+
+    const animationOptions = {
+      duration: config.duration,
+      delay: config.delay,
+      easing: config.easing,
+      iterations: Infinity,
+      fill: 'both'
+    };
+
+    return tile.animate(keyframes, animationOptions);
+  }
+
+  startAnimations() {
+    if (this.isPaused) return;
+
+    this.stopAnimations(); // Clear any existing animations
+
+    this.animations = this.tiles.map((tile, index) => {
+      const config = this.animationConfigs[index];
+      if (config) {
+        console.log(`Starting animation for ${config.id} with duration ${config.duration}ms`);
+        return this.createTileAnimation(tile, config);
+      }
+      return null;
+    }).filter(Boolean);
+
+    console.log(`Started ${this.animations.length} coordinated tile animations`);
+  }
+
+  stopAnimations() {
+    this.animations.forEach(animation => {
+      if (animation) {
+        animation.cancel();
+      }
+    });
+    this.animations = [];
+  }
+
+  pauseAnimations() {
+    this.isPaused = true;
+    this.animations.forEach(animation => {
+      if (animation && animation.playState === 'running') {
+        animation.pause();
+      }
+    });
+  }
+
+  resumeAnimations() {
+    if (!this.isVisible) return;
+    
+    this.isPaused = false;
+    this.animations.forEach(animation => {
+      if (animation && animation.playState === 'paused') {
+        animation.play();
+      }
+    });
+  }
+
+  // Public control methods
+  pause() {
+    this.pauseAnimations();
+  }
+
+  resume() {
+    this.resumeAnimations();
+  }
+
+  restart() {
+    this.stopAnimations();
+    this.resetTilesToInitialState();
+    if (this.isVisible && !this.isPaused) {
+      setTimeout(() => this.startAnimations(), 100);
+    }
+  }
+
+  // Cleanup
+  destroy() {
+    this.stopAnimations();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+}
+
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize loading screen first
@@ -398,5 +675,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initCounterAnimation();
     initTypingEffect();
     initMomentumAnimations();
+    
+    // Initialize WAAPI Video Mosaic Controller
+    window.videoMosaicController = new VideoMosaicController();
+    window.videoMosaicController.init();
+    console.log('VideoMosaicController initialized and ready');
   }, 100);
 });
