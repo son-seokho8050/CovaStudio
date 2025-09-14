@@ -709,7 +709,11 @@ a:hover {
   background: linear-gradient(-45deg, #f093fb, #f5576c, #f093fb) !important;
   background-size: 400% 400% !important;
   animation: gradientShift2 12s ease-in-out infinite !important;
-  object-position: 25% center !important; /* 남자 모습이 더 잘 보이도록 왼쪽으로 이동 */
+}
+
+/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 */
+.video-tile[data-video="video-2"] > video {
+  object-position: 25% center !important;
 }
 
 .video-tile video[data-video="video-3"] {
