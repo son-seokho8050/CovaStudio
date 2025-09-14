@@ -425,17 +425,38 @@ a:hover {
   font-weight: 500;
   font-size: 0.875rem;
   border: none;
-  border-radius: 0;
+  border-radius: 2px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   text-decoration: none;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
-.btn:hover {
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn:hover,
+.btn.text-scale-in:hover {
   background: var(--accent-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover::before,
+.btn.text-scale-in:hover::before {
+  left: 100%;
 }
 
 /* Sections */
@@ -469,8 +490,9 @@ a:hover {
 }
 
 .section.sophisticated .card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .container {
@@ -549,9 +571,11 @@ a:hover {
   background: var(--card);
   border: 1px solid var(--border-subtle);
   padding: var(--space-8);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
+  backdrop-filter: blur(15px);
 }
 
 .card::before {
@@ -563,17 +587,35 @@ a:hover {
   height: 2px;
   background: linear-gradient(90deg, var(--accent-sophisticated), var(--bg-sophisticated));
   opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.05), transparent 40%);
+  opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px) scale(1.01);
   background: var(--card-elevated);
   border-color: var(--border);
+  backdrop-filter: blur(20px);
 }
 
 .card:hover::before {
+  opacity: 1;
+}
+
+.card:hover::after {
   opacity: 1;
 }
 
