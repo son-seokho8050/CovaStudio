@@ -1029,8 +1029,8 @@ a:hover {
   90% { transform: translate3d(-2px, -1px, 0) scale(1.002) !important; }
 }
 
-/* CSS-Based Dynamic Video Backgrounds - Replace broken video elements */
-.css-video-bg {
+/* Real Video Elements with Cinematic Effects */
+.tile-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -1038,80 +1038,15 @@ a:hover {
   bottom: 0;
   width: 100%;
   height: 100%;
-  background-size: 400% 400%;
-  background-position: center;
-  will-change: background-position, transform, opacity;
+  object-fit: cover;
+  will-change: transform, opacity;
   mix-blend-mode: screen;
   opacity: 0.95;
   border-radius: 12px;
+  filter: brightness(1.2) contrast(1.1) saturate(1.15);
 }
 
-/* Unique gradient patterns for each tile */
-.video-tile[data-tile="tile-1"] .css-video-bg {
-  background: radial-gradient(ellipse at center, 
-    rgba(102, 126, 234, 0.9) 0%,
-    rgba(118, 75, 162, 0.8) 40%,
-    rgba(85, 100, 200, 0.9) 100%);
-  animation: dynamicBg1 12s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-2"] .css-video-bg {
-  background: linear-gradient(135deg,
-    rgba(240, 147, 251, 0.85) 0%,
-    rgba(245, 87, 108, 0.9) 50%,
-    rgba(255, 120, 200, 0.85) 100%);
-  animation: dynamicBg2 15s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-3"] .css-video-bg {
-  background: conic-gradient(from 45deg,
-    rgba(79, 172, 254, 0.9) 0%,
-    rgba(0, 242, 254, 0.8) 25%,
-    rgba(100, 200, 255, 0.9) 50%,
-    rgba(50, 150, 255, 0.85) 100%);
-  animation: dynamicBg3 10s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-4"] .css-video-bg {
-  background: radial-gradient(circle at 30% 70%,
-    rgba(67, 233, 123, 0.9) 0%,
-    rgba(56, 249, 215, 0.8) 60%,
-    rgba(100, 255, 180, 0.9) 100%);
-  animation: dynamicBg4 18s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-5"] .css-video-bg {
-  background: linear-gradient(225deg,
-    rgba(247, 112, 154, 0.85) 0%,
-    rgba(254, 225, 64, 0.9) 40%,
-    rgba(255, 150, 100, 0.85) 100%);
-  animation: dynamicBg5 14s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-6"] .css-video-bg {
-  background: radial-gradient(ellipse at 80% 20%,
-    rgba(168, 237, 234, 0.9) 0%,
-    rgba(254, 214, 227, 0.8) 50%,
-    rgba(200, 255, 240, 0.9) 100%);
-  animation: dynamicBg6 16s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-7"] .css-video-bg {
-  background: conic-gradient(from 180deg,
-    rgba(255, 154, 158, 0.85) 0%,
-    rgba(254, 207, 239, 0.9) 30%,
-    rgba(255, 180, 200, 0.85) 60%,
-    rgba(250, 120, 160, 0.9) 100%);
-  animation: dynamicBg7 11s ease-in-out infinite;
-}
-
-.video-tile[data-tile="tile-8"] .css-video-bg {
-  background: linear-gradient(45deg,
-    rgba(161, 140, 209, 0.9) 0%,
-    rgba(251, 194, 235, 0.8) 50%,
-    rgba(200, 160, 255, 0.9) 100%);
-  animation: dynamicBg8 13s ease-in-out infinite;
-}
+/* Real video styling complete - gradient fallbacks removed */
 
 /* Dynamic background animation keyframes */
 @keyframes dynamicBg1 {
