@@ -711,9 +711,13 @@ a:hover {
   animation: gradientShift2 12s ease-in-out infinite !important;
 }
 
-/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 */
+/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 물리적으로 왼쪽 이동 */
 .video-tile[data-video="video-2"] > video {
-  object-position: 25% center !important;
+  position: relative !important;
+  width: 125% !important;
+  height: 100% !important;
+  left: -15% !important;
+  object-fit: cover !important;
 }
 
 .video-tile video[data-video="video-3"] {
