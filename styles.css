@@ -720,6 +720,15 @@ a:hover {
   object-fit: cover !important;
 }
 
+/* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 화면을 아래로 이동 */
+.video-tile[data-video="video-3"] > video {
+  position: relative !important;
+  width: 100% !important;
+  height: 130% !important;
+  top: -20% !important;
+  object-fit: cover !important;
+}
+
 .video-tile video[data-video="video-3"] {
   background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe) !important;
   background-size: 400% 400% !important;
