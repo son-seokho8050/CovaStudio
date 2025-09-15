@@ -1547,7 +1547,7 @@ a:hover {
 
 .section.sophisticated .section-number {
   background: var(--bg) !important;
-  color: var(--accent-sophisticated) !important;
+  color: #fff !important;
   border: 1px solid var(--accent-sophisticated) !important;
   font-weight: 700 !important;
   display: inline-block !important;
@@ -1556,6 +1556,7 @@ a:hover {
   z-index: 20 !important;
   mix-blend-mode: normal !important;
   position: relative !important;
+  -webkit-text-fill-color: currentColor !important;
 }
 
 .section.sophisticated .card {
@@ -1575,6 +1576,15 @@ a:hover {
   margin-bottom: var(--space-20);
   position: relative;
   overflow: visible;
+}
+
+.section-header .section-number {
+  color: #fff;
+  -webkit-text-fill-color: currentColor;
+  mix-blend-mode: normal;
+  opacity: 1;
+  position: relative;
+  z-index: 2;
 }
 
 .section-number {
@@ -1919,14 +1929,14 @@ a:hover {
 }
 
 .text-slide-left.visible {
-  opacity: 1;
-  transform: translateX(0);
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
 .js-enabled .text-slide-left.visible,
 .js-enabled .text-slide-right.visible { 
-  opacity: 1; 
-  transform: translateX(0); 
+  opacity: 1 !important; 
+  transform: translateX(0) !important; 
 }
 
 .text-slide-right {
@@ -1936,8 +1946,8 @@ a:hover {
 }
 
 .text-slide-right.visible {
-  opacity: 1;
-  transform: translateX(0);
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
 /* Staggered word animation */
