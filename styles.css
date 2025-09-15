@@ -1278,12 +1278,12 @@ a:hover {
 .carousel-track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  width: 400%; /* 4개 카드 */
+  gap: var(--space-4);
 }
 
 .carousel-item {
-  flex: 0 0 25%; /* 각 카드가 25% 너비 */
-  padding: 0 var(--space-4);
+  flex: 0 0 auto; /* 카드의 실제 크기에 맞춤 */
+  width: 192px; /* 카드 컨테이너 크기 고정 */
 }
 
 /* Carousel Navigation */

@@ -996,8 +996,11 @@ function initCarousel() {
   
   // Update carousel position
   function updateCarousel() {
-    const translateX = -(currentSlide * 25); // 25% per slide
-    track.style.transform = `translateX(${translateX}%)`;
+    const cardWidth = 192; // Card width in pixels
+    const gap = 16; // Space between cards (var(--space-4) = 16px)
+    const slideDistance = cardWidth + gap;
+    const translateX = -(currentSlide * slideDistance);
+    track.style.transform = `translateX(${translateX}px)`;
     
     // Update navigation buttons
     prevBtn.disabled = currentSlide === 0;
