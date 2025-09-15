@@ -996,7 +996,7 @@ function initCarousel() {
   
   // Update carousel position
   function updateCarousel() {
-    const cardWidth = 192; // Card width in pixels
+    const cardWidth = 320; // Card width in pixels
     const gap = 16; // Space between cards (var(--space-4) = 16px)
     const slideDistance = cardWidth + gap;
     const translateX = -(currentSlide * slideDistance);
