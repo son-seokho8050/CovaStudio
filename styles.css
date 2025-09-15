@@ -1262,19 +1262,97 @@ a:hover {
   position: relative;
 }
 
-.portfolio-grid {
-  display: flex;
-  gap: var(--space-8);
-  overflow-x: auto;
-  overflow-y: visible;
-  padding: var(--space-4) 0 var(--space-8) 0;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  margin-top: var(--space-8);
 }
 
-.portfolio-grid::-webkit-scrollbar {
-  display: none;
+.carousel-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 400%; /* 4개 카드 */
+}
+
+.carousel-item {
+  flex: 0 0 25%; /* 각 카드가 25% 너비 */
+  padding: 0 var(--space-4);
+}
+
+/* Carousel Navigation */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.carousel-nav:hover {
+  background: rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: translateY(-50%);
+}
+
+.carousel-prev {
+  left: -24px;
+}
+
+.carousel-next {
+  right: -24px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active,
+.indicator:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+/* 기존 grid 스타일은 유지하되 이름을 변경 */
+.portfolio-grid {
+  display: none; /* 기존 그리드는 숨김 */
 }
 
 .program-card {

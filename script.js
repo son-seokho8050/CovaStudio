@@ -935,6 +935,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initCounterAnimation();
     initTypingEffect();
     initMomentumAnimations();
+    initCarousel();
     
     // Initialize WAAPI Tile Mosaic Controller
     window.tileMosaicController = new TileMosaicController();
@@ -980,3 +981,109 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
   });
 });
+
+// Carousel functionality for program cards
+function initCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const indicators = document.querySelectorAll('.indicator');
+  
+  if (!track || !prevBtn || !nextBtn) return;
+  
+  let currentSlide = 0;
+  const totalSlides = 4; // 4 program cards
+  
+  // Update carousel position
+  function updateCarousel() {
+    const translateX = -(currentSlide * 25); // 25% per slide
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    // Update navigation buttons
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === totalSlides - 1;
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+  }
+  
+  // Go to specific slide
+  function goToSlide(slideIndex) {
+    if (slideIndex >= 0 && slideIndex < totalSlides) {
+      currentSlide = slideIndex;
+      updateCarousel();
+    }
+  }
+  
+  // Previous slide
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateCarousel();
+    }
+  }
+  
+  // Next slide
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateCarousel();
+    }
+  }
+  
+  // Event listeners
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+  
+  // Indicator clicks
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => goToSlide(index));
+  });
+  
+  // Touch/swipe support
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+  
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+  
+  track.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+  }, { passive: true });
+  
+  track.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const deltaX = startX - currentX;
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(deltaX) > threshold) {
+      if (deltaX > 0) {
+        nextSlide(); // Swipe left (next)
+      } else {
+        prevSlide(); // Swipe right (previous)
+      }
+    }
+  }, { passive: true });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+    }
+  });
+  
+  // Initialize carousel
+  updateCarousel();
+  
+  console.log('Program carousel initialized with', totalSlides, 'slides');
+}
