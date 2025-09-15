@@ -1545,64 +1545,50 @@ a:hover {
   color: var(--text);
 }
 
-/* Fix sophisticated section numbers visibility */
-.section.sophisticated .section-number {
-  background: var(--bg) !important;
-  color: var(--accent-sophisticated) !important;
-  border: 1px solid var(--accent-sophisticated) !important;
-  font-weight: 700 !important;
-  display: inline-block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  z-index: 20 !important;
-  mix-blend-mode: normal !important;
-  position: relative !important;
-  -webkit-text-fill-color: currentColor !important;
-  /* Ensure it's always visible regardless of viewport */
-  transform: none !important;
-  filter: none !important;
-  clip: unset !important;
-  overflow: visible !important;
+/* Clean animation system for section numbers */
+.js-enabled .section-number {
+  will-change: transform, opacity;
+  transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.7s ease;
 }
 
-/* Force visibility on sophisticated sections specifically */
-#philosophy .section-number,
-#stepzero .section-number {
-  display: inline-block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  position: relative !important;
-  z-index: 999 !important;
-  background: var(--bg) !important;
-  color: var(--accent-sophisticated) !important;
-  border: 1px solid var(--accent-sophisticated) !important;
-  font-weight: 700 !important;
-  padding: var(--space-2) var(--space-3) !important;
-  margin-bottom: var(--space-6) !important;
-  font-family: var(--font-display) !important;
-  font-size: 0.75rem !important;
-  letter-spacing: 0.1em !important;
-  text-transform: uppercase !important;
-  mix-blend-mode: normal !important;
-  -webkit-text-fill-color: currentColor !important;
+.js-enabled .text-slide-left {
+  opacity: 0;
+  transform: translateX(-48px);
 }
 
-/* Allow animation transforms for sophisticated section numbers */
-#philosophy .section-number.text-slide-left,
-#stepzero .section-number.text-slide-right {
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+.js-enabled .text-slide-right {
+  opacity: 0;
+  transform: translateX(48px);
 }
 
-#philosophy .section-number.text-slide-left:not(.visible),
-#stepzero .section-number.text-slide-right:not(.visible) {
-  opacity: 0 !important;
-  transform: translateX(-100px) !important;
+.js-enabled .section-number.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-#philosophy .section-number.text-slide-left.visible,
-#stepzero .section-number.text-slide-right.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
+/* Fix stacking context for problematic sections */
+#philosophy .section-header,
+#stepzero .section-header {
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
+}
+
+#philosophy .section-header .section-number,
+#stepzero .section-header .section-number {
+  mix-blend-mode: normal;
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  background: var(--bg);
+  border: 1px solid var(--accent-sophisticated);
+  font-weight: 700;
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-6);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .section.sophisticated .card {
@@ -1966,14 +1952,14 @@ a:hover {
 }
 
 .text-slide-left.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .js-enabled .text-slide-left.visible,
 .js-enabled .text-slide-right.visible { 
-  opacity: 1 !important; 
-  transform: translateX(0) !important; 
+  opacity: 1; 
+  transform: translateX(0); 
 }
 
 .text-slide-right {
@@ -1983,8 +1969,8 @@ a:hover {
 }
 
 .text-slide-right.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Staggered word animation */
