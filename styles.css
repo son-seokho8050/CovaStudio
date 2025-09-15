@@ -2237,13 +2237,58 @@ summary:focus {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Modal Background Video */
+.modal-video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.modal-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 0.08;
+  filter: blur(1px) brightness(1.2);
+  z-index: 1;
+}
+
+.modal-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 2;
+}
+
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: var(--space-6);
   border-bottom: 1px solid var(--border);
-  background: var(--bg-secondary);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 10;
 }
 
 .modal-title {
@@ -2251,7 +2296,8 @@ summary:focus {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  color: var(--text);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .modal-close {
@@ -2273,19 +2319,24 @@ summary:focus {
   padding: var(--space-6);
   overflow-y: auto;
   max-height: calc(80vh - 120px);
+  position: relative;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
 }
 
 .modal-program-content {
-  color: var(--text);
+  color: #ffffff;
   line-height: 1.6;
 }
 
 .modal-program-content h3 {
-  color: var(--accent);
+  color: #ffffff;
   margin-top: var(--space-6);
   margin-bottom: var(--space-3);
   font-family: var(--font-display);
   font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .modal-program-content h3:first-child {
@@ -2294,7 +2345,7 @@ summary:focus {
 
 .modal-program-content p {
   margin-bottom: var(--space-4);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .modal-program-content ul,
@@ -2305,7 +2356,7 @@ summary:focus {
 
 .modal-program-content li {
   margin-bottom: var(--space-2);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .program-card {
