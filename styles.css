@@ -1462,10 +1462,14 @@ a:hover {
 }
 
 .section.sophisticated .section-number {
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--accent-sophisticated);
-  border: 1px solid var(--accent-sophisticated);
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: var(--accent-sophisticated) !important;
+  border: 1px solid var(--accent-sophisticated) !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  display: inline-block !important;
+  visibility: visible !important;
 }
 
 .section.sophisticated .card {
@@ -1500,6 +1504,8 @@ a:hover {
   text-transform: uppercase;
   border: 1px solid var(--border);
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
 }
 
 .section-number:hover {
@@ -1824,6 +1830,12 @@ a:hover {
 .text-slide-left.visible {
   opacity: 1;
   transform: translateX(0);
+}
+
+.js-enabled .text-slide-left.visible,
+.js-enabled .text-slide-right.visible { 
+  opacity: 1; 
+  transform: translateX(0); 
 }
 
 .text-slide-right {
