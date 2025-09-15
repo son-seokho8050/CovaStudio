@@ -2,14 +2,13 @@ const $ = sel => document.querySelector(sel);
 const $$ = sel => document.querySelectorAll(sel);
 
 function renderPhilosophy(){
-  const p = COVA_DATA.philosophy;
   $("#philosophyContent").innerHTML = `
     <div class="card">
-      <h3>핵심 3축</h3>
-      <ul class="check">${p.pillars.map(x=>`<li>${x}</li>`).join("")}</ul>
-      <p class="muted">${p.loop}</p>
-      <p class="muted">${p.mode}</p>
-      <p class="muted">${p.iep}</p>
+      <p class="text-reveal">
+        COVA의 철학은<br>
+        과정 중심의 사고, 개념을 언어화하는 능력, 비교와 연결을 통한 탐구을 바탕으로<br>
+        고1,2 입시미술 학습의 '과정을 기록하고, 생각을 언어와 그림으로 증명하며, 탐구에서 실전까지' 이어지는 '성장'입니다.
+      </p>
     </div>`;
 }
 
