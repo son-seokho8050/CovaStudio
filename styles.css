@@ -1545,9 +1545,10 @@ a:hover {
   color: var(--text);
 }
 
+/* Fix sophisticated section numbers visibility */
 .section.sophisticated .section-number {
   background: var(--bg) !important;
-  color: #fff !important;
+  color: var(--accent-sophisticated) !important;
   border: 1px solid var(--accent-sophisticated) !important;
   font-weight: 700 !important;
   display: inline-block !important;
@@ -1557,6 +1558,34 @@ a:hover {
   mix-blend-mode: normal !important;
   position: relative !important;
   -webkit-text-fill-color: currentColor !important;
+  /* Ensure it's always visible regardless of viewport */
+  transform: none !important;
+  filter: none !important;
+  clip: unset !important;
+  overflow: visible !important;
+}
+
+/* Force visibility on sophisticated sections specifically */
+#philosophy .section-number,
+#stepzero .section-number {
+  display: inline-block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 999 !important;
+  background: var(--bg) !important;
+  color: var(--accent-sophisticated) !important;
+  border: 1px solid var(--accent-sophisticated) !important;
+  font-weight: 700 !important;
+  padding: var(--space-2) var(--space-3) !important;
+  margin-bottom: var(--space-6) !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  mix-blend-mode: normal !important;
+  -webkit-text-fill-color: currentColor !important;
+  transform: none !important;
 }
 
 .section.sophisticated .card {
@@ -1576,15 +1605,6 @@ a:hover {
   margin-bottom: var(--space-20);
   position: relative;
   overflow: visible;
-}
-
-.section-header .section-number {
-  color: #fff;
-  -webkit-text-fill-color: currentColor;
-  mix-blend-mode: normal;
-  opacity: 1;
-  position: relative;
-  z-index: 2;
 }
 
 .section-number {
