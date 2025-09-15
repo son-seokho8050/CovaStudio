@@ -561,6 +561,32 @@ a:hover {
   width: 100%;
 }
 
+/* Stacked Navigation Items (03 KICK-OFF, 04 STEP-ZERO) */
+.nav-stacked {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.1 !important;
+  padding: 8px 16px !important;
+  text-align: center !important;
+}
+
+.nav-number {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85em;
+  opacity: 0.9;
+  margin-bottom: 2px;
+}
+
+.nav-text {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8em;
+  opacity: 0.95;
+}
+
 .header-controls {
   display: flex;
   align-items: center;
