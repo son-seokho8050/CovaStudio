@@ -1546,33 +1546,11 @@ a:hover {
 }
 
 .section.sophisticated .section-number {
-  background: var(--bg) !important;
-  color: var(--accent-sophisticated) !important;
-  border: 1px solid var(--accent-sophisticated) !important;
-  font-weight: 700 !important;
-  display: inline-block !important;
-  visibility: visible !important;
-}
-
-/* Allow animations to work on sophisticated sections */
-.section.sophisticated .section-number.text-slide-left {
-  opacity: 0;
-  transform: translateX(-100px);
-}
-
-.section.sophisticated .section-number.text-slide-left.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
-}
-
-.section.sophisticated .section-number.text-slide-right {
-  opacity: 0;
-  transform: translateX(100px);
-}
-
-.section.sophisticated .section-number.text-slide-right.visible {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
+  background: var(--bg);
+  color: var(--accent-sophisticated);
+  border: 1px solid var(--accent-sophisticated);
+  font-weight: 700;
+  display: inline-block;
 }
 
 .section.sophisticated .card {
