@@ -1357,7 +1357,7 @@ a:hover {
 
 .program-card {
   flex-shrink: 0;
-  width: 384px;
+  width: 192px;
   cursor: pointer;
   group: relative;
   border-radius: 12px;
