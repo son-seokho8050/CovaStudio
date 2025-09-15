@@ -1550,10 +1550,29 @@ a:hover {
   color: var(--accent-sophisticated) !important;
   border: 1px solid var(--accent-sophisticated) !important;
   font-weight: 700 !important;
-  opacity: 1 !important;
-  transform: translateX(0) !important;
   display: inline-block !important;
   visibility: visible !important;
+}
+
+/* Allow animations to work on sophisticated sections */
+.section.sophisticated .section-number.text-slide-left {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.section.sophisticated .section-number.text-slide-left.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.section.sophisticated .section-number.text-slide-right {
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.section.sophisticated .section-number.text-slide-right.visible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
 .section.sophisticated .card {
