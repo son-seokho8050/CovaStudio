@@ -1462,8 +1462,10 @@ a:hover {
 }
 
 .section.sophisticated .section-number {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   color: var(--accent-sophisticated);
+  border: 1px solid var(--accent-sophisticated);
+  font-weight: 700;
 }
 
 .section.sophisticated .card {
