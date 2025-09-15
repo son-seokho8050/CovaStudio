@@ -1357,11 +1357,17 @@ a:hover {
 
 .program-card {
   flex-shrink: 0;
-  width: 192px;
+  width: 192px !important;
   cursor: pointer;
   group: relative;
   border-radius: 12px;
   transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 카루셀 내 프로그램 카드 크기 강제 적용 */
+.carousel-item .program-card {
+  width: 192px !important;
+  max-width: 192px !important;
 }
 
 .program-image {
