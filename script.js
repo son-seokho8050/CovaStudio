@@ -1133,11 +1133,24 @@ class ProgramModalController {
     
     this.modal.classList.add('active');
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    
+    // Start modal background video
+    const modalVideo = this.modal.querySelector('.modal-bg-video');
+    if (modalVideo) {
+      modalVideo.currentTime = 0;
+      modalVideo.play().catch(e => console.log('Modal video autoplay failed:', e));
+    }
   }
   
   closeModal() {
     this.modal.classList.remove('active');
     document.body.style.overflow = ''; // Restore scrolling
+    
+    // Pause modal background video
+    const modalVideo = this.modal.querySelector('.modal-bg-video');
+    if (modalVideo) {
+      modalVideo.pause();
+    }
   }
   
   getProgramData(program) {
