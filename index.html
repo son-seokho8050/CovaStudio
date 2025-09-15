@@ -137,7 +137,7 @@
             <div class="carousel-track" id="carouselTrack">
               
               <!-- Grade-1 Program -->
-              <div class="program-card carousel-item" data-program="grade1">
+              <div class="program-card carousel-item" data-program="grade1" data-testid="card-program-grade1">
                 <div class="program-image">
                   <img src="attached_assets/Gemini_Generated_Image_4kxp3a4kxp3a4kxp (1)_1757918330190.png" alt="GRADE-1 조형원리" class="program-visual">
                   <div class="program-overlay"></div>
@@ -158,7 +158,7 @@
               </div>
               
               <!-- Grade-2 Program -->
-              <div class="program-card carousel-item" data-program="grade2">
+              <div class="program-card carousel-item" data-program="grade2" data-testid="card-program-grade2">
                 <div class="program-image">
                   <img src="attached_assets/cocodio_httpss.mj.runpTngUyPGBvc__2____--ar_21_--v_7_475a4f57-1ff4-460e-b4ef-31a3ec4b2515_2_1757918388411.png" alt="GRADE-2 전공학별 핵심원리" class="program-visual">
                   <div class="program-overlay"></div>
@@ -179,7 +179,7 @@
               </div>
               
               <!-- Kick-off Program -->
-              <div class="program-card carousel-item" data-program="kickoff">
+              <div class="program-card carousel-item" data-program="kickoff" data-testid="card-program-kickoff">
                 <div class="program-image">
                   <img src="attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png" alt="KICK-OFF 창의적 질문" class="program-visual">
                   <div class="program-overlay"></div>
@@ -200,7 +200,7 @@
               </div>
               
               <!-- Step-Zero Program -->
-              <div class="program-card carousel-item" data-program="stepzero">
+              <div class="program-card carousel-item" data-program="stepzero" data-testid="card-program-stepzero">
                 <div class="program-image">
                   <img src="attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__e77ff5da-378d-4bde-b91a-00565deb17ba_1_1757919283890.png" alt="STEP-ZERO 사고·기록·시각화" class="program-visual">
                   <div class="program-overlay"></div>
@@ -349,6 +349,24 @@
 <footer class="site-footer">
   <p>COVA Light © 2025 — 월요일 Kick-Off 루틴으로 한 주를 여세요.</p>
 </footer>
+
+<!-- Program Modal -->
+<div id="programModal" class="modal" data-testid="modal-program">
+  <div class="modal-overlay" data-testid="modal-overlay"></div>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modalTitle" class="modal-title"></h2>
+      <button class="modal-close" data-testid="button-modal-close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="modalContent" class="modal-program-content"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Loading Screen -->
 <div id="loadingScreen" class="loading-screen">
