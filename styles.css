@@ -1283,7 +1283,7 @@ a:hover {
 
 .carousel-item {
   flex: 0 0 auto; /* 카드의 실제 크기에 맞춤 */
-  width: 320px; /* 카드 컨테이너 크기 고정 */
+  width: 460px; /* 카드 컨테이너 크기 고정 */
 }
 
 /* Carousel Navigation */
@@ -1357,7 +1357,7 @@ a:hover {
 
 .program-card {
   flex-shrink: 0;
-  width: 320px !important;
+  width: 460px !important;
   cursor: pointer;
   group: relative;
   border-radius: 12px;
@@ -1366,8 +1366,8 @@ a:hover {
 
 /* 카루셀 내 프로그램 카드 크기 강제 적용 */
 .carousel-item .program-card {
-  width: 320px !important;
-  max-width: 320px !important;
+  width: 460px !important;
+  max-width: 460px !important;
 }
 
 .program-image {
