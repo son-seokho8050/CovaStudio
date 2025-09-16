@@ -581,9 +581,10 @@ a:hover {
   align-items: flex-start;
   justify-content: center;
   height: var(--nav-item-height);
-  padding: 0 var(--space-2);
+  padding: 0 var(--space-8);
   line-height: 1;
   gap: 1px;
+  flex: 1;
 }
 
 .nav-stacked .nav-number {
