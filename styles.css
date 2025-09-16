@@ -562,39 +562,26 @@ a:hover {
 }
 
 /* Stacked Navigation Items (03 KICK-OFF, 04 STEP-ZERO) */
-.nav-stacked {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  color: var(--text-secondary) !important;
-  font-weight: 500 !important;
-  font-size: 0.875rem !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  position: relative !important;
-  letter-spacing: 0.05em !important;
-  text-transform: uppercase !important;
-  padding: var(--space-2) 0 !important;
-  line-height: 1.2 !important;
-  text-align: center !important;
+.nav-list a.nav-stacked {
+  display: inline-block;
+  text-align: center;
 }
 
-.nav-number {
+.nav-stacked .nav-number {
   display: block;
-  font-weight: inherit;
-  font-size: inherit;
-  opacity: 1;
+  font-size: 0.75rem;
+  line-height: 1;
   margin-bottom: 2px;
-  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.05em;
 }
 
-.nav-text {
+.nav-stacked .nav-text {
   display: block;
-  font-weight: inherit;
-  font-size: inherit;
-  opacity: 1;
-  white-space: nowrap;
+  font-size: 0.875rem;
   line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.05em;
 }
 
 .header-controls {
