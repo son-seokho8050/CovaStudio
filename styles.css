@@ -573,19 +573,37 @@ a:hover {
   width: 100%;
 }
 
-/* Stacked Navigation Items (03 KICK-OFF, 04 STEP-ZERO) */
+/* Stacked nav item (03 KICK-OFF) — identical height/alignment as others */
 .nav-list a.nav-stacked {
-  flex-direction: column;
-  gap: 2px;
+  display: grid;
+  grid-template-rows: auto auto;
+  align-content: center;
+  justify-items: center;
+  height: var(--nav-item-height);
+  padding: 0 var(--space-2);
+  line-height: 1;
 }
 
-.nav-list a.nav-stacked .nav-number,
-.nav-list a.nav-stacked .nav-text {
+.nav-stacked .nav-number {
+  display: block;
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.nav-stacked .nav-text {
+  display: block;
   font-size: 0.875rem;
   line-height: 1;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Ensure li aligns the same across items */
+.nav-list li {
+  display: flex;
+  align-items: center;
 }
 
 .header-controls {
