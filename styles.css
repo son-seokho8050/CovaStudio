@@ -578,7 +578,8 @@ a:hover {
   font-weight: 500;
   font-size: 0.9em;
   opacity: 1;
-  margin-bottom: 1px;
+  margin-bottom: 0;
+  line-height: 1;
 }
 
 .nav-text {
