@@ -562,27 +562,24 @@ a:hover {
 }
 
 /* Stacked Navigation Items (03 KICK-OFF, 04 STEP-ZERO) */
-.nav-list a.nav-stacked {
-  display: inline-block;
-  text-align: center;
-  line-height: 1;
+.nav-list li a.nav-stacked {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  padding: var(--space-2) 0 !important;
+  min-height: 2.25rem !important;
+  line-height: 1 !important;
+  text-align: center !important;
 }
 
-.nav-stacked .nav-number {
-  display: block;
-  font-size: 0.875rem;
-  line-height: 0.9;
-  margin-bottom: 0;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-}
-
-.nav-stacked .nav-text {
-  display: block;
-  font-size: 0.875rem;
-  line-height: 0.9;
-  font-weight: 500;
-  letter-spacing: 0.05em;
+.nav-list li a.nav-stacked .nav-number,
+.nav-list li a.nav-stacked .nav-text {
+  font-size: 0.875rem !important;
+  line-height: 1 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
 }
 
 .header-controls {
