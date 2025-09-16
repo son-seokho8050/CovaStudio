@@ -913,10 +913,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     renderTable("#kickG1", COVA_DATA.kickoff.g1);
     renderTable("#kickG2", COVA_DATA.kickoff.g2);
 
-    // Step-Zero
-    renderOrdered("#szDaily", COVA_DATA.stepZero.daily);
-    renderList("#szRubric", COVA_DATA.stepZero.rubric);
-    renderList("#sz12w", COVA_DATA.stepZero.twelveWeeks);
+    // Step-Zero section removed
 
     // KPI
     renderList("#kpiCommon", COVA_DATA.kpi.common);
