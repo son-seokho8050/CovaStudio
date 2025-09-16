@@ -523,8 +523,10 @@ a:hover {
 .nav-list {
   display: flex;
   list-style: none;
-  gap: var(--space-10);
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+  max-width: 800px;
 }
 
 :root {
@@ -587,7 +589,7 @@ a:hover {
 
 .nav-stacked .nav-number {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   line-height: 1;
   letter-spacing: 0.08em;
   opacity: 0.8;
