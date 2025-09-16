@@ -583,7 +583,7 @@ a:hover {
 .nav-text {
   display: block;
   font-weight: 400;
-  font-size: 0.7em;
+  font-size: 0.85em;
   opacity: 0.95;
   white-space: nowrap;
 }
