@@ -527,8 +527,21 @@ a:hover {
   align-items: center;
 }
 
+:root {
+  --nav-item-height: 2.3rem;
+}
+
+.nav-list {
+  align-items: center;
+}
+
 .nav-list a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--nav-item-height);
+  padding: 0 var(--space-2);
+  line-height: 1;
   color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.875rem;
@@ -536,13 +549,12 @@ a:hover {
   position: relative;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: var(--space-2) 0;
 }
 
 .nav-list a::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 0%;
   height: 1px;
@@ -562,24 +574,18 @@ a:hover {
 }
 
 /* Stacked Navigation Items (03 KICK-OFF, 04 STEP-ZERO) */
-.nav-list li a.nav-stacked {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 2px !important;
-  padding: var(--space-2) 0 !important;
-  min-height: 2.25rem !important;
-  line-height: 1 !important;
-  text-align: center !important;
+.nav-list a.nav-stacked {
+  flex-direction: column;
+  gap: 2px;
 }
 
-.nav-list li a.nav-stacked .nav-number,
-.nav-list li a.nav-stacked .nav-text {
-  font-size: 0.875rem !important;
-  line-height: 1 !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.05em !important;
+.nav-list a.nav-stacked .nav-number,
+.nav-list a.nav-stacked .nav-text {
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .header-controls {
