@@ -575,26 +575,28 @@ a:hover {
 
 /* Stacked nav item (03 KICK-OFF) — identical height/alignment as others */
 .nav-list a.nav-stacked {
-  display: grid;
-  grid-template-rows: auto auto;
-  align-content: center;
-  justify-items: center;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: var(--nav-item-height);
   padding: 0 var(--space-2);
   line-height: 1;
+  gap: 0;
 }
 
 .nav-stacked .nav-number {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   line-height: 1;
   letter-spacing: 0.08em;
-  opacity: 0.7;
+  opacity: 0.8;
+  margin-bottom: -2px;
 }
 
 .nav-stacked .nav-text {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
