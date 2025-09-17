@@ -2542,8 +2542,8 @@ summary:focus {
   width: 110%;
   height: 110%;
   object-fit: cover;
-  filter: blur(12px) saturate(0.75) brightness(0.4) contrast(0.95);
-  opacity: 0.25;
+  filter: blur(8px) saturate(1.1) brightness(0.7) contrast(1.1);
+  opacity: 0.6;
   animation: ambient-ken-burns 30s ease-in-out infinite alternate;
 }
 
@@ -2570,12 +2570,12 @@ summary:focus {
   pointer-events: none;
   background: 
     linear-gradient(180deg, 
-      rgba(227, 103, 69, 0.18) 0%,
-      rgba(0, 0, 0, 0.4) 40%,
-      rgba(0, 0, 0, 0.6) 100%),
+      rgba(227, 103, 69, 0.12) 0%,
+      rgba(0, 0, 0, 0.3) 40%,
+      rgba(0, 0, 0, 0.5) 100%),
     radial-gradient(ellipse at center, 
-      transparent 30%, 
-      rgba(0, 0, 0, 0.3) 70%);
+      transparent 40%, 
+      rgba(0, 0, 0, 0.2) 80%);
 }
 
 /* Organic Sculptural Overlay */
@@ -2621,11 +2621,23 @@ summary:focus {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   margin: 2rem;
-  padding: 1.5rem;
-  min-height: calc(100vh - 8rem);
+  padding: 0;
+  height: calc(100vh - 8rem);
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Add padding back to inner content */
+.modal-hero-content {
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
+}
+
+.modal-content-section {
+  padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
 /* Legacy sections - hide old mosaic */
