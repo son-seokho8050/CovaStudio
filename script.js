@@ -1219,22 +1219,39 @@ class ProgramModalController {
       const firstVideo = firstTile.querySelector('.hero-tile-video');
       
       if (firstTile && firstVideo) {
-        // Hide the video and set the uploaded image as background
-        firstVideo.style.display = 'none';
-        firstTile.style.backgroundImage = 'url("attached_assets/Gemini_Generated_Image_7cdtbb7cdtbb7cdt_1758107119869.png")';
-        firstTile.style.backgroundSize = 'cover';
-        firstTile.style.backgroundPosition = 'center';
-        firstTile.style.backgroundRepeat = 'no-repeat';
+        // Replace video source with new uploaded video
+        const sources = firstVideo.querySelectorAll('source');
+        if (sources.length > 0) {
+          sources[0].src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
+        } else {
+          // If no source tag, set src directly on video element
+          firstVideo.src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
+        }
+        // Force video to reload with new source
+        firstVideo.load();
       }
     }
   }
   
   resetHeroTiles() {
     const tiles = this.modal.querySelectorAll('.hero-video-tile');
-    tiles.forEach(tile => {
+    tiles.forEach((tile, index) => {
       const video = tile.querySelector('.hero-tile-video');
       if (video) {
         video.style.display = 'block';
+        
+        // Reset to original video sources
+        const sources = video.querySelectorAll('source');
+        if (sources.length > 0) {
+          if (index === 0) {
+            sources[0].src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+          }
+        } else {
+          if (index === 0) {
+            video.src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+          }
+        }
+        video.load();
       }
       tile.style.backgroundImage = '';
       tile.style.backgroundSize = '';
