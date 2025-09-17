@@ -2908,6 +2908,8 @@ summary:focus {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--space-4);
+  position: relative;
+  z-index: 5;
 }
 
 .modal-title-enhanced {
@@ -2941,10 +2943,10 @@ summary:focus {
 }
 
 .modal-close-enhanced {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   padding: var(--space-3);
   border-radius: 8px;
@@ -2954,6 +2956,9 @@ summary:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
 }
 
 .modal-close-enhanced:hover {
