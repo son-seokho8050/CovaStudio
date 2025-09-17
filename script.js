@@ -1180,15 +1180,15 @@ class ProgramModalController {
     // Reset to overview tab
     this.switchTab('overview', false);
     
-    // Special handling for KICK-OFF program hero tiles
-    this.setupHeroTilesForProgram(program);
+    // Special handling for ambient video per program
+    this.setupAmbientVideoForProgram(program);
     
     // Show modal
     this.modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Start hero videos with staggered timing
-    this.startHeroVideos();
+    // Start ambient video
+    this.startAmbientVideo();
     
     console.log('Modal opened successfully');
   }
@@ -1199,65 +1199,61 @@ class ProgramModalController {
     this.modal.classList.remove('active');
     document.body.style.overflow = '';
     
-    // Pause all hero videos
-    this.pauseHeroVideos();
+    // Pause ambient video
+    this.pauseAmbientVideo();
     
-    // Reset hero tiles to default state
-    this.resetHeroTiles();
+    // Reset ambient video to default state
+    this.resetAmbientVideo();
     
     // Reset current program
     this.currentProgram = null;
   }
   
-  setupHeroTilesForProgram(program) {
-    // Reset all tiles to default video state first
-    this.resetHeroTiles();
-    
+  setupAmbientVideoForProgram(program) {
     // Special handling for KICK-OFF program
     if (program === 'kickoff') {
-      const firstTile = this.modal.querySelector('.hero-video-tile.hero-tile-primary');
-      const firstVideo = firstTile.querySelector('.hero-tile-video');
+      const ambientVideo = this.modal.querySelector('.ambient-video');
       
-      if (firstTile && firstVideo) {
-        // Replace video source with new uploaded video
-        const sources = firstVideo.querySelectorAll('source');
+      if (ambientVideo) {
+        // Replace video source with new uploaded video for KICK-OFF
+        const sources = ambientVideo.querySelectorAll('source');
         if (sources.length > 0) {
           sources[0].src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
         } else {
           // If no source tag, set src directly on video element
-          firstVideo.src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
+          ambientVideo.src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
         }
         // Force video to reload with new source
-        firstVideo.load();
+        ambientVideo.load();
+      }
+    } else {
+      // For other programs, use default video
+      const ambientVideo = this.modal.querySelector('.ambient-video');
+      
+      if (ambientVideo) {
+        const sources = ambientVideo.querySelectorAll('source');
+        if (sources.length > 0) {
+          sources[0].src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+        } else {
+          ambientVideo.src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+        }
+        ambientVideo.load();
       }
     }
   }
   
-  resetHeroTiles() {
-    const tiles = this.modal.querySelectorAll('.hero-video-tile');
-    tiles.forEach((tile, index) => {
-      const video = tile.querySelector('.hero-tile-video');
-      if (video) {
-        video.style.display = 'block';
-        
-        // Reset to original video sources
-        const sources = video.querySelectorAll('source');
-        if (sources.length > 0) {
-          if (index === 0) {
-            sources[0].src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
-          }
-        } else {
-          if (index === 0) {
-            video.src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
-          }
-        }
-        video.load();
+  resetAmbientVideo() {
+    const ambientVideo = this.modal.querySelector('.ambient-video');
+    if (ambientVideo) {
+      // Reset to default video
+      const sources = ambientVideo.querySelectorAll('source');
+      if (sources.length > 0) {
+        sources[0].src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+      } else {
+        ambientVideo.src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
       }
-      tile.style.backgroundImage = '';
-      tile.style.backgroundSize = '';
-      tile.style.backgroundPosition = '';
-      tile.style.backgroundRepeat = '';
-    });
+      ambientVideo.load();
+    }
   }
   
   switchTab(tabName, animate = true) {
@@ -1381,21 +1377,19 @@ class ProgramModalController {
     `).join('');
   }
   
-  startHeroVideos() {
-    const videos = this.modal.querySelectorAll('.hero-tile-video');
-    videos.forEach((video, index) => {
-      setTimeout(() => {
-        video.currentTime = Math.random() * 10; // Start at random time
-        video.play().catch(e => console.log(`Hero video ${index + 1} autoplay failed:`, e));
-      }, index * 200); // Staggered start
-    });
+  startAmbientVideo() {
+    const ambientVideo = this.modal.querySelector('.ambient-video');
+    if (ambientVideo) {
+      ambientVideo.currentTime = Math.random() * 5; // Start at random time
+      ambientVideo.play().catch(e => console.log('Ambient video autoplay failed:', e));
+    }
   }
   
-  pauseHeroVideos() {
-    const videos = this.modal.querySelectorAll('.hero-tile-video');
-    videos.forEach(video => {
-      video.pause();
-    });
+  pauseAmbientVideo() {
+    const ambientVideo = this.modal.querySelector('.ambient-video');
+    if (ambientVideo) {
+      ambientVideo.pause();
+    }
   }
   
   getProgramData(program) {
