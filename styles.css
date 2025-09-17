@@ -2517,24 +2517,124 @@ summary:focus {
   opacity: 1;
 }
 
-/* Hero Video Mosaic Section - nagi Style */
-.modal-hero-section {
+/* Ambient Gallery Style - Sculptural Background */
+.modal-content-enhanced {
   position: relative;
-  height: 320px;
   overflow: hidden;
-  background: #000;
 }
 
-.modal-hero-mosaic {
+.modal-ambient-background {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  filter: blur(12px) saturate(0.75) brightness(0.4) contrast(0.95);
+  opacity: 0.25;
+  animation: ambient-ken-burns 30s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-ken-burns {
+  0% { transform: translate(-50%, -50%) scale(1.1); }
+  100% { transform: translate(-52%, -48%) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-video {
+    animation: none;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Sculptural Tint Overlay */
+.modal-tint-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: 
+    linear-gradient(180deg, 
+      rgba(227, 103, 69, 0.18) 0%,
+      rgba(0, 0, 0, 0.4) 40%,
+      rgba(0, 0, 0, 0.6) 100%),
+    radial-gradient(ellipse at center, 
+      transparent 30%, 
+      rgba(0, 0, 0, 0.3) 70%);
+}
+
+/* Organic Sculptural Overlay */
+.modal-sculptural-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.sculptural-ribbon {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px;
+  opacity: 0.6;
+}
+
+.ribbon-path {
+  animation: ribbon-flow 40s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes ribbon-flow {
+  0% { transform: translateX(-20px) rotate(0deg); }
+  100% { transform: translateX(20px) rotate(1deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-path {
+    animation: none;
+  }
+}
+
+/* Glass Content Panel */
+.modal-glass-panel {
+  position: relative;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  margin: 2rem;
+  padding: 1.5rem;
+  min-height: calc(100vh - 8rem);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Legacy sections - hide old mosaic */
+.modal-hero-section {
+  display: none;
+}
+
+.modal-hero-mosaic {
+  display: none;
 }
 
 .hero-video-tile {

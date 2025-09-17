@@ -327,30 +327,36 @@
   <div class="modal-overlay modal-overlay-enhanced" data-testid="modal-overlay"></div>
   <div class="modal-content modal-content-enhanced">
     
-    <!-- Hero Video Mosaic Section -->
-    <div class="modal-hero-section">
-      <div class="modal-hero-mosaic">
-        <div class="hero-video-tile hero-tile-primary" data-tile="hero-1">
-          <video muted autoplay loop playsinline preload="metadata" class="hero-tile-video">
-            <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="hero-video-tile hero-tile-secondary" data-tile="hero-2">
-          <video muted autoplay loop playsinline preload="metadata" class="hero-tile-video">
-            <source src="attached_assets/그림_그리는_여자_초_동영상_1757853306736.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="hero-video-tile hero-tile-accent" data-tile="hero-3">
-          <video muted autoplay loop playsinline preload="metadata" class="hero-tile-video">
-            <source src="attached_assets/집중해서_그림_그리는_사람_초_영상_1757853306735.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
-      
-      <!-- Cinematic Film Overlays - nagi style -->
-      <div class="modal-film-vignette"></div>
-      <div class="modal-hero-overlay"></div>
-      
+    <!-- Ambient Background Video -->
+    <div class="modal-ambient-background">
+      <video muted autoplay loop playsinline preload="metadata" class="ambient-video">
+        <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4" type="video/mp4">
+      </video>
+    </div>
+    
+    <!-- Sculptural Tint Overlay -->
+    <div class="modal-tint-overlay"></div>
+    
+    <!-- Organic Ribbon SVG Overlay -->
+    <div class="modal-sculptural-overlay">
+      <svg viewBox="0 0 800 600" class="sculptural-ribbon">
+        <defs>
+          <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:rgba(227,103,69,0.12);stop-opacity:1" />
+            <stop offset="50%" style="stop-color:rgba(227,103,69,0.08);stop-opacity:1" />
+            <stop offset="100%" style="stop-color:rgba(227,103,69,0.04);stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <path d="M100,200 Q300,150 500,200 T700,250 L680,280 Q480,230 280,280 T60,230 Z" 
+              fill="url(#ribbonGradient)" 
+              stroke="rgba(227,103,69,0.15)" 
+              stroke-width="1"
+              class="ribbon-path"/>
+      </svg>
+    </div>
+    
+    <!-- Glass Content Panel -->
+    <div class="modal-glass-panel">
       <!-- Hero Content -->
       <div class="modal-hero-content">
         <div class="modal-header-enhanced">
@@ -372,8 +378,8 @@
       </div>
     </div>
     
-    <!-- Interactive Content Section -->
-    <div class="modal-content-section">
+      <!-- Interactive Content Section -->
+      <div class="modal-content-section">
       
       <!-- Tab Navigation -->
       <div class="modal-tabs">
@@ -456,10 +462,9 @@
         </div>
         
       </div>
-    </div>
-    
-    <!-- Modal Footer -->
-    <div class="modal-footer-enhanced">
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer-enhanced">
       <div class="modal-actions">
         <button class="modal-action-secondary" data-testid="button-modal-info">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
