@@ -1088,14 +1088,35 @@ function initCarousel() {
   console.log('Program carousel initialized with', totalSlides, 'slides');
 }
 
-// Program Modal Controller
+// Enhanced COVA Program Modal Controller - nagi Inspired
 class ProgramModalController {
   constructor() {
     this.modal = document.getElementById('programModal');
     this.modalTitle = document.getElementById('modalTitle');
-    this.modalContent = document.getElementById('modalContent');
-    this.modalClose = this.modal.querySelector('.modal-close');
-    this.modalOverlay = this.modal.querySelector('.modal-overlay');
+    this.modalDescription = document.getElementById('modalDescription');
+    this.modalDuration = document.getElementById('modalDuration');
+    this.modalLevel = document.getElementById('modalLevel');
+    this.modalClose = this.modal.querySelector('.modal-close-enhanced');
+    this.modalOverlay = this.modal.querySelector('.modal-overlay-enhanced');
+    
+    // Tab elements
+    this.tabs = this.modal.querySelectorAll('.modal-tab');
+    this.tabIndicator = this.modal.querySelector('.modal-tab-indicator');
+    this.panels = this.modal.querySelectorAll('.modal-panel');
+    
+    // Content containers
+    this.overviewContent = document.getElementById('overviewContent');
+    this.curriculumContent = document.getElementById('curriculumContent');
+    this.processContent = document.getElementById('processContent');
+    this.outcomesContent = document.getElementById('outcomesContent');
+    
+    // Stats elements
+    this.statWeeks = document.getElementById('statWeeks');
+    this.statSessions = document.getElementById('statSessions');
+    this.statProjects = document.getElementById('statProjects');
+    
+    this.currentProgram = null;
+    this.activeTab = 'overview';
     
     this.init();
   }
@@ -1114,47 +1135,225 @@ class ProgramModalController {
     this.modalClose.addEventListener('click', () => this.closeModal());
     this.modalOverlay.addEventListener('click', () => this.closeModal());
     
+    // Tab navigation
+    this.tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabName = tab.dataset.tab;
+        this.switchTab(tabName);
+      });
+    });
+    
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.modal.classList.contains('active')) {
         this.closeModal();
       }
     });
+    
+    // Initialize tab indicator position
+    this.updateTabIndicator();
+    
+    console.log('Enhanced COVA Modal Controller initialized');
   }
   
   openModal(program) {
+    console.log('Opening modal for program:', program);
+    
     const programData = this.getProgramData(program);
+    this.currentProgram = program;
     
+    // Update hero content
     this.modalTitle.textContent = programData.title;
-    this.modalContent.innerHTML = programData.content;
+    this.modalDescription.textContent = programData.description;
+    this.modalDuration.textContent = programData.duration;
+    this.modalLevel.textContent = programData.level;
     
+    // Update stats
+    this.statWeeks.textContent = programData.stats.weeks;
+    this.statSessions.textContent = programData.stats.sessions;
+    this.statProjects.textContent = programData.stats.projects;
+    
+    // Load content for all tabs
+    this.loadTabContent(programData);
+    
+    // Reset to overview tab
+    this.switchTab('overview', false);
+    
+    // Show modal
     this.modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
     
-    // Start modal background video
-    const modalVideo = this.modal.querySelector('.modal-bg-video');
-    if (modalVideo) {
-      modalVideo.currentTime = 0;
-      modalVideo.play().catch(e => console.log('Modal video autoplay failed:', e));
-    }
+    // Start hero videos with staggered timing
+    this.startHeroVideos();
+    
+    console.log('Modal opened successfully');
   }
   
   closeModal() {
-    this.modal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    console.log('Closing modal');
     
-    // Pause modal background video
-    const modalVideo = this.modal.querySelector('.modal-bg-video');
-    if (modalVideo) {
-      modalVideo.pause();
+    this.modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Pause all hero videos
+    this.pauseHeroVideos();
+    
+    // Reset current program
+    this.currentProgram = null;
+  }
+  
+  switchTab(tabName, animate = true) {
+    console.log('Switching to tab:', tabName);
+    
+    if (this.activeTab === tabName) return;
+    
+    // Update tab states
+    this.tabs.forEach(tab => {
+      tab.classList.remove('active');
+      if (tab.dataset.tab === tabName) {
+        tab.classList.add('active');
+      }
+    });
+    
+    // Update panel states with animation
+    this.panels.forEach(panel => {
+      panel.classList.remove('active');
+      if (panel.dataset.panel === tabName) {
+        if (animate) {
+          // Small delay for smooth transition
+          setTimeout(() => {
+            panel.classList.add('active');
+          }, 100);
+        } else {
+          panel.classList.add('active');
+        }
+      }
+    });
+    
+    this.activeTab = tabName;
+    this.updateTabIndicator();
+  }
+  
+  updateTabIndicator() {
+    if (!this.tabIndicator) return;
+    
+    const activeTab = this.modal.querySelector(`.modal-tab[data-tab="${this.activeTab}"]`);
+    if (!activeTab) return;
+    
+    const tabsContainer = activeTab.parentElement;
+    const tabRect = activeTab.getBoundingClientRect();
+    const containerRect = tabsContainer.getBoundingClientRect();
+    
+    const left = tabRect.left - containerRect.left;
+    const width = tabRect.width;
+    
+    this.tabIndicator.style.left = left + 'px';
+    this.tabIndicator.style.width = width + 'px';
+  }
+  
+  loadTabContent(programData) {
+    // Load overview content
+    this.overviewContent.innerHTML = programData.overview;
+    
+    // Load curriculum content
+    this.curriculumContent.innerHTML = this.buildCurriculumTimeline(programData.curriculum);
+    
+    // Load process content  
+    this.processContent.innerHTML = this.buildProcessVisualization(programData.process);
+    
+    // Load outcomes content
+    this.outcomesContent.innerHTML = this.buildOutcomesGallery(programData.outcomes);
+  }
+  
+  buildCurriculumTimeline(curriculum) {
+    if (!curriculum || !curriculum.length) {
+      return '<p class="text-secondary">커리큘럼 정보를 준비 중입니다.</p>';
     }
+    
+    return curriculum.map((item, index) => `
+      <div class="curriculum-item" style="opacity: 0; animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s forwards;">
+        <div class="curriculum-week">
+          <span class="week-number">${item.week}</span>
+          <span class="week-label">주차</span>
+        </div>
+        <div class="curriculum-details">
+          <h4>${item.title}</h4>
+          <p>${item.description}</p>
+          ${item.activities ? `<ul>${item.activities.map(activity => `<li>${activity}</li>`).join('')}</ul>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  buildProcessVisualization(process) {
+    if (!process || !process.length) {
+      return '<p class="text-secondary">과정 정보를 준비 중입니다.</p>';
+    }
+    
+    return process.map((step, index) => `
+      <div class="process-card" style="opacity: 0; animation: fadeInScale 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.15}s forwards;">
+        <div class="process-icon">
+          <span class="step-number">${index + 1}</span>
+        </div>
+        <div class="process-content">
+          <h4>${step.title}</h4>
+          <p>${step.description}</p>
+          ${step.tools ? `<div class="process-tools">${step.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('')}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  buildOutcomesGallery(outcomes) {
+    if (!outcomes || !outcomes.length) {
+      return '<p class="text-secondary">성과 정보를 준비 중입니다.</p>';
+    }
+    
+    return outcomes.map((outcome, index) => `
+      <div class="outcome-card" style="opacity: 0; animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.12}s forwards;">
+        <div class="outcome-image">
+          <img src="${outcome.image}" alt="${outcome.title}" loading="lazy" />
+        </div>
+        <div class="outcome-info">
+          <h4>${outcome.title}</h4>
+          <p class="outcome-student">${outcome.student}</p>
+          <p class="outcome-description">${outcome.description}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  startHeroVideos() {
+    const videos = this.modal.querySelectorAll('.hero-tile-video');
+    videos.forEach((video, index) => {
+      setTimeout(() => {
+        video.currentTime = Math.random() * 10; // Start at random time
+        video.play().catch(e => console.log(`Hero video ${index + 1} autoplay failed:`, e));
+      }, index * 200); // Staggered start
+    });
+  }
+  
+  pauseHeroVideos() {
+    const videos = this.modal.querySelectorAll('.hero-tile-video');
+    videos.forEach(video => {
+      video.pause();
+    });
   }
   
   getProgramData(program) {
     const programData = {
       grade1: {
         title: 'GRADE-1 (조형원리)',
-        content: `
+        description: '고1 학생들을 위한 기초 과정으로, 비주얼 저널, 입체적 비교, 언어화 훈련을 통해 탐구에서 완성으로 나아가는 단계입니다.',
+        duration: '12개월',
+        level: '기초',
+        stats: {
+          weeks: 48,
+          sessions: 96,
+          projects: 12
+        },
+        overview: `
           <h3>프로그램 개요</h3>
           <p>고1 학생들을 위한 기초 과정으로, 비주얼 저널, 입체적 비교, 언어화 훈련을 통해 탐구에서 완성으로 나아가는 단계입니다.</p>
           
@@ -1166,28 +1365,80 @@ class ProgramModalController {
             <li>체계적 관찰과 분석 능력 배양</li>
           </ul>
           
-          <h3>주요 커리큘럼</h3>
-          <ol>
-            <li><strong>비주얼 저널링</strong> - 일상 관찰과 기록을 통한 시각적 사고 훈련</li>
-            <li><strong>기초 드로잉</strong> - 형태, 명암, 질감 표현의 기본기 습득</li>
-            <li><strong>조형 요소</strong> - 점, 선, 면의 특성과 활용법</li>
-            <li><strong>구성 원리</strong> - 균형, 리듬, 강조, 통일의 이해</li>
-            <li><strong>색채 이론</strong> - 색의 속성과 조화 원리</li>
-            <li><strong>입체 표현</strong> - 3차원 공간 이해와 표현</li>
-          </ol>
-          
-          <h3>평가 방식</h3>
-          <p>과정 중심 평가로 학생의 성장 과정을 체계적으로 관리하며, 개인별 맞춤 피드백을 제공합니다.</p>
-          
-          <h3>기간 및 일정</h3>
-          <p>12개월 과정으로 주 2회 수업을 기본으로 하며, 개인 역량에 따른 맞춤형 일정 조정이 가능합니다.</p>
-        `
+          <h3>교육 특징</h3>
+          <p>개인별 맞춤 교육으로 학생의 창의성과 기초 실력을 동시에 개발하며, 체계적인 포트폴리오 관리를 통해 성장 과정을 가시화합니다.</p>
+        `,
+        curriculum: [
+          {
+            week: 1,
+            title: '기초 조형 요소',
+            description: '점, 선, 면의 특성과 활용법을 학습하여 조형의 기본 원리를 이해합니다.',
+            activities: ['기본 드로잉 연습', '조형 요소 실습', '관찰 일지 작성']
+          },
+          {
+            week: 2,
+            title: '비주얼 저널링',
+            description: '일상 관찰과 기록을 통한 시각적 사고 훈련을 진행합니다.',
+            activities: ['저널 제작', '관찰 기록법', '시각적 표현 연습']
+          },
+          {
+            week: 3,
+            title: '형태와 명암',
+            description: '형태의 기본 구조와 명암을 통한 입체감 표현을 학습합니다.',
+            activities: ['형태 분석', '명암 스케치', '질감 표현']
+          },
+          {
+            week: 4,
+            title: '구성 원리',
+            description: '균형, 리듬, 강조, 통일의 구성 원리를 이해하고 적용합니다.',
+            activities: ['구성 연습', '레이아웃 디자인', '작품 분석']
+          }
+        ],
+        process: [
+          {
+            title: '관찰과 기록',
+            description: '주변 환경을 세심하게 관찰하고 시각적으로 기록하는 능력을 개발합니다.',
+            tools: ['스케치북', '연필', '색연필']
+          },
+          {
+            title: '분석과 해석',
+            description: '관찰한 내용을 분석하고 자신만의 관점으로 해석하는 과정을 학습합니다.',
+            tools: ['비주얼 저널', '마인드맵', '분석 차트']
+          },
+          {
+            title: '표현과 완성',
+            description: '분석한 내용을 다양한 매체를 통해 창의적으로 표현하고 완성합니다.',
+            tools: ['드로잉 도구', '페인트', '콜라주 재료']
+          }
+        ],
+        outcomes: [
+          {
+            title: '기초 드로잉 포트폴리오',
+            student: '김○○ 학생',
+            description: '12개월간의 기초 드로잉 성장 과정',
+            image: 'attached_assets/그림_그리는_여자_초_동영상_1757853306736.mp4'
+          },
+          {
+            title: '창의적 표현 작품집',
+            student: '이○○ 학생',
+            description: '개인적 해석이 돋보이는 창작 작품들',
+            image: 'attached_assets/집중해서_그림_그리는_사람_초_영상_1757853306735.mp4'
+          }
+        ]
       },
       grade2: {
         title: 'GRADE-2 (전공학별 핵심원리)',
-        content: `
+        description: '고2 학생들을 위한 심화 과정으로, 사고와 실기의 균형을 유지하며 보완과 실전 경험을 통해 탐구를 완성으로 확장하는 전환 단계입니다.',
+        duration: '12개월',
+        level: '심화',
+        stats: {
+          weeks: 48,
+          sessions: 144,
+          projects: 18
+        },
+        overview: `
           <h3>프로그램 개요</h3>
-          <p>고2 학생들을 위한 심화 과정으로, 사고와 실기의 균형을 유지하며 보완과 실전 경험을 통해 탐구를 완성으로 확장하는 전환 단계입니다.</p>
+          <p>고2 학생들을 위한 심화 과정으로, 전공별 특화된 표현 기법과 포트폴리오 완성에 중점을 둔 입시 준비 과정입니다.</p>
           
           <h3>교육 목표</h3>
           <ul>
@@ -1197,34 +1448,80 @@ class ProgramModalController {
             <li>창작 과정에서의 비판적 사고 개발</li>
           </ul>
           
-          <h3>전공별 커리큘럼</h3>
-          <ol>
-            <li><strong>회화 전공</strong> - 유화, 수채화, 아크릴 등 다양한 매체 경험</li>
-            <li><strong>조소 전공</strong> - 점토, 석고, 금속 등을 활용한 3차원 작품 제작</li>
-            <li><strong>디자인 전공</strong> - 시각 디자인, 제품 디자인 기초 이론과 실습</li>
-            <li><strong>건축 전공</strong> - 공간 설계와 구조 이해, 모형 제작</li>
-            <li><strong>공예 전공</strong> - 전통과 현대 공예 기법의 융합</li>
-          </ol>
-          
-          <h3>포트폴리오 관리</h3>
-          <p>개인별 작품 포트폴리오를 체계적으로 관리하며, 대학별 입시 요구사항에 맞춘 맞춤형 지도를 제공합니다.</p>
-          
-          <h3>실전 대비</h3>
-          <ul>
-            <li>모의 실기 시험을 통한 시간 관리 훈련</li>
-            <li>대학별 출제 경향 분석과 대비</li>
-            <li>면접 및 구술 시험 준비</li>
-          </ul>
-          
-          <h3>기간 및 일정</h3>
-          <p>12개월 과정으로 주 3회 수업을 기본으로 하며, 입시 일정에 맞춘 집중 과정도 운영합니다.</p>
-        `
+          <h3>특화 교육</h3>
+          <p>각 전공별 맞춤 커리큘럼과 대학별 입시 전략을 통해 체계적인 실기 실력 향상과 포트폴리오 완성을 지원합니다.</p>
+        `,
+        curriculum: [
+          {
+            week: 1,
+            title: '전공 선택과 분석',
+            description: '개인 성향과 목표 대학에 맞는 전공을 선택하고 심층 분석합니다.',
+            activities: ['적성 검사', '전공별 특성 분석', '대학 정보 수집']
+          },
+          {
+            week: 8,
+            title: '회화 전공 심화',
+            description: '유화, 수채화, 아크릴 등 다양한 매체를 통한 회화 기법을 마스터합니다.',
+            activities: ['매체별 기법 연습', '작품 제작', '크리틱 세션']
+          },
+          {
+            week: 16,
+            title: '포트폴리오 기획',
+            description: '개인 작품집의 전체적인 구성과 방향성을 설정합니다.',
+            activities: ['작품 선별', '구성 계획', '테마 설정']
+          },
+          {
+            week: 24,
+            title: '실전 모의고사',
+            description: '실제 입시와 동일한 조건에서 모의 실기 시험을 진행합니다.',
+            activities: ['시간 제한 실습', '결과 분석', '개선 방안 도출']
+          }
+        ],
+        process: [
+          {
+            title: '기초 실력 진단',
+            description: '현재 실력을 정확히 파악하고 개선 방향을 설정합니다.',
+            tools: ['실력 평가지', '분석 차트', '개선 계획서']
+          },
+          {
+            title: '전공별 특화 훈련',
+            description: '선택한 전공에 맞는 특화된 기법과 표현 방법을 집중 훈련합니다.',
+            tools: ['전공별 도구', '기법 매뉴얼', '참고 작품집']
+          },
+          {
+            title: '포트폴리오 완성',
+            description: '개인의 창작 철학과 기법이 담긴 완성도 높은 포트폴리오를 제작합니다.',
+            tools: ['작품집', '프레젠테이션', '디지털 포트폴리오']
+          }
+        ],
+        outcomes: [
+          {
+            title: '입시 포트폴리오',
+            student: '박○○ 학생',
+            description: '서울대 회화과 합격 포트폴리오',
+            image: 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4'
+          },
+          {
+            title: '전공별 작품집',
+            student: '최○○ 학생',
+            description: '홍익대 시각디자인과 합격 작품',
+            image: 'attached_assets/그림_그리는_여자_초_동영상_1757853306736.mp4'
+          }
+        ]
       },
       kickoff: {
         title: 'KICK-OFF (창의적 질문)',
-        content: `
+        description: '주차별 창의적 질문으로 자아와 환경 탐구의 시작점을 제공하는 12주 특별 프로그램입니다.',
+        duration: '12주',
+        level: '입문',
+        stats: {
+          weeks: 12,
+          sessions: 24,
+          projects: 12
+        },
+        overview: `
           <h3>프로그램 개요</h3>
-          <p>주차별 창의적 질문으로 자아와 환경 탐구의 시작점을 제공하는 12주 특별 프로그램입니다.</p>
+          <p>창의적 질문을 통해 사고의 확장과 자아 탐구를 시작하는 특별한 12주 프로그램입니다.</p>
           
           <h3>교육 목표</h3>
           <ul>
@@ -1234,34 +1531,38 @@ class ProgramModalController {
             <li>시각적 표현을 통한 아이디어 구체화</li>
           </ul>
           
-          <h3>주차별 주제</h3>
-          <ol>
-            <li><strong>1주차:</strong> "나는 누구인가?" - 자아 정체성 탐구</li>
-            <li><strong>2주차:</strong> "내 주변은 어떤 모습인가?" - 환경 관찰과 기록</li>
-            <li><strong>3주차:</strong> "변화하는 것들" - 시간과 변화의 인식</li>
-            <li><strong>4주차:</strong> "소통의 방법들" - 의사소통과 표현</li>
-            <li><strong>5주차:</strong> "감정의 색깔" - 감정 표현과 색채</li>
-            <li><strong>6주차:</strong> "상상과 현실" - 창의적 사고와 현실 인식</li>
-            <li><strong>7주차:</strong> "문제와 해결" - 문제 인식과 해결 과정</li>
-            <li><strong>8주차:</strong> "과거, 현재, 미래" - 시간의 연속성</li>
-            <li><strong>9주차:</strong> "관계의 의미" - 인간관계와 사회</li>
-            <li><strong>10주차:</strong> "아름다움이란?" - 미적 감각과 가치</li>
-            <li><strong>11주차:</strong> "나만의 언어" - 개성적 표현 개발</li>
-            <li><strong>12주차:</strong> "새로운 시작" - 성장과 발전</li>
-          </ol>
-          
-          <h3>활동 방식</h3>
-          <p>매주 제시되는 창의적 질문을 바탕으로 토론, 스케치, 콜라주, 글쓰기 등 다양한 방법으로 자신의 생각을 표현합니다.</p>
-          
-          <h3>성과 관리</h3>
-          <p>매주 개인별 성찰 일지를 작성하며, 12주 과정 완료 후 개인 전시회를 통해 성장 과정을 공유합니다.</p>
-        `
+          <h3>프로그램 특징</h3>
+          <p>매주 새로운 질문과 함께 다양한 표현 방법을 통해 자신만의 관점을 발견하고 표현하는 능력을 개발합니다.</p>
+        `,
+        curriculum: [
+          { week: 1, title: '나는 누구인가?', description: '자아 정체성 탐구와 시각적 표현', activities: ['자화상 그리기', '정체성 맵 작성', '개인 스토리 시각화'] },
+          { week: 4, title: '소통의 방법들', description: '다양한 의사소통 방식 탐구', activities: ['비언어적 표현', '상징과 기호', '감정 전달법'] },
+          { week: 8, title: '과거, 현재, 미래', description: '시간의 연속성과 변화 인식', activities: ['타임라인 제작', '미래 상상하기', '변화 기록'] },
+          { week: 12, title: '새로운 시작', description: '성장 과정 정리와 미래 계획', activities: ['성장 포트폴리오', '미래 비전', '개인 전시 준비'] }
+        ],
+        process: [
+          { title: '질문 생성', description: '창의적 사고를 자극하는 핵심 질문을 만들어냅니다.', tools: ['질문 생성기', '브레인스토밍', '마인드맵'] },
+          { title: '탐구와 관찰', description: '질문을 바탕으로 주변을 관찰하고 탐구합니다.', tools: ['관찰 일지', '스케치북', '카메라'] },
+          { title: '표현과 공유', description: '다양한 방법으로 아이디어를 표현하고 공유합니다.', tools: ['그리기 도구', '콜라주', '프레젠테이션'] }
+        ],
+        outcomes: [
+          { title: '창의적 질문 포트폴리오', student: '김○○ 학생', description: '12주간의 질문과 답변 여정', image: 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4' },
+          { title: '개인 성장 스토리', student: '이○○ 학생', description: '시각적으로 표현한 자아 탐구 결과', image: 'attached_assets/그림_그리는_여자_초_동영상_1757853306736.mp4' }
+        ]
       },
       stepzero: {
         title: 'STEP-ZERO (사고·기록·시각화)',
-        content: `
+        description: '사고발달 루틴으로 루브릭 피드백 습관을 구축하는 일일 훈련 프로그램입니다.',
+        duration: '지속형',
+        level: '기본',
+        stats: {
+          weeks: '∞',
+          sessions: '매일',
+          projects: '누적'
+        },
+        overview: `
           <h3>프로그램 개요</h3>
-          <p>사고발달 루틴으로 루브릭 피드백 습관을 구축하는 일일 훈련 프로그램입니다.</p>
+          <p>매일 15-20분의 짧은 루틴을 통해 체계적인 사고 습관과 기록 능력을 개발하는 지속형 프로그램입니다.</p>
           
           <h3>교육 목표</h3>
           <ul>
@@ -1271,37 +1572,24 @@ class ProgramModalController {
             <li>자기 성찰과 개선 능력 배양</li>
           </ul>
           
-          <h3>일일 루틴 (15-20분)</h3>
-          <ol>
-            <li><strong>질문 생성</strong> (3분) - 하루의 핵심 질문 설정</li>
-            <li><strong>관찰과 기록</strong> (5분) - 주변 환경과 상황 관찰 및 메모</li>
-            <li><strong>시각화</strong> (7분) - 스케치, 다이어그램, 마인드맵 등으로 표현</li>
-            <li><strong>성찰과 정리</strong> (3분) - 배운 점과 개선점 정리</li>
-            <li><strong>다음 연결</strong> (2분) - 내일로의 연결고리 설정</li>
-          </ol>
-          
-          <h3>루브릭 평가 항목</h3>
-          <ul>
-            <li><strong>창의성:</strong> 독창적이고 창의적인 접근</li>
-            <li><strong>논리성:</strong> 체계적이고 논리적인 사고</li>
-            <li><strong>표현력:</strong> 명확하고 효과적인 표현</li>
-            <li><strong>성찰력:</strong> 깊이 있는 자기 성찰과 개선</li>
-          </ul>
-          
-          <h3>12주 발전 과정</h3>
-          <ol>
-            <li><strong>1-3주:</strong> 기본 습관 형성 - 루틴 정착과 기초 훈련</li>
-            <li><strong>4-6주:</strong> 깊이 개발 - 관찰력과 표현력 향상</li>
-            <li><strong>7-9주:</strong> 연결 확장 - 다양한 영역과의 연결</li>
-            <li><strong>10-12주:</strong> 개인화 완성 - 개인만의 스타일 확립</li>
-          </ol>
-          
-          <h3>포트폴리오 관리</h3>
-          <p>주간 포트폴리오 시트를 통해 일주일간의 성장 과정을 정리하고, 월간 리뷰를 통해 장기 발전 방향을 설정합니다.</p>
-          
-          <h3>피드백 시스템</h3>
-          <p>개인별 맞춤 피드백과 동료 간 상호 피드백을 통해 지속적인 성장을 지원합니다.</p>
-        `
+          <h3>일일 루틴 구조</h3>
+          <p>질문 생성(3분) → 관찰과 기록(5분) → 시각화(7분) → 성찰과 정리(5분)의 체계적인 15-20분 루틴입니다.</p>
+        `,
+        curriculum: [
+          { week: '1일차', title: '루틴 설정', description: '개인 맞춤형 사고 루틴 설정 및 도구 준비', activities: ['루틴 계획', '도구 준비', '목표 설정'] },
+          { week: '1주차', title: '습관 형성', description: '매일 루틴 실행과 습관화 과정', activities: ['일일 실행', '피드백 수집', '조정 과정'] },
+          { week: '1개월', title: '루틴 안정화', description: '개인에게 최적화된 루틴으로 조정', activities: ['루틴 최적화', '효과 분석', '개선 방안'] },
+          { week: '지속', title: '성장과 발전', description: '지속적인 성장과 자기 개발', activities: ['성과 누적', '목표 재설정', '심화 학습'] }
+        ],
+        process: [
+          { title: '질문과 목표', description: '하루의 핵심 질문과 학습 목표를 설정합니다.', tools: ['목표 설정지', '질문 카드', '우선순위 매트릭스'] },
+          { title: '관찰과 기록', description: '주변 환경과 상황을 체계적으로 관찰하고 기록합니다.', tools: ['관찰 노트', '체크리스트', '메모 앱'] },
+          { title: '시각화와 정리', description: '수집한 정보를 시각적으로 정리하고 체계화합니다.', tools: ['다이어그램', '차트', '인포그래픽'] }
+        ],
+        outcomes: [
+          { title: '사고 발달 포트폴리오', student: '박○○ 학생', description: '6개월간의 사고 발달 과정 기록', image: 'attached_assets/집중해서_그림_그리는_사람_초_영상_1757853306735.mp4' },
+          { title: '루브릭 기반 자기평가', student: '최○○ 학생', description: '체계적인 자기 평가와 개선 과정', image: 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4' }
+        ]
       }
     };
     
