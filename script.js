@@ -1180,6 +1180,9 @@ class ProgramModalController {
     // Reset to overview tab
     this.switchTab('overview', false);
     
+    // Special handling for KICK-OFF program hero tiles
+    this.setupHeroTilesForProgram(program);
+    
     // Show modal
     this.modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1199,8 +1202,45 @@ class ProgramModalController {
     // Pause all hero videos
     this.pauseHeroVideos();
     
+    // Reset hero tiles to default state
+    this.resetHeroTiles();
+    
     // Reset current program
     this.currentProgram = null;
+  }
+  
+  setupHeroTilesForProgram(program) {
+    // Reset all tiles to default video state first
+    this.resetHeroTiles();
+    
+    // Special handling for KICK-OFF program
+    if (program === 'kickoff') {
+      const firstTile = this.modal.querySelector('.hero-video-tile.hero-tile-primary');
+      const firstVideo = firstTile.querySelector('.hero-tile-video');
+      
+      if (firstTile && firstVideo) {
+        // Hide the video and set the uploaded image as background
+        firstVideo.style.display = 'none';
+        firstTile.style.backgroundImage = 'url("attached_assets/Gemini_Generated_Image_7cdtbb7cdtbb7cdt_1758107119869.png")';
+        firstTile.style.backgroundSize = 'cover';
+        firstTile.style.backgroundPosition = 'center';
+        firstTile.style.backgroundRepeat = 'no-repeat';
+      }
+    }
+  }
+  
+  resetHeroTiles() {
+    const tiles = this.modal.querySelectorAll('.hero-video-tile');
+    tiles.forEach(tile => {
+      const video = tile.querySelector('.hero-tile-video');
+      if (video) {
+        video.style.display = 'block';
+      }
+      tile.style.backgroundImage = '';
+      tile.style.backgroundSize = '';
+      tile.style.backgroundPosition = '';
+      tile.style.backgroundRepeat = '';
+    });
   }
   
   switchTab(tabName, animate = true) {
