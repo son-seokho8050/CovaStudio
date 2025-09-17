@@ -1210,36 +1210,34 @@ class ProgramModalController {
   }
   
   setupAmbientVideoForProgram(program) {
-    // Special handling for KICK-OFF program
-    if (program === 'kickoff') {
-      const ambientVideo = this.modal.querySelector('.ambient-video');
-      
-      if (ambientVideo) {
-        // Replace video source with new uploaded video for KICK-OFF
-        const sources = ambientVideo.querySelectorAll('source');
-        if (sources.length > 0) {
-          sources[0].src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
-        } else {
-          // If no source tag, set src directly on video element
-          ambientVideo.src = 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
-        }
-        // Force video to reload with new source
-        ambientVideo.load();
-      }
-    } else {
-      // For other programs, use default video
-      const ambientVideo = this.modal.querySelector('.ambient-video');
-      
-      if (ambientVideo) {
-        const sources = ambientVideo.querySelectorAll('source');
-        if (sources.length > 0) {
-          sources[0].src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
-        } else {
-          ambientVideo.src = 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
-        }
-        ambientVideo.load();
-      }
+    const ambientVideo = this.modal.querySelector('.ambient-video');
+    
+    if (!ambientVideo || !ambientVideo.isConnected) {
+      console.warn('Ambient video element not found or not connected');
+      return;
     }
+
+    // Ensure autoplay attributes are set correctly
+    ambientVideo.muted = true;
+    ambientVideo.playsInline = true;
+    ambientVideo.autoplay = true;
+    ambientVideo.loop = true;
+    ambientVideo.preload = 'metadata';
+    
+    // Set video source based on program
+    const videoSrc = program === 'kickoff' 
+      ? 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4'
+      : 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+    
+    const sources = ambientVideo.querySelectorAll('source');
+    if (sources.length > 0) {
+      sources[0].src = videoSrc;
+    } else {
+      ambientVideo.src = videoSrc;
+    }
+    
+    // Force reload with new source
+    ambientVideo.load();
   }
   
   resetAmbientVideo() {
@@ -1379,15 +1377,29 @@ class ProgramModalController {
   
   startAmbientVideo() {
     const ambientVideo = this.modal.querySelector('.ambient-video');
-    if (ambientVideo) {
-      ambientVideo.currentTime = Math.random() * 5; // Start at random time
-      ambientVideo.play().catch(e => console.log('Ambient video autoplay failed:', e));
+    
+    if (!ambientVideo || !ambientVideo.isConnected || document.hidden) {
+      return;
     }
+    
+    // Ensure all autoplay requirements are met
+    ambientVideo.muted = true;
+    ambientVideo.playsInline = true;
+    
+    // Start at random time for variety
+    ambientVideo.currentTime = Math.random() * 5;
+    
+    // Attempt to play with proper error handling
+    ambientVideo.play().catch(e => {
+      // Silent fallback - show poster or static background
+      console.warn('Ambient video autoplay blocked by browser policy');
+      ambientVideo.style.opacity = '0.3';
+    });
   }
   
   pauseAmbientVideo() {
     const ambientVideo = this.modal.querySelector('.ambient-video');
-    if (ambientVideo) {
+    if (ambientVideo && ambientVideo.isConnected) {
       ambientVideo.pause();
     }
   }

@@ -2559,7 +2559,7 @@ summary:focus {
   }
 }
 
-/* Sculptural Tint Overlay */
+/* Sculptural Tint Overlay - Ensure no pointer interference */
 .modal-tint-overlay {
   position: absolute;
   top: 0;
@@ -2578,7 +2578,7 @@ summary:focus {
       rgba(0, 0, 0, 0.2) 80%);
 }
 
-/* Organic Sculptural Overlay */
+/* Organic Sculptural Overlay - Ensure no pointer interference */
 .modal-sculptural-overlay {
   position: absolute;
   top: 0;
@@ -2612,7 +2612,7 @@ summary:focus {
   }
 }
 
-/* Glass Content Panel - Fixed Scrolling with Animation */
+/* Glass Content Panel - Proper Scrolling */
 .modal-glass-panel {
   position: relative;
   z-index: 4;
@@ -2622,9 +2622,9 @@ summary:focus {
   border-radius: 12px;
   margin: 2rem;
   padding: 0;
-  height: calc(95vh - 6rem);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -2639,26 +2639,26 @@ summary:focus {
   transition-delay: 0.3s;
 }
 
-/* Custom scrollbar styling */
-.modal-glass-panel::-webkit-scrollbar {
+/* Custom scrollbar styling for content section */
+.modal-content-section::-webkit-scrollbar {
   width: 6px;
 }
 
-.modal-glass-panel::-webkit-scrollbar-track {
+.modal-content-section::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 3px;
 }
 
-.modal-glass-panel::-webkit-scrollbar-thumb {
+.modal-content-section::-webkit-scrollbar-thumb {
   background: rgba(227, 103, 69, 0.4);
   border-radius: 3px;
 }
 
-.modal-glass-panel::-webkit-scrollbar-thumb:hover {
+.modal-content-section::-webkit-scrollbar-thumb:hover {
   background: rgba(227, 103, 69, 0.6);
 }
 
-/* Add padding back to inner content with stagger animations */
+/* Fixed content sections with proper scrolling */
 .modal-hero-content {
   padding: 1.5rem 1.5rem 1rem 1.5rem;
   flex-shrink: 0;
@@ -2668,9 +2668,11 @@ summary:focus {
 }
 
 .modal-content-section {
-  padding: 0 1.5rem 1.5rem 1.5rem;
   flex: 1;
   min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 1.5rem 1.5rem 1.5rem;
   transform: translateY(20px);
   opacity: 0;
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
