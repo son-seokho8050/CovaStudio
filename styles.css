@@ -2541,6 +2541,97 @@ summary:focus {
   position: relative;
   overflow: hidden;
   background: #000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Artistic overlay inspired by uploaded abstract sculptural image */
+.hero-video-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(227, 103, 69, 0.18) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    rgba(227, 103, 69, 0.12) 60%,
+    rgba(40, 40, 40, 0.3) 100%
+  );
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  mix-blend-mode: overlay;
+}
+
+/* Organic flowing shapes for sculptural aesthetic */
+.hero-video-tile::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  right: -30%;
+  bottom: -30%;
+  background: 
+    radial-gradient(
+      ellipse 70% 50% at 25% 30%,
+      rgba(227, 103, 69, 0.15) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      ellipse 50% 70% at 75% 70%,
+      rgba(60, 60, 60, 0.2) 0%,
+      transparent 50%
+    ),
+    conic-gradient(
+      from 45deg at 50% 50%,
+      rgba(227, 103, 69, 0.08) 0deg,
+      transparent 90deg,
+      rgba(40, 40, 40, 0.15) 180deg,
+      transparent 270deg
+    );
+  z-index: 3;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: rotate(8deg) scale(1.2);
+  mix-blend-mode: soft-light;
+}
+
+/* Subtle texture overlay for gallery feel */
+.hero-video-tile .hero-tile-video {
+  position: relative;
+}
+
+.hero-video-tile .hero-tile-video::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(227, 103, 69, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px, 50px 50px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero-video-tile:hover::before {
+  opacity: 1;
+}
+
+.hero-video-tile:hover::after {
+  opacity: 1;
+  transform: rotate(-3deg) scale(1.05);
+}
+
+.hero-video-tile:hover .hero-tile-video::before {
+  opacity: 1;
 }
 
 .hero-tile-primary {
