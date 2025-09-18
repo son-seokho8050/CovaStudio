@@ -77,11 +77,24 @@ function initLoadingScreen() {
       console.log('Loading complete, showing completion animation');
       clearInterval(interval);
       
-      // Show completion animation
-      if (loadingComplete) {
-        loadingComplete.classList.add('show');
-        console.log('COVA 기초소양 100% animation triggered');
-      }
+      // Hide progress bar first
+      const loadingProgress = document.querySelector('.loading-progress');
+      const loadingText = document.querySelector('.loading-text');
+      const loadingSubtitle = document.querySelector('.loading-subtitle');
+      const loadingLogo = document.querySelector('.loading-logo');
+      
+      if (loadingProgress) loadingProgress.style.opacity = '0';
+      if (loadingText) loadingText.style.opacity = '0';
+      if (loadingSubtitle) loadingSubtitle.style.opacity = '0';
+      if (loadingLogo) loadingLogo.style.opacity = '0';
+      
+      // Show completion animation after short delay
+      setTimeout(() => {
+        if (loadingComplete) {
+          loadingComplete.classList.add('show');
+          console.log('COVA 기초소양 100% animation triggered and visible');
+        }
+      }, 500);
       
       // Hide loading screen after completion animation
       setTimeout(() => {
@@ -90,7 +103,7 @@ function initLoadingScreen() {
           loadingScreen.style.display = 'none';
           console.log('Loading screen hidden');
         }, 1200); // Longer fade out
-      }, 2500); // Wait for completion animation
+      }, 3500); // Wait longer for completion animation
     }
   }, 200); // Slower interval
 }
