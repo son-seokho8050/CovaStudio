@@ -2320,53 +2320,178 @@ summary:focus {
   border-radius: 12px;
   width: 95%;
   max-width: 1200px;
-  max-height: 90vh;
+  height: 85vh;
+  max-height: 85vh;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Modal Background Video */
-.modal-video-background {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 1 !important;
-  overflow: hidden !important;
-  border-radius: 12px !important;
-  display: block !important;
+/* Split View Container */
+.modal-split-container {
+  display: grid;
+  grid-template-columns: 3.5fr 2.5fr;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.modal-bg-video {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  transform: translate(-50%, -50%) !important;
-  object-fit: cover !important;
-  opacity: 1.0 !important;
-  filter: none !important;
-  z-index: 1 !important;
-  display: block !important;
+/* Media Panel (Left 60%) */
+.modal-media-panel {
+  position: relative;
+  overflow: hidden;
+  background: #000;
 }
 
+/* Content Panel (Right 40%) */
+.modal-content-panel {
+  position: relative;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hero Content in Content Panel */
+.modal-content-panel .modal-hero-content {
+  flex-shrink: 0;
+  padding: var(--space-6);
+  margin-bottom: 0;
+}
+
+.modal-content-panel .modal-header-enhanced {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+  position: relative;
+}
+
+.modal-content-panel .modal-title-enhanced {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  margin: 0;
+  margin-bottom: var(--space-2);
+}
+
+.modal-content-panel .modal-program-meta {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.modal-content-panel .program-duration-badge,
+.modal-content-panel .program-level-badge {
+  padding: var(--space-1) var(--space-3);
+  background: var(--bg-accent);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+.modal-content-panel .hero-description-text {
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+/* Enhanced close button positioning */
+.modal-content-panel .modal-close-enhanced {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--bg-accent);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+  padding: 0;
+}
+
+.modal-content-panel .modal-close-enhanced:hover {
+  background: var(--bg-sophisticated);
+  color: var(--text);
+  transform: scale(1.05);
+  border-color: var(--accent-sophisticated);
+}
+
+.modal-content-panel .modal-close-enhanced svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Modal Background Video - Updated for Split View */
+.modal-ambient-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ambient-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  opacity: 1.0;
+  filter: none;
+  z-index: 1;
+}
+
+/* Minimal Overlay for Video (0-20% gradient) */
+.modal-minimal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Legacy video overlay - keeping for compatibility */
 .modal-video-overlay {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.3) 0%,
     rgba(0, 0, 0, 0.1) 50%,
     rgba(0, 0, 0, 0.2) 100%
-  ) !important;
-  z-index: 2 !important;
+  );
+  z-index: 2;
 }
 
 .modal-header {
@@ -2482,9 +2607,9 @@ summary:focus {
 
 .modal-content-enhanced {
   width: 95vw;
-  max-width: 1400px;
-  height: 95vh;
-  max-height: 900px;
+  max-width: 1200px;
+  height: 80vh;
+  max-height: 80vh;
   border-radius: 16px;
   overflow: hidden;
   background: var(--bg);
@@ -2492,8 +2617,7 @@ summary:focus {
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
+  display: block;
   transform: scale(0.9) translateY(40px);
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -2510,29 +2634,27 @@ summary:focus {
   overflow: hidden;
 }
 
-.modal-ambient-background {
+/* Updated for Split View - Media Panel Video */
+.modal-media-panel .modal-ambient-background {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 1;
-  pointer-events: none;
   overflow: hidden;
-  border-radius: 12px;
 }
 
-.ambient-video {
+.modal-media-panel .ambient-video {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.1);
-  width: 110%;
-  height: 110%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  filter: blur(2px) saturate(1.2) brightness(1.1) contrast(1.0);
-  opacity: 0.9;
-  animation: ambient-ken-burns 30s ease-in-out infinite alternate;
+  filter: none;
+  opacity: 1.0;
   z-index: 1;
 }
 
@@ -2955,35 +3077,37 @@ summary:focus {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* Standard modal close button - consistent styling */
 .modal-close-enhanced {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  background: #ff0000 !important;
-  border: 3px solid #ffffff !important;
-  color: #ffffff !important;
-  cursor: pointer !important;
-  padding: 10px !important;
-  border-radius: 50% !important;
-  transition: all 0.2s ease !important;
-  width: 48px !important;
-  height: 48px !important;
-  z-index: 999999 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  flex-shrink: 0;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8) !important;
-  text-align: center !important;
-  line-height: 1 !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--bg-accent);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 100;
+  padding: 0;
+  backdrop-filter: blur(10px);
 }
 
 .modal-close-enhanced:hover {
-  background: #ff3333 !important;
-  border-color: #ffffff !important;
-  transform: scale(1.1) !important;
-  color: #ffffff;
+  background: var(--bg-sophisticated);
+  color: var(--text);
   transform: scale(1.05);
+  border-color: var(--accent-sophisticated);
+}
+
+.modal-close-enhanced svg {
+  width: 18px;
+  height: 18px;
 }
 
 .hero-description-text {
@@ -3004,7 +3128,71 @@ summary:focus {
   position: relative;
 }
 
-/* Interactive Content Section */
+/* Tab content area with proper scrolling */
+.modal-content-panels {
+  flex: 1;
+  padding: 0 var(--space-6) var(--space-6) var(--space-6);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+}
+
+.modal-panel {
+  display: none;
+  min-height: 200px;
+}
+
+.modal-panel.active {
+  display: block;
+}
+
+/* Tab navigation in right panel */
+.modal-tabs {
+  padding: 0 var(--space-6);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-4);
+}
+
+.modal-tabs-container {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-tab {
+  background: none;
+  border: none;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  transition: color 0.2s ease;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+
+.modal-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--accent-sophisticated);
+}
+
+.modal-tab:hover {
+  color: var(--text);
+}
+
+.tab-number {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+  margin-right: var(--space-1);
+}
+
+.tab-label {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Interactive Content Section - Legacy compatibility */
 .modal-content-section {
   flex: 1;
   display: flex;
@@ -3018,8 +3206,84 @@ summary:focus {
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Responsive design for modal */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 98%;
+    height: 95vh;
+    max-height: 95vh;
+    margin: 2.5vh auto;
+  }
+  
+  .modal-split-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 40vh 1fr;
+  }
+  
+  .modal-media-panel {
+    order: 1;
+  }
+  
+  .modal-content-panel {
+    order: 2;
+  }
+  
+  .modal-content-panel .modal-hero-content {
+    padding: var(--space-4);
+  }
+  
+  .modal-tabs {
+    padding: 0 var(--space-4);
+  }
+  
+  .modal-content-panels {
+    padding: 0 var(--space-4) var(--space-4) var(--space-4);
+  }
+  
+  .modal-tab {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+  }
+  
+  .modal-content-panel .modal-title-enhanced {
+    font-size: var(--text-xl);
+  }
+  
+  .modal-emergency-close {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .modal-split-container {
+    grid-template-rows: 35vh 1fr;
+  }
+  
+  .modal-content-panel .modal-hero-content {
+    padding: var(--space-3);
+  }
+  
+  .modal-tabs {
+    padding: 0 var(--space-3);
+  }
+  
+  .modal-content-panels {
+    padding: 0 var(--space-3) var(--space-3) var(--space-3);
+  }
+}
+
 /* Tab Navigation - COVA Style */
-.modal-tabs {
+.modal-tabs-old {
   position: relative;
   z-index: 1700;
   background: rgba(0, 0, 0, 0.3);

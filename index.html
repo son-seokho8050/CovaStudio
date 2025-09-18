@@ -390,162 +390,152 @@ window.addEventListener('DOMContentLoaded', function() {
     <!-- Emergency Close Button - Always Visible -->
     <button class="modal-emergency-close" data-testid="button-modal-emergency-close" style="position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.15); color: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%; width: 50px; height: 50px; z-index: 999999; cursor: pointer; font-size: 18px; font-weight: normal; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); transition: all 0.3s ease;">✕</button>
     
-    <!-- Ambient Background Video -->
-    <div class="modal-ambient-background">
-      <video muted autoplay loop playsinline preload="metadata" class="ambient-video">
-        <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4" type="video/mp4">
-      </video>
-    </div>
-    
-    <!-- Sculptural Tint Overlay -->
-    <div class="modal-tint-overlay"></div>
-    
-    <!-- Organic Ribbon SVG Overlay -->
-    <div class="modal-sculptural-overlay">
-      <svg viewBox="0 0 800 600" class="sculptural-ribbon">
-        <defs>
-          <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:rgba(227,103,69,0.12);stop-opacity:1" />
-            <stop offset="50%" style="stop-color:rgba(227,103,69,0.08);stop-opacity:1" />
-            <stop offset="100%" style="stop-color:rgba(227,103,69,0.04);stop-opacity:1" />
-          </linearGradient>
-        </defs>
-        <path d="M100,200 Q300,150 500,200 T700,250 L680,280 Q480,230 280,280 T60,230 Z" 
-              fill="url(#ribbonGradient)" 
-              stroke="rgba(227,103,69,0.15)" 
-              stroke-width="1"
-              class="ribbon-path"/>
-      </svg>
-    </div>
-    
-    <!-- Glass Content Panel -->
-    <div class="modal-glass-panel">
-      <!-- Hero Content -->
-      <div class="modal-hero-content">
-        <div class="modal-header-enhanced">
-          <h2 id="modalTitle" class="modal-title-enhanced"></h2>
-          <div class="modal-program-meta">
-            <span id="modalDuration" class="program-duration-badge"></span>
-            <span id="modalLevel" class="program-level-badge"></span>
-          </div>
-          <button class="modal-close modal-close-enhanced" data-testid="button-modal-close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+    <!-- Split View Container -->
+    <div class="modal-split-container">
+      
+      <!-- Left Panel: Media Panel (60%) -->
+      <div class="modal-media-panel">
+        <!-- Ambient Background Video -->
+        <div class="modal-ambient-background">
+          <video muted autoplay loop playsinline preload="metadata" class="ambient-video">
+            <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4" type="video/mp4">
+          </video>
         </div>
         
-        <div class="modal-hero-description">
-          <p id="modalDescription" class="hero-description-text"></p>
-        </div>
-      </div>
-    </div>
-    
-      <!-- Interactive Content Section -->
-      <div class="modal-content-section">
-      
-      <!-- Tab Navigation -->
-      <div class="modal-tabs">
-        <div class="modal-tabs-container">
-          <button class="modal-tab active" data-tab="overview" data-testid="tab-overview">
-            <span class="tab-number">01</span>
-            <span class="tab-label">개요</span>
-          </button>
-          <button class="modal-tab" data-tab="curriculum" data-testid="tab-curriculum">
-            <span class="tab-number">02</span>
-            <span class="tab-label">커리큘럼</span>
-          </button>
-          <button class="modal-tab" data-tab="process" data-testid="tab-process">
-            <span class="tab-number">03</span>
-            <span class="tab-label">과정</span>
-          </button>
-          <button class="modal-tab" data-tab="outcomes" data-testid="tab-outcomes">
-            <span class="tab-number">04</span>
-            <span class="tab-label">성과</span>
-          </button>
-        </div>
-        <div class="modal-tab-indicator"></div>
+        <!-- Minimal Gradient Overlay (0-20% top/bottom) -->
+        <div class="modal-minimal-overlay"></div>
       </div>
       
-      <!-- Tab Content Panels -->
-      <div class="modal-content-panels">
+      <!-- Right Panel: Content Panel (40%) -->
+      <div class="modal-content-panel">
         
-        <!-- Overview Panel -->
-        <div class="modal-panel active" data-panel="overview">
-          <div class="panel-grid">
-            <div class="panel-main">
-              <div id="overviewContent" class="overview-content">
-                <!-- Dynamic content will be inserted here -->
-              </div>
+        <!-- Hero Content -->
+        <div class="modal-hero-content">
+          <div class="modal-header-enhanced">
+            <h2 id="modalTitle" class="modal-title-enhanced"></h2>
+            <div class="modal-program-meta">
+              <span id="modalDuration" class="program-duration-badge"></span>
+              <span id="modalLevel" class="program-level-badge"></span>
             </div>
-            <div class="panel-sidebar">
-              <div class="program-stats">
-                <div class="stat-item">
-                  <div class="stat-number" id="statWeeks">12</div>
-                  <div class="stat-label">주차</div>
+            <button class="modal-close modal-close-enhanced" data-testid="button-modal-close">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="modal-hero-description">
+            <p id="modalDescription" class="hero-description-text"></p>
+          </div>
+        </div>
+        
+          <!-- Tab Navigation -->
+          <div class="modal-tabs">
+            <div class="modal-tabs-container">
+              <button class="modal-tab active" data-tab="overview" data-testid="tab-overview">
+                <span class="tab-number">01</span>
+                <span class="tab-label">개요</span>
+              </button>
+              <button class="modal-tab" data-tab="curriculum" data-testid="tab-curriculum">
+                <span class="tab-number">02</span>
+                <span class="tab-label">커리큘럼</span>
+              </button>
+              <button class="modal-tab" data-tab="process" data-testid="tab-process">
+                <span class="tab-number">03</span>
+                <span class="tab-label">과정</span>
+              </button>
+              <button class="modal-tab" data-tab="outcomes" data-testid="tab-outcomes">
+                <span class="tab-number">04</span>
+                <span class="tab-label">성과</span>
+              </button>
+            </div>
+            <div class="modal-tab-indicator"></div>
+          </div>
+          
+          <!-- Tab Content Panels -->
+          <div class="modal-content-panels">
+            
+            <!-- Overview Panel -->
+            <div class="modal-panel active" data-panel="overview">
+              <div class="panel-grid">
+                <div class="panel-main">
+                  <div id="overviewContent" class="overview-content">
+                    <!-- Dynamic content will be inserted here -->
+                  </div>
                 </div>
-                <div class="stat-item">
-                  <div class="stat-number" id="statSessions">24</div>
-                  <div class="stat-label">세션</div>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-number" id="statProjects">6</div>
-                  <div class="stat-label">프로젝트</div>
+                <div class="panel-sidebar">
+                  <div class="program-stats">
+                    <div class="stat-item">
+                      <div class="stat-number" id="statWeeks">12</div>
+                      <div class="stat-label">주차</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-number" id="statSessions">24</div>
+                      <div class="stat-label">세션</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-number" id="statProjects">6</div>
+                      <div class="stat-label">프로젝트</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            
+            <!-- Curriculum Panel -->
+            <div class="modal-panel" data-panel="curriculum">
+              <div class="curriculum-timeline">
+                <div id="curriculumContent" class="curriculum-content">
+                  <!-- Dynamic curriculum timeline will be inserted here -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Process Panel -->
+            <div class="modal-panel" data-panel="process">
+              <div class="process-visualization">
+                <div id="processContent" class="process-content">
+                  <!-- Dynamic process diagrams will be inserted here -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Outcomes Panel -->
+            <div class="modal-panel" data-panel="outcomes">
+              <div class="outcomes-gallery">
+                <div id="outcomesContent" class="outcomes-content">
+                  <!-- Dynamic outcomes gallery will be inserted here -->
+                </div>
+              </div>
+            </div>
+            
           </div>
-        </div>
-        
-        <!-- Curriculum Panel -->
-        <div class="modal-panel" data-panel="curriculum">
-          <div class="curriculum-timeline">
-            <div id="curriculumContent" class="curriculum-content">
-              <!-- Dynamic curriculum timeline will be inserted here -->
+          
+          <!-- Modal Footer -->
+          <div class="modal-footer-enhanced">
+            <div class="modal-actions">
+              <button class="modal-action-secondary" data-testid="button-modal-info">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                상세 정보
+              </button>
+              <button class="modal-action-primary" data-testid="button-modal-apply">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                프로그램 신청
+              </button>
             </div>
           </div>
         </div>
         
-        <!-- Process Panel -->
-        <div class="modal-panel" data-panel="process">
-          <div class="process-visualization">
-            <div id="processContent" class="process-content">
-              <!-- Dynamic process diagrams will be inserted here -->
-            </div>
-          </div>
-        </div>
-        
-        <!-- Outcomes Panel -->
-        <div class="modal-panel" data-panel="outcomes">
-          <div class="outcomes-gallery">
-            <div id="outcomesContent" class="outcomes-content">
-              <!-- Dynamic outcomes gallery will be inserted here -->
-            </div>
-          </div>
-        </div>
-        
-      </div>
+      </div> <!-- End of modal-content-panel -->
       
-      <!-- Modal Footer -->
-      <div class="modal-footer-enhanced">
-      <div class="modal-actions">
-        <button class="modal-action-secondary" data-testid="button-modal-info">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          상세 정보
-        </button>
-        <button class="modal-action-primary" data-testid="button-modal-apply">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          프로그램 신청
-        </button>
-      </div>
-    </div>
+    </div> <!-- End of modal-split-container -->
     
-  </div>
+  </div> <!-- End of modal-content-enhanced -->
 </div>
 
 <!-- 기존 로딩 스크린 제거됨 -->
