@@ -74,11 +74,11 @@ function initCovaLoadingScreen() {
   // 다른 모든 요소들 숨기기
   document.body.style.overflow = 'hidden';
   
-  // 메인 콘텐츠 완전히 숨기기
-  const allElements = document.querySelectorAll('body > *:not(#covaLoadingScreen):not(script)');
-  allElements.forEach(el => {
-    el.style.display = 'none';
-  });
+  // 메인 콘텐츠 완전히 숨기기 - 임시 비활성화
+  // const allElements = document.querySelectorAll('body > *:not(#covaLoadingScreen):not(script)');
+  // allElements.forEach(el => {
+  //   el.style.display = 'none';
+  // });
   
   console.log('COVA loading screen visibility forced and body locked');
   console.log('Loading screen element:', loadingScreen);
@@ -944,7 +944,7 @@ class TileMosaicController {
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize COVA loading screen first
-  initCovaLoadingScreen();
+  // initCovaLoadingScreen(); // 임시 비활성화 - 기존 홈페이지 복원
   
   // Initialize dynamic text effects after a short delay
   setTimeout(() => {
