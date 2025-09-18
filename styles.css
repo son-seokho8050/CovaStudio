@@ -215,14 +215,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* COVA Opening Sequence */
-.opening-sequence {
+/* COVA Loading Screen */
+.cova-loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--bg);
+  background: #000000;
   z-index: 10000;
   display: flex !important;
   align-items: center;
@@ -230,156 +230,55 @@ body {
   opacity: 1 !important;
   visibility: visible !important;
   transition: opacity 1s ease, visibility 1s ease;
-  pointer-events: all;
 }
 
-.opening-sequence.hidden {
+.cova-loading-screen.hidden {
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
-.opening-stage {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.8s ease;
-  z-index: 1;
-}
-
-.opening-stage.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.stage-content {
+.loading-content-center {
   text-align: center;
-}
-
-/* Stage 1: COVA */
-.opening-logo {
-  font-family: var(--font-display);
-  font-size: 5rem;
-  font-weight: 700;
-  color: var(--text);
-  letter-spacing: -0.02em;
-  transform: translateY(50px) scale(0.8);
-  opacity: 0;
-  transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.opening-stage.active .opening-logo {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-/* Stage 2: 기초소양 */
-.opening-subtitle {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 400;
-  color: var(--text);
-  letter-spacing: 0.1em;
-  transform: translateY(50px) scale(0.9);
-  opacity: 0;
-  transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.opening-stage.active .opening-subtitle {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-/* Stage 3: Progress */
-.opening-progress-container {
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-.opening-percentage {
-  font-size: 6rem;
+.cova-main-logo {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.cova-loading-text {
+  font-size: 1rem;
+  color: #ffffff;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+}
+
+.cova-percentage {
+  font-size: 5rem;
   font-weight: 100;
   font-family: var(--font-display);
-  color: var(--text);
+  color: #ffffff;
   letter-spacing: -0.05em;
   line-height: 1;
-  transform: translateY(30px);
-  opacity: 0;
-  transition: all 0.8s ease;
+  margin-bottom: 3rem;
 }
 
-.opening-stage.active .opening-percentage {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.opening-progress-bar {
-  width: 300px;
-  height: 2px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  transform: scaleX(0);
-  transition: transform 0.8s ease;
-}
-
-.opening-stage.active .opening-progress-bar {
-  transform: scaleX(1);
-}
-
-.opening-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--text) 0%, var(--text-secondary) 100%);
-  width: 0%;
-  transition: width 0.1s ease;
-  border-radius: 2px;
-}
-
-.opening-message {
-  font-size: 0.875rem;
-  color: var(--text-tertiary);
+.cova-footer-text {
+  font-size: 0.75rem;
+  color: #ffffff;
   font-weight: 400;
-  letter-spacing: 0.05em;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.8s ease 0.5s;
-}
-
-.opening-stage.active .opening-message {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* Opening animations */
-@keyframes openingFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes openingSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  letter-spacing: 0.1em;
+  opacity: 0.7;
 }
 
 /* nagi Typography Hierarchy */

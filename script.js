@@ -43,93 +43,53 @@ function initTheme(){
   });
 }
 
-// COVA Opening Sequence
-function initOpeningSequence() {
-  console.log('Initializing COVA opening sequence...');
-  const openingSequence = document.getElementById('openingSequence');
-  const stage1 = document.getElementById('stage1');
-  const stage2 = document.getElementById('stage2');
-  const stage3 = document.getElementById('stage3');
-  const percentage = document.querySelector('.opening-percentage');
-  const progressFill = document.querySelector('.opening-progress-fill');
+// COVA Loading Screen
+function initCovaLoadingScreen() {
+  console.log('Initializing COVA loading screen...');
+  const loadingScreen = document.getElementById('covaLoadingScreen');
+  const percentage = document.querySelector('.cova-percentage');
   
-  if (!openingSequence || !stage1 || !stage2 || !stage3) {
-    console.error('Opening sequence elements not found');
+  if (!loadingScreen || !percentage) {
+    console.error('COVA loading screen elements not found');
     return;
   }
   
   // 강제로 보이게 설정
-  openingSequence.style.display = 'flex';
-  openingSequence.style.opacity = '1';
-  openingSequence.style.visibility = 'visible';
-  openingSequence.style.zIndex = '10000';
-  openingSequence.classList.remove('hidden');
+  loadingScreen.style.display = 'flex';
+  loadingScreen.style.opacity = '1';
+  loadingScreen.style.visibility = 'visible';
+  loadingScreen.style.zIndex = '10000';
+  loadingScreen.classList.remove('hidden');
   
   // 다른 모든 요소들 숨기기
   document.body.style.overflow = 'hidden';
   
-  console.log('Opening sequence visibility forced and body locked');
+  console.log('COVA loading screen visibility forced and body locked');
   
-  let currentStage = 0;
-  
-  function showStage(stageNumber) {
-    console.log(`Showing opening stage ${stageNumber}`);
+  // Start progress animation immediately
+  let progress = 0;
+  const progressInterval = setInterval(() => {
+    progress += Math.random() * 4 + 1; // Random increment
+    if (progress > 100) progress = 100;
     
-    // Hide all stages
-    [stage1, stage2, stage3].forEach(stage => {
-      stage.classList.remove('active');
-    });
+    percentage.textContent = Math.floor(progress) + '%';
     
-    // Show current stage
-    switch(stageNumber) {
-      case 1:
-        stage1.classList.add('active');
-        setTimeout(() => showStage(2), 2000); // Show COVA for 2 seconds
-        break;
-      case 2:
-        stage2.classList.add('active');
-        setTimeout(() => showStage(3), 2000); // Show 기초소양 for 2 seconds
-        break;
-      case 3:
-        stage3.classList.add('active');
-        // Start progress animation
-        setTimeout(() => startProgressAnimation(), 800);
-        break;
-    }
-  }
-  
-  function startProgressAnimation() {
-    console.log('Starting progress animation...');
-    let progress = 0;
-    
-    const progressInterval = setInterval(() => {
-      progress += Math.random() * 6 + 2; // Random increment
-      if (progress > 100) progress = 100;
+    if (progress >= 100) {
+      clearInterval(progressInterval);
+      console.log('COVA loading complete, hiding...');
       
-      if (percentage) percentage.textContent = Math.floor(progress) + '%';
-      if (progressFill) progressFill.style.width = progress + '%';
-      
-      if (progress >= 100) {
-        clearInterval(progressInterval);
-        console.log('Opening sequence complete, hiding...');
-        
-        // Hide opening sequence after completion
+      // Hide loading screen after completion
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        // Restore body scroll
+        document.body.style.overflow = '';
         setTimeout(() => {
-          openingSequence.classList.add('hidden');
-          // Restore body scroll
-          document.body.style.overflow = '';
-          setTimeout(() => {
-            openingSequence.style.display = 'none';
-            console.log('Opening sequence hidden and body scroll restored');
-          }, 1000);
-        }, 1500);
-      }
-    }, 150);
-  }
-  
-  // Start the sequence
-  console.log('Starting COVA opening sequence...');
-  showStage(1);
+          loadingScreen.style.display = 'none';
+          console.log('COVA loading screen hidden and body scroll restored');
+        }, 1000);
+      }, 1500);
+    }
+  }, 100);
 }
 
 // Section Progress Tracking
@@ -959,8 +919,8 @@ class TileMosaicController {
 
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
-  // Initialize opening sequence first
-  initOpeningSequence();
+  // Initialize COVA loading screen first
+  initCovaLoadingScreen();
   
   // Initialize dynamic text effects after a short delay
   setTimeout(() => {
