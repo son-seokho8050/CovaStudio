@@ -74,6 +74,12 @@ function initCovaLoadingScreen() {
   // 다른 모든 요소들 숨기기
   document.body.style.overflow = 'hidden';
   
+  // 메인 콘텐츠 완전히 숨기기
+  const allElements = document.querySelectorAll('body > *:not(#covaLoadingScreen):not(script)');
+  allElements.forEach(el => {
+    el.style.display = 'none';
+  });
+  
   console.log('COVA loading screen visibility forced and body locked');
   console.log('Loading screen element:', loadingScreen);
   console.log('Loading screen display:', loadingScreen.style.display);
@@ -85,7 +91,7 @@ function initCovaLoadingScreen() {
     console.log('Starting COVA loading progress...');
     let progress = 0;
     const progressInterval = setInterval(() => {
-      progress += Math.random() * 2 + 0.5; // Much slower increment
+      progress += Math.random() * 1 + 0.2; // Extremely slow increment
       if (progress > 100) progress = 100;
       
       percentage.textContent = Math.floor(progress) + '%';
@@ -104,9 +110,9 @@ function initCovaLoadingScreen() {
             loadingScreen.style.display = 'none';
             console.log('COVA loading screen hidden and body scroll restored');
           }, 1000);
-        }, 2000); // Longer display time at 100%
+        }, 5000); // Much longer display time at 100%
       }
-    }, 200); // Much slower interval
+    }, 500); // Much much slower interval
   }, 500); // Initial delay to ensure visibility
 }
 
