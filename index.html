@@ -3,69 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COVA - 간단한 Split View</title>
-    <meta name="description" content="COVA 프로그램 소개 - 간단한 Split View 레이아웃">
+    <title>COVA - 기초소양으로 완성하는 창의 교육 시스템</title>
+    <meta name="description" content="COVA는 창의적 사고와 체계적 학습 방법론을 통해 학생들의 잠재력을 개발하는 혁신적인 교육 프로그램입니다.">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Split View Container -->
-    <div class="split-container">
-        <!-- Video Pane (Left 60%) -->
-        <div class="video-pane">
-            <!-- 
-                비디오 교체 방법:
-                1. attached_assets 폴더에 새 비디오 파일 업로드
-                2. 아래 src 속성을 새 파일 경로로 변경
-                3. 예: src="attached_assets/새_비디오_파일.mp4"
-            -->
-            <video 
-                id="main-video"
-                controls 
-                muted 
-                playsinline
-                data-testid="video-main"
-            >
-                <source src="attached_assets/남성_강사의_스케치_수업_1758107827768.mp4" type="video/mp4">
-                <p>브라우저가 비디오를 지원하지 않습니다.</p>
-            </video>
-        </div>
-
-        <!-- Text Pane (Right 40%) -->
-        <div class="text-pane">
-            <h1>COVA 프로그램</h1>
-            <h2>체계적 미술교육 시스템</h2>
-            
-            <p>COVA는 '생각하며 그리는 학생'을 만드는 코코미술학원의 핵심 교육 시스템입니다. 고1 탐구 중심 훈련부터 고2 실기력 강화까지 체계적인 학습 방법론을 제공합니다.</p>
-
-            <h3>핵심 교육철학</h3>
-            <ul>
-                <li><strong>과정 중심의 사고</strong> - 결과보다 과정을 중시하는 학습 접근법</li>
-                <li><strong>개념을 언어화하는 능력</strong> - 시각적 사고를 논리적 언어로 표현</li>
-                <li><strong>비교와 연결을 통한 탐구</strong> - 다양한 관점에서의 분석적 사고</li>
-            </ul>
-
-            <h3>프로그램 특징</h3>
-            <p>COVA 프로그램은 단계별 맞춤 커리큘럼과 과정 중심의 성장을 지원합니다. 학생들의 사고력 향상을 위한 '기초소양' 교육에 중점을 둡니다.</p>
-
-            <h4>KICK-OFF 프로그램</h4>
-            <p>창의적 질문을 통한 시작 프로그램으로, 12주 과정을 통해 학생들의 기초 사고력을 개발합니다.</p>
-
-            <h4>ESSENTIAL 프로그램</h4>
-            <p>필수 기본기 훈련 프로그램으로, 체계적인 기초 실력 향상을 목표로 합니다.</p>
-
-            <h4>UPGRADE 프로그램</h4>
-            <p>심화 과정으로 실기력 강화와 개별 맞춤 지도를 통한 실력 향상을 추구합니다.</p>
-
-            <h3>학습 방법론</h3>
-            <p>과정을 기록하고, 생각을 언어와 그림으로 증명하며, 탐구에서 실전까지 이어지는 '성장' 중심의 교육을 제공합니다.</p>
-
-            <p>중등, 고1/2 미대입시 기초소양 학습 루프를 통해 체계적이고 지속적인 성장을 지원합니다.</p>
-
-            <h3>연락처</h3>
-            <p>더 자세한 정보나 상담을 원하시면 코코미술학원으로 문의해 주세요.</p>
+    <!-- COVA Loading Screen -->
+    <div id="covaLoadingScreen" class="cova-loading-screen">
+        <div class="loading-content-center">
+            <div class="cova-main-logo">COVA</div>
+            <div class="cova-loading-text">기초소양으로 완성하는</div>
+            <div class="cova-percentage">0%</div>
+            <div class="cova-footer-text">창의 교육 시스템 로딩 중...</div>
         </div>
     </div>
 
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="brand">
+                <div class="logo">COVA</div>
+                <div class="tagline">기초소양으로 완성하는</div>
+            </div>
+            
+            <nav class="nav">
+                <button class="nav-toggle" aria-label="메뉴 토글">
+                    <span>메뉴</span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-stacked active">
+                        <span class="nav-number">01</span>
+                        <span class="nav-text">홈</span>
+                    </a></li>
+                    <li><a href="#programs" class="nav-stacked">
+                        <span class="nav-number">02</span>
+                        <span class="nav-text">프로그램</span>
+                    </a></li>
+                    <li><a href="#philosophy" class="nav-stacked">
+                        <span class="nav-number">03</span>
+                        <span class="nav-text">철학</span>
+                    </a></li>
+                    <li><a href="#results" class="nav-stacked">
+                        <span class="nav-number">04</span>
+                        <span class="nav-text">성과</span>
+                    </a></li>
+                    <li><a href="#contact" class="nav-stacked">
+                        <span class="nav-number">05</span>
+                        <span class="nav-text">문의</span>
+                    </a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-controls">
+                <button id="performance-toggle" class="performance-toggle" aria-label="성능 모드 토글">
+                    <span class="toggle-icon">⚡</span>
+                    <span class="toggle-text">성능 모드</span>
+                </button>
+                <button id="themeToggle" class="theme-toggle" aria-label="테마 토글">🌙</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero section">
+            <!-- Dynamic Video Mosaic Background -->
+            <div class="video-mosaic-container">
+                <!-- Video Tiles with proper data attributes -->
+                <div class="video-tile" data-tile="tile-1">
+                    <video muted loop playsinline data-video="video-1">
+                        <source src="attached_assets/그림_그리는_여자_초_동영상_1757853306736.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-2">
+                    <video muted loop playsinline data-video="video-2">
+                        <source src="attached_assets/남성_강사의_스케치_수업_1758107827768.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-3">
+                    <video muted loop playsinline data-video="video-3">
+                        <source src="attached_assets/그림_그리는_여자를_보는_사람들_영상_1757853306736.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-4">
+                    <video muted loop playsinline data-video="video-4">
+                        <source src="attached_assets/그림_보며_웃는_사람들_영상_제작_1757853306737.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-5">
+                    <video muted loop playsinline data-video="video-5">
+                        <source src="attached_assets/그림에_대해_이야기하는_즐거운_사람들_1757853306737.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-6">
+                    <video muted loop playsinline data-video="video-6">
+                        <source src="attached_assets/신나는_점프_영상_생성_1757853306737.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-7">
+                    <video muted loop playsinline data-video="video-7">
+                        <source src="attached_assets/웃으며_반기는_여자_동영상_1757853306738.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-tile" data-tile="tile-8">
+                    <video muted loop playsinline data-video="video-8">
+                        <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757853306735.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            
+            <!-- Film Effects -->
+            <div class="film-vignette"></div>
+            
+            <!-- Hero Content -->
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title-dynamic">
+                        기초소양으로<br>
+                        완성하는<br>
+                        COVA
+                    </h1>
+                    <p class="hero-subtitle text-reveal">
+                        창의적 사고와 체계적 학습 방법론을 통해<br>
+                        학생들의 잠재력을 개발하는 혁신적인 교육 프로그램
+                    </p>
+                    <div class="hero-actions">
+                        <button class="hero-button primary" data-program="kickoff">프로그램 시작하기</button>
+                        <button class="hero-button secondary" onclick="document.getElementById('programs').scrollIntoView({behavior: 'smooth'})">더 알아보기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section id="programs" class="programs section">
+            <div class="container">
+                <h2 class="section-title-dynamic">COVA 프로그램</h2>
+                <p class="section-subtitle text-reveal">단계별 맞춤 커리큘럼으로 체계적인 성장을 지원합니다</p>
+                
+                <!-- Program Carousel -->
+                <div class="program-carousel">
+                    <div class="carousel-controls">
+                        <button id="carouselPrev" class="carousel-btn prev" aria-label="이전 프로그램">‹</button>
+                        <button id="carouselNext" class="carousel-btn next" aria-label="다음 프로그램">›</button>
+                    </div>
+                    
+                    <div class="carousel-track-container">
+                        <div id="carouselTrack" class="carousel-track">
+                            <!-- Program Cards -->
+                            <div class="program-card" data-program="kickoff">
+                                <div class="card-header">
+                                    <h3>KICK-OFF</h3>
+                                    <span class="card-badge">시작</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>창의적 질문을 통한 시작 프로그램</p>
+                                    <ul>
+                                        <li>12주 과정</li>
+                                        <li>기초 사고력 개발</li>
+                                        <li>질문 중심 학습</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="duration">12주</span>
+                                    <span class="level">입문</span>
+                                </div>
+                            </div>
+                            
+                            <div class="program-card" data-program="stepZero">
+                                <div class="card-header">
+                                    <h3>STEP-ZERO</h3>
+                                    <span class="card-badge">기초</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>월요일 30분 사고 훈련</p>
+                                    <ul>
+                                        <li>사고 질문 체계</li>
+                                        <li>시각화 실습</li>
+                                        <li>루브릭 피드백</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="duration">지속</span>
+                                    <span class="level">기초</span>
+                                </div>
+                            </div>
+                            
+                            <div class="program-card" data-program="grade1">
+                                <div class="card-header">
+                                    <h3>GRADE-1</h3>
+                                    <span class="card-badge">조형원리</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>고1 조형원리 중심 과정</p>
+                                    <ul>
+                                        <li>비주얼 저널</li>
+                                        <li>입체적 비교</li>
+                                        <li>언어화 훈련</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="duration">12개월</span>
+                                    <span class="level">중급</span>
+                                </div>
+                            </div>
+                            
+                            <div class="program-card" data-program="grade2">
+                                <div class="card-header">
+                                    <h3>GRADE-2</h3>
+                                    <span class="card-badge">전공핵심</span>
+                                </div>
+                                <div class="card-content">
+                                    <p>고2 전공학별 핵심원리</p>
+                                    <ul>
+                                        <li>사고와 실기 균형</li>
+                                        <li>보완과 실전</li>
+                                        <li>탐구에서 완성으로</li>
+                                    </ul>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="duration">12개월</span>
+                                    <span class="level">고급</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Carousel Indicators -->
+                    <div class="carousel-indicators">
+                        <button class="indicator active" data-slide="0" aria-label="첫 번째 프로그램"></button>
+                        <button class="indicator" data-slide="1" aria-label="두 번째 프로그램"></button>
+                        <button class="indicator" data-slide="2" aria-label="세 번째 프로그램"></button>
+                        <button class="indicator" data-slide="3" aria-label="네 번째 프로그램"></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="philosophy section">
+            <div class="container">
+                <h2 class="section-title-dynamic">COVA 교육 철학</h2>
+                <div id="philosophyContent" class="philosophy-content">
+                    <!-- Content will be dynamically inserted by script.js -->
+                </div>
+                
+                <div class="philosophy-pillars">
+                    <div class="pillar">
+                        <h3 class="text-highlight">과정 중심의 사고</h3>
+                        <p class="text-reveal">결과보다 과정을 중시하는 학습 접근법으로 실패도 데이터가 되는 비주얼 저널 기록</p>
+                    </div>
+                    <div class="pillar">
+                        <h3 class="text-highlight">개념을 언어화하는 능력</h3>
+                        <p class="text-reveal">시각적 사고를 논리적 언어로 표현하는 1문장→3문장→150자 확장 시스템</p>
+                    </div>
+                    <div class="pillar">
+                        <h3 class="text-highlight">비교와 연결을 통한 탐구</h3>
+                        <p class="text-reveal">거장작·동료작·선배작 비교를 통한 다양한 관점에서의 분석적 사고</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="results section">
+            <div class="container">
+                <h2 class="section-title-dynamic">성과 지표 (KPI)</h2>
+                
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h3>공통 지표</h3>
+                        <ul id="kpiCommon" class="kpi-list">
+                            <!-- Content will be dynamically inserted by script.js -->
+                        </ul>
+                    </div>
+                    
+                    <div class="kpi-card">
+                        <h3>GRADE-2 전용</h3>
+                        <ul id="kpiG2" class="kpi-list">
+                            <!-- Content will be dynamically inserted by script.js -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Success Stories -->
+                <div class="success-stories">
+                    <h3 class="text-highlight">성공 사례</h3>
+                    <div class="stories-grid">
+                        <div class="story-card">
+                            <div class="story-stats">
+                                <span class="counter" data-target="95">0</span>%
+                            </div>
+                            <p>학생 만족도</p>
+                        </div>
+                        <div class="story-card">
+                            <div class="story-stats">
+                                <span class="counter" data-target="87">0</span>%
+                            </div>
+                            <p>학부모 신뢰도</p>
+                        </div>
+                        <div class="story-card">
+                            <div class="story-stats">
+                                <span class="counter" data-target="156">0</span>
+                            </div>
+                            <p>누적 수강생</p>
+                        </div>
+                        <div class="story-card">
+                            <div class="story-stats">
+                                <span class="counter" data-target="24">0</span>
+                            </div>
+                            <p>개월 운영</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+            <div class="container">
+                <h2 class="section-title-dynamic">자주 묻는 질문</h2>
+                <div id="faqList" class="faq-list">
+                    <!-- Content will be dynamically inserted by script.js -->
+                </div>
+                
+                <div class="contact-info">
+                    <h3 class="text-highlight">문의하기</h3>
+                    <p class="text-reveal">더 자세한 정보나 상담을 원하시면 코코미술학원으로 문의해 주세요.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <strong>전화:</strong> 문의 전화번호
+                        </div>
+                        <div class="contact-item">
+                            <strong>이메일:</strong> 문의 이메일
+                        </div>
+                        <div class="contact-item">
+                            <strong>주소:</strong> 학원 주소
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">COVA</div>
+                    <p>기초소양으로 완성하는 창의 교육 시스템</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>프로그램</h4>
+                        <ul>
+                            <li><a href="#" data-program="kickoff">KICK-OFF</a></li>
+                            <li><a href="#" data-program="stepZero">STEP-ZERO</a></li>
+                            <li><a href="#" data-program="grade1">GRADE-1</a></li>
+                            <li><a href="#" data-program="grade2">GRADE-2</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-group">
+                        <h4>정보</h4>
+                        <ul>
+                            <li><a href="#philosophy">교육 철학</a></li>
+                            <li><a href="#results">성과 지표</a></li>
+                            <li><a href="#contact">문의하기</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 COVA 교육 시스템. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enhanced Program Modal with Split View -->
+    <div id="programModal" class="program-modal">
+        <div class="modal-overlay-enhanced"></div>
+        <div class="modal-container-enhanced">
+            <!-- Modal Close Button -->
+            <button class="modal-close-enhanced" aria-label="모달 닫기">×</button>
+            <button class="modal-emergency-close" aria-label="긴급 닫기">ESC</button>
+            
+            <!-- Split View Layout -->
+            <div class="modal-split-layout">
+                <!-- Left: Video Pane (60%) -->
+                <div class="modal-video-pane">
+                    <video class="ambient-video" 
+                           controls 
+                           muted 
+                           playsinline 
+                           preload="metadata"
+                           data-testid="video-ambient">
+                        <source src="attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4" type="video/mp4">
+                        <p>브라우저가 비디오를 지원하지 않습니다.</p>
+                    </video>
+                    
+                    <!-- Key Moments Overlay -->
+                    <div id="keyMomentsOverlay" class="key-moments-overlay">
+                        <div class="key-moments-list">
+                            <!-- Key moments will be inserted dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Content Pane (40%) -->
+                <div class="modal-content-pane">
+                    <!-- Modal Header -->
+                    <div class="modal-header-enhanced">
+                        <h2 id="modalTitle">프로그램 제목</h2>
+                        <p id="modalDescription">프로그램 설명</p>
+                        <div class="modal-meta">
+                            <span id="modalDuration" class="duration-badge">12주</span>
+                            <span id="modalLevel" class="level-badge">기초</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="modal-tabs">
+                        <button class="modal-tab active" data-tab="overview">개요</button>
+                        <button class="modal-tab" data-tab="curriculum">커리큘럼</button>
+                        <button class="modal-tab" data-tab="process">과정</button>
+                        <button class="modal-tab" data-tab="outcomes">성과</button>
+                        <button class="modal-tab" data-tab="keymoments">키 모먼트</button>
+                        <div class="modal-tab-indicator"></div>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="modal-panels">
+                        <!-- Overview Panel -->
+                        <div class="modal-panel active" data-panel="overview">
+                            <div id="overviewContent" class="panel-content">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                            
+                            <!-- Quick Stats -->
+                            <div class="modal-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statWeeks">12</span>
+                                    <span class="stat-label">주</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statSessions">24</span>
+                                    <span class="stat-label">세션</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="statProjects">6</span>
+                                    <span class="stat-label">프로젝트</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Curriculum Panel -->
+                        <div class="modal-panel" data-panel="curriculum">
+                            <div id="curriculumContent" class="panel-content">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Process Panel -->
+                        <div class="modal-panel" data-panel="process">
+                            <div id="processContent" class="panel-content">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Outcomes Panel -->
+                        <div class="modal-panel" data-panel="outcomes">
+                            <div id="outcomesContent" class="panel-content">
+                                <!-- Content will be loaded dynamically -->
+                            </div>
+                        </div>
+                        
+                        <!-- Key Moments Panel -->
+                        <div class="modal-panel" data-panel="keymoments">
+                            <div class="panel-content">
+                                <h3>키 모먼트</h3>
+                                <p>비디오의 주요 순간들을 클릭하여 해당 시점으로 이동할 수 있습니다.</p>
+                                <div id="keyMomentsList" class="key-moments-list-panel">
+                                    <!-- Key moments will be inserted dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="cova-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
