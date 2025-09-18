@@ -4504,3 +4504,49 @@ summary:focus {
   font-size: 32px;
   opacity: 0.5;
 }
+
+/* ===================================================================
+   COVA 모달 영상 크기 문제 해결 - 전문가 진단 기반 수정
+   =================================================================== */
+
+/* 1. 강제 분할 레이아웃 */
+.cova-modal .modal-body { 
+  display: grid; 
+  grid-template-columns: 60% 40%; 
+  gap: 24px; 
+  align-items: start; 
+}
+
+/* 2. 좌측 패널 aspect-ratio 컨테이너 */
+.cova-modal .modal-media-panel { 
+  inline-size: 100%; 
+  aspect-ratio: 3 / 2; 
+  max-block-size: 80vh; 
+  min-block-size: 300px; 
+  /* height: auto 유지 (명시적 height 설정하지 않음) */
+}
+
+/* 3. 영상이 컨테이너를 가득 채우도록 */
+.cova-modal .modal-media-panel video { 
+  inline-size: 100%; 
+  block-size: 100%; 
+  object-fit: contain; 
+  object-position: center; 
+  display: block; 
+  background: #000; 
+}
+
+/* 4. 축소 방지 */
+.cova-modal .modal-media-panel { 
+  flex: 0 0 auto; 
+}
+
+.cova-modal .modal-content, 
+.cova-modal .modal-body { 
+  width: min(1200px, 90vw); 
+}
+
+/* 5. 우측 패널 스크롤 */
+.cova-modal .modal-info-panel { 
+  overflow: auto; 
+}
