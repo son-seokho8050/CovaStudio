@@ -376,6 +376,476 @@ body.modal-open {
   }
 }
 
+/* ===================================
+   ENHANCED KICKOFF CONTENT STYLING
+   =================================== */
+
+/* Video Header (Information Display) */
+.modal2-video-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+  color: white;
+  padding: var(--space-3);
+  z-index: 2;
+  border-radius: 4px 4px 0 0;
+}
+
+.modal2-video-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.modal2-video-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+  color: white;
+}
+
+.modal2-video-desc {
+  font-size: var(--text-xs);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: var(--leading-relaxed);
+}
+
+.modal2-video-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.modal2-video-duration {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: var(--font-weight-medium);
+}
+
+.modal2-video-separator {
+  opacity: 0.6;
+}
+
+.modal2-video-points {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Key Moments Visual Markers - Enhanced with proper layering */
+.modal2-keymoment-markers {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  right: 10px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  z-index: 3;
+  pointer-events: none; /* Prevent interference with video controls */
+}
+
+/* Specific container for markers overlay */
+#modal2KeymomentMarkers {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  pointer-events: none; /* Container doesn't block video controls */
+  z-index: 15; /* Higher than video controls but below modal overlays */
+}
+
+.keymoment-marker {
+  position: absolute;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-sophisticated);
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  pointer-events: auto; /* Individual markers can be clicked */
+  z-index: 16; /* Ensure markers are above their container */
+}
+
+.keymoment-marker:hover {
+  transform: scale(1.3);
+  background: var(--accent);
+}
+
+.keymoment-marker:before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: transparent;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Image Section Enhancements */
+.modal2-image-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal2-image-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+  color: white;
+  padding: var(--space-4) var(--space-3) var(--space-3);
+}
+
+.modal2-image-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-1);
+}
+
+.modal2-image-desc {
+  font-size: var(--text-xs);
+  line-height: var(--leading-relaxed);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Core Concept Visualization */
+.modal2-concept-visual {
+  padding: var(--space-3);
+  background: var(--bg-accent);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.modal2-concept-icons {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--space-2);
+}
+
+.concept-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.concept-icon:hover {
+  background: var(--bg-sophisticated);
+  transform: translateY(-2px);
+}
+
+.concept-icon .icon {
+  font-size: var(--text-lg);
+  filter: grayscale(20%);
+}
+
+.concept-icon .label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+}
+
+/* Tab Navigation */
+.modal2-tab-nav {
+  display: flex;
+  gap: 2px;
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-accent);
+  border-radius: 4px 4px 0 0;
+  padding: 2px;
+}
+
+.modal2-tab-btn {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.modal2-tab-btn.active {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.modal2-tab-btn:hover:not(.active) {
+  background: var(--bg-sophisticated);
+  color: var(--text);
+}
+
+/* Tab Content */
+.modal2-tab-content {
+  display: none;
+}
+
+.modal2-tab-content.active {
+  display: block;
+}
+
+/* Enhanced Detail Sections */
+.modal2-detail-section {
+  background: var(--bg-accent);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  transition: all 0.2s ease;
+}
+
+.modal2-detail-section:hover {
+  border-color: var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Goal Cards with Icons */
+.modal2-goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.modal2-goal-card {
+  background: var(--bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: var(--space-3);
+  display: flex;
+  gap: var(--space-2);
+  transition: all 0.2s ease;
+}
+
+.modal2-goal-card:hover {
+  border-color: var(--border);
+  transform: translateY(-1px);
+}
+
+.modal2-goal-icon {
+  font-size: var(--text-lg);
+  flex-shrink: 0;
+}
+
+.modal2-goal-content {
+  flex: 1;
+}
+
+.modal2-goal-title {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+.modal2-goal-desc {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  line-height: var(--leading-normal);
+}
+
+/* Methodology Timeline */
+.modal2-methodology-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.modal2-methodology-item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  position: relative;
+}
+
+.modal2-methodology-item::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent-sophisticated);
+  border-radius: 0 2px 2px 0;
+}
+
+.modal2-methodology-phase {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent-sophisticated);
+  min-width: 80px;
+}
+
+.modal2-methodology-content {
+  flex: 1;
+}
+
+.modal2-methodology-time {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-medium);
+  background: var(--bg-accent);
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: auto;
+}
+
+.modal2-methodology-details {
+  margin-top: var(--space-1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.modal2-methodology-detail {
+  font-size: var(--text-xs);
+  background: var(--bg-accent);
+  color: var(--text-secondary);
+  padding: 1px 4px;
+  border-radius: 2px;
+}
+
+/* FAQ Styling */
+.modal2-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.modal2-faq-item {
+  background: var(--bg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.modal2-faq-question {
+  padding: var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  background: var(--bg-accent);
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal2-faq-question:hover {
+  background: var(--bg-sophisticated);
+}
+
+.modal2-faq-answer {
+  padding: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Philosophy Styling */
+.modal2-philosophy-motto {
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent-sophisticated);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-4);
+  font-style: italic;
+  position: relative;
+}
+
+.modal2-philosophy-motto::before {
+  content: '"';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  color: var(--accent-sophisticated);
+  font-size: var(--text-2xl);
+  padding: 0 var(--space-2);
+}
+
+/* Expected Outcomes */
+.modal2-outcomes-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.modal2-outcome-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  background: var(--bg);
+  border-left: 3px solid var(--accent-sophisticated);
+  border-radius: 0 4px 4px 0;
+}
+
+.modal2-outcome-item::before {
+  content: '✓';
+  color: var(--accent-sophisticated);
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0;
+}
+
+.modal2-outcome-text {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+}
+
+/* Enhanced mobile responsiveness for new elements */
+@media (max-width: 768px) {
+  .modal2-goals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal2-video-header {
+    position: relative;
+    background: var(--bg-accent);
+    color: var(--text);
+    border-radius: 0;
+  }
+  
+  .modal2-video-title,
+  .modal2-video-desc {
+    color: var(--text);
+  }
+  
+  .modal2-video-meta {
+    color: var(--text-secondary);
+  }
+}
+
 /* ================================= */
 
 :root {

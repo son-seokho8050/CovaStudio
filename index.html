@@ -588,19 +588,64 @@ window.addEventListener('DOMContentLoaded', function() {
     <div class="modal2-media">
       <!-- Video Section (Top Left) -->
       <div class="modal2-video-section">
+        <!-- Video Info Header -->
+        <div class="modal2-video-header" id="modal2VideoHeader" style="display: none;">
+          <div class="modal2-video-info">
+            <h3 class="modal2-video-title" id="modal2VideoTitle">영상 제목</h3>
+            <p class="modal2-video-desc" id="modal2VideoDesc">영상 설명</p>
+            <div class="modal2-video-meta">
+              <span class="modal2-video-duration" id="modal2VideoDuration">0:00</span>
+              <span class="modal2-video-separator">•</span>
+              <span class="modal2-video-points">7개 핵심 포인트</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Video Player Container -->
         <div class="modal2-media-box">
           <video id="modal2Video" class="modal2-video" controls playsinline data-testid="modal-v2-video">
             <source id="modal2VideoSource" src="" type="video/mp4">
           </video>
+          
+          <!-- Key Moments Visual Markers (overlay on video) -->
+          <div class="modal2-keymoment-markers" id="modal2KeymomentMarkers" style="display: none;">
+            <!-- Dynamic key moment markers will be inserted here -->
+          </div>
         </div>
       </div>
       
       <!-- Image Section (Bottom Left) - Only visible in kickoff layout -->
       <div class="modal2-image-section" id="modal2ImageSection" style="display: none;">
-        <img id="modal2KickoffImage" class="modal2-kickoff-image" 
-             src="attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png"
-             alt="킥오프 관련 이미지"
-             data-testid="modal-v2-kickoff-image">
+        <div class="modal2-image-container">
+          <img id="modal2KickoffImage" class="modal2-kickoff-image" 
+               src="attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png"
+               alt="킥오프 관련 이미지"
+               data-testid="modal-v2-kickoff-image">
+          
+          <!-- Image Info Overlay -->
+          <div class="modal2-image-info" id="modal2ImageInfo">
+            <div class="modal2-image-title" id="modal2ImageTitle">이미지 제목</div>
+            <div class="modal2-image-desc" id="modal2ImageDesc">이미지 설명</div>
+          </div>
+        </div>
+        
+        <!-- Core Concept Visualization -->
+        <div class="modal2-concept-visual" id="modal2ConceptVisual" style="display: none;">
+          <div class="modal2-concept-icons">
+            <div class="concept-icon" data-concept="process">
+              <span class="icon">🔄</span>
+              <span class="label">과정중심</span>
+            </div>
+            <div class="concept-icon" data-concept="language">
+              <span class="icon">💭</span>
+              <span class="label">언어화</span>
+            </div>
+            <div class="concept-icon" data-concept="explore">
+              <span class="icon">🔍</span>
+              <span class="label">탐구연결</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -615,32 +660,93 @@ window.addEventListener('DOMContentLoaded', function() {
         
         <!-- Kickoff-specific detailed content -->
         <div class="modal2-kickoff-details" id="modal2KickoffDetails" style="display: none;">
-          <div class="modal2-detail-section">
-            <div class="modal2-detail-title">수업 목표</div>
-            <div class="modal2-detail-content" id="kickoffGoals">
-              • 기초 드로잉 기법 습득<br>
-              • 관찰력과 표현력 향상<br>
-              • 체계적인 학습 방법 익히기
+          <!-- Tabbed Content Navigation -->
+          <div class="modal2-tab-nav" id="modal2TabNav">
+            <button class="modal2-tab-btn active" data-tab="overview">개요</button>
+            <button class="modal2-tab-btn" data-tab="curriculum">커리큘럼</button>
+            <button class="modal2-tab-btn" data-tab="philosophy">철학</button>
+            <button class="modal2-tab-btn" data-tab="faq">FAQ</button>
+          </div>
+          
+          <!-- Tab Content: Overview -->
+          <div class="modal2-tab-content active" id="tab-overview">
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">🎯 수업 목표</div>
+              <div class="modal2-detail-content" id="kickoffGoals">
+                <!-- Goals will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">⏱️ 수업 진행 방식</div>
+              <div class="modal2-detail-content" id="kickoffMethodology">
+                <!-- Methodology will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">✨ 기대 효과</div>
+              <div class="modal2-detail-content" id="kickoffOutcomes">
+                <!-- Expected outcomes will be populated by JavaScript -->
+              </div>
             </div>
           </div>
           
-          <div class="modal2-detail-section">
-            <div class="modal2-detail-title">주요 학습 내용</div>
-            <div class="modal2-detail-content">
-              <ul class="modal2-detail-list" id="kickoffCurriculum">
-                <li>기본 도구 사용법과 자세</li>
-                <li>선 연습과 형태 관찰</li>
-                <li>비례와 구도의 이해</li>
-                <li>실습을 통한 실전 경험</li>
-              </ul>
+          <!-- Tab Content: Curriculum -->
+          <div class="modal2-tab-content" id="tab-curriculum">
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">📚 단계별 학습 내용</div>
+              <div class="modal2-detail-content" id="kickoffCurriculum">
+                <!-- Curriculum will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">📅 G1 주차별 질문 (예시)</div>
+              <div class="modal2-curriculum-preview" id="kickoffG1Preview">
+                <!-- G1 curriculum preview will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">📅 G2 주차별 질문 (예시)</div>
+              <div class="modal2-curriculum-preview" id="kickoffG2Preview">
+                <!-- G2 curriculum preview will be populated by JavaScript -->
+              </div>
             </div>
           </div>
           
-          <div class="modal2-detail-section">
-            <div class="modal2-detail-title">COVA 학습 철학</div>
-            <div class="modal2-detail-content" id="kickoffPhilosophy">
-              과정 중심의 사고를 통해 개념을 언어화하고,<br>
-              비교와 연결을 통한 탐구로 체계적인 성장을 도모합니다.
+          <!-- Tab Content: Philosophy -->
+          <div class="modal2-tab-content" id="tab-philosophy">
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">🏛️ COVA 핵심 철학</div>
+              <div class="modal2-detail-content" id="kickoffPhilosophyCore">
+                <!-- Philosophy core will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">⚡ 핵심 원칙</div>
+              <div class="modal2-detail-content" id="kickoffPhilosophyPrinciples">
+                <!-- Philosophy principles will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">💫 COVA 모토</div>
+              <div class="modal2-philosophy-motto" id="kickoffPhilosophyMotto">
+                <!-- Philosophy motto will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tab Content: FAQ -->
+          <div class="modal2-tab-content" id="tab-faq">
+            <div class="modal2-detail-section">
+              <div class="modal2-detail-title">❓ 자주 묻는 질문</div>
+              <div class="modal2-faq-list" id="kickoffFAQ">
+                <!-- FAQ will be populated by JavaScript -->
+              </div>
             </div>
           </div>
         </div>

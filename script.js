@@ -1271,39 +1271,390 @@ class CovaModal2 {
       return;
     }
     
-    // Show and set image section
+    // 1. Setup Video Information Display
+    this.setupVideoHeader(kickoffData);
+    
+    // 2. Setup Key Moment Markers
+    this.setupKeyMomentMarkers(kickoffData);
+    
+    // 3. Setup Image Section with Info
+    this.setupImageSection(kickoffData);
+    
+    // 4. Setup Core Concept Visualization
+    this.setupConceptVisualization();
+    
+    // 5. Setup Tabbed Content
+    this.setupTabbedContent(kickoffData);
+    
+    // 6. Initialize Tab Navigation
+    this.initializeTabNavigation();
+    
+    console.log('Kickoff content setup completed');
+  }
+  
+  setupVideoHeader(kickoffData) {
+    const videoHeader = document.getElementById('modal2VideoHeader');
+    const videoTitle = document.getElementById('modal2VideoTitle');
+    const videoDesc = document.getElementById('modal2VideoDesc');
+    const videoDuration = document.getElementById('modal2VideoDuration');
+    
+    if (videoHeader && videoTitle && videoDesc && videoDuration) {
+      videoHeader.style.display = 'block';
+      videoHeader.setAttribute('data-testid', 'video-header');
+      
+      videoTitle.textContent = kickoffData.videoTitle || '킥오프 수업 영상';
+      videoTitle.setAttribute('data-testid', 'video-title');
+      
+      videoDesc.textContent = kickoffData.videoDescription || '킥오프 수업의 실제 진행 모습을 확인하세요';
+      videoDesc.setAttribute('data-testid', 'video-description');
+      
+      videoDuration.textContent = kickoffData.videoDuration || '4:08';
+      videoDuration.setAttribute('data-testid', 'video-duration');
+    }
+  }
+  
+  setupKeyMomentMarkers(kickoffData) {
+    const markersContainer = document.getElementById('modal2KeymomentMarkers');
+    if (!markersContainer || !kickoffData.keyMoments) return;
+    
+    markersContainer.style.display = 'block';
+    markersContainer.innerHTML = '';
+    
+    // Wait for video metadata to be loaded for accurate duration
+    const setupMarkers = (videoDuration) => {
+      kickoffData.keyMoments.forEach((km, index) => {
+        const marker = document.createElement('div');
+        marker.className = 'keymoment-marker';
+        marker.style.left = `${(km.t / videoDuration) * 100}%`;
+        marker.title = `${km.title} (${this.formatTime(km.t)})`;
+        marker.setAttribute('data-time', km.t);
+        marker.setAttribute('data-title', km.title);
+        marker.setAttribute('data-testid', `marker-${km.id || index}`);
+        
+        marker.addEventListener('click', () => {
+          if (this.video) {
+            this.video.currentTime = km.t;
+            this.video.play();
+          }
+        });
+        
+        markersContainer.appendChild(marker);
+      });
+    };
+    
+    // Check if video metadata is already loaded
+    if (this.video && this.video.duration && !isNaN(this.video.duration)) {
+      setupMarkers(this.video.duration);
+    } else if (this.video) {
+      // Wait for loadedmetadata event
+      const handleLoadedMetadata = () => {
+        if (this.video.duration && !isNaN(this.video.duration)) {
+          setupMarkers(this.video.duration);
+        } else {
+          // Fallback to estimated duration if video duration is unavailable
+          const estimatedDuration = Math.max(...kickoffData.keyMoments.map(km => km.t)) + 10;
+          setupMarkers(estimatedDuration);
+        }
+        this.video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      };
+      
+      this.video.addEventListener('loadedmetadata', handleLoadedMetadata);
+      
+      // Fallback timeout in case metadata doesn't load
+      setTimeout(() => {
+        if (markersContainer.children.length === 0) {
+          const estimatedDuration = Math.max(...kickoffData.keyMoments.map(km => km.t)) + 10;
+          setupMarkers(estimatedDuration);
+        }
+      }, 2000);
+    } else {
+      // Fallback to estimated duration if video is not available
+      const estimatedDuration = Math.max(...kickoffData.keyMoments.map(km => km.t)) + 10;
+      setupMarkers(estimatedDuration);
+    }
+  }
+  
+  setupImageSection(kickoffData) {
     const imageSection = document.getElementById('modal2ImageSection');
     const kickoffImage = document.getElementById('modal2KickoffImage');
-    if (imageSection && kickoffImage) {
+    const imageTitle = document.getElementById('modal2ImageTitle');
+    const imageDesc = document.getElementById('modal2ImageDesc');
+    
+    if (imageSection) {
       imageSection.style.display = 'flex';
-      if (kickoffData.imageSrc) {
+      imageSection.setAttribute('data-testid', 'image-section');
+      
+      if (kickoffImage && kickoffData.imageSrc) {
         kickoffImage.src = kickoffData.imageSrc;
+        kickoffImage.setAttribute('data-testid', 'kickoff-image');
+      }
+      
+      if (imageTitle) {
+        imageTitle.textContent = kickoffData.imageTitle || 'COVA 핵심 컨셉';
+        imageTitle.setAttribute('data-testid', 'image-title');
+      }
+      
+      if (imageDesc) {
+        imageDesc.textContent = kickoffData.imageDescription || 'COVA 교육 철학을 시각적으로 표현한 이미지';
+        imageDesc.setAttribute('data-testid', 'image-description');
       }
     }
+  }
+  
+  setupConceptVisualization() {
+    const conceptVisual = document.getElementById('modal2ConceptVisual');
+    if (conceptVisual) {
+      conceptVisual.style.display = 'block';
+      conceptVisual.setAttribute('data-testid', 'concept-visualization');
+      
+      // Add click interactions for concept icons
+      const conceptIcons = conceptVisual.querySelectorAll('.concept-icon');
+      conceptIcons.forEach((icon, index) => {
+        icon.setAttribute('data-testid', `concept-icon-${icon.getAttribute('data-concept') || index}`);
+        icon.addEventListener('click', () => {
+          const concept = icon.getAttribute('data-concept');
+          this.showConceptTooltip(icon, concept);
+        });
+      });
+    }
+  }
+  
+  showConceptTooltip(element, concept) {
+    const tooltips = {
+      'process': '결과보다 과정을 중시하며, 실패조차 학습 데이터로 활용합니다.',
+      'language': '생각을 명확한 언어로 표현하여 개념을 구체화합니다.',
+      'explore': '비교와 연결을 통해 새로운 관점과 통찰을 얻습니다.'
+    };
     
-    // Show and populate kickoff details
+    // Simple tooltip implementation
+    const tooltip = document.createElement('div');
+    tooltip.className = 'concept-tooltip';
+    tooltip.textContent = tooltips[concept] || '';
+    tooltip.style.cssText = `
+      position: absolute;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px;
+      border-radius: 4px;
+      font-size: var(--text-xs);
+      max-width: 200px;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    `;
+    
+    element.appendChild(tooltip);
+    setTimeout(() => tooltip.remove(), 3000);
+  }
+  
+  setupTabbedContent(kickoffData) {
+    // Setup Overview Tab
+    this.setupOverviewTab(kickoffData);
+    
+    // Setup Curriculum Tab
+    this.setupCurriculumTab(kickoffData);
+    
+    // Setup Philosophy Tab
+    this.setupPhilosophyTab(kickoffData);
+    
+    // Setup FAQ Tab
+    this.setupFAQTab(kickoffData);
+    
+    // Show tabbed content
     const kickoffDetails = document.getElementById('modal2KickoffDetails');
     if (kickoffDetails) {
-      kickoffDetails.style.display = 'flex';
-      
-      // Update goals
-      const goalsElement = document.getElementById('kickoffGoals');
-      if (goalsElement && kickoffData.goals) {
-        goalsElement.innerHTML = kickoffData.goals.map(goal => `• ${goal}`).join('<br>');
-      }
-      
-      // Update curriculum
-      const curriculumElement = document.getElementById('kickoffCurriculum');
-      if (curriculumElement && kickoffData.curriculum) {
-        curriculumElement.innerHTML = kickoffData.curriculum.map(item => `<li>${item}</li>`).join('');
-      }
-      
-      // Update philosophy
-      const philosophyElement = document.getElementById('kickoffPhilosophy');
-      if (philosophyElement && kickoffData.philosophy) {
-        philosophyElement.textContent = kickoffData.philosophy;
-      }
+      kickoffDetails.style.display = 'block';
     }
+  }
+  
+  setupOverviewTab(kickoffData) {
+    // Goals
+    const goalsElement = document.getElementById('kickoffGoals');
+    if (goalsElement && kickoffData.goals) {
+      const getIconSVG = (iconName) => {
+        const icons = {
+          'pencil': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>',
+          'eye': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
+          'target': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+          'lightbulb': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M12 17v4"/><path d="M12 3a6 6 0 0 1 6 6c0 1.657-.672 3.157-1.757 4.243L15 15H9l-1.243-1.757A6 6 0 0 1 12 3Z"/></svg>'
+        };
+        return icons[iconName] || icons['lightbulb'];
+      };
+
+      const goalsHTML = `
+        <div class="modal2-goals-grid">
+          ${kickoffData.goals.map((goal, index) => `
+            <div class="modal2-goal-card" data-testid="goal-card-${index}">
+              <div class="modal2-goal-icon" data-testid="goal-icon-${goal.icon}">${getIconSVG(goal.icon)}</div>
+              <div class="modal2-goal-content">
+                <div class="modal2-goal-title" data-testid="goal-title-${index}">${goal.title}</div>
+                <div class="modal2-goal-desc" data-testid="goal-desc-${index}">${goal.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      goalsElement.innerHTML = goalsHTML;
+    }
+    
+    // Methodology
+    const methodologyElement = document.getElementById('kickoffMethodology');
+    if (methodologyElement && kickoffData.methodology) {
+      const methodologyHTML = `
+        <div class="modal2-methodology-timeline">
+          ${kickoffData.methodology.map(method => `
+            <div class="modal2-methodology-item">
+              <div class="modal2-methodology-phase">${method.phase}</div>
+              <div class="modal2-methodology-content">${method.content}</div>
+              <div class="modal2-methodology-time">${method.time}</div>
+              <div class="modal2-methodology-details">
+                ${method.details.map(detail => `<span class="modal2-methodology-detail">${detail}</span>`).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      methodologyElement.innerHTML = methodologyHTML;
+    }
+    
+    // Expected Outcomes
+    const outcomesElement = document.getElementById('kickoffOutcomes');
+    if (outcomesElement && kickoffData.expectedOutcomes) {
+      const outcomesHTML = `
+        <div class="modal2-outcomes-list">
+          ${kickoffData.expectedOutcomes.map(outcome => `
+            <div class="modal2-outcome-item">
+              <div class="modal2-outcome-text">${outcome}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      outcomesElement.innerHTML = outcomesHTML;
+    }
+  }
+  
+  setupCurriculumTab(kickoffData) {
+    // Main Curriculum
+    const curriculumElement = document.getElementById('kickoffCurriculum');
+    if (curriculumElement && kickoffData.curriculum) {
+      const curriculumHTML = `
+        <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
+          ${kickoffData.curriculum.map((item, index) => `
+            <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
+              <div class="modal2-step-number" data-testid="step-number-${index}">${index + 1}</div>
+              <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
+              <div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      curriculumElement.innerHTML = curriculumHTML;
+    }
+    
+    // G1 Preview
+    const g1Preview = document.getElementById('kickoffG1Preview');
+    if (g1Preview && kickoffData.g1) {
+      const g1HTML = `
+        <div class="modal2-curriculum-preview">
+          ${kickoffData.g1.slice(0, 6).map(([week, question]) => `
+            <div class="modal2-curriculum-item">
+              <div class="modal2-curriculum-week">${week}</div>
+              <div class="modal2-curriculum-question">${question}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      g1Preview.innerHTML = g1HTML;
+    }
+    
+    // G2 Preview
+    const g2Preview = document.getElementById('kickoffG2Preview');
+    if (g2Preview && kickoffData.g2) {
+      const g2HTML = `
+        <div class="modal2-curriculum-preview">
+          ${kickoffData.g2.slice(0, 6).map(([week, question]) => `
+            <div class="modal2-curriculum-item">
+              <div class="modal2-curriculum-week">${week}</div>
+              <div class="modal2-curriculum-question">${question}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      g2Preview.innerHTML = g2HTML;
+    }
+  }
+  
+  setupPhilosophyTab(kickoffData) {
+    // Core Philosophy
+    const philosophyCore = document.getElementById('kickoffPhilosophyCore');
+    if (philosophyCore && kickoffData.philosophy) {
+      philosophyCore.textContent = kickoffData.philosophy.core;
+    }
+    
+    // Philosophy Principles
+    const philosophyPrinciples = document.getElementById('kickoffPhilosophyPrinciples');
+    if (philosophyPrinciples && kickoffData.philosophy) {
+      const principlesHTML = `
+        <div class="modal2-outcomes-list">
+          ${kickoffData.philosophy.principles.map(principle => `
+            <div class="modal2-outcome-item">
+              <div class="modal2-outcome-text">${principle}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      philosophyPrinciples.innerHTML = principlesHTML;
+    }
+    
+    // Philosophy Motto
+    const philosophyMotto = document.getElementById('kickoffPhilosophyMotto');
+    if (philosophyMotto && kickoffData.philosophy) {
+      philosophyMotto.textContent = kickoffData.philosophy.motto;
+    }
+  }
+  
+  setupFAQTab(kickoffData) {
+    const faqElement = document.getElementById('kickoffFAQ');
+    if (faqElement && kickoffData.faq) {
+      const faqHTML = `
+        <div class="modal2-faq-list" data-testid="faq-list">
+          ${kickoffData.faq.map((faq, index) => `
+            <div class="modal2-faq-item" data-testid="faq-item-${index}">
+              <div class="modal2-faq-question" data-testid="faq-question-${index}">${faq.q}</div>
+              <div class="modal2-faq-answer" data-testid="faq-answer-${index}">${faq.a}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      faqElement.innerHTML = faqHTML;
+    }
+  }
+  
+  initializeTabNavigation() {
+    const tabNav = document.getElementById('modal2TabNav');
+    if (!tabNav) return;
+    
+    tabNav.setAttribute('data-testid', 'tab-navigation');
+    const tabButtons = tabNav.querySelectorAll('.modal2-tab-btn');
+    const tabContents = document.querySelectorAll('.modal2-tab-content');
+    
+    tabButtons.forEach((button, index) => {
+      const targetTab = button.getAttribute('data-tab') || `tab-${index}`;
+      button.setAttribute('data-testid', `tab-button-${targetTab}`);
+      
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        const targetContent = document.getElementById(`tab-${targetTab}`);
+        if (targetContent) {
+          targetContent.classList.add('active');
+          targetContent.setAttribute('data-testid', `tab-content-${targetTab}`);
+        }
+      });
+    });
   }
   
   hideKickoffContent() {
