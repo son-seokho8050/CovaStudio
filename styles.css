@@ -2350,7 +2350,7 @@ summary:focus {
   background: #000;
   min-width: 400px;
   min-height: 500px;
-  height: 100%;
+  height: auto;
   flex: 1;
   display: flex;
   align-items: center;
