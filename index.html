@@ -485,32 +485,15 @@
   </div>
 </div>
 
-<!-- COVA Loading Screen -->
-<div id="covaLoadingScreen" class="cova-loading-screen">
-  <div class="loading-content-center">
-    <div class="cova-main-logo">COVA</div>
-    <div class="cova-loading-text">시스템 로딩중</div>
-    <div class="cova-percentage">0%</div>
-    <div class="cova-footer-text">재능의 출발점, COCO</div>
+<!-- 새로운 단순 COVA 로딩 스크린 -->
+<div id="simpleCovaLoader" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999999; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif;">
+  <div style="text-align: center; color: white;">
+    <div style="font-size: 60px; font-weight: bold; margin-bottom: 20px;">COVA</div>
+    <div style="font-size: 16px; margin-bottom: 40px; letter-spacing: 1px;">시스템 로딩중</div>
+    <div id="simplePercentage" style="font-size: 120px; font-weight: 100; margin-bottom: 60px;">0%</div>
+    <div style="font-size: 14px; opacity: 0.7;">재능의 출발점, COCO</div>
   </div>
 </div>
-
-<!-- noscript 대체 콘텐츠 - JS 실패 시 표시 -->
-<noscript>
-  <style>
-    .cova-loading-screen {
-      display: none !important;
-    }
-    body {
-      opacity: 1 !important;
-      overflow: auto !important;
-    }
-  </style>
-  <div style="position: fixed; top: 20px; left: 20px; right: 20px; background: rgba(0,0,0,0.9); color: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 100000; font-family: Arial, sans-serif;">
-    <h3>JavaScript가 비활성화되어 있습니다</h3>
-    <p>COVA 웹사이트의 모든 기능을 사용하려면 JavaScript를 활성화해주세요.</p>
-  </div>
-</noscript>
 
 <script src="cova-data.js"></script>
 <script src="script.js"></script>

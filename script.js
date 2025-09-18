@@ -43,7 +43,33 @@ function initTheme(){
   });
 }
 
-// COVA Loading Screen with Safety Features
+// 새로운 단순 COVA 로딩 스크린
+function initSimpleCovaLoader() {
+  const loader = document.getElementById('simpleCovaLoader');
+  const percentage = document.getElementById('simplePercentage');
+  
+  if (!loader || !percentage) return;
+  
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15 + 10; // 빠른 진행
+    if (progress > 100) progress = 100;
+    
+    percentage.textContent = Math.floor(progress) + '%';
+    
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }, 500);
+    }
+  }, 150);
+}
+
+// 기존 복잡한 COVA Loading Screen (사용 안함)
 function initCovaLoadingScreen() {
   console.log('Initializing COVA loading screen...');
   
@@ -927,7 +953,7 @@ class TileMosaicController {
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize COVA loading screen first
-  initCovaLoadingScreen(); // 로딩 스크린 활성화
+  initSimpleCovaLoader(); // 새로운 단순 로딩 스크린
   
   // Initialize dynamic text effects after a short delay
   setTimeout(() => {
