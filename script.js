@@ -43,9 +43,13 @@ function initTheme(){
   });
 }
 
-// COVA Loading Screen
+// COVA Loading Screen with Safety Features
 function initCovaLoadingScreen() {
   console.log('Initializing COVA loading screen...');
+  
+  // Enable JS class immediately for loading screen visibility
+  document.documentElement.classList.add('js-enabled');
+  
   const loadingScreen = document.getElementById('covaLoadingScreen');
   const percentage = document.querySelector('.cova-percentage');
   
@@ -54,44 +58,37 @@ function initCovaLoadingScreen() {
   
   if (!loadingScreen || !percentage) {
     console.error('COVA loading screen elements not found');
-    console.log('Available elements:', document.querySelectorAll('*'));
     return;
   }
   
-  // 강제로 보이게 설정
-  loadingScreen.style.position = 'fixed';
-  loadingScreen.style.top = '0';
-  loadingScreen.style.left = '0';
-  loadingScreen.style.width = '100vw';
-  loadingScreen.style.height = '100vh';
-  loadingScreen.style.background = '#000000';
-  loadingScreen.style.display = 'flex';
-  loadingScreen.style.opacity = '1';
-  loadingScreen.style.visibility = 'visible';
-  loadingScreen.style.zIndex = '99999';
-  loadingScreen.classList.remove('hidden');
-  
-  // 다른 모든 요소들 숨기기
+  // Block body scroll during loading
   document.body.style.overflow = 'hidden';
   
-  // 메인 콘텐츠 완전히 숨기기 - 임시 비활성화
-  // const allElements = document.querySelectorAll('body > *:not(#covaLoadingScreen):not(script)');
-  // allElements.forEach(el => {
-  //   el.style.display = 'none';
-  // });
+  // Failsafe timeout - 최대 7초 후 강제 숨김
+  const failsafeTimeout = setTimeout(() => {
+    console.warn('COVA loading screen failsafe timeout triggered after 7 seconds');
+    hideLoadingScreen();
+  }, 7000);
   
-  console.log('COVA loading screen visibility forced and body locked');
-  console.log('Loading screen element:', loadingScreen);
-  console.log('Loading screen display:', loadingScreen.style.display);
-  console.log('Loading screen z-index:', loadingScreen.style.zIndex);
-  console.log('Body overflow:', document.body.style.overflow);
+  function hideLoadingScreen() {
+    clearTimeout(failsafeTimeout);
+    loadingScreen.classList.add('hidden');
+    // Restore body scroll
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+      console.log('COVA loading screen hidden and body scroll restored');
+    }, 1000);
+  }
   
-  // Wait a moment before starting progress to ensure visibility
+  console.log('COVA loading screen initialized with failsafe');
+  
+  // Wait a moment before starting progress
   setTimeout(() => {
     console.log('Starting COVA loading progress...');
     let progress = 0;
     const progressInterval = setInterval(() => {
-      progress += Math.random() * 1 + 0.2; // Extremely slow increment
+      progress += Math.random() * 8 + 4; // 2-3초 완료를 위한 빠른 증가
       if (progress > 100) progress = 100;
       
       percentage.textContent = Math.floor(progress) + '%';
@@ -102,18 +99,10 @@ function initCovaLoadingScreen() {
         console.log('COVA loading complete, hiding...');
         
         // Hide loading screen after completion
-        setTimeout(() => {
-          loadingScreen.classList.add('hidden');
-          // Restore body scroll
-          document.body.style.overflow = '';
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            console.log('COVA loading screen hidden and body scroll restored');
-          }, 1000);
-        }, 5000); // Much longer display time at 100%
+        setTimeout(hideLoadingScreen, 500); // 100%에서 짧은 표시 시간
       }
-    }, 500); // Much much slower interval
-  }, 500); // Initial delay to ensure visibility
+    }, 120); // 2-3초 총 시간을 위한 빠른 간격
+  }, 500); // 가시성 확보를 위한 초기 지연
 }
 
 // Section Progress Tracking
@@ -265,21 +254,15 @@ function initDynamicTextEffects() {
         const lines = heroTitle.querySelectorAll('.line span');
         console.log('Found hero lines for animation:', lines.length);
         
-        // Manually trigger animation if CSS transition doesn't work
+        // Use CSS timing - align with CSS delays (0.1s, 0.25s, 0.4s)
+        const cssDelays = [0.1, 0.25, 0.4];
         lines.forEach((line, index) => {
           console.log(`Animating line ${index + 1}:`, line.textContent);
-          line.style.transform = 'translateX(0)';
-          line.style.opacity = '1';
-          line.style.transition = 'all 1.4s cubic-bezier(0.215, 0.61, 0.355, 1)';
-          line.style.transitionDelay = `${0.2 + index * 0.4}s`;
+          const delay = cssDelays[index] || 0.4; // fallback for extra lines
           
-          // Add scale effect
-          setTimeout(() => {
-            line.style.transform += ' scale(1.02)';
-            setTimeout(() => {
-              line.style.transform = line.style.transform.replace(' scale(1.02)', '');
-            }, 150);
-          }, (0.2 + index * 0.4) * 1000 + 400);
+          // Remove manual transform control - let CSS handle it
+          line.style.transitionDelay = `${delay}s`;
+          console.log(`Applied CSS-aligned delay: ${delay}s for line ${index + 1}`);
         });
       }, 100);
     }, 2000); // Increased delay to ensure loading screen is done
@@ -944,7 +927,7 @@ class TileMosaicController {
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
   // Initialize COVA loading screen first
-  // initCovaLoadingScreen(); // 임시 비활성화 - 기존 홈페이지 복원
+  initCovaLoadingScreen(); // 로딩 스크린 활성화
   
   // Initialize dynamic text effects after a short delay
   setTimeout(() => {

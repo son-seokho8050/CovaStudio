@@ -7,7 +7,7 @@
   <meta name="description" content="COVA는 '생각하며 그리는 학생'을 만드는 코코미술학원의 핵심 교육 시스템입니다. 고1 탐구 중심 훈련부터 고2 실기력 강화까지 체계적인 학습 방법론을 제공합니다." />
   <link rel="stylesheet" href="styles.css?v=16" />
 </head>
-<body style="margin: 0; padding: 0; overflow: hidden;">
+<body style="margin: 0; padding: 0;">
 <header class="site-header">
   <div class="container">
     <div class="brand">
@@ -485,17 +485,32 @@
   </div>
 </div>
 
-<!-- COVA Loading Screen - 임시 비활성화 -->
-<!-- 
-<div id="covaLoadingScreen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 999999; display: block;">
-  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-    <h1 style="color: white; font-size: 80px; margin: 20px 0; font-family: Arial;">COVA</h1>
-    <p style="color: white; font-size: 20px; margin: 20px 0; font-family: Arial;">시스템 로딩중</p>
-    <h2 class="cova-percentage" style="color: white; font-size: 100px; margin: 40px 0; font-family: Arial;">22%</h2>
-    <p style="color: white; font-size: 16px; margin: 20px 0; font-family: Arial;">재능의 출발점, COCO</p>
+<!-- COVA Loading Screen -->
+<div id="covaLoadingScreen" class="cova-loading-screen">
+  <div class="loading-content-center">
+    <div class="cova-main-logo">COVA</div>
+    <div class="cova-loading-text">시스템 로딩중</div>
+    <div class="cova-percentage">0%</div>
+    <div class="cova-footer-text">재능의 출발점, COCO</div>
   </div>
 </div>
--->
+
+<!-- noscript 대체 콘텐츠 - JS 실패 시 표시 -->
+<noscript>
+  <style>
+    .cova-loading-screen {
+      display: none !important;
+    }
+    body {
+      opacity: 1 !important;
+      overflow: auto !important;
+    }
+  </style>
+  <div style="position: fixed; top: 20px; left: 20px; right: 20px; background: rgba(0,0,0,0.9); color: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 100000; font-family: Arial, sans-serif;">
+    <h3>JavaScript가 비활성화되어 있습니다</h3>
+    <p>COVA 웹사이트의 모든 기능을 사용하려면 JavaScript를 활성화해주세요.</p>
+  </div>
+</noscript>
 
 <script src="cova-data.js"></script>
 <script src="script.js"></script>

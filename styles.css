@@ -229,11 +229,18 @@ body {
   display: flex !important;
   align-items: center;
   justify-content: center;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 1s ease, visibility 1s ease;
+  pointer-events: none !important;
+  /* 기본적으로 숨김으로 설정 - JS가 활성화하면 보이게 함 */
+}
+
+/* JS가 활성화될 때만 로딩 스크린 표시 */
+.js-enabled .cova-loading-screen {
   opacity: 1 !important;
   visibility: visible !important;
-  transition: opacity 1s ease, visibility 1s ease;
   pointer-events: all !important;
-  /* 기본적으로 보이도록 설정 */
 }
 
 .cova-loading-screen.hidden {
@@ -2079,7 +2086,7 @@ a:hover {
   display: block;
   transform: translateX(-100%);
   opacity: 0;
-  transition: all 1.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .hero-title-dynamic.js-enabled.visible .line span {
@@ -2088,16 +2095,16 @@ a:hover {
 }
 
 .hero-title-dynamic.js-enabled .line:nth-child(1) span { 
-  transform: translateX(-100%);
-  transition-delay: 0.2s; 
+  transform: translateX(-100%) translateY(20px);
+  transition-delay: 0.1s; 
 }
 .hero-title-dynamic.js-enabled .line:nth-child(2) span { 
-  transform: translateX(100%);
-  transition-delay: 0.6s; 
+  transform: translateX(-100%) translateY(20px);
+  transition-delay: 0.25s; 
 }
 .hero-title-dynamic.js-enabled .line:nth-child(3) span { 
-  transform: translateX(-100%);
-  transition-delay: 1.0s; 
+  transform: translateX(-100%) translateY(20px);
+  transition-delay: 0.4s; 
 }
 
 /* Enhanced hover effect for main title */
