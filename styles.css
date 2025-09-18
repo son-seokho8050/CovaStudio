@@ -270,6 +270,7 @@ body.modal-open {
   justify-content: center;
   padding: var(--space-4);
   border-top: 1px solid var(--border);
+  min-height: 300px; /* Ensure sufficient height for thumbnails grid */
 }
 
 /* Thumbnails Grid for Kickoff Layout */
@@ -387,7 +388,7 @@ body.modal-open {
   
   .cova-modal2.kickoff-layout .modal2-image-section {
     padding: var(--space-2);
-    max-height: 120px; /* Compact image area on mobile */
+    max-height: 240px; /* Sufficient height for 2x3 mobile grid */
   }
   
   .cova-modal2.kickoff-layout .modal2-panel {
