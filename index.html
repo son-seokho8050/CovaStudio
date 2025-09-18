@@ -581,6 +581,32 @@ window.addEventListener('DOMContentLoaded', function() {
   </div> <!-- End of modal-content-enhanced -->
 </div>
 
+<!-- Modal v2 System - CSS-only Layout without JavaScript interference -->
+<div id="covaModal2" class="cova-modal2" data-testid="modal-cova-v2">
+  <div class="cova-modal2-overlay" data-testid="modal-v2-overlay"></div>
+  <div class="cova-modal2-dialog">
+    <div class="modal2-media">
+      <div class="modal2-media-box">
+        <video id="modal2Video" class="modal2-video" controls playsinline data-testid="modal-v2-video">
+          <source id="modal2VideoSource" src="" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="modal2-panel">
+      <div class="modal2-header">
+        <h2 id="modal2Title" class="modal2-title" data-testid="modal-v2-title">프로그램 제목</h2>
+        <button class="modal2-close" data-testid="button-modal-v2-close" aria-label="모달 닫기">✕</button>
+      </div>
+      <div class="modal2-content">
+        <p id="modal2Description" class="modal2-description" data-testid="modal-v2-description">프로그램 설명</p>
+        <div class="modal2-keymoments" id="modal2KeyMoments">
+          <!-- Key moments will be dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- 기존 로딩 스크린 제거됨 -->
 
 <script src="cova-data.js"></script>

@@ -1,3 +1,6 @@
+// Modal v2 System Flag - Disable inline style issues in legacy modal
+window.USE_MODAL_V2 = true;
+
 const $ = sel => document.querySelector(sel);
 const $$ = sel => document.querySelectorAll(sel);
 
@@ -1146,6 +1149,168 @@ function initCarousel() {
   console.log('Program carousel initialized with', totalSlides, 'slides');
 }
 
+// ===================================
+// Modal v2 System - CSS-only Layout
+// ===================================
+class CovaModal2 {
+  constructor() {
+    this.modal = document.getElementById('covaModal2');
+    this.overlay = this.modal.querySelector('.cova-modal2-overlay');
+    this.closeBtn = this.modal.querySelector('.modal2-close');
+    this.title = document.getElementById('modal2Title');
+    this.description = document.getElementById('modal2Description');
+    this.video = document.getElementById('modal2Video');
+    this.videoSource = document.getElementById('modal2VideoSource');
+    this.keyMomentsContainer = document.getElementById('modal2KeyMoments');
+    
+    this.currentProgram = null;
+    this.init();
+  }
+  
+  init() {
+    // Close modal events
+    this.closeBtn.addEventListener('click', () => this.close());
+    this.overlay.addEventListener('click', () => this.close());
+    
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modal.classList.contains('is-open')) {
+        this.close();
+      }
+    });
+    
+    // Connect to program cards
+    document.querySelectorAll('.program-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        const program = card.dataset.program;
+        this.open(program);
+      });
+    });
+    
+    console.log('CovaModal2 initialized');
+  }
+  
+  open(programId) {
+    console.log('Opening Modal v2 for program:', programId);
+    
+    // Get program data
+    const programData = this.getProgramData(programId);
+    this.currentProgram = programId;
+    
+    // Update content
+    this.title.textContent = programData.title;
+    this.description.textContent = programData.description;
+    
+    // Set video source
+    const videoSrc = programData.videoSrc || window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
+    this.videoSource.src = videoSrc;
+    this.video.load();
+    
+    // Load key moments
+    this.loadKeyMoments(programData.keyMoments || window.COVA_DATA?.kickoff?.keyMoments || []);
+    
+    // Show modal
+    this.modal.classList.add('is-open');
+    document.body.classList.add('modal-open');
+    
+    // Connect KeyMomentsController to new modal
+    if (window.keyMomentsController) {
+      window.keyMomentsController.connectToModal2(this.video, programData.keyMoments || []);
+    }
+    
+    console.log('Modal v2 opened successfully');
+  }
+  
+  close() {
+    console.log('Closing Modal v2');
+    
+    this.modal.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
+    
+    // Pause video
+    this.video.pause();
+    
+    // Disconnect KeyMomentsController
+    if (window.keyMomentsController) {
+      window.keyMomentsController.disconnectFromModal2();
+    }
+    
+    this.currentProgram = null;
+  }
+  
+  loadKeyMoments(keyMoments) {
+    if (!keyMoments || keyMoments.length === 0) {
+      this.keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      return;
+    }
+    
+    const keyMomentsHTML = keyMoments.map(km => `
+      <div class="modal2-keymoment" data-time="${km.t}">
+        <div class="modal2-keymoment-time">${this.formatTime(km.t)}</div>
+        <div class="modal2-keymoment-title">${km.title}</div>
+        <div class="modal2-keymoment-summary">${km.summary}</div>
+      </div>
+    `).join('');
+    
+    this.keyMomentsContainer.innerHTML = keyMomentsHTML;
+    
+    // Add click events for key moments
+    this.keyMomentsContainer.querySelectorAll('.modal2-keymoment').forEach(item => {
+      item.addEventListener('click', () => {
+        const time = parseFloat(item.dataset.time);
+        this.video.currentTime = time;
+        this.video.play();
+      });
+    });
+  }
+  
+  formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+  
+  getProgramData(program) {
+    const programsMap = {
+      'g1-foundation': {
+        title: 'G1 기초소양 탐구',
+        description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
+      },
+      'g2-application': {
+        title: 'G2 실기력 강화',
+        description: 'COVA 방법론을 실전에 적용하여 고2 학생들의 실기 능력을 체계적으로 향상시킵니다.',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
+      },
+      'kickoff': {
+        title: 'COVA 킥오프 수업',
+        description: 'COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
+      }
+    };
+    
+    return programsMap[program] || programsMap['kickoff'];
+  }
+}
+
+// Global openModal2 function for external use
+function openModal2({ programId, src, keyMoments }) {
+  if (window.covaModal2) {
+    // Override video source and key moments if provided
+    if (src) {
+      document.getElementById('modal2VideoSource').src = src;
+      document.getElementById('modal2Video').load();
+    }
+    
+    window.covaModal2.open(programId);
+    
+    if (keyMoments) {
+      window.covaModal2.loadKeyMoments(keyMoments);
+    }
+  }
+}
+
 // Enhanced COVA Program Modal Controller - nagi Inspired
 class ProgramModalController {
   constructor() {
@@ -1191,14 +1356,17 @@ class ProgramModalController {
   }
   
   init() {
-    // Add click event listeners to program cards
-    document.querySelectorAll('.program-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        e.preventDefault();
-        const program = card.dataset.program;
-        this.openModal(program);
+    // Disable Enhanced modal controller if Modal v2 is enabled
+    if (!window.USE_MODAL_V2) {
+      // Add click event listeners to program cards
+      document.querySelectorAll('.program-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          const program = card.dataset.program;
+          this.openModal(program);
+        });
       });
-    });
+    }
     
     // Close modal events
     this.modalClose.addEventListener('click', () => this.closeModal());
@@ -1263,7 +1431,10 @@ class ProgramModalController {
     
     // Show modal
     this.modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    // Disable inline style for Modal v2
+    if (!window.USE_MODAL_V2) {
+      document.body.style.overflow = 'hidden';
+    }
     
     // Start ambient video
     this.startAmbientVideo();
@@ -1280,7 +1451,10 @@ class ProgramModalController {
     console.log('Closing modal');
     
     this.modal.classList.remove('active');
-    document.body.style.overflow = '';
+    // Disable inline style for Modal v2
+    if (!window.USE_MODAL_V2) {
+      document.body.style.overflow = '';
+    }
     
     // Pause ambient video
     this.pauseAmbientVideo();
@@ -1401,8 +1575,11 @@ class ProgramModalController {
     const left = tabRect.left - containerRect.left;
     const width = tabRect.width;
     
-    this.tabIndicator.style.left = left + 'px';
-    this.tabIndicator.style.width = width + 'px';
+    // Disable inline style for Modal v2
+    if (!window.USE_MODAL_V2) {
+      this.tabIndicator.style.left = left + 'px';
+      this.tabIndicator.style.width = width + 'px';
+    }
   }
   
   loadTabContent(programData) {
@@ -1495,7 +1672,10 @@ class ProgramModalController {
     ambientVideo.play().catch(e => {
       // Silent fallback - show poster or static background
       console.warn('Ambient video autoplay blocked by browser policy');
-      ambientVideo.style.opacity = '0.3';
+      // Disable inline style for Modal v2
+      if (!window.USE_MODAL_V2) {
+        ambientVideo.style.opacity = '0.3';
+      }
     });
   }
   
@@ -1863,6 +2043,186 @@ class KeyMomentsController {
     }
   }
   
+  // Modal v2 connection methods
+  connectToModal2(video, keyMoments) {
+    console.log('KeyMomentsController: Connecting to Modal v2');
+    this.video = video;
+    this.keyMoments = keyMoments || [];
+    this.isActive = true;
+    
+    // Ensure updateKeyMomentsUI method exists before calling
+    if (typeof this.updateKeyMomentsUI === 'function') {
+      this.updateKeyMomentsUI();
+    } else {
+      console.warn('updateKeyMomentsUI method not found, implementing it now');
+      this.updateKeyMomentsUIImplementation();
+    }
+    
+    this.bindVideoEvents();
+    this.bindKeyboardEvents();
+  }
+
+  updateKeyMomentsUIImplementation() {
+    const keyMomentsContainer = document.getElementById('modal2KeyMoments');
+    if (!keyMomentsContainer) {
+      console.warn('Modal v2 key moments container not found');
+      return;
+    }
+
+    if (!this.keyMoments || this.keyMoments.length === 0) {
+      keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      return;
+    }
+
+    const keyMomentsHTML = this.keyMoments.map(km => `
+      <div class="modal2-keymoment" data-time="${km.t}">
+        <div class="modal2-keymoment-time">${this.formatTime ? this.formatTime(km.t) : '00:00'}</div>
+        <div class="modal2-keymoment-title">${km.title}</div>
+        <div class="modal2-keymoment-summary">${km.summary}</div>
+      </div>
+    `).join('');
+    
+    keyMomentsContainer.innerHTML = keyMomentsHTML;
+    
+    // Add click events for key moments
+    keyMomentsContainer.querySelectorAll('.modal2-keymoment').forEach(item => {
+      item.addEventListener('click', () => {
+        const time = parseFloat(item.dataset.time);
+        if (this.video) {
+          this.video.currentTime = time;
+          this.video.play();
+        }
+      });
+    });
+    
+    console.log(`Modal v2: Loaded ${this.keyMoments.length} key moments`);
+  }
+  
+  disconnectFromModal2() {
+    console.log('KeyMomentsController: Disconnecting from Modal v2');
+    this.isActive = false;
+    this.video = null;
+    this.keyMoments = [];
+    this.unbindVideoEvents();
+    this.unbindKeyboardEvents();
+  }
+
+  // Update key moments UI for Modal v2
+  updateKeyMomentsUI() {
+    const keyMomentsContainer = document.getElementById('modal2KeyMoments');
+    if (!keyMomentsContainer) {
+      console.warn('Modal v2 key moments container not found');
+      return;
+    }
+
+    if (!this.keyMoments || this.keyMoments.length === 0) {
+      keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      return;
+    }
+
+    const keyMomentsHTML = this.keyMoments.map(km => `
+      <div class="modal2-keymoment" data-time="${km.t}">
+        <div class="modal2-keymoment-time">${this.formatTime(km.t)}</div>
+        <div class="modal2-keymoment-title">${km.title}</div>
+        <div class="modal2-keymoment-summary">${km.summary}</div>
+      </div>
+    `).join('');
+    
+    keyMomentsContainer.innerHTML = keyMomentsHTML;
+    
+    // Add click events for key moments
+    keyMomentsContainer.querySelectorAll('.modal2-keymoment').forEach(item => {
+      item.addEventListener('click', () => {
+        const time = parseFloat(item.dataset.time);
+        if (this.video) {
+          this.video.currentTime = time;
+          this.video.play();
+        }
+      });
+    });
+    
+    console.log(`Modal v2: Loaded ${this.keyMoments.length} key moments`);
+  }
+
+  // Handle video time update for Modal v2
+  onTimeUpdate() {
+    if (!this.video || !this.isActive) return;
+    
+    const currentTime = this.video.currentTime;
+    const duration = this.video.duration;
+    
+    if (duration && !isNaN(duration)) {
+      // Find and highlight active key moment
+      this.updateActiveKeyMomentV2(currentTime);
+    }
+  }
+
+  // Update active key moment for Modal v2
+  updateActiveKeyMomentV2(currentTime) {
+    const keyMomentsContainer = document.getElementById('modal2KeyMoments');
+    if (!keyMomentsContainer || !this.keyMoments.length) return;
+    
+    // Find active key moment using binary search
+    const index = this.findActiveKeyMoment(currentTime);
+    
+    // Remove previous highlights
+    keyMomentsContainer.querySelectorAll('.modal2-keymoment').forEach(item => {
+      item.classList.remove('active');
+    });
+    
+    // Add new highlight
+    if (index >= 0) {
+      const activeItem = keyMomentsContainer.children[index];
+      if (activeItem) {
+        activeItem.classList.add('active');
+        
+        // Auto-scroll to active moment
+        activeItem.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }
+    }
+  }
+  
+  bindVideoEvents() {
+    if (!this.video) return;
+    
+    // Remove existing listeners to prevent duplicates
+    this.unbindVideoEvents();
+    
+    // Add video event listeners for Modal v2
+    this.boundHandlers.timeupdate = () => this.onTimeUpdate();
+    this.video.addEventListener('timeupdate', this.boundHandlers.timeupdate);
+    
+    console.log('Video events bound for Modal v2');
+  }
+  
+  unbindVideoEvents() {
+    if (this.video && this.boundHandlers.timeupdate) {
+      this.video.removeEventListener('timeupdate', this.boundHandlers.timeupdate);
+    }
+    
+    if (this.boundHandlers.timeupdate) {
+      this.boundHandlers.timeupdate = null;
+    }
+  }
+  
+  bindKeyboardEvents() {
+    if (!this.boundHandlers.keydown) {
+      this.boundHandlers.keydown = (e) => this.onKeyDown(e);
+      document.addEventListener('keydown', this.boundHandlers.keydown);
+    }
+  }
+  
+  unbindKeyboardEvents() {
+    if (this.boundHandlers.keydown) {
+      document.removeEventListener('keydown', this.boundHandlers.keydown);
+      this.boundHandlers.keydown = null;
+    }
+  }
+
   onModalHide() {
     if (!this.isActive) return;
     
@@ -2405,6 +2765,11 @@ class KeyMomentsController {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  window.programModalController = new ProgramModalController();
+  // Initialize Modal Controllers
+  if (window.USE_MODAL_V2) {
+    window.covaModal2 = new CovaModal2();
+  } else {
+    window.programModalController = new ProgramModalController();
+  }
   window.keyMomentsController = new KeyMomentsController();
 });
