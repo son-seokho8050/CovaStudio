@@ -43,69 +43,79 @@ function initTheme(){
   });
 }
 
-// Loading Screen
-function initLoadingScreen() {
-  console.log('Initializing loading screen...');
-  const loadingScreen = document.getElementById('loadingScreen');
-  const percentage = document.querySelector('.loading-percentage');
-  const loadingComplete = document.getElementById('loadingComplete');
+// COVA Opening Sequence
+function initOpeningSequence() {
+  console.log('Initializing COVA opening sequence...');
+  const openingSequence = document.getElementById('openingSequence');
+  const stage1 = document.getElementById('stage1');
+  const stage2 = document.getElementById('stage2');
+  const stage3 = document.getElementById('stage3');
+  const percentage = document.querySelector('.opening-percentage');
+  const progressFill = document.querySelector('.opening-progress-fill');
   
-  if (!loadingScreen) {
-    console.error('Loading screen element not found');
+  if (!openingSequence || !stage1 || !stage2 || !stage3) {
+    console.error('Opening sequence elements not found');
     return;
   }
   
-  if (!percentage) {
-    console.error('Loading percentage element not found');
-    return;
-  }
+  let currentStage = 0;
   
-  console.log('Loading screen elements found, starting animation');
-  
-  // Make sure loading screen is visible
-  loadingScreen.style.display = 'flex';
-  loadingScreen.classList.remove('hidden');
-  
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.random() * 8 + 3; // Slower progress
-    if (progress > 100) progress = 100;
+  function showStage(stageNumber) {
+    console.log(`Showing opening stage ${stageNumber}`);
     
-    percentage.textContent = Math.floor(progress) + '%';
+    // Hide all stages
+    [stage1, stage2, stage3].forEach(stage => {
+      stage.classList.remove('active');
+    });
     
-    if (progress >= 100) {
-      console.log('Loading complete, showing completion animation');
-      clearInterval(interval);
-      
-      // Hide progress bar first
-      const loadingProgress = document.querySelector('.loading-progress');
-      const loadingText = document.querySelector('.loading-text');
-      const loadingSubtitle = document.querySelector('.loading-subtitle');
-      const loadingLogo = document.querySelector('.loading-logo');
-      
-      if (loadingProgress) loadingProgress.style.opacity = '0';
-      if (loadingText) loadingText.style.opacity = '0';
-      if (loadingSubtitle) loadingSubtitle.style.opacity = '0';
-      if (loadingLogo) loadingLogo.style.opacity = '0';
-      
-      // Show completion animation after short delay
-      setTimeout(() => {
-        if (loadingComplete) {
-          loadingComplete.classList.add('show');
-          console.log('COVA 기초소양 100% animation triggered and visible');
-        }
-      }, 500);
-      
-      // Hide loading screen after completion animation
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-          console.log('Loading screen hidden');
-        }, 1200); // Longer fade out
-      }, 3500); // Wait longer for completion animation
+    // Show current stage
+    switch(stageNumber) {
+      case 1:
+        stage1.classList.add('active');
+        setTimeout(() => showStage(2), 2000); // Show COVA for 2 seconds
+        break;
+      case 2:
+        stage2.classList.add('active');
+        setTimeout(() => showStage(3), 2000); // Show 기초소양 for 2 seconds
+        break;
+      case 3:
+        stage3.classList.add('active');
+        // Start progress animation
+        setTimeout(() => startProgressAnimation(), 800);
+        break;
     }
-  }, 200); // Slower interval
+  }
+  
+  function startProgressAnimation() {
+    console.log('Starting progress animation...');
+    let progress = 0;
+    
+    const progressInterval = setInterval(() => {
+      progress += Math.random() * 6 + 2; // Random increment
+      if (progress > 100) progress = 100;
+      
+      if (percentage) percentage.textContent = Math.floor(progress) + '%';
+      if (progressFill) progressFill.style.width = progress + '%';
+      
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        console.log('Opening sequence complete, hiding...');
+        
+        // Hide opening sequence after completion
+        setTimeout(() => {
+          openingSequence.classList.add('hidden');
+          setTimeout(() => {
+            openingSequence.style.display = 'none';
+            console.log('Opening sequence hidden');
+          }, 1000);
+        }, 1500);
+      }
+    }, 150);
+  }
+  
+  // Start the sequence
+  console.log('Starting COVA opening sequence...');
+  showStage(1);
 }
 
 // Section Progress Tracking
@@ -935,8 +945,8 @@ class TileMosaicController {
 
 // Mount all
 document.addEventListener("DOMContentLoaded", ()=>{
-  // Initialize loading screen first
-  initLoadingScreen();
+  // Initialize opening sequence first
+  initOpeningSequence();
   
   // Initialize dynamic text effects after a short delay
   setTimeout(() => {
