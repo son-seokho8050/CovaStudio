@@ -2519,6 +2519,7 @@ summary:focus {
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  border-radius: 12px;
 }
 
 .ambient-video {
@@ -2529,9 +2530,10 @@ summary:focus {
   width: 110%;
   height: 110%;
   object-fit: cover;
-  filter: blur(8px) saturate(1.1) brightness(0.7) contrast(1.1);
-  opacity: 0.6;
+  filter: blur(2px) saturate(1.2) brightness(1.1) contrast(1.0);
+  opacity: 0.9;
   animation: ambient-ken-burns 30s ease-in-out infinite alternate;
+  z-index: 1;
 }
 
 @keyframes ambient-ken-burns {
@@ -2557,12 +2559,12 @@ summary:focus {
   pointer-events: none;
   background: 
     linear-gradient(180deg, 
-      rgba(227, 103, 69, 0.12) 0%,
-      rgba(0, 0, 0, 0.3) 40%,
-      rgba(0, 0, 0, 0.5) 100%),
+      rgba(227, 103, 69, 0.05) 0%,
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0.2) 100%),
     radial-gradient(ellipse at center, 
-      transparent 40%, 
-      rgba(0, 0, 0, 0.2) 80%);
+      transparent 60%, 
+      rgba(0, 0, 0, 0.1) 90%);
 }
 
 /* Organic Sculptural Overlay - Ensure no pointer interference */
@@ -2665,8 +2667,8 @@ summary:focus {
   opacity: 0;
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1500;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
 }
 
 .modal-enhanced.active .modal-hero-content {
@@ -2875,10 +2877,10 @@ summary:focus {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, 0.1) 30%,
-    rgba(0, 0, 0, 0.2) 70%,
-    rgba(0, 0, 0, 0.8) 100%
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 30%,
+    rgba(0, 0, 0, 0.1) 70%,
+    rgba(0, 0, 0, 0.4) 100%
   );
   z-index: 6;
 }
@@ -2895,11 +2897,11 @@ summary:focus {
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.3) 20%,
-    rgba(0, 0, 0, 0.7) 70%,
-    rgba(0, 0, 0, 0.9) 100%
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(0, 0, 0, 0.4) 70%,
+    rgba(0, 0, 0, 0.7) 100%
   );
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
 }
 
 .modal-header-enhanced {
@@ -3007,21 +3009,21 @@ summary:focus {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
   overflow: hidden;
   z-index: 1500;
   position: relative;
   border-radius: 12px 12px 0 0;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Tab Navigation - COVA Style */
 .modal-tabs {
   position: relative;
   z-index: 1700;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
   border-radius: 12px 12px 0 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg-secondary);
