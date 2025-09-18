@@ -2790,7 +2790,7 @@ summary:focus {
     min-width: 350px;
     height: fit-content;
     max-height: 65vh;
-    aspect-ratio: 16/9;
+    aspect-ratio: 3/2;
   }
   
   .modal-content-panel {
@@ -2826,7 +2826,7 @@ summary:focus {
     min-width: auto;
     height: fit-content;
     max-height: 40vh;
-    aspect-ratio: 16/9;
+    aspect-ratio: 3/2;
     order: 1;
   }
   
@@ -2859,7 +2859,7 @@ summary:focus {
   .modal-media-panel {
     height: fit-content;
     max-height: 35vh;
-    aspect-ratio: 16/9;
+    aspect-ratio: 3/2;
   }
   
   .modal-content-panel .modal-hero-content {
