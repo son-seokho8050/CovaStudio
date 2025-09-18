@@ -45,8 +45,25 @@ function initTheme(){
 
 // Loading Screen
 function initLoadingScreen() {
+  console.log('Initializing loading screen...');
   const loadingScreen = document.getElementById('loadingScreen');
   const percentage = document.querySelector('.loading-percentage');
+  
+  if (!loadingScreen) {
+    console.error('Loading screen element not found');
+    return;
+  }
+  
+  if (!percentage) {
+    console.error('Loading percentage element not found');
+    return;
+  }
+  
+  console.log('Loading screen elements found, starting animation');
+  
+  // Make sure loading screen is visible
+  loadingScreen.style.display = 'flex';
+  loadingScreen.classList.remove('hidden');
   
   let progress = 0;
   const interval = setInterval(() => {
@@ -56,11 +73,13 @@ function initLoadingScreen() {
     percentage.textContent = Math.floor(progress) + '%';
     
     if (progress >= 100) {
+      console.log('Loading complete, hiding screen');
       clearInterval(interval);
       setTimeout(() => {
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
           loadingScreen.style.display = 'none';
+          console.log('Loading screen hidden');
         }, 1200); // Longer fade out
       }, 1000); // Longer wait time after 100%
     }
