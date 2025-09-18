@@ -1157,6 +1157,17 @@ class ProgramModalController {
     this.modalClose = this.modal.querySelector('.modal-close-enhanced');
     this.modalOverlay = this.modal.querySelector('.modal-overlay-enhanced');
     
+    // Debug: Check if close button is found
+    console.log('Close button element found:', this.modalClose);
+    if (this.modalClose) {
+      console.log('Close button display style:', getComputedStyle(this.modalClose).display);
+      console.log('Close button visibility:', getComputedStyle(this.modalClose).visibility);
+      console.log('Close button position:', getComputedStyle(this.modalClose).position);
+      console.log('Close button z-index:', getComputedStyle(this.modalClose).zIndex);
+    } else {
+      console.error('Close button not found! Available elements in modal:', this.modal.innerHTML);
+    }
+    
     // Tab elements
     this.tabs = this.modal.querySelectorAll('.modal-tab');
     this.tabIndicator = this.modal.querySelector('.modal-tab-indicator');
@@ -1192,6 +1203,15 @@ class ProgramModalController {
     // Close modal events
     this.modalClose.addEventListener('click', () => this.closeModal());
     this.modalOverlay.addEventListener('click', () => this.closeModal());
+    
+    // Emergency close button
+    const emergencyClose = this.modal.querySelector('.modal-emergency-close');
+    if (emergencyClose) {
+      emergencyClose.addEventListener('click', () => this.closeModal());
+      console.log('Emergency close button connected');
+    } else {
+      console.error('Emergency close button not found');
+    }
     
     // Tab navigation
     this.tabs.forEach(tab => {
