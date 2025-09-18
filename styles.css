@@ -2930,24 +2930,25 @@ summary:focus {
 }
 
 .modal-close-enhanced {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  position: fixed !important;
+  top: 30px !important;
+  right: 30px !important;
+  background: rgba(255, 0, 0, 0.8) !important;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  color: #ffffff !important;
   cursor: pointer;
-  padding: var(--space-3);
-  border-radius: 8px;
+  padding: 12px !important;
+  border-radius: 50% !important;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 44px;
-  height: 44px;
-  z-index: 1000;
-  display: flex;
+  width: 50px !important;
+  height: 50px !important;
+  z-index: 99999 !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
 }
 
 .modal-close-enhanced:hover {
