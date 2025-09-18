@@ -237,7 +237,7 @@ body {
 }
 
 /* JS가 활성화될 때만 로딩 스크린 표시 */
-.js-enabled .cova-loading-screen {
+html.js-enabled .cova-loading-screen {
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: all !important;
@@ -2120,7 +2120,7 @@ a:hover {
   opacity: 1 !important;
 }
 
-/* Default state for when no js-enabled class */
+/* Default state for when no js-enabled class - 기본적으로 보이게 설정 */
 .hero-title-dynamic .line span {
   display: block;
   transform: translateX(0);
