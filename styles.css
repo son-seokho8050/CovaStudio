@@ -2349,13 +2349,13 @@ summary:focus {
   overflow: hidden;
   background: #000;
   min-width: 400px;
-  min-height: 450px;
+  min-height: 500px;
   height: 100%;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16/9;
+  aspect-ratio: 3/2;
 }
 
 /* Content Panel (Right 40%) - Enhanced Scrollable Area */
