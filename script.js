@@ -1398,27 +1398,26 @@ class CovaModal2 {
   
   setupImageSection(kickoffData) {
     const imageSection = document.getElementById('modal2ImageSection');
-    const kickoffImage = document.getElementById('modal2KickoffImage');
-    const imageTitle = document.getElementById('modal2ImageTitle');
-    const imageDesc = document.getElementById('modal2ImageDesc');
     
     if (imageSection) {
       imageSection.style.display = 'flex';
       imageSection.setAttribute('data-testid', 'image-section');
       
-      if (kickoffImage && kickoffData.imageSrc) {
-        kickoffImage.src = kickoffData.imageSrc;
-        kickoffImage.setAttribute('data-testid', 'kickoff-image');
-      }
+      // Find the thumbnails grid and ensure all 6 thumbnails are visible
+      const thumbnailsGrid = imageSection.querySelector('.modal2-thumbnails-grid');
+      const thumbnailItems = thumbnailsGrid ? thumbnailsGrid.querySelectorAll('.thumbnail-item') : [];
       
-      if (imageTitle) {
-        imageTitle.textContent = kickoffData.imageTitle || 'COVA 핵심 컨셉';
-        imageTitle.setAttribute('data-testid', 'image-title');
-      }
+      console.log(`Found ${thumbnailItems.length} thumbnail items`);
       
-      if (imageDesc) {
-        imageDesc.textContent = kickoffData.imageDescription || 'COVA 교육 철학을 시각적으로 표현한 이미지';
-        imageDesc.setAttribute('data-testid', 'image-description');
+      // Make sure all thumbnails are displayed
+      thumbnailItems.forEach((item, index) => {
+        item.style.display = 'block';
+        item.setAttribute('data-testid', `thumbnail-${index + 1}`);
+      });
+      
+      if (thumbnailsGrid) {
+        thumbnailsGrid.style.display = 'grid';
+        console.log('Thumbnails grid activated with', thumbnailItems.length, 'items');
       }
     }
   }
