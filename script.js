@@ -1198,7 +1198,19 @@ class CovaModal2 {
     const programData = this.getProgramData(programId);
     this.currentProgram = programId;
     
-    // Update content
+    // Check if this is a kickoff modal for special layout
+    const isKickoff = programId === 'kickoff';
+    
+    if (isKickoff) {
+      // Apply kickoff-specific layout
+      this.modal.classList.add('kickoff-layout');
+      console.log('Applied kickoff layout');
+    } else {
+      // Remove kickoff layout for other programs
+      this.modal.classList.remove('kickoff-layout');
+    }
+    
+    // Update basic content
     this.title.textContent = programData.title;
     this.description.textContent = programData.description;
     
@@ -1206,6 +1218,13 @@ class CovaModal2 {
     const videoSrc = programData.videoSrc || window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
     this.videoSource.src = videoSrc;
     this.video.load();
+    
+    // Handle kickoff-specific content
+    if (isKickoff) {
+      this.setupKickoffContent();
+    } else {
+      this.hideKickoffContent();
+    }
     
     // Load key moments
     this.loadKeyMoments(programData.keyMoments || window.COVA_DATA?.kickoff?.keyMoments || []);
@@ -1219,17 +1238,21 @@ class CovaModal2 {
       window.keyMomentsController.connectToModal2(this.video, programData.keyMoments || []);
     }
     
-    console.log('Modal v2 opened successfully');
+    console.log('Modal v2 opened successfully for:', programId);
   }
   
   close() {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
+    this.modal.classList.remove('kickoff-layout'); // Remove kickoff layout
     document.body.classList.remove('modal-open');
     
     // Pause video
     this.video.pause();
+    
+    // Hide kickoff content
+    this.hideKickoffContent();
     
     // Disconnect KeyMomentsController
     if (window.keyMomentsController) {
@@ -1237,6 +1260,66 @@ class CovaModal2 {
     }
     
     this.currentProgram = null;
+  }
+  
+  setupKickoffContent() {
+    console.log('Setting up kickoff-specific content');
+    
+    const kickoffData = window.COVA_DATA?.kickoff;
+    if (!kickoffData) {
+      console.warn('Kickoff data not found');
+      return;
+    }
+    
+    // Show and set image section
+    const imageSection = document.getElementById('modal2ImageSection');
+    const kickoffImage = document.getElementById('modal2KickoffImage');
+    if (imageSection && kickoffImage) {
+      imageSection.style.display = 'flex';
+      if (kickoffData.imageSrc) {
+        kickoffImage.src = kickoffData.imageSrc;
+      }
+    }
+    
+    // Show and populate kickoff details
+    const kickoffDetails = document.getElementById('modal2KickoffDetails');
+    if (kickoffDetails) {
+      kickoffDetails.style.display = 'flex';
+      
+      // Update goals
+      const goalsElement = document.getElementById('kickoffGoals');
+      if (goalsElement && kickoffData.goals) {
+        goalsElement.innerHTML = kickoffData.goals.map(goal => `• ${goal}`).join('<br>');
+      }
+      
+      // Update curriculum
+      const curriculumElement = document.getElementById('kickoffCurriculum');
+      if (curriculumElement && kickoffData.curriculum) {
+        curriculumElement.innerHTML = kickoffData.curriculum.map(item => `<li>${item}</li>`).join('');
+      }
+      
+      // Update philosophy
+      const philosophyElement = document.getElementById('kickoffPhilosophy');
+      if (philosophyElement && kickoffData.philosophy) {
+        philosophyElement.textContent = kickoffData.philosophy;
+      }
+    }
+  }
+  
+  hideKickoffContent() {
+    console.log('Hiding kickoff-specific content');
+    
+    // Hide image section
+    const imageSection = document.getElementById('modal2ImageSection');
+    if (imageSection) {
+      imageSection.style.display = 'none';
+    }
+    
+    // Hide kickoff details
+    const kickoffDetails = document.getElementById('modal2KickoffDetails');
+    if (kickoffDetails) {
+      kickoffDetails.style.display = 'none';
+    }
   }
   
   loadKeyMoments(keyMoments) {
@@ -1276,17 +1359,25 @@ class CovaModal2 {
       'g1-foundation': {
         title: 'G1 기초소양 탐구',
         description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
+        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
       },
       'g2-application': {
         title: 'G2 실기력 강화',
         description: 'COVA 방법론을 실전에 적용하여 고2 학생들의 실기 능력을 체계적으로 향상시킵니다.',
+        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
       },
       'kickoff': {
-        title: 'COVA 킥오프 수업',
-        description: 'COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.',
-        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || []
+        title: window.COVA_DATA?.kickoff?.title || 'COVA 킥오프 수업',
+        description: window.COVA_DATA?.kickoff?.description || 'COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.',
+        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
+        imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
+        goals: window.COVA_DATA?.kickoff?.goals || [],
+        curriculum: window.COVA_DATA?.kickoff?.curriculum || [],
+        philosophy: window.COVA_DATA?.kickoff?.philosophy || '',
+        methodology: window.COVA_DATA?.kickoff?.methodology || []
       }
     };
     

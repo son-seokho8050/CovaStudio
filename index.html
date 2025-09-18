@@ -586,19 +586,66 @@ window.addEventListener('DOMContentLoaded', function() {
   <div class="cova-modal2-overlay" data-testid="modal-v2-overlay"></div>
   <div class="cova-modal2-dialog">
     <div class="modal2-media">
-      <div class="modal2-media-box">
-        <video id="modal2Video" class="modal2-video" controls playsinline data-testid="modal-v2-video">
-          <source id="modal2VideoSource" src="" type="video/mp4">
-        </video>
+      <!-- Video Section (Top Left) -->
+      <div class="modal2-video-section">
+        <div class="modal2-media-box">
+          <video id="modal2Video" class="modal2-video" controls playsinline data-testid="modal-v2-video">
+            <source id="modal2VideoSource" src="" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      
+      <!-- Image Section (Bottom Left) - Only visible in kickoff layout -->
+      <div class="modal2-image-section" id="modal2ImageSection" style="display: none;">
+        <img id="modal2KickoffImage" class="modal2-kickoff-image" 
+             src="attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png"
+             alt="킥오프 관련 이미지"
+             data-testid="modal-v2-kickoff-image">
       </div>
     </div>
+    
     <div class="modal2-panel">
       <div class="modal2-header">
         <h2 id="modal2Title" class="modal2-title" data-testid="modal-v2-title">프로그램 제목</h2>
         <button class="modal2-close" data-testid="button-modal-v2-close" aria-label="모달 닫기">✕</button>
       </div>
+      
       <div class="modal2-content">
         <p id="modal2Description" class="modal2-description" data-testid="modal-v2-description">프로그램 설명</p>
+        
+        <!-- Kickoff-specific detailed content -->
+        <div class="modal2-kickoff-details" id="modal2KickoffDetails" style="display: none;">
+          <div class="modal2-detail-section">
+            <div class="modal2-detail-title">수업 목표</div>
+            <div class="modal2-detail-content" id="kickoffGoals">
+              • 기초 드로잉 기법 습득<br>
+              • 관찰력과 표현력 향상<br>
+              • 체계적인 학습 방법 익히기
+            </div>
+          </div>
+          
+          <div class="modal2-detail-section">
+            <div class="modal2-detail-title">주요 학습 내용</div>
+            <div class="modal2-detail-content">
+              <ul class="modal2-detail-list" id="kickoffCurriculum">
+                <li>기본 도구 사용법과 자세</li>
+                <li>선 연습과 형태 관찰</li>
+                <li>비례와 구도의 이해</li>
+                <li>실습을 통한 실전 경험</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="modal2-detail-section">
+            <div class="modal2-detail-title">COVA 학습 철학</div>
+            <div class="modal2-detail-content" id="kickoffPhilosophy">
+              과정 중심의 사고를 통해 개념을 언어화하고,<br>
+              비교와 연결을 통한 탐구로 체계적인 성장을 도모합니다.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Standard key moments (always visible) -->
         <div class="modal2-keymoments" id="modal2KeyMoments">
           <!-- Key moments will be dynamically populated -->
         </div>

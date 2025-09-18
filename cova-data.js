@@ -41,7 +41,39 @@ window.COVA_DATA = {
   },
 
   kickoff: {
+    title: "COVA 킥오프 수업",
+    description: "COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.",
     videoSrc: "attached_assets/남성_강사의_스케치_수업_1758107827768.mp4",
+    imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
+    
+    // 수업 목표
+    goals: [
+      "기초 드로잉 기법 습득",
+      "관찰력과 표현력 향상", 
+      "체계적인 학습 방법 익히기",
+      "COVA 철학의 이해와 체험"
+    ],
+    
+    // 주요 학습 내용
+    curriculum: [
+      "기본 도구 사용법과 올바른 자세",
+      "선 연습과 형태 관찰 방법",
+      "비례와 구도의 기본 이해",
+      "실습을 통한 실전 경험",
+      "개별 맞춤 피드백과 보완점 도출"
+    ],
+    
+    // COVA 핵심 철학
+    philosophy: "과정 중심의 사고를 통해 개념을 언어화하고, 비교와 연결을 통한 탐구로 체계적인 성장을 도모합니다. '생각하며 그리는 학생'을 만드는 것이 COVA의 목표입니다.",
+    
+    // 수업 진행 방식
+    methodology: [
+      "Pre(관찰): 대상을 충분히 관찰하고 분석",
+      "Core(실습): 체계적인 단계별 드로잉 실습",
+      "Post(검토): 결과물 검토와 개선점 도출",
+      "Feedback(피드백): 개별 맞춤 지도와 격려"
+    ],
+    
     keyMoments: [
       { id: "km1", t: 15.2, title: "수업 시작", summary: "강사 소개와 오늘의 목표 설정" },
       { id: "km2", t: 42.8, title: "재료 설명", summary: "연필과 종이의 특성, 올바른 잡는 법" },
