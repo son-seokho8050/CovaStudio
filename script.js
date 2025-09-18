@@ -1268,6 +1268,11 @@ class ProgramModalController {
     // Start ambient video
     this.startAmbientVideo();
     
+    // Activate KeyMomentsController
+    if (window.keyMomentsController) {
+      window.keyMomentsController.onModalShow();
+    }
+    
     console.log('Modal opened successfully');
   }
   
@@ -1283,6 +1288,11 @@ class ProgramModalController {
     // Reset ambient video to default state
     this.resetAmbientVideo();
     
+    // Deactivate KeyMomentsController
+    if (window.keyMomentsController) {
+      window.keyMomentsController.onModalHide();
+    }
+    
     // Reset current program
     this.currentProgram = null;
   }
@@ -1295,17 +1305,20 @@ class ProgramModalController {
       return;
     }
 
-    // Ensure autoplay attributes are set correctly
+    // Ensure all required attributes are set correctly
     ambientVideo.muted = true;
     ambientVideo.playsInline = true;
     ambientVideo.autoplay = true;
     ambientVideo.loop = true;
     ambientVideo.preload = 'metadata';
     
-    // Set video source based on program
-    const videoSrc = program === 'kickoff' 
-      ? 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4'
-      : 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4';
+    // Use COVA_DATA videoSrc instead of hardcoded paths
+    const programData = window.COVA_DATA && window.COVA_DATA[program];
+    const videoSrc = programData && programData.videoSrc 
+      ? programData.videoSrc
+      : 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4'; // fallback
+    
+    console.log(`Setting video source for ${program}:`, videoSrc);
     
     const sources = ambientVideo.querySelectorAll('source');
     if (sources.length > 0) {
@@ -1313,6 +1326,17 @@ class ProgramModalController {
     } else {
       ambientVideo.src = videoSrc;
     }
+    
+    // Set up loadedmetadata event to pass key moments data to KeyMomentsController
+    const onLoadedMetadata = () => {
+      console.log('Video metadata loaded, passing key moments data');
+      if (window.keyMomentsController && programData && programData.keyMoments) {
+        window.keyMomentsController.setCurrentProgram(program, programData.keyMoments);
+      }
+      ambientVideo.removeEventListener('loadedmetadata', onLoadedMetadata);
+    };
+    
+    ambientVideo.addEventListener('loadedmetadata', onLoadedMetadata);
     
     // Force reload with new source
     ambientVideo.load();
@@ -1738,7 +1762,649 @@ class ProgramModalController {
   }
 }
 
+// ============================================
+// Key Moments Controller - Video Synchronization System
+// ============================================
+
+class KeyMomentsController {
+  constructor() {
+    this.modal = null;
+    this.video = null;
+    this.keyMoments = [];
+    this.currentProgram = null;
+    this.currentMomentIndex = -1;
+    this.lastUpdateTime = 0;
+    this.throttleDelay = 250; // 250ms throttle
+    this.isActive = false;
+    this.animationFrame = null;
+    
+    // DOM elements
+    this.keyMomentsList = null;
+    this.timelineTrack = null;
+    this.timelineProgress = null;
+    this.timelineMarkers = null;
+    this.timelineHandle = null;
+    this.currentTimeDisplay = null;
+    this.totalTimeDisplay = null;
+    this.speedButtons = null;
+    
+    // Accessibility
+    this.focusedMomentIndex = -1;
+    this.ariaLiveRegion = null;
+    
+    // Touch and interaction
+    this.isDragging = false;
+    this.lastTouchY = 0;
+    
+    // Event handler references for proper cleanup
+    this.boundHandlers = {
+      keydown: null,
+      mutationObserver: null
+    };
+    
+    this.init();
+  }
+  
+  init() {
+    // Initialize when modal is available
+    this.modal = document.getElementById('programModal');
+    if (this.modal) {
+      this.setupEventListeners();
+    }
+  }
+  
+  setupEventListeners() {
+    // Modal events
+    this.modal.addEventListener('show', () => this.onModalShow());
+    this.modal.addEventListener('hide', () => this.onModalHide());
+    
+    // Watch for modal active state changes
+    this.boundHandlers.mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          if (this.modal.classList.contains('active')) {
+            this.onModalShow();
+          } else {
+            this.onModalHide();
+          }
+        }
+      });
+    });
+    this.boundHandlers.mutationObserver.observe(this.modal, { attributes: true });
+    
+    // Bind keyboard handler for proper removal
+    this.boundHandlers.keydown = (e) => this.handleKeyboard(e);
+    document.addEventListener('keydown', this.boundHandlers.keydown);
+  }
+  
+  onModalShow() {
+    if (this.isActive) return;
+    
+    console.log('KeyMomentsController: Modal shown, activating');
+    this.isActive = true;
+    
+    // Find video and UI elements
+    this.video = this.modal.querySelector('.ambient-video');
+    this.keyMomentsList = document.getElementById('keyMomentsList');
+    this.timelineTrack = document.getElementById('timelineTrack');
+    this.timelineProgress = document.getElementById('timelineProgress');
+    this.timelineMarkers = document.getElementById('timelineMarkers');
+    this.timelineHandle = document.getElementById('timelineHandle');
+    this.currentTimeDisplay = document.getElementById('currentTimeDisplay');
+    this.totalTimeDisplay = document.getElementById('totalTimeDisplay');
+    this.speedButtons = document.querySelectorAll('.speed-btn');
+    
+    // Setup aria-live region
+    this.setupAriaLive();
+    
+    if (this.video) {
+      this.setupVideoListeners();
+      this.loadKeyMoments();
+    }
+  }
+  
+  onModalHide() {
+    if (!this.isActive) return;
+    
+    console.log('KeyMomentsController: Modal hidden, deactivating');
+    this.isActive = false;
+    this.cleanup();
+  }
+  
+  cleanup() {
+    console.log('KeyMomentsController: Performing cleanup');
+    
+    // Remove global event listeners with proper references
+    if (this.boundHandlers.keydown) {
+      document.removeEventListener('keydown', this.boundHandlers.keydown);
+      this.boundHandlers.keydown = null;
+    }
+    
+    // Disconnect MutationObserver
+    if (this.boundHandlers.mutationObserver) {
+      this.boundHandlers.mutationObserver.disconnect();
+      this.boundHandlers.mutationObserver = null;
+    }
+    
+    // Remove video listeners
+    if (this.video) {
+      this.video.removeEventListener('timeupdate', this.throttledTimeUpdate);
+      this.video.removeEventListener('loadedmetadata', this.onVideoLoaded);
+      this.video.removeEventListener('durationchange', this.onVideoLoaded);
+    }
+    
+    // Cancel animation frame
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+      this.animationFrame = null;
+    }
+    
+    // Reset state
+    this.currentMomentIndex = -1;
+    this.focusedMomentIndex = -1;
+    this.keyMoments = [];
+    this.lastUpdateTime = 0;
+    this.currentProgram = null;
+  }
+  
+  setupVideoListeners() {
+    // Throttled time update for performance
+    this.throttledTimeUpdate = this.throttle(() => {
+      this.updateProgress();
+    }, this.throttleDelay);
+    
+    this.onVideoLoaded = () => {
+      this.updateTimeDisplay();
+      this.renderTimeline();
+    };
+    
+    this.video.addEventListener('timeupdate', this.throttledTimeUpdate);
+    this.video.addEventListener('loadedmetadata', this.onVideoLoaded);
+    this.video.addEventListener('durationchange', this.onVideoLoaded);
+  }
+  
+  setupAriaLive() {
+    if (!this.ariaLiveRegion) {
+      this.ariaLiveRegion = document.createElement('div');
+      this.ariaLiveRegion.setAttribute('aria-live', 'polite');
+      this.ariaLiveRegion.setAttribute('aria-atomic', 'true');
+      this.ariaLiveRegion.style.position = 'absolute';
+      this.ariaLiveRegion.style.left = '-10000px';
+      this.ariaLiveRegion.style.width = '1px';
+      this.ariaLiveRegion.style.height = '1px';
+      this.ariaLiveRegion.style.overflow = 'hidden';
+      document.body.appendChild(this.ariaLiveRegion);
+    }
+  }
+  
+  loadKeyMoments() {
+    // Get current program from modal
+    const programName = this.getCurrentProgram();
+    console.log('Loading key moments for program:', programName);
+    
+    if (programName && window.COVA_DATA && window.COVA_DATA[programName]) {
+      const programData = window.COVA_DATA[programName];
+      this.keyMoments = programData.keyMoments || [];
+      this.currentProgram = programName;
+      
+      // Update video source if available
+      if (programData.videoSrc && this.video) {
+        const currentSrc = this.video.querySelector('source');
+        if (currentSrc && currentSrc.src !== programData.videoSrc) {
+          currentSrc.src = programData.videoSrc;
+          this.video.load();
+        }
+      }
+      
+      this.renderKeyMoments();
+      this.renderTimeline();
+      this.setupInteractions();
+      
+      console.log(`Loaded ${this.keyMoments.length} key moments`);
+    }
+  }
+  
+  getCurrentProgram() {
+    // Try to get from modal title or data attribute
+    const modalTitle = document.getElementById('modalTitle');
+    if (modalTitle) {
+      const titleText = modalTitle.textContent.toLowerCase();
+      if (titleText.includes('kick-off')) return 'kickoff';
+      if (titleText.includes('step-zero')) return 'stepZero';
+    }
+    
+    // Fallback to checking active program card
+    const activeCard = document.querySelector('.program-card.active');
+    if (activeCard) {
+      return activeCard.dataset.program;
+    }
+    
+    return 'kickoff'; // Default fallback
+  }
+  
+  renderKeyMoments() {
+    if (!this.keyMomentsList || !this.keyMoments.length) return;
+    
+    this.keyMomentsList.innerHTML = this.keyMoments.map((moment, index) => `
+      <div class="keymoment-item" 
+           data-moment-id="${moment.id}" 
+           data-time="${moment.t}"
+           data-index="${index}"
+           role="listitem"
+           tabindex="0"
+           aria-describedby="moment-${moment.id}-desc">
+        <div class="moment-time">${this.formatTime(moment.t)}</div>
+        <div class="moment-content">
+          <div class="moment-title">${moment.title}</div>
+          <div class="moment-summary" id="moment-${moment.id}-desc">${moment.summary}</div>
+        </div>
+        <div class="moment-indicator" aria-hidden="true"></div>
+      </div>
+    `).join('');
+  }
+  
+  renderTimeline() {
+    if (!this.timelineMarkers || !this.keyMoments.length || !this.video) return;
+    
+    const duration = this.video.duration;
+    if (!duration || isNaN(duration)) return;
+    
+    this.timelineMarkers.innerHTML = this.keyMoments.map(moment => {
+      const position = (moment.t / duration) * 100;
+      return `
+        <div class="timeline-marker" 
+             style="left: ${position}%"
+             data-time="${moment.t}"
+             title="${moment.title}"
+             role="button"
+             tabindex="0"
+             aria-label="${moment.title} - ${this.formatTime(moment.t)}">
+        </div>
+      `;
+    }).join('');
+    
+    // Setup timeline interactions
+    this.setupTimelineInteractions();
+  }
+  
+  setupInteractions() {
+    // Key moment click/tap handlers
+    this.keyMomentsList.addEventListener('click', (e) => {
+      const momentItem = e.target.closest('.keymoment-item');
+      if (momentItem) {
+        const time = parseFloat(momentItem.dataset.time);
+        this.seekTo(time);
+        this.announceSeek(momentItem.querySelector('.moment-title').textContent, time);
+      }
+    });
+    
+    // Key moment keyboard navigation
+    this.keyMomentsList.addEventListener('keydown', (e) => {
+      this.handleMomentListKeyboard(e);
+    });
+    
+    // Speed control buttons
+    this.speedButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const speed = parseFloat(btn.dataset.speed);
+        this.setPlaybackSpeed(speed);
+        
+        // Update button states
+        this.speedButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+    
+    // Touch/swipe support for mobile
+    this.setupTouchSupport();
+  }
+  
+  setupTimelineInteractions() {
+    if (!this.timelineTrack) return;
+    
+    const handleTimelineClick = (e) => {
+      const rect = this.timelineTrack.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+      const time = percentage * this.video.duration;
+      this.seekTo(time);
+    };
+    
+    this.timelineTrack.addEventListener('click', handleTimelineClick);
+    
+    // Timeline markers click
+    this.timelineMarkers.addEventListener('click', (e) => {
+      const marker = e.target.closest('.timeline-marker');
+      if (marker) {
+        const time = parseFloat(marker.dataset.time);
+        this.seekTo(time);
+        e.stopPropagation();
+      }
+    });
+    
+    // Timeline keyboard navigation
+    if (this.timelineHandle) {
+      this.timelineHandle.addEventListener('keydown', (e) => {
+        this.handleTimelineKeyboard(e);
+      });
+    }
+  }
+  
+  setupTouchSupport() {
+    let touchStartY = 0;
+    let touchStartX = 0;
+    
+    this.keyMomentsList.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    
+    this.keyMomentsList.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const touchX = e.touches[0].clientX;
+      const deltaY = Math.abs(touchY - touchStartY);
+      const deltaX = Math.abs(touchX - touchStartX);
+      
+      // Horizontal swipe detection for seeking
+      if (deltaX > deltaY && deltaX > 50) {
+        const direction = touchX > touchStartX ? 1 : -1;
+        this.seekRelative(direction * 5); // ±5 seconds
+        e.preventDefault();
+      }
+    }, { passive: false });
+  }
+  
+  updateProgress() {
+    if (!this.video || !this.isActive) return;
+    
+    // Use requestAnimationFrame for smooth 60fps updates
+    this.animationFrame = requestAnimationFrame(() => {
+      const currentTime = this.video.currentTime;
+      const duration = this.video.duration;
+      
+      if (duration && !isNaN(duration)) {
+        // Update timeline progress
+        const percentage = (currentTime / duration) * 100;
+        if (this.timelineProgress) {
+          this.timelineProgress.style.width = `${percentage}%`;
+        }
+        
+        if (this.timelineHandle) {
+          this.timelineHandle.style.left = `${percentage}%`;
+          this.timelineHandle.setAttribute('aria-valuenow', Math.round(percentage));
+        }
+        
+        // Update time display
+        this.updateTimeDisplay();
+        
+        // Find and highlight active key moment using binary search
+        this.updateActiveKeyMoment(currentTime);
+      }
+    });
+  }
+  
+  updateActiveKeyMoment(currentTime) {
+    if (!this.keyMoments.length) return;
+    
+    // Binary search for active key moment (O(log n) performance)
+    const index = this.findActiveKeyMoment(currentTime);
+    
+    if (index !== this.currentMomentIndex) {
+      // Remove previous highlight
+      if (this.currentMomentIndex >= 0) {
+        const prevItem = this.keyMomentsList.querySelector(`[data-index="${this.currentMomentIndex}"]`);
+        if (prevItem) {
+          prevItem.classList.remove('active');
+          prevItem.removeAttribute('aria-current');
+        }
+      }
+      
+      // Add new highlight
+      if (index >= 0) {
+        const currentItem = this.keyMomentsList.querySelector(`[data-index="${index}"]`);
+        if (currentItem) {
+          currentItem.classList.add('active');
+          currentItem.setAttribute('aria-current', 'true');
+          
+          // Auto-scroll to active moment
+          this.scrollToMoment(currentItem);
+        }
+      }
+      
+      this.currentMomentIndex = index;
+    }
+  }
+  
+  findActiveKeyMoment(currentTime) {
+    // Binary search with tolerance for precise matching
+    let left = 0;
+    let right = this.keyMoments.length - 1;
+    let result = -1;
+    
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const momentTime = this.keyMoments[mid].t;
+      
+      // Check if we're within a reasonable range (±2 seconds)
+      if (Math.abs(currentTime - momentTime) <= 2) {
+        result = mid;
+        break;
+      }
+      
+      if (momentTime <= currentTime) {
+        result = mid;
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    
+    return result;
+  }
+  
+  scrollToMoment(momentElement) {
+    if (!momentElement || !this.keyMomentsList) return;
+    
+    // Smooth scroll to center the element
+    momentElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest'
+    });
+  }
+  
+  seekTo(time) {
+    if (!this.video) return;
+    
+    this.video.currentTime = Math.max(0, Math.min(time, this.video.duration));
+  }
+  
+  seekRelative(deltaSeconds) {
+    if (!this.video) return;
+    
+    const newTime = this.video.currentTime + deltaSeconds;
+    this.seekTo(newTime);
+  }
+  
+  setPlaybackSpeed(speed) {
+    if (!this.video) return;
+    
+    this.video.playbackRate = speed;
+  }
+  
+  updateTimeDisplay() {
+    if (!this.video || !this.currentTimeDisplay || !this.totalTimeDisplay) return;
+    
+    const current = this.video.currentTime;
+    const total = this.video.duration;
+    
+    this.currentTimeDisplay.textContent = this.formatTime(current);
+    if (total && !isNaN(total)) {
+      this.totalTimeDisplay.textContent = this.formatTime(total);
+    }
+  }
+  
+  formatTime(seconds) {
+    if (!seconds || isNaN(seconds)) return '00:00';
+    
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+  
+  announceSeek(momentTitle, time) {
+    if (this.ariaLiveRegion) {
+      this.ariaLiveRegion.textContent = `이동: ${momentTitle}, ${this.formatTime(time)}`;
+    }
+  }
+  
+  handleKeyboard(e) {
+    // Only handle keys when modal is active and key moments are accessible
+    if (!this.isActive || !this.video) return;
+    if (!this.modal || !this.modal.classList.contains('active')) return;
+    
+    // Check if key moments tab is active (if tabs exist)
+    const activeTab = this.modal.querySelector('.modal-tab.active');
+    if (activeTab && activeTab.dataset.tab && activeTab.dataset.tab !== 'keymoments') return;
+    
+    // Only handle if modal is focused or no other input is focused
+    const activeElement = document.activeElement;
+    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+      return;
+    }
+    
+    switch (e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        this.seekRelative(-5);
+        this.announceSeek('5초 뒤로', this.video.currentTime);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        this.seekRelative(5);
+        this.announceSeek('5초 앞으로', this.video.currentTime);
+        break;
+      case ' ':
+        e.preventDefault();
+        if (this.video.paused) {
+          this.video.play();
+        } else {
+          this.video.pause();
+        }
+        break;
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+        e.preventDefault();
+        const momentIndex = parseInt(e.key) - 1;
+        if (momentIndex < this.keyMoments.length) {
+          const moment = this.keyMoments[momentIndex];
+          this.seekTo(moment.t);
+          this.announceSeek(moment.title, moment.t);
+        }
+        break;
+    }
+  }
+  
+  handleMomentListKeyboard(e) {
+    const items = this.keyMomentsList.querySelectorAll('.keymoment-item');
+    if (!items.length) return;
+    
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        this.focusedMomentIndex = Math.max(0, this.focusedMomentIndex - 1);
+        items[this.focusedMomentIndex].focus();
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        this.focusedMomentIndex = Math.min(items.length - 1, this.focusedMomentIndex + 1);
+        items[this.focusedMomentIndex].focus();
+        break;
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        const focusedItem = items[this.focusedMomentIndex];
+        if (focusedItem) {
+          const time = parseFloat(focusedItem.dataset.time);
+          this.seekTo(time);
+          this.announceSeek(focusedItem.querySelector('.moment-title').textContent, time);
+        }
+        break;
+    }
+  }
+  
+  handleTimelineKeyboard(e) {
+    if (!this.video) return;
+    
+    const duration = this.video.duration;
+    if (!duration) return;
+    
+    const stepSize = duration / 100; // 1% steps
+    
+    switch (e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        this.seekRelative(-stepSize);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        this.seekRelative(stepSize);
+        break;
+      case 'Home':
+        e.preventDefault();
+        this.seekTo(0);
+        break;
+      case 'End':
+        e.preventDefault();
+        this.seekTo(duration);
+        break;
+    }
+  }
+  
+  // Method to set current program and key moments (called from ProgramModalController)
+  setCurrentProgram(program, keyMoments) {
+    console.log(`KeyMomentsController: Setting current program to ${program} with ${keyMoments ? keyMoments.length : 0} key moments`);
+    this.currentProgram = program;
+    this.keyMoments = keyMoments || [];
+    
+    // If already active, refresh the display
+    if (this.isActive) {
+      this.renderKeyMoments();
+      this.renderTimeline();
+    }
+  }
+  
+  // Utility: Throttle function for performance optimization
+  throttle(func, delay) {
+    let timeoutId;
+    let lastExecTime = 0;
+    
+    return function (...args) {
+      const currentTime = Date.now();
+      
+      if (currentTime - lastExecTime > delay) {
+        func.apply(this, args);
+        lastExecTime = currentTime;
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+          lastExecTime = Date.now();
+        }, delay - (currentTime - lastExecTime));
+      }
+    };
+  }
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   window.programModalController = new ProgramModalController();
+  window.keyMomentsController = new KeyMomentsController();
 });

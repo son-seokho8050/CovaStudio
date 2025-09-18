@@ -41,6 +41,16 @@ window.COVA_DATA = {
   },
 
   kickoff: {
+    videoSrc: "attached_assets/남성_강사의_스케치_수업_1758107827768.mp4",
+    keyMoments: [
+      { id: "km1", t: 15.2, title: "수업 시작", summary: "강사 소개와 오늘의 목표 설정" },
+      { id: "km2", t: 42.8, title: "재료 설명", summary: "연필과 종이의 특성, 올바른 잡는 법" },
+      { id: "km3", t: 78.5, title: "기본 선 연습", summary: "직선, 곡선 그리기 기초 테크닉" },
+      { id: "km4", t: 125.3, title: "형태 관찰법", summary: "사물을 보는 관점과 비례 잡기" },
+      { id: "km5", t: 167.9, title: "실습 시작", summary: "학생들의 첫 번째 스케치 도전" },
+      { id: "km6", t: 205.4, title: "개별 피드백", summary: "학생별 맞춤 지도와 보완점" },
+      { id: "km7", t: 248.1, title: "완성과 정리", summary: "작품 완성도 높이기와 수업 마무리" }
+    ],
     g1: [
       ["1주차","오늘을 선 3개로 표현한다면?"],
       ["2주차","내 기분을 점 5개로 표현한다면?"],
@@ -72,6 +82,16 @@ window.COVA_DATA = {
   },
 
   stepZero: {
+    videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
+    keyMoments: [
+      { id: "km1", t: 8.7, title: "Step-Zero 소개", summary: "월요일 30분 사고 훈련의 의미" },
+      { id: "km2", t: 35.1, title: "사고 질문 예시", summary: "Lv1-3 질문의 차이점과 접근법" },
+      { id: "km3", t: 62.8, title: "기록 방법", summary: "키워드에서 문장으로 확장하는 법" },
+      { id: "km4", t: 94.2, title: "시각화 실습", summary: "낙서와 기호로 아이디어 표현하기" },
+      { id: "km5", t: 128.6, title: "실기 연결", summary: "사고와 관찰 드로잉의 브리지" },
+      { id: "km6", t: 156.9, title: "피드백 루브릭", summary: "해석력, 창의성, 표현력, 진정성 평가" },
+      { id: "km7", t: 185.3, title: "포트폴리오", summary: "주간 성장 기록과 가시화 방법" }
+    ],
     daily: [
       "사고 질문(7′): Lv1~Lv3, 정답 없음",
       "사고 기록(3~5줄): 키워드/문장",
