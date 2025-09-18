@@ -2330,7 +2330,7 @@ summary:focus {
   flex-direction: column;
 }
 
-/* Split View Container - Enhanced 60%/40% Layout */
+/* Split View Container - Balanced Height Layout */
 .modal-split-container {
   display: grid;
   grid-template-columns: 60% 40%;
@@ -2339,19 +2339,22 @@ summary:focus {
   min-height: 0;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: auto;
+  align-items: start;
 }
 
-/* Media Panel (Left 60%) - Enhanced for Video Content */
+/* Media Panel (Left 60%) - Height-Matched Video Content */
 .modal-media-panel {
   position: relative;
   overflow: hidden;
   background: #000;
   min-width: 400px;
-  min-height: 300px;
+  height: fit-content;
+  max-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 16/9;
 }
 
 /* Content Panel (Right 40%) - Enhanced Scrollable Area */
@@ -2778,11 +2781,15 @@ summary:focus {
   .modal-split-container {
     grid-template-columns: 58% 42%;
     gap: 1px;
+    height: auto;
+    align-items: start;
   }
   
   .modal-media-panel {
     min-width: 350px;
-    min-height: 250px;
+    height: fit-content;
+    max-height: 65vh;
+    aspect-ratio: 16/9;
   }
   
   .modal-content-panel {
@@ -2809,13 +2816,16 @@ summary:focus {
   .modal-split-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 40% 60%;
+    grid-template-rows: auto 1fr;
     gap: 1px;
+    height: auto;
   }
   
   .modal-media-panel {
     min-width: auto;
-    min-height: 200px;
+    height: fit-content;
+    max-height: 40vh;
+    aspect-ratio: 16/9;
     order: 1;
   }
   
@@ -2841,11 +2851,14 @@ summary:focus {
   }
   
   .modal-split-container {
-    grid-template-rows: 35% 65%;
+    grid-template-rows: auto 1fr;
+    height: auto;
   }
   
   .modal-media-panel {
-    min-height: 150px;
+    height: fit-content;
+    max-height: 35vh;
+    aspect-ratio: 16/9;
   }
   
   .modal-content-panel .modal-hero-content {
