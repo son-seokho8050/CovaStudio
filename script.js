@@ -1263,12 +1263,34 @@ class CovaModal2 {
   }
   
   setupKickoffContent() {
-    console.log('Setting up kickoff-specific content');
+    console.log('Setting up kickoff-specific content v2');
     
     const kickoffData = window.COVA_DATA?.kickoff;
     if (!kickoffData) {
       console.warn('Kickoff data not found');
       return;
+    }
+    
+    // 0. Setup video autoplay (inline)
+    if (this.video) {
+      try {
+        this.video.autoplay = true;
+        this.video.muted = true;
+        this.video.loop = false;
+        
+        const playPromise = this.video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('Kickoff video autoplay started successfully');
+            })
+            .catch(error => {
+              console.warn('Kickoff video autoplay failed:', error);
+            });
+        }
+      } catch (error) {
+        console.warn('Kickoff video autoplay setup failed:', error);
+      }
     }
     
     // 1. Setup Video Information Display
@@ -1292,6 +1314,7 @@ class CovaModal2 {
     console.log('Kickoff content setup completed');
   }
   
+
   setupVideoHeader(kickoffData) {
     const videoHeader = document.getElementById('modal2VideoHeader');
     const videoTitle = document.getElementById('modal2VideoTitle');
