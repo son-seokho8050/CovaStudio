@@ -1302,8 +1302,7 @@ class CovaModal2 {
     // 3. Setup Image Section with Info
     this.setupImageSection(kickoffData);
     
-    // 4. Setup Core Concept Visualization
-    this.setupConceptVisualization();
+    // 4. Core Concept Visualization removed (3 icons eliminated)
     
     // 5. Setup Tabbed Content
     this.setupTabbedContent(kickoffData);
