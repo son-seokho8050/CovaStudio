@@ -58,6 +58,18 @@ function initOpeningSequence() {
     return;
   }
   
+  // 강제로 보이게 설정
+  openingSequence.style.display = 'flex';
+  openingSequence.style.opacity = '1';
+  openingSequence.style.visibility = 'visible';
+  openingSequence.style.zIndex = '10000';
+  openingSequence.classList.remove('hidden');
+  
+  // 다른 모든 요소들 숨기기
+  document.body.style.overflow = 'hidden';
+  
+  console.log('Opening sequence visibility forced and body locked');
+  
   let currentStage = 0;
   
   function showStage(stageNumber) {
@@ -104,9 +116,11 @@ function initOpeningSequence() {
         // Hide opening sequence after completion
         setTimeout(() => {
           openingSequence.classList.add('hidden');
+          // Restore body scroll
+          document.body.style.overflow = '';
           setTimeout(() => {
             openingSequence.style.display = 'none';
-            console.log('Opening sequence hidden');
+            console.log('Opening sequence hidden and body scroll restored');
           }, 1000);
         }, 1500);
       }
