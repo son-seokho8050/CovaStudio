@@ -2318,48 +2318,61 @@ summary:focus {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  width: 95%;
-  max-width: 1200px;
-  height: 85vh;
-  max-height: 85vh;
+  width: 92vw;
+  max-width: 1600px;
+  min-width: 1000px;
+  height: 90vh;
+  max-height: 90vh;
+  min-height: 600px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
 }
 
-/* Split View Container */
+/* Split View Container - Enhanced 60%/40% Layout */
 .modal-split-container {
   display: grid;
-  grid-template-columns: 3.5fr 2.5fr;
+  grid-template-columns: 60% 40%;
+  gap: 2px;
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
-/* Media Panel (Left 60%) */
+/* Media Panel (Left 60%) - Enhanced for Video Content */
 .modal-media-panel {
   position: relative;
   overflow: hidden;
   background: #000;
+  min-width: 400px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Content Panel (Right 40%) */
+/* Content Panel (Right 40%) - Enhanced Scrollable Area */
 .modal-content-panel {
   position: relative;
   background: var(--bg);
   display: flex;
   flex-direction: column;
   min-height: 0;
+  min-width: 300px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  padding: 0;
 }
 
-/* Hero Content in Content Panel */
+/* Hero Content in Content Panel - Enhanced Padding */
 .modal-content-panel .modal-hero-content {
   flex-shrink: 0;
-  padding: var(--space-6);
+  padding: var(--space-8) var(--space-6) var(--space-6) var(--space-6);
   margin-bottom: 0;
+  min-height: fit-content;
 }
 
 .modal-content-panel .modal-header-enhanced {
@@ -2455,9 +2468,11 @@ summary:focus {
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
+  object-position: center;
   opacity: 1.0;
   filter: none;
   z-index: 1;
+  background: #000;
 }
 
 /* Minimal Overlay for Video (0-20% gradient) */
@@ -2606,10 +2621,12 @@ summary:focus {
 }
 
 .modal-content-enhanced {
-  width: 95vw;
-  max-width: 1200px;
-  height: 80vh;
-  max-height: 80vh;
+  width: 92vw;
+  max-width: 1600px;
+  min-width: 1000px;
+  height: 90vh;
+  max-height: 90vh;
+  min-height: 600px;
   border-radius: 16px;
   overflow: hidden;
   background: var(--bg);
@@ -2617,7 +2634,8 @@ summary:focus {
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.8),
     0 0 0 1px rgba(255, 255, 255, 0.05);
-  display: block;
+  display: flex;
+  flex-direction: column;
   transform: scale(0.9) translateY(40px);
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -2647,15 +2665,16 @@ summary:focus {
 
 .modal-media-panel .ambient-video {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   filter: none;
   opacity: 1.0;
   z-index: 1;
+  display: block;
 }
 
 @keyframes ambient-ken-burns {
@@ -2720,6 +2739,121 @@ summary:focus {
 @media (prefers-reduced-motion: reduce) {
   .ribbon-path {
     animation: none;
+  }
+}
+
+/* ============================================
+   RESPONSIVE SPLIT VIEW MODAL OPTIMIZATIONS
+   ============================================ */
+
+/* Large Desktop - Optimal Split View */
+@media (min-width: 1400px) {
+  .modal-content,
+  .modal-content-enhanced {
+    width: 85vw;
+    max-width: 1800px;
+  }
+}
+
+/* Standard Desktop - Current Settings Work Well */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .modal-content,
+  .modal-content-enhanced {
+    width: 90vw;
+    max-width: 1600px;
+  }
+}
+
+/* Laptop/Tablet Landscape - Maintain Split View */
+@media (min-width: 900px) and (max-width: 1199px) {
+  .modal-content,
+  .modal-content-enhanced {
+    width: 95vw;
+    max-width: 1200px;
+    min-width: 900px;
+    height: 85vh;
+    min-height: 500px;
+  }
+  
+  .modal-split-container {
+    grid-template-columns: 58% 42%;
+    gap: 1px;
+  }
+  
+  .modal-media-panel {
+    min-width: 350px;
+    min-height: 250px;
+  }
+  
+  .modal-content-panel {
+    min-width: 250px;
+  }
+  
+  .modal-content-panel .modal-hero-content {
+    padding: var(--space-6) var(--space-4) var(--space-4) var(--space-4);
+  }
+}
+
+/* Tablet Portrait - Stack Vertically */
+@media (max-width: 899px) {
+  .modal-content,
+  .modal-content-enhanced {
+    width: 95vw;
+    max-width: 100%;
+    min-width: 320px;
+    height: 90vh;
+    max-height: 90vh;
+    min-height: 400px;
+  }
+  
+  .modal-split-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40% 60%;
+    gap: 1px;
+  }
+  
+  .modal-media-panel {
+    min-width: auto;
+    min-height: 200px;
+    order: 1;
+  }
+  
+  .modal-content-panel {
+    min-width: auto;
+    order: 2;
+  }
+  
+  .modal-content-panel .modal-hero-content {
+    padding: var(--space-4);
+  }
+}
+
+/* Mobile - Optimized Single Column */
+@media (max-width: 480px) {
+  .modal-content,
+  .modal-content-enhanced {
+    width: 98vw;
+    height: 95vh;
+    max-height: 95vh;
+    min-height: 400px;
+    border-radius: 8px;
+  }
+  
+  .modal-split-container {
+    grid-template-rows: 35% 65%;
+  }
+  
+  .modal-media-panel {
+    min-height: 150px;
+  }
+  
+  .modal-content-panel .modal-hero-content {
+    padding: var(--space-3);
+  }
+  
+  .modal-content-panel .modal-title-enhanced {
+    font-size: var(--text-xl);
   }
 }
 
