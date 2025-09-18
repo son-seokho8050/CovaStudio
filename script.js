@@ -48,6 +48,7 @@ function initLoadingScreen() {
   console.log('Initializing loading screen...');
   const loadingScreen = document.getElementById('loadingScreen');
   const percentage = document.querySelector('.loading-percentage');
+  const loadingComplete = document.getElementById('loadingComplete');
   
   if (!loadingScreen) {
     console.error('Loading screen element not found');
@@ -73,15 +74,23 @@ function initLoadingScreen() {
     percentage.textContent = Math.floor(progress) + '%';
     
     if (progress >= 100) {
-      console.log('Loading complete, hiding screen');
+      console.log('Loading complete, showing completion animation');
       clearInterval(interval);
+      
+      // Show completion animation
+      if (loadingComplete) {
+        loadingComplete.classList.add('show');
+        console.log('COVA 기초소양 100% animation triggered');
+      }
+      
+      // Hide loading screen after completion animation
       setTimeout(() => {
         loadingScreen.classList.add('hidden');
         setTimeout(() => {
           loadingScreen.style.display = 'none';
           console.log('Loading screen hidden');
         }, 1200); // Longer fade out
-      }, 1000); // Longer wait time after 100%
+      }, 2500); // Wait for completion animation
     }
   }, 200); // Slower interval
 }
