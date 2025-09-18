@@ -222,14 +222,16 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #000000;
-  z-index: 10000;
+  background: #000000 !important;
+  z-index: 99999 !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
   opacity: 1 !important;
   visibility: visible !important;
   transition: opacity 1s ease, visibility 1s ease;
+  pointer-events: all !important;
+  /* 기본적으로 보이도록 설정 */
 }
 
 .cova-loading-screen.hidden {

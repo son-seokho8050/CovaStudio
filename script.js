@@ -49,47 +49,65 @@ function initCovaLoadingScreen() {
   const loadingScreen = document.getElementById('covaLoadingScreen');
   const percentage = document.querySelector('.cova-percentage');
   
+  console.log('Loading screen element found:', !!loadingScreen);
+  console.log('Percentage element found:', !!percentage);
+  
   if (!loadingScreen || !percentage) {
     console.error('COVA loading screen elements not found');
+    console.log('Available elements:', document.querySelectorAll('*'));
     return;
   }
   
   // 강제로 보이게 설정
+  loadingScreen.style.position = 'fixed';
+  loadingScreen.style.top = '0';
+  loadingScreen.style.left = '0';
+  loadingScreen.style.width = '100vw';
+  loadingScreen.style.height = '100vh';
+  loadingScreen.style.background = '#000000';
   loadingScreen.style.display = 'flex';
   loadingScreen.style.opacity = '1';
   loadingScreen.style.visibility = 'visible';
-  loadingScreen.style.zIndex = '10000';
+  loadingScreen.style.zIndex = '99999';
   loadingScreen.classList.remove('hidden');
   
   // 다른 모든 요소들 숨기기
   document.body.style.overflow = 'hidden';
   
   console.log('COVA loading screen visibility forced and body locked');
+  console.log('Loading screen element:', loadingScreen);
+  console.log('Loading screen display:', loadingScreen.style.display);
+  console.log('Loading screen z-index:', loadingScreen.style.zIndex);
+  console.log('Body overflow:', document.body.style.overflow);
   
-  // Start progress animation immediately
-  let progress = 0;
-  const progressInterval = setInterval(() => {
-    progress += Math.random() * 4 + 1; // Random increment
-    if (progress > 100) progress = 100;
-    
-    percentage.textContent = Math.floor(progress) + '%';
-    
-    if (progress >= 100) {
-      clearInterval(progressInterval);
-      console.log('COVA loading complete, hiding...');
+  // Wait a moment before starting progress to ensure visibility
+  setTimeout(() => {
+    console.log('Starting COVA loading progress...');
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+      progress += Math.random() * 2 + 0.5; // Much slower increment
+      if (progress > 100) progress = 100;
       
-      // Hide loading screen after completion
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        // Restore body scroll
-        document.body.style.overflow = '';
+      percentage.textContent = Math.floor(progress) + '%';
+      console.log(`COVA loading progress: ${Math.floor(progress)}%`);
+      
+      if (progress >= 100) {
+        clearInterval(progressInterval);
+        console.log('COVA loading complete, hiding...');
+        
+        // Hide loading screen after completion
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
-          console.log('COVA loading screen hidden and body scroll restored');
-        }, 1000);
-      }, 1500);
-    }
-  }, 100);
+          loadingScreen.classList.add('hidden');
+          // Restore body scroll
+          document.body.style.overflow = '';
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            console.log('COVA loading screen hidden and body scroll restored');
+          }, 1000);
+        }, 2000); // Longer display time at 100%
+      }
+    }, 200); // Much slower interval
+  }, 500); // Initial delay to ensure visibility
 }
 
 // Section Progress Tracking
