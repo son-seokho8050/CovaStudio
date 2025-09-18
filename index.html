@@ -7,7 +7,7 @@
   <meta name="description" content="COVA는 '생각하며 그리는 학생'을 만드는 코코미술학원의 핵심 교육 시스템입니다. 고1 탐구 중심 훈련부터 고2 실기력 강화까지 체계적인 학습 방법론을 제공합니다." />
   <link rel="stylesheet" href="styles.css?v=16" />
 </head>
-<body style="margin: 0; padding: 0;">
+<body style="margin: 0; padding: 0; opacity: 0;">
 <header class="site-header">
   <div class="container">
     <div class="brand">
@@ -496,25 +496,41 @@
 </div>
 
 <script>
-// 즉시 실행 로딩 스크린
+// 순서 제어: 로딩 스크린 먼저 → 메인 화면 나중에
 (function() {
+  // 1단계: 로딩 스크린 먼저 보이게
   const loader = document.getElementById('quickLoader');
   const percent = document.getElementById('quickPercent');
-  let progress = 0;
+  const body = document.body;
   
+  // 로딩 스크린만 보이게 하고 body는 숨김
+  loader.style.display = 'flex';
+  body.style.opacity = '0';
+  
+  let progress = 0;
   const timer = setInterval(() => {
-    progress += Math.random() * 20 + 5;
+    progress += Math.random() * 15 + 8;
     if (progress > 100) progress = 100;
     percent.textContent = Math.floor(progress) + '%';
     
     if (progress >= 100) {
       clearInterval(timer);
+      
+      // 2단계: 로딩 완료 후 메인 화면 보이게
       setTimeout(() => {
+        // 로딩 스크린 숨기기
         loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 500);
-      }, 800);
+        loader.style.transition = 'opacity 0.5s';
+        
+        setTimeout(() => {
+          loader.style.display = 'none';
+          // 메인 화면 나타내기
+          body.style.opacity = '1';
+          body.style.transition = 'opacity 0.8s ease';
+        }, 500);
+      }, 1000);
     }
-  }, 100);
+  }, 120);
 })();
 </script>
 
