@@ -2930,6 +2930,9 @@ summary:focus {
 }
 
 .modal-close-enhanced {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -2940,11 +2943,10 @@ summary:focus {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   width: 44px;
   height: 44px;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 10;
   flex-shrink: 0;
 }
 
