@@ -169,7 +169,7 @@ window.COVA_DATA = {
     },
     
     videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
-    imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
+    imageSrc: "attached_assets/cocodio_A_minimalist_sculpture_of_the_letter_J_abstract_desig_79681152-8dc2-466f-bc36-1282c5867eb0_1_1758276149159.png",
     keyMoments: [
       { id: "km1", t: 8.7, title: "Grade-Junior 소개", summary: "월요일 30분 사고 훈련의 의미" },
       { id: "km2", t: 35.1, title: "사고 질문 예시", summary: "Lv1-3 질문의 차이점과 접근법" },
