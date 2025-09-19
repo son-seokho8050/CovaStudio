@@ -698,6 +698,31 @@ body.modal-open {
   display: none !important;
 }
 
+/* Hide timeline elements for stepzero layout */
+.cova-modal2.stepzero-layout .modal2-keymoment-time {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .keymoment-marker {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .modal2-methodology-time {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .modal2-step-time {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .timeline-progress {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .keymoments-timeline {
+  display: none !important;
+}
+
 .cova-modal2.kickoff-layout .modal2-detail-title {
   font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
