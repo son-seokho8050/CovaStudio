@@ -1363,6 +1363,9 @@ class CovaModal2 {
     // Setup Image Section with shared thumbnails
     this.setupImageSection(stepZeroData);
     
+    // Setup Program Features (Goals)
+    this.setupProgramFeatures(stepZeroData);
+    
     // Setup Tabbed Content
     this.setupTabbedContent(stepZeroData);
     
@@ -1852,6 +1855,52 @@ class CovaModal2 {
       `;
       faqElement.innerHTML = faqHTML;
     }
+  }
+
+  setupProgramFeatures(stepZeroData) {
+    // Find a suitable container element in the modal
+    const videoSection = document.querySelector('.modal2-video-section');
+    if (!videoSection || !stepZeroData.goals) return;
+
+    // Create program features section
+    const featuresSection = document.createElement('div');
+    featuresSection.className = 'modal2-program-features';
+    featuresSection.innerHTML = `
+      <div class="modal2-features-header">
+        <h3 class="modal2-features-title">프로그램 특징</h3>
+      </div>
+      <div class="modal2-features-grid">
+        ${stepZeroData.goals.map((goal, index) => `
+          <div class="modal2-feature-item" data-testid="feature-${index}">
+            <div class="modal2-feature-icon">
+              ${this.getIconHTML(goal.icon)}
+            </div>
+            <div class="modal2-feature-content">
+              <div class="modal2-feature-title">${goal.title}</div>
+              <div class="modal2-feature-desc">${goal.desc}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Insert after video section
+    videoSection.parentNode.insertBefore(featuresSection, videoSection.nextSibling);
+    console.log('Program features section added for GRADE-JUNIOR');
+  }
+
+  getIconHTML(iconName) {
+    const iconMap = {
+      'palette': '🎨',
+      'leaf': '🍃',
+      'lightbulb': '💡',
+      'bridge': '🌉',
+      'brain': '🧠',
+      'pencil': '✏️',
+      'book': '📖',
+      'target': '🎯'
+    };
+    return iconMap[iconName] || '●';
   }
   
   initializeTabNavigation() {
