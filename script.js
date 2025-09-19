@@ -1507,9 +1507,6 @@ class CovaModal2 {
     // Setup Tabbed Content
     this.setupTabbedContent(grade1Data);
     
-    // Setup Program Features
-    this.setupProgramFeatures(grade1Data);
-    
     // Initialize Tab Navigation
     this.initializeTabNavigation();
     
