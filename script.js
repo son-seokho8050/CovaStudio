@@ -1916,23 +1916,25 @@ class CovaModal2 {
       });
     }
     
-    // Main Curriculum - Use program-agnostic selector
-    const curriculumElement = document.getElementById('kickoffCurriculum');
-    if (curriculumElement && programData.curriculum) {
-      const curriculumHTML = `
-        <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
-          ${programData.curriculum.map((item, index) => `
+    // Distribute each curriculum item to its respective section
+    if (programData.curriculum) {
+      const sectionIds = ['kickoffCurriculum', 'kickoffG1Preview', 'kickoffG2Preview', 'kickoffStep4'];
+      
+      programData.curriculum.forEach((item, index) => {
+        const sectionElement = document.getElementById(sectionIds[index]);
+        if (sectionElement) {
+          sectionElement.innerHTML = `
             <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
               <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
               ${item.time ? `<div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>` : ''}
             </div>
-          `).join('')}
-        </div>
-      `;
-      curriculumElement.innerHTML = curriculumHTML;
-      console.log('Curriculum rendered for program:', programData.curriculum.length, 'items');
+          `;
+        }
+      });
+      
+      console.log('Curriculum rendered for program:', programData.curriculum.length, 'items distributed to sections');
     } else {
-      console.warn('Curriculum element not found or no curriculum data:', !!curriculumElement, !!programData.curriculum);
+      console.warn('No curriculum data found for program');
     }
     
     // Step 2 Preview (기존 G1 Preview 위치)
