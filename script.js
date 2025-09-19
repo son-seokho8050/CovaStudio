@@ -1674,6 +1674,8 @@ class CovaModal2 {
   setupOverviewTab(kickoffData) {
     console.log('Setting up overview tab for:', kickoffData);
     console.log('Overview data:', kickoffData.overview);
+    console.log('Available keys:', Object.keys(kickoffData));
+    console.log('COVA_DATA.stepZero overview:', window.COVA_DATA?.stepZero?.overview);
     
     // Program Overview (프로그램 개요)
     const overviewElement = document.getElementById('kickoffGoals');
