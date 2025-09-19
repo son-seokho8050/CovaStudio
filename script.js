@@ -1860,7 +1860,17 @@ class CovaModal2 {
   setupProgramFeatures(stepZeroData) {
     // Find a suitable container element in the modal
     const videoSection = document.querySelector('.modal2-video-section');
-    if (!videoSection || !stepZeroData.goals) return;
+    if (!videoSection) return;
+
+    // Get features from multiple possible keys with fallback
+    const items = stepZeroData.features || stepZeroData.expectedOutcomes || stepZeroData.goals || [];
+    
+    console.log('Program features items found:', items.length, items);
+    
+    if (items.length === 0) {
+      console.log('No program features items found, skipping section');
+      return;
+    }
 
     // Create program features section
     const featuresSection = document.createElement('div');
@@ -1870,23 +1880,37 @@ class CovaModal2 {
         <h3 class="modal2-features-title">프로그램 특징</h3>
       </div>
       <div class="modal2-features-grid">
-        ${stepZeroData.goals.map((goal, index) => `
-          <div class="modal2-feature-item" data-testid="feature-${index}">
-            <div class="modal2-feature-icon">
-              ${this.getIconHTML(goal.icon)}
-            </div>
-            <div class="modal2-feature-content">
-              <div class="modal2-feature-title">${goal.title}</div>
-              <div class="modal2-feature-desc">${goal.desc}</div>
-            </div>
-          </div>
-        `).join('')}
+        ${items.map((item, index) => {
+          // Handle both object format {icon, title, desc} and string format
+          if (typeof item === 'string') {
+            return `
+              <div class="modal2-feature-item" data-testid="feature-${index}">
+                <div class="modal2-feature-icon">●</div>
+                <div class="modal2-feature-content">
+                  <div class="modal2-feature-title">${item}</div>
+                </div>
+              </div>
+            `;
+          } else {
+            return `
+              <div class="modal2-feature-item" data-testid="feature-${index}">
+                <div class="modal2-feature-icon">
+                  ${this.getIconHTML(item.icon)}
+                </div>
+                <div class="modal2-feature-content">
+                  <div class="modal2-feature-title">${item.title}</div>
+                  <div class="modal2-feature-desc">${item.desc}</div>
+                </div>
+              </div>
+            `;
+          }
+        }).join('')}
       </div>
     `;
 
     // Insert after video section
     videoSection.parentNode.insertBefore(featuresSection, videoSection.nextSibling);
-    console.log('Program features section added for GRADE-JUNIOR');
+    console.log('Program features section added for GRADE-JUNIOR with', items.length, 'items');
   }
 
   getIconHTML(iconName) {
