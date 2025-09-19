@@ -279,7 +279,14 @@ body.modal-open {
   user-select: none;
 }
 
-/* Professional color grading */
+/* Ambient background video styling */
+.cova-modal2.kickoff-layout .modal2-video.ambient {
+  filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
+  animation: none;
+  will-change: auto;
+}
+
+/* Professional color grading (preserve for other contexts) */
 .cova-modal2.kickoff-layout .modal2-video.cinematic {
   filter: contrast(1.08) saturate(1.12) brightness(0.96) sepia(0.06) hue-rotate(-5deg);
   will-change: transform;
@@ -307,6 +314,28 @@ body.modal-open {
   z-index: 1;
 }
 
+/* Stronger vignette for ambient mode */
+.cova-modal2.kickoff-layout .cinematic-wrap.ambient::before {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 35%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.5) 100%);
+}
+
+/* Ambient overlay for background feel */
+.cova-modal2.kickoff-layout .ambient-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.45) 100%),
+    radial-gradient(ellipse at 50% 35%, rgba(112,225,184,0.06), transparent 60%);
+  mix-blend-mode: soft-light;
+  z-index: 2;
+}
+
+/* Overall wrapper opacity for ambient */
+.cova-modal2.kickoff-layout .cinematic-wrap.ambient {
+  opacity: 0.82;
+}
+
 /* Film grain */
 .cova-modal2.kickoff-layout .grain {
   position: absolute;
@@ -321,6 +350,12 @@ body.modal-open {
   mix-blend-mode: soft-light;
   animation: grain-move 1.8s steps(3) infinite;
   z-index: 2;
+}
+
+/* Reduced grain for ambient */
+.cova-modal2.kickoff-layout .cinematic-wrap.ambient .grain {
+  opacity: 0.02;
+  animation: none;
 }
 
 @keyframes grain-move {
@@ -338,6 +373,21 @@ body.modal-open {
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.04), transparent 65%);
   mix-blend-mode: screen;
   z-index: 3;
+}
+
+/* Reduced bloom for ambient */
+.cova-modal2.kickoff-layout .cinematic-wrap.ambient .bloom {
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.02), transparent 55%);
+}
+
+/* Mobile adjustments for ambient */
+@media (max-width: 768px) {
+  .cova-modal2.kickoff-layout .modal2-video.ambient {
+    filter: blur(1.6px) saturate(0.55) contrast(0.88) brightness(0.82);
+  }
+  .cova-modal2.kickoff-layout .cinematic-wrap.ambient {
+    opacity: 0.78;
+  }
 }
 
 /* Respect reduced motion preferences */

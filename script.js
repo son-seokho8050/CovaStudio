@@ -1283,8 +1283,8 @@ class CovaModal2 {
         this.video.controls = false;
         this.video.disablePictureInPicture = true;
         
-        // Apply cinematic effects
-        this.applyCinematicEffects();
+        // Apply ambient effects for background feel
+        this.applyCinematicEffects('ambient');
         
         const playPromise = this.video.play();
         if (playPromise !== undefined) {
@@ -1321,11 +1321,16 @@ class CovaModal2 {
     console.log('Kickoff content setup completed');
   }
 
-  applyCinematicEffects() {
+  applyCinematicEffects(mode = 'cinematic') {
     if (!this.video || !this.video.parentElement) return;
     
-    // Add cinematic class to video
-    this.video.classList.add('cinematic');
+    // Add appropriate class to video
+    if (mode === 'ambient') {
+      this.video.classList.add('ambient');
+      this.video.playbackRate = 0.92; // Slightly slower for ambient feel
+    } else {
+      this.video.classList.add('cinematic');
+    }
     
     // Check if already wrapped
     if (this.video.parentElement.classList.contains('cinematic-wrap')) {
@@ -1334,7 +1339,7 @@ class CovaModal2 {
     
     // Create cinematic wrapper
     const cinematicWrap = document.createElement('div');
-    cinematicWrap.className = 'cinematic-wrap';
+    cinematicWrap.className = `cinematic-wrap ${mode === 'ambient' ? 'ambient' : ''}`;
     
     // Insert wrapper before video and move video inside
     this.video.parentElement.insertBefore(cinematicWrap, this.video);
@@ -1350,7 +1355,14 @@ class CovaModal2 {
     bloomOverlay.className = 'bloom';
     cinematicWrap.appendChild(bloomOverlay);
     
-    console.log('Cinematic effects applied to video');
+    // Add ambient overlay for background feel
+    if (mode === 'ambient') {
+      const ambientOverlay = document.createElement('div');
+      ambientOverlay.className = 'ambient-overlay';
+      cinematicWrap.appendChild(ambientOverlay);
+    }
+    
+    console.log(`${mode} effects applied to video`);
   }
 
   setupVideoHeader(kickoffData) {
