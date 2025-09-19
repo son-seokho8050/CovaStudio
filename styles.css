@@ -680,6 +680,7 @@ body.modal-open {
 .cova-modal2.kickoff-layout.stepzero-video-scaled .cinematic-wrap .modal2-video.ambient {
   width: 90% !important; /* 좌우 넓이 줄임 - 프레임 안에 맞게 */
   height: 100% !important;
+  margin: 0 auto !important; /* 가운데 정렬 */
   object-fit: cover !important; 
   aspect-ratio: 3 / 2 !important; 
   max-height: none !important;
