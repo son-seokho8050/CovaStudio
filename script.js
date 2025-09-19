@@ -1229,15 +1229,17 @@ class CovaModal2 {
       this.hideSpecialContent();
     }
     
-    // Load key moments
-    this.loadKeyMoments(programData.keyMoments || window.COVA_DATA?.kickoff?.keyMoments || []);
+    // Load key moments (skip for stepzero)
+    if (programId !== 'stepzero') {
+      this.loadKeyMoments(programData.keyMoments || window.COVA_DATA?.kickoff?.keyMoments || []);
+    }
     
     // Show modal
     this.modal.classList.add('is-open');
     document.body.classList.add('modal-open');
     
-    // Connect KeyMomentsController to new modal
-    if (window.keyMomentsController) {
+    // Connect KeyMomentsController to new modal (skip for stepzero)
+    if (window.keyMomentsController && programId !== 'stepzero') {
       window.keyMomentsController.connectToModal2(this.video, programData.keyMoments || []);
     }
     
