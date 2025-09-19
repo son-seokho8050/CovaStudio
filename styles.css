@@ -668,8 +668,26 @@ body.modal-open {
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio like kickoff */
   max-height: none; /* Remove height restriction for expansion */
   max-width: none; /* Remove width restriction for expansion */
-  transform: scale(1.3); /* Enlarge video content by 30% while keeping frame */
-  transform-origin: center; /* Scale from center */
+  transform: scale(1.4) !important; /* Force enlarge video content by 40% */
+  transform-origin: center !important; /* Scale from center */
+}
+
+/* Ensure stepzero video is always muted and has no controls */
+.cova-modal2.stepzero-layout .modal2-video,
+.cova-modal2.stepzero-layout .modal2-video.ambient {
+  pointer-events: none !important; /* Disable all interactions */
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.cova-modal2.stepzero-layout .modal2-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .modal2-video::-webkit-media-controls-panel {
+  display: none !important;
 }
 
 /* Apply same glassmorphism effects for stepzero layout */
