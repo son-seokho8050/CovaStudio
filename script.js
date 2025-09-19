@@ -1793,36 +1793,27 @@ class CovaModal2 {
   }
   
   setupPhilosophyTab(kickoffData) {
-    // Core Philosophy
+    // Core Philosophy (질문)
     const philosophyCore = document.getElementById('kickoffPhilosophyCore');
     if (philosophyCore && kickoffData.philosophy) {
       philosophyCore.textContent = kickoffData.philosophy.core;
     }
     
-    // Philosophy Principles
+    // Philosophy Principles (탐구와 관찰)
     const philosophyPrinciples = document.getElementById('kickoffPhilosophyPrinciples');
     if (philosophyPrinciples && kickoffData.philosophy) {
-      const principlesHTML = `
-        <div class="modal2-outcomes-list">
-          ${kickoffData.philosophy.principles.map(principle => `
-            <div class="modal2-outcome-item">
-              <div class="modal2-outcome-text">${principle}</div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-      philosophyPrinciples.innerHTML = principlesHTML;
+      philosophyPrinciples.textContent = kickoffData.philosophy.observation;
     }
     
-    // Philosophy Motto
+    // Philosophy Motto (표현과 공유)
     const philosophyMotto = document.getElementById('kickoffPhilosophyMotto');
     if (philosophyMotto && kickoffData.philosophy) {
-      philosophyMotto.textContent = kickoffData.philosophy.motto;
+      philosophyMotto.textContent = kickoffData.philosophy.expression;
     }
     
-    // Philosophy Feedback (피드백 섹션)
+    // Philosophy Feedback (피드백)
     const philosophyFeedback = document.getElementById('kickoffPhilosophyFeedback');
-    if (philosophyFeedback && kickoffData.philosophy && kickoffData.philosophy.feedback) {
+    if (philosophyFeedback && kickoffData.philosophy) {
       philosophyFeedback.textContent = kickoffData.philosophy.feedback;
     }
   }
