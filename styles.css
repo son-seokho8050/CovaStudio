@@ -914,17 +914,6 @@ body.modal-open {
   position: relative;
 }
 
-.modal2-philosophy-motto::before {
-  content: '"';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg);
-  color: var(--accent-sophisticated);
-  font-size: var(--text-2xl);
-  padding: 0 var(--space-2);
-}
 
 /* Expected Outcomes */
 .modal2-outcomes-list {
