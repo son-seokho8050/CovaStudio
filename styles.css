@@ -329,7 +329,7 @@ body.modal-open {
   font-size: var(--text-xs);
   line-height: var(--leading-normal);
   color: var(--text-secondary);
-  margin-top: var(--space-4);
+  margin-top: var(--space-8);
   margin-bottom: var(--space-3);
 }
 
