@@ -229,10 +229,11 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-media {
   grid-area: media;
   display: grid;
-  grid-template-rows: 1fr 1fr; /* Equal heights for video and image */
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); /* Equal heights with min-size override */
   gap: 1px;
   background: #000000;
   padding: 0;
+  min-height: 0;
 }
 
 /* Video section (top left) */
@@ -242,6 +243,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   position: relative;
+  min-height: 0;
 }
 
 .cova-modal2.kickoff-layout .modal2-media-box {
@@ -265,21 +267,22 @@ body.modal-open {
 /* Image section (bottom left) */
 .cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
-  display: block; /* Changed from flex to block to avoid grid conflicts */
+  display: block;
   padding: var(--space-4);
   border-top: 1px solid var(--border);
-  min-height: 300px; /* Ensure sufficient height for thumbnails grid */
+  min-height: 0; /* Remove height constraints */
 }
 
 /* Thumbnails Grid for Kickoff Layout */
 .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
-  display: grid !important; /* Force grid display */
+  display: grid !important;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: var(--space-2);
   width: 100%;
-  height: 280px; /* Fixed height instead of 100% */
+  height: 100%; /* Fill parent space */
   padding: var(--space-2);
+  min-height: 0;
 }
 
 .thumbnail-item {
