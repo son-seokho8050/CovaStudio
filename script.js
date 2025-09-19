@@ -1828,6 +1828,8 @@ class CovaModal2 {
   }
   
   setupOverviewTab(programData) {
+    console.log('SetupOverviewTab called with data:', programData);
+    console.log('educationGoals data:', programData.educationGoals);
     
     // Program Overview (프로그램 개요)
     const overviewElement = document.getElementById('kickoffGoals');
@@ -1845,6 +1847,7 @@ class CovaModal2 {
       
       // Add education goals section if exists
       if (programData.educationGoals) {
+        console.log('Rendering educationGoals:', programData.educationGoals);
         overviewHTML += `
           <div class="modal2-education-goals-section" data-testid="education-goals">
             <div class="modal2-education-goals-header">
