@@ -1905,20 +1905,27 @@ class CovaModal2 {
   }
   
   setupCurriculumTab(programData) {
-    // Main Curriculum
+    // Main Curriculum - Use program-agnostic selector
     const curriculumElement = document.getElementById('kickoffCurriculum');
     if (curriculumElement && programData.curriculum) {
       const curriculumHTML = `
         <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
           ${programData.curriculum.map((item, index) => `
             <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
+              <div class="modal2-step-header">
+                <span class="modal2-step-number">${index + 1}</span>
+                <span class="modal2-step-title">${item.step || item.phase || `Step ${index + 1}`}</span>
+              </div>
               <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
-              <div class="modal2-step-time" data-testid="step-time-${index}">${item.time || ''}</div>
+              ${item.time ? `<div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>` : ''}
             </div>
           `).join('')}
         </div>
       `;
       curriculumElement.innerHTML = curriculumHTML;
+      console.log('Curriculum rendered for program:', programData.curriculum.length, 'items');
+    } else {
+      console.warn('Curriculum element not found or no curriculum data:', !!curriculumElement, !!programData.curriculum);
     }
     
     // Step 2 Preview (기존 G1 Preview 위치)
