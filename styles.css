@@ -461,7 +461,7 @@ body.modal-open {
   grid-area: panel;
   display: flex;
   flex-direction: column;
-  padding: var(--space-6);
+  padding: var(--space-6) var(--space-3) var(--space-6) var(--space-6);
   background: var(--bg);
   border-left: 1px solid var(--border);
   overflow-y: auto;
