@@ -41,7 +41,7 @@ window.COVA_DATA = {
   },
 
   kickoff: {
-    title: "COVA 킥오프 수업",
+    title: "COVA 'KICK-OFF'",
     description: "COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.",
     videoSrc: "attached_assets/남성_강사의_스케치_수업_1758107827768.mp4",
     videoDuration: "4:08",
