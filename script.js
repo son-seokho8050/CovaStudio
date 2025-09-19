@@ -1682,48 +1682,12 @@ class CovaModal2 {
       if (kickoffData.overview) {
         overviewHTML += `
           <div class="modal2-overview-section" data-testid="program-overview">
-            <div class="modal2-overview-header">
-              <div class="modal2-overview-icon">📋</div>
-              <div class="modal2-overview-title">${kickoffData.overview.title}</div>
-            </div>
             <div class="modal2-overview-content">${kickoffData.overview.content.replace(/\n/g, '<br>')}</div>
           </div>
         `;
       }
       
-      // Add goals section
-      if (kickoffData.goals) {
-        const getIconSVG = (iconName) => {
-          const icons = {
-            'pencil': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>',
-            'eye': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>',
-            'target': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-            'lightbulb': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M12 17v4"/><path d="M12 3a6 6 0 0 1 6 6c0 1.657-.672 3.157-1.757 4.243L15 15H9l-1.243-1.757A6 6 0 0 1 12 3Z"/></svg>',
-            'brain': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588 4 4 0 0 0 7.636 2.106 3.2 3.2 0 0 0 .164-.546c.071-.264.14-.538.14-.828a2 2 0 0 1 2-2 2 2 0 0 1 2 2c0 .295.052.588.142.855a4.002 4.002 0 0 0 7.636-2.11 4.002 4.002 0 0 0 .556-6.588 4.002 4.002 0 0 0-2.526-5.77z"/></svg>',
-            'book': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-            'search': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>',
-            'growth': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>',
-            'palette': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>',
-            'message-square': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-            'trending-up': '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>'
-          };
-          return icons[iconName] || icons['lightbulb'];
-        };
-
-        overviewHTML += `
-          <div class="modal2-goals-grid">
-            ${kickoffData.goals.map((goal, index) => `
-              <div class="modal2-goal-card" data-testid="goal-card-${index}">
-                <div class="modal2-goal-icon" data-testid="goal-icon-${goal.icon}">${getIconSVG(goal.icon)}</div>
-                <div class="modal2-goal-content">
-                  <div class="modal2-goal-title" data-testid="goal-title-${index}">${goal.title}</div>
-                  <div class="modal2-goal-desc" data-testid="goal-desc-${index}">${goal.desc}</div>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-      }
+      // Goals section removed per user request
       
       overviewElement.innerHTML = overviewHTML;
     }
