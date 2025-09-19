@@ -1280,6 +1280,8 @@ class CovaModal2 {
         this.video.autoplay = true;
         this.video.muted = true;
         this.video.loop = true;
+        this.video.controls = false;
+        this.video.disablePictureInPicture = true;
         
         const playPromise = this.video.play();
         if (playPromise !== undefined) {

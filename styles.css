@@ -263,6 +263,20 @@ body.modal-open {
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
   max-height: 100%;
   max-width: 100%;
+  pointer-events: none; /* Disable all mouse interactions */
+  -webkit-touch-callout: none; /* Disable callout on iOS */
+  -webkit-user-select: none; /* Disable text selection */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.cova-modal2.kickoff-layout .modal2-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.cova-modal2.kickoff-layout .modal2-video::-webkit-media-controls-panel {
+  display: none !important;
 }
 
 /* Image section (bottom left) */
