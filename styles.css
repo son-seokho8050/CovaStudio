@@ -650,6 +650,25 @@ body.modal-open {
    STEPZERO (GRADE-JUNIOR) LAYOUT STYLES
    =================================== */
 
+/* STEPZERO VIDEO SIZING - Match KICK-OFF size */
+.cova-modal2.stepzero-layout .modal2-media-box {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset; /* Remove fixed aspect ratio to match kickoff */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cova-modal2.stepzero-layout .modal2-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Match kickoff video object-fit */
+  aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio like kickoff */
+  max-height: 100%;
+  max-width: 100%;
+}
+
 /* Apply same glassmorphism effects for stepzero layout */
 .cova-modal2.stepzero-layout .modal2-detail-section {
   background: linear-gradient(
