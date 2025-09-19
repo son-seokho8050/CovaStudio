@@ -1858,9 +1858,12 @@ class CovaModal2 {
   }
 
   setupProgramFeatures(stepZeroData) {
-    // Find a suitable container element in the modal
-    const videoSection = document.querySelector('.modal2-video-section');
-    if (!videoSection) return;
+    // Use the existing overview tab to add program features
+    const overviewElement = document.getElementById('kickoffGoals');
+    if (!overviewElement) {
+      console.warn('Could not find kickoffGoals element to insert features');
+      return;
+    }
 
     // Get features from multiple possible keys with fallback
     const items = stepZeroData.features || stepZeroData.expectedOutcomes || stepZeroData.goals || [];
@@ -1908,8 +1911,8 @@ class CovaModal2 {
       </div>
     `;
 
-    // Insert after video section
-    videoSection.parentNode.insertBefore(featuresSection, videoSection.nextSibling);
+    // Add to the overview element (kickoffGoals)
+    overviewElement.appendChild(featuresSection);
     
     // Explicitly ensure visibility after insertion
     featuresSection.classList.add('is-open');
