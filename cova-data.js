@@ -78,25 +78,19 @@ window.COVA_DATA = {
       ]
     },
     
-    // 수업 진행 방식 (상세)
+    // 교육 목표
     methodology: [
       { 
-        phase: "Pre(관찰)", 
-        time: "30분", 
-        content: "대상을 충분히 관찰하고 분석",
-        details: ["자료 추천", "개념 정리", "질문 카드"]
+        phase: "생각의 시동", 
+        time: "", 
+        content: "학생 스스로 \u201c생각의 시동\u201d을 걸고, 탐구와 표현을 가볍게 시작하도록 돕습니다.",
+        details: []
       },
       { 
-        phase: "Core(실습)", 
-        time: "120분", 
-        content: "체계적인 단계별 드로잉 실습",
-        details: ["착수(포커스 문장)", "탐구 실험", "체크벨"]
-      },
-      { 
-        phase: "Post(검토)", 
-        time: "30분", 
-        content: "결과물 검토와 개선점 도출",
-        details: ["저널 요약", "성과 보고", "자료 정리"]
+        phase: "역량 개발", 
+        time: "", 
+        content: "짧지만 껸준한 루틴을 통해 집중력, 창의성, 자기 표현력을 기릉니다.",
+        details: []
       }
     ],
     
