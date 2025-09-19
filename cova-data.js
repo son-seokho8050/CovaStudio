@@ -52,12 +52,10 @@ window.COVA_DATA = {
     imageTitle: "COVA 핵심 컨셉 비주얼",
     imageDescription: "창의적 사고와 체계적 접근을 상징하는 추상적 조형물로, COVA의 '생각하며 그리는' 철학을 시각화합니다.",
     
-    // 수업 목표 (아이콘과 함께)
+    // 프로그램 개요
     goals: [
-      { icon: "pencil", title: "기초 드로잉 기법 습득", desc: "올바른 자세와 도구 사용법부터 시작" },
-      { icon: "eye", title: "관찰력과 표현력 향상", desc: "사물을 보는 새로운 관점 개발" },
-      { icon: "target", title: "체계적인 학습 방법 익히기", desc: "COVA 방법론의 실전 적용" },
-      { icon: "lightbulb", title: "COVA 철학의 이해와 체험", desc: "과정 중심 사고의 직접 경험" }
+      { icon: "calendar", title: "예열 루틴 프로그램", desc: "Kick-Off는 매주 월요일, 본 수업 전 25분 동안 진행되는 예열 루틴 프로그램입니다." },
+      { icon: "activity", title: "몰입과 활기", desc: "작은 질문과 기록, 간단한 표현 활동으로 수업 몰입을 돕고, 한 주의 시작을 활기차게 여는 역할을 합니다." }
     ],
     
     // 주요 학습 내용 (단계별)
