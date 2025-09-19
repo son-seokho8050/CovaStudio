@@ -1838,8 +1838,8 @@ class CovaModal2 {
     console.log('SetupOverviewTab called with data:', programData);
     console.log('educationGoals data:', programData.educationGoals);
     
-    // Program Overview (프로그램 개요)
-    const overviewElement = document.getElementById('kickoffGoals');
+    // Program Overview (프로그램 개요) - scope to Modal v2 only
+    const overviewElement = this.modal.querySelector('#kickoffGoals');
     if (overviewElement) {
       let overviewHTML = '';
       
@@ -1879,7 +1879,7 @@ class CovaModal2 {
     }
     
     // Methodology
-    const methodologyElement = document.getElementById('kickoffMethodology');
+    const methodologyElement = this.modal.querySelector('#kickoffMethodology');
     if (methodologyElement && programData.methodology) {
       const methodologyHTML = `
         <div class="modal2-methodology-timeline">
@@ -1899,7 +1899,7 @@ class CovaModal2 {
     }
     
     // Expected Outcomes
-    const outcomesElement = document.getElementById('kickoffOutcomes');
+    const outcomesElement = this.modal.querySelector('#kickoffOutcomes');
     if (outcomesElement && programData.expectedOutcomes) {
       const outcomesHTML = `
         <div class="modal2-outcomes-list">
