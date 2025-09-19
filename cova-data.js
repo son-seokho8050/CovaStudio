@@ -180,10 +180,10 @@ window.COVA_DATA = {
       { id: "km7", t: 185.3, title: "포트폴리오", summary: "주간 성장 기록과 가시화 방법" }
     ],
     goals: [
-      { icon: "brain", title: "사고력 개발", desc: "체계적인 사고 훈련을 통한 창의적 문제 해결 능력 향상" },
-      { icon: "pencil", title: "시각화 능력", desc: "아이디어를 시각적으로 표현하는 기본 능력 습득" },
-      { icon: "book", title: "기록 습관", desc: "일상의 관찰과 생각을 체계적으로 기록하는 습관 형성" },
-      { icon: "target", title: "COVA 방법론", desc: "COVA 교육 철학과 방법론의 기초 이해" }
+      { icon: "palette", title: "다양성", desc: "평면(그리기), 입체(만들기), 색채, 질감 등을 고르게 시도." },
+      { icon: "leaf", title: "자연스러움", desc: "완성보다 과정과 발견에 집중 → 부담 없는 참여." },
+      { icon: "lightbulb", title: "철학 융합", desc: "탐구 → 기록 → 설명, COVA의 철학을 가볍게 경험." },
+      { icon: "bridge", title: "브리지 역할", desc: "고1 탐구 과정으로 이어지는 준비 단계, 미술과 친해지는 첫 루틴." }
     ],
     curriculum: [
       { step: "사고 질문", content: "Lv1~Lv3 단계별 사고 질문 훈련", time: "7분" },
