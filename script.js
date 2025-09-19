@@ -1904,16 +1904,16 @@ class CovaModal2 {
     }
   }
   
-  setupCurriculumTab(kickoffData) {
+  setupCurriculumTab(programData) {
     // Main Curriculum
     const curriculumElement = document.getElementById('kickoffCurriculum');
-    if (curriculumElement && kickoffData.curriculum) {
+    if (curriculumElement && programData.curriculum) {
       const curriculumHTML = `
         <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
-          ${kickoffData.curriculum.map((item, index) => `
+          ${programData.curriculum.map((item, index) => `
             <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
               <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
-              <div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>
+              <div class="modal2-step-time" data-testid="step-time-${index}">${item.time || ''}</div>
             </div>
           `).join('')}
         </div>
@@ -1923,11 +1923,11 @@ class CovaModal2 {
     
     // Step 2 Preview (기존 G1 Preview 위치)
     const step2Preview = document.getElementById('kickoffG1Preview');
-    if (step2Preview && kickoffData.step2) {
+    if (step2Preview && programData.step2) {
       const step2HTML = `
         <div class="modal2-curriculum-preview">
           <div class="modal2-step-content">
-            <p>${kickoffData.step2.content}</p>
+            <p>${programData.step2.content}</p>
           </div>
         </div>
       `;
@@ -1936,11 +1936,11 @@ class CovaModal2 {
     
     // Step 3 Preview (기존 G2 Preview 위치)
     const step3Preview = document.getElementById('kickoffG2Preview');
-    if (step3Preview && kickoffData.step3) {
+    if (step3Preview && programData.step3) {
       const step3HTML = `
         <div class="modal2-curriculum-preview">
           <div class="modal2-step-content">
-            <p>${kickoffData.step3.content}</p>
+            <p>${programData.step3.content}</p>
           </div>
         </div>
       `;
@@ -1949,11 +1949,11 @@ class CovaModal2 {
     
     // Step 4 Preview (새로 추가)
     const step4Preview = document.getElementById('kickoffStep4');
-    if (step4Preview && kickoffData.step4) {
+    if (step4Preview && programData.step4) {
       const step4HTML = `
         <div class="modal2-curriculum-preview">
           <div class="modal2-step-content">
-            <p>${kickoffData.step4.content}</p>
+            <p>${programData.step4.content}</p>
           </div>
         </div>
       `;
