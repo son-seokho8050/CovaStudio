@@ -698,6 +698,226 @@ body.modal-open {
   display: none !important;
 }
 
+/* ===================================
+   GRADE1 LAYOUT STYLES
+   =================================== */
+
+/* Apply same glassmorphism effects for grade1 layout */
+.cova-modal2.grade1-layout .modal2-detail-section {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  ) !important;
+  backdrop-filter: blur(25px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  padding: var(--space-3);
+  margin: 0 var(--space-3) var(--space-3) var(--space-3);
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.cova-modal2.grade1-layout .modal2-detail-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.cova-modal2.grade1-layout .modal2-detail-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.cova-modal2.grade1-layout .modal2-detail-section:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  ) !important;
+  backdrop-filter: blur(30px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(220%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 16px 50px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 30px rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-4px) scale(1.03) !important;
+}
+
+.cova-modal2.grade1-layout .modal2-detail-section:hover::after {
+  opacity: 1;
+}
+
+/* Apply same scrollbar hiding for grade1 panel */
+.cova-modal2.grade1-layout .modal2-panel {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+}
+
+.cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+.cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-thumb {
+  display: none !important;
+}
+
+.cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-corner {
+  display: none !important;
+}
+
+/* ===================================
+   GRADE2 LAYOUT STYLES
+   =================================== */
+
+/* Apply same glassmorphism effects for grade2 layout */
+.cova-modal2.grade2-layout .modal2-detail-section {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  ) !important;
+  backdrop-filter: blur(25px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  padding: var(--space-3);
+  margin: 0 var(--space-3) var(--space-3) var(--space-3);
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.cova-modal2.grade2-layout .modal2-detail-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.cova-modal2.grade2-layout .modal2-detail-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.cova-modal2.grade2-layout .modal2-detail-section:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    rgba(0, 0, 0, 0.4) 100%
+  ) !important;
+  backdrop-filter: blur(30px) saturate(220%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(220%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 
+    0 16px 50px rgba(0, 0, 0, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 30px rgba(255, 255, 255, 0.1) !important;
+  transform: translateY(-4px) scale(1.03) !important;
+}
+
+.cova-modal2.grade2-layout .modal2-detail-section:hover::after {
+  opacity: 1;
+}
+
+/* Apply same scrollbar hiding for grade2 panel */
+.cova-modal2.grade2-layout .modal2-panel {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+}
+
+.cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+.cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-thumb {
+  display: none !important;
+}
+
+.cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-corner {
+  display: none !important;
+}
+
 /* Hide all timeline elements for stepzero layout */
 .cova-modal2.stepzero-layout .modal2-keymoment-time,
 .cova-modal2.stepzero-layout .keymoment-marker,
