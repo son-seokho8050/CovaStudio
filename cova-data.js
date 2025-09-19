@@ -167,6 +167,16 @@ window.COVA_DATA = {
       title: "프로그램 개요",
       content: "COVA 중등 과정은 \"첫 흔적\"을 남기는 수업입니다.\n그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다.\n\n미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
     },
+    
+    // 교육 목표
+    educationGoals: {
+      title: "교육 목표",
+      items: [
+        "다양한 활동을 통해 미술을 즐겁게 경험하고, 거부감 없이 탐구하도록 이끕니다.",
+        "작은 시도라도 반드시 기록을 남겨, 내가 해낸 흔적으로 쌓이게 합니다.",
+        "활동 후 짧게라도 \"무엇을 했는지, 무엇을 느꼈는지\" 말하며, 표현력의 첫 단추를 끼웁니다."
+      ]
+    },
     videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
     imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
     keyMoments: [

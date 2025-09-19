@@ -1687,6 +1687,26 @@ class CovaModal2 {
         `;
       }
       
+      // Add education goals section if exists
+      if (kickoffData.educationGoals) {
+        overviewHTML += `
+          <div class="modal2-education-goals-section" data-testid="education-goals">
+            <div class="modal2-education-goals-header">
+              <div class="modal2-education-goals-icon">🎯</div>
+              <div class="modal2-education-goals-title">${kickoffData.educationGoals.title}</div>
+            </div>
+            <div class="modal2-education-goals-list">
+              ${kickoffData.educationGoals.items.map((item, index) => `
+                <div class="modal2-education-goal-item" data-testid="education-goal-${index}">
+                  <span class="modal2-goal-bullet">•</span>
+                  <span class="modal2-goal-text">${item}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+      
       // Goals section removed per user request
       
       overviewElement.innerHTML = overviewHTML;
@@ -2020,6 +2040,7 @@ class CovaModal2 {
         title: window.COVA_DATA?.stepZero?.title || 'GRADE-JUNIOR',
         description: window.COVA_DATA?.stepZero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
         overview: window.COVA_DATA?.stepZero?.overview || null,
+        educationGoals: window.COVA_DATA?.stepZero?.educationGoals || null,
         videoSrc: window.COVA_DATA?.stepZero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
         imageSrc: window.COVA_DATA?.stepZero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.stepZero?.keyMoments || [],

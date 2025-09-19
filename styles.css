@@ -1050,6 +1050,57 @@ body.modal-open {
   font-size: 0.95rem;
 }
 
+/* Education goals section styling */
+.modal2-education-goals-section {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.modal2-education-goals-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.modal2-education-goals-icon {
+  font-size: 1.2rem;
+}
+
+.modal2-education-goals-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal2-education-goals-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.modal2-education-goal-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.modal2-goal-bullet {
+  color: var(--primary);
+  font-weight: bold;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.modal2-goal-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
 /* Hide all timeline elements for stepzero layout */
 .cova-modal2.stepzero-layout .modal2-keymoment-time,
 .cova-modal2.stepzero-layout .keymoment-marker,
