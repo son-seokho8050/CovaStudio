@@ -244,6 +244,7 @@ body.modal-open {
   justify-content: center;
   position: relative;
   min-height: 0;
+  margin-top: -38px;
 }
 
 .cova-modal2.kickoff-layout .modal2-media-box {
