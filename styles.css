@@ -268,9 +268,9 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: var(--space-6) var(--space-4) var(--space-6) var(--space-4);
+  padding: var(--space-4);
   border-top: 1px solid var(--border);
   min-height: 0;
   overflow: hidden;
@@ -280,15 +280,15 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, minmax(0, 1fr));
-  gap: var(--space-1);
-  width: 80%; /* Reduce width */
-  height: 60%; /* Reduce height significantly */
-  max-height: 60%;
-  padding: 0;
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--space-2);
+  width: 90%;
+  height: 80%;
+  max-width: 500px;
+  max-height: 240px;
+  padding: var(--space-2);
   box-sizing: border-box;
   min-height: 0;
-  margin-top: auto; /* Push to bottom */
 }
 
 .thumbnail-item {
@@ -298,7 +298,8 @@ body.modal-open {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   aspect-ratio: 3 / 2;
-  max-height: 80px; /* Limit thumbnail height */
+  min-height: 60px;
+  max-height: 100px;
 }
 
 .thumbnail-item img {
