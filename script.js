@@ -2007,6 +2007,12 @@ class CovaModal2 {
     if (philosophyConnection && programData.philosophy) {
       philosophyConnection.textContent = programData.philosophy.connection;
     }
+    
+    // Philosophy Design (설계)
+    const philosophyDesign = document.getElementById('kickoffPhilosophyDesign');
+    if (philosophyDesign && programData.philosophy) {
+      philosophyDesign.textContent = programData.philosophy.design;
+    }
   }
   
   setupFAQTab(programData) {
