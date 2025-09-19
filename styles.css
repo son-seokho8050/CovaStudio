@@ -693,17 +693,17 @@ body.modal-open {
   will-change: auto;
 }
 
-/* STEPZERO 영상 위치 수정 - 더 큰 화면 */
+/* STEPZERO 영상 위치 수정 - 적당한 크기 */
 .cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video,
 .cova-modal2.stepzero-layout .modal2-video,
 video.modal2-video[src*="그림_그리는_여자"] {
   object-fit: cover !important; /* contain에서 cover로 변경 */
   object-position: 85% 50% !important; /* 훨씬 더 오른쪽으로 */
-  transform: translateX(15%) scale(1.4) !important; /* 더 큰 확대 1.4배 */
-  width: 130% !important; /* 영상 넓이 더 증가 */
-  height: 130% !important; /* 영상 높이도 증가 */
-  left: -15% !important; /* 왼쪽 여백 더 조정 */
-  top: -15% !important; /* 위쪽 여백도 조정 */
+  transform: translateX(15%) scale(1.25) !important; /* 적당한 확대 1.25배 */
+  width: 115% !important; /* 영상 넓이 적당히 증가 */
+  height: 115% !important; /* 영상 높이도 적당히 증가 */
+  left: -7% !important; /* 왼쪽 여백 적당히 조정 */
+  top: -7% !important; /* 위쪽 여백도 적당히 조정 */
 }
 
 /* Ensure stepzero video is always muted and has no controls */
