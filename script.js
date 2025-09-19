@@ -1369,10 +1369,11 @@ class CovaModal2 {
     this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
     this.applyCinematicEffects('ambient'); // ADD MISSING AMBIENT EFFECTS
     
-    // STEPZERO 영상 위치 조정
+    // STEPZERO 영상 위치 조정 - 전문가 해결책
     if (this.video) {
-      this.video.style.objectPosition = '65% center';
-      console.log('Applied stepzero video positioning');
+      this.video.style.objectFit = 'cover';
+      this.video.style.objectPosition = '70% 50%';
+      console.log('Applied stepzero video positioning with cover');
     }
     
     // Skip Key Moment Markers for stepzero - no timeline needed
@@ -1677,28 +1678,77 @@ class CovaModal2 {
     }
   }
   
-  setupImageSection(kickoffData) {
+  setupImageSection(programData) {
     const imageSection = document.getElementById('modal2ImageSection');
     
     if (imageSection) {
       imageSection.style.display = 'flex';
       imageSection.setAttribute('data-testid', 'image-section');
       
-      // Find the thumbnails grid and ensure all 6 thumbnails are visible
+      // CRITICAL: 썸네일 완전 초기화 - 전문가 해결책
       const thumbnailsGrid = imageSection.querySelector('.modal2-thumbnails-grid');
-      const thumbnailItems = thumbnailsGrid ? thumbnailsGrid.querySelectorAll('.thumbnail-item') : [];
-      
-      console.log(`Found ${thumbnailItems.length} thumbnail items`);
-      
-      // Make sure all thumbnails are displayed
-      thumbnailItems.forEach((item, index) => {
-        item.style.display = 'block';
-        item.setAttribute('data-testid', `thumbnail-${index + 1}`);
-      });
-      
       if (thumbnailsGrid) {
+        // 기존 내용 완전 삭제
+        thumbnailsGrid.innerHTML = '';
+        
+        // 프로그램별 썸네일 데이터 가져오기
+        const currentProgram = this.currentProgram;
+        let thumbnailSources = [];
+        
+        if (currentProgram === 'kickoff') {
+          // 킥오프 썸네일
+          thumbnailSources = [
+            'attached_assets/1_1758257743626.png',
+            'attached_assets/2_1758257743627.png', 
+            'attached_assets/3_1758257743627.png',
+            'attached_assets/4_1758257743627.png',
+            'attached_assets/6_1758257743627.png',
+            'attached_assets/7_1758257743628.png',
+            'attached_assets/8_1758257743628.png',
+            'attached_assets/9_1758257743628.png'
+          ];
+        } else if (currentProgram === 'stepzero') {
+          // GRADE-JUNIOR 썸네일
+          thumbnailSources = [
+            'attached_assets/1_1758276759954.png',
+            'attached_assets/2_1758276759954.png',
+            'attached_assets/3_1758276759955.png',
+            'attached_assets/4_1758276759955.png',
+            'attached_assets/5_1758276759955.png',
+            'attached_assets/6_1758276759956.png',
+            'attached_assets/7_1758276759956.png',
+            'attached_assets/8_1758276759956.png'
+          ];
+        } else {
+          // 다른 프로그램들은 킥오프 썸네일 사용
+          thumbnailSources = [
+            'attached_assets/1_1758257743626.png',
+            'attached_assets/2_1758257743627.png', 
+            'attached_assets/3_1758257743627.png',
+            'attached_assets/4_1758257743627.png',
+            'attached_assets/6_1758257743627.png',
+            'attached_assets/7_1758257743628.png',
+            'attached_assets/8_1758257743628.png',
+            'attached_assets/9_1758257743628.png'
+          ];
+        }
+        
+        // 새 썸네일 생성
+        thumbnailSources.forEach((src, index) => {
+          const thumbnailItem = document.createElement('div');
+          thumbnailItem.className = 'thumbnail-item';
+          
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = `${currentProgram} 썸네일 ${index + 1}`;
+          img.setAttribute('data-testid', `thumbnail-${index + 1}`);
+          
+          thumbnailItem.appendChild(img);
+          thumbnailsGrid.appendChild(thumbnailItem);
+        });
+        
         thumbnailsGrid.style.display = 'grid';
-        console.log('Thumbnails grid activated with', thumbnailItems.length, 'items');
+        console.log('Thumbnails rehydrated for', currentProgram, 'with', thumbnailSources.length, 'items');
       }
     }
   }

@@ -693,9 +693,10 @@ body.modal-open {
   will-change: auto;
 }
 
-/* STEPZERO 간단한 백업 규칙 */
-video.modal2-video.ambient {
-  object-position: 65% center !important; /* 영상 내용을 오른쪽으로 이동 */
+/* STEPZERO 영상 위치 수정 - 전문가 해결책 */
+.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video {
+  object-fit: cover !important; /* contain에서 cover로 변경 */
+  object-position: 70% 50% !important; /* 영상을 오른쪽으로 이동 */
 }
 
 /* Ensure stepzero video is always muted and has no controls */
