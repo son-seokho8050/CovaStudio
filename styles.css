@@ -467,29 +467,87 @@ body.modal-open {
   overflow-y: auto;
 }
 
-/* Force hide scrollbar for kickoff panel - no layout shift */
+/* Complete scrollbar removal for kickoff panel */
 .cova-modal2.kickoff-layout .modal2-panel {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
   position: relative;
 }
 
 .cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar {
-  width: 0 !important; /* Hide scrollbar completely */
-  height: 0 !important;
+  width: 0px !important;
+  height: 0px !important;
   background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-track {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-corner {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-button {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+}
+
+/* Global scrollbar removal for all modal panels */
+.cova-modal2 .modal2-panel,
+.cova-modal2 .modal2-content {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.cova-modal2 .modal2-panel::-webkit-scrollbar,
+.cova-modal2 .modal2-content::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2 .modal2-panel::-webkit-scrollbar-track,
+.cova-modal2 .modal2-content::-webkit-scrollbar-track {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2 .modal2-panel::-webkit-scrollbar-thumb,
+.cova-modal2 .modal2-content::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2 .modal2-panel::-webkit-scrollbar-corner,
+.cova-modal2 .modal2-content::-webkit-scrollbar-corner {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2 .modal2-panel::-webkit-scrollbar-button,
+.cova-modal2 .modal2-content::-webkit-scrollbar-button {
+  width: 0px !important;
+  height: 0px !important;
   display: none !important;
 }
 
@@ -672,29 +730,43 @@ body.modal-open {
   opacity: 1;
 }
 
-/* Apply same scrollbar hiding for stepzero panel */
+/* Complete scrollbar removal for stepzero panel */
 .cova-modal2.stepzero-layout .modal2-panel {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
 
 .cova-modal2.stepzero-layout .modal2-panel::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
+  width: 0px !important;
+  height: 0px !important;
   background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.stepzero-layout .modal2-panel::-webkit-scrollbar-track {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.stepzero-layout .modal2-panel::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.stepzero-layout .modal2-panel::-webkit-scrollbar-corner {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.stepzero-layout .modal2-panel::-webkit-scrollbar-button {
+  width: 0px !important;
+  height: 0px !important;
   display: none !important;
 }
 
@@ -782,29 +854,43 @@ body.modal-open {
   opacity: 1;
 }
 
-/* Apply same scrollbar hiding for grade1 panel */
+/* Complete scrollbar removal for grade1 panel */
 .cova-modal2.grade1-layout .modal2-panel {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
 
 .cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
+  width: 0px !important;
+  height: 0px !important;
   background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-track {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-corner {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.grade1-layout .modal2-panel::-webkit-scrollbar-button {
+  width: 0px !important;
+  height: 0px !important;
   display: none !important;
 }
 
@@ -892,29 +978,43 @@ body.modal-open {
   opacity: 1;
 }
 
-/* Apply same scrollbar hiding for grade2 panel */
+/* Complete scrollbar removal for grade2 panel */
 .cova-modal2.grade2-layout .modal2-panel {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
 
 .cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar {
-  width: 0 !important;
-  height: 0 !important;
+  width: 0px !important;
+  height: 0px !important;
   background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-track {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  background: transparent !important;
   display: none !important;
 }
 
 .cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-corner {
+  width: 0px !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+.cova-modal2.grade2-layout .modal2-panel::-webkit-scrollbar-button {
+  width: 0px !important;
+  height: 0px !important;
   display: none !important;
 }
 
