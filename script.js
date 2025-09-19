@@ -2346,10 +2346,7 @@ class CovaModal2 {
         videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
-        goals: [
-          { icon: "target", title: "학생의 다양한 시도와 \"왜 이렇게 했는가\"를 스스로 말할 수 있도록 합니다.", desc: "" },
-          { icon: "compass", title: "탐구를 통해 자기만의 시선과 해석력을 기릅니다.", desc: "" }
-        ],
+        goals: [],
         curriculum: [
           { step: "기초", content: "드로잉과 색채의 기본 원리", time: "4주" },
           { step: "탐구", content: "작품 분석과 비교 연구", time: "4주" },
