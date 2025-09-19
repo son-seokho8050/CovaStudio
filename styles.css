@@ -684,7 +684,7 @@ body.modal-open {
   aspect-ratio: 3 / 2 !important; 
   max-height: none !important;
   max-width: none !important;
-  transform: scale(1.8) !important; /* 영상 확대 */
+  transform: scale(1.26) !important; /* 영상 확대 30% 줄임 */
   transform-origin: center !important;
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
