@@ -2367,9 +2367,8 @@ class CovaModal2 {
           ]
         },
         methodology: [
-          { phase: "Pre(준비)", time: "20분", content: "학습 목표 설정과 자료 준비", details: ["목표 설정", "자료 수집", "도구 준비"] },
-          { phase: "Core(실습)", time: "100분", content: "체계적인 기법 학습과 실습", details: ["이론 학습", "기법 실습", "작품 제작"] },
-          { phase: "Post(정리)", time: "20분", content: "결과 정리와 성찰", details: ["작품 정리", "학습 성찰", "다음 계획"] }
+          { phase: "교육 목표 1", time: "", content: "학생의 다양한 시도와 \"왜 이렇게 했는가\"를 스스로 말할 수 있도록 합니다.", details: [] },
+          { phase: "교육 목표 2", time: "", content: "탐구를 통해 자기만의 시선과 해석력을 기릅니다.", details: [] }
         ],
         faq: [
           { q: "Grade 1 과정의 난이도는 어떤가요?", a: "미술을 처음 시작하는 학생도 쉽게 따라올 수 있도록 기초부터 차근차근 진행합니다." },
