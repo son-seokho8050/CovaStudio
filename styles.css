@@ -672,6 +672,15 @@ body.modal-open {
   transform-origin: center !important; /* Scale from center */
 }
 
+/* Force stepzero video to be enlarged like kickoff */
+.cova-modal2.stepzero-layout .modal2-video.ambient {
+  transform: scale(1.6) !important; /* Much larger than kickoff to match user request */
+  transform-origin: center !important;
+  filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
+  animation: none;
+  will-change: auto;
+}
+
 /* Ensure stepzero video is always muted and has no controls */
 .cova-modal2.stepzero-layout .modal2-video,
 .cova-modal2.stepzero-layout .modal2-video.ambient {
