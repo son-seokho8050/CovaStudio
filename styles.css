@@ -699,7 +699,7 @@ body.modal-open {
 video.modal2-video[src*="그림_그리는_여자"] {
   object-fit: cover !important; /* contain에서 cover로 변경 */
   object-position: 85% 50% !important; /* 훨씬 더 오른쪽으로 */
-  transform: translateX(15%) scale(1.25) !important; /* 적당한 확대 1.25배 */
+  transform: translateX(12%) scale(1.25) !important; /* 왼쪽으로 0.5cm 이동 조정 */
   width: 115% !important; /* 영상 넓이 적당히 증가 */
   height: 115% !important; /* 영상 높이도 적당히 증가 */
   left: -7% !important; /* 왼쪽 여백 적당히 조정 */
