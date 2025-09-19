@@ -1507,6 +1507,9 @@ class CovaModal2 {
     // Setup Tabbed Content
     this.setupTabbedContent(grade1Data);
     
+    // Setup Program Features
+    this.setupProgramFeatures(grade1Data);
+    
     // Initialize Tab Navigation
     this.initializeTabNavigation();
     
@@ -2369,6 +2372,11 @@ class CovaModal2 {
         methodology: [
           { phase: "교육 목표 1", time: "", content: "학생의 다양한 시도와 \"왜 이렇게 했는가\"를 스스로 말할 수 있도록 합니다.", details: [] },
           { phase: "교육 목표 2", time: "", content: "탐구를 통해 자기만의 시선과 해석력을 기릅니다.", details: [] }
+        ],
+        expectedOutcomes: [
+          "완성이 아닌 실험과 과정에 초점.",
+          "비교와 기록을 통해 사고 확장.",
+          "언어화(150자 기록)를 통해 생각을 설명하는 힘 기르기."
         ],
         faq: [
           { q: "Grade 1 과정의 난이도는 어떤가요?", a: "미술을 처음 시작하는 학생도 쉽게 따라올 수 있도록 기초부터 차근차근 진행합니다." },
