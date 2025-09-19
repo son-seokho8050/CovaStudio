@@ -43,12 +43,6 @@ window.COVA_DATA = {
   kickoff: {
     title: "COVA 'KICK-OFF'",
     description: "COVA 교육 시스템의 핵심 방법론을 소개하고 체험해보는 시작 수업입니다.",
-    
-    // 프로그램 개요
-    overview: {
-      title: "프로그램 개요",
-      content: "COVA 킥오프 과정은 '첫 흔적'을 남기는 수업입니다. 그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다. 미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
-    },
     videoSrc: "attached_assets/남성_강사의_스케치_수업_1758107827768.mp4",
     videoDuration: "4:08",
     videoTitle: "COVA 킥오프 실제 수업 장면",
@@ -171,7 +165,7 @@ window.COVA_DATA = {
     // 프로그램 개요
     overview: {
       title: "프로그램 개요",
-      content: "COVA Grade-Junior 과정은 '첫 흔적'을 남기는 수업입니다. 그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다. 미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
+      content: "COVA 중등 과정은 \"첫 흔적\"을 남기는 수업입니다.\n그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다.\n\n미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
     },
     videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
     imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
@@ -253,65 +247,6 @@ window.COVA_DATA = {
     twelveWeeks: ["입문(1~4주): 자아·상징","심화(5~8주): 사회·환경","확장(9~12주): 상상·철학"]
   },
 
-  grade1: {
-    title: "GRADE 1",
-    description: "탐구 중심 훈련 프로그램으로 창의적 사고와 기본기를 체계적으로 발전시킵니다.",
-    
-    // 프로그램 개요
-    overview: {
-      title: "프로그램 개요",
-      content: "COVA Grade 1 과정은 '첫 흔적'을 남기는 수업입니다. 그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다. 미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
-    },
-    
-    videoSrc: "attached_assets/남성_강사의_스케치_수업_1758107827768.mp4",
-    imageSrc: "attached_assets/1_1758257743626.png",
-    
-    keyMoments: [
-      { id: "km1", t: 15.2, title: "Grade 1 소개", summary: "탐구 중심 훈련의 핵심 개념" },
-      { id: "km2", t: 42.5, title: "일일 루프", summary: "Pre-Core-Post 구조 설명" },
-      { id: "km3", t: 68.9, title: "3일 주기", summary: "이해-적용-완결 과정" },
-      { id: "km4", t: 95.4, title: "월별 주제", summary: "점선부터 작가연구까지" },
-      { id: "km5", t: 122.7, title: "체크벨 시스템", summary: "실시간 피드백 방법" },
-      { id: "km6", t: 149.3, title: "포트폴리오", summary: "성장 기록과 증거화" }
-    ],
-    
-    goals: [
-      { icon: "search", title: "탐구 중심 학습", desc: "질문과 실험을 통한 창의적 문제 해결 능력 개발" },
-      { icon: "book", title: "체계적 기록", desc: "시도-발견-다음의 구조화된 학습 기록 습관" },
-      { icon: "target", title: "기본기 완성", desc: "점·선·균형·리듬 등 조형 요소의 체계적 학습" },
-      { icon: "growth", title: "자기주도 학습", desc: "스스로 발견하고 성장하는 학습 태도 형성" }
-    ]
-  },
-
-  grade2: {
-    title: "GRADE 2", 
-    description: "실기력 강화 프로그램으로 고급 표현 기법과 창작 역량을 집중 개발합니다.",
-    
-    // 프로그램 개요
-    overview: {
-      title: "프로그램 개요", 
-      content: "COVA Grade 2 과정은 '첫 흔적'을 남기는 수업입니다. 그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다. 미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
-    },
-    
-    videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4", 
-    imageSrc: "attached_assets/2_1758257743627.png",
-    
-    keyMoments: [
-      { id: "km1", t: 12.8, title: "Grade 2 소개", summary: "실기력 강화의 목표와 방향" },
-      { id: "km2", t: 38.6, title: "조건 브리핑", summary: "학생 발현과 재정의 과정" },
-      { id: "km3", t: 65.2, title: "작업 프로세스", summary: "구도-표현-체크벨 구조" },
-      { id: "km4", t: 91.7, title: "자기 언어화", summary: "선택 이유와 실패 분석" },
-      { id: "km5", t: 118.9, title: "삼각 채점", summary: "다면적 평가 시스템" },
-      { id: "km6", t: 145.4, title: "보완 시스템", summary: "지속적 개선 방법론" }
-    ],
-    
-    goals: [
-      { icon: "palette", title: "실기력 강화", desc: "고급 표현 기법과 창작 능력의 집중적 개발" },
-      { icon: "lightbulb", title: "창의적 해석", desc: "주어진 조건을 창의적으로 해석하고 재정의하는 능력" },
-      { icon: "message-square", title: "언어화 능력", desc: "작품과 과정을 명확하게 설명하는 소통 능력" },
-      { icon: "trending-up", title: "지속적 발전", desc: "체계적 보완을 통한 지속적 실력 향상" }
-    ]
-  },
 
   kpi: {
     common: ["ΔGI(통찰 변화율)","재프레임 폭(θ·φ·ψ)","사이클 타임","학부모 신뢰도"],
