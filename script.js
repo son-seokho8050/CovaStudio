@@ -1202,8 +1202,9 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Apply special layout for all programs
-      this.modal.classList.add('kickoff-layout');
+      // Apply program-specific layout class
+      const layoutClass = `${programId}-layout`;
+      this.modal.classList.add(layoutClass);
       console.log('Applied special layout for program:', programId);
     } else {
       // Remove special layout (fallback)

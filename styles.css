@@ -673,7 +673,7 @@ body.modal-open {
   opacity: 0.82;
 }
 
-/* STEPZERO video scaling - ALL possible selectors */
+/* STEPZERO video scaling - 영상 확대 효과 */
 .cova-modal2.stepzero-layout .modal2-video,
 .cova-modal2.stepzero-layout .modal2-video.ambient,
 .cova-modal2.stepzero-layout .cinematic-wrap .modal2-video,
@@ -684,13 +684,11 @@ body.modal-open {
   aspect-ratio: 3 / 2 !important; 
   max-height: none !important;
   max-width: none !important;
-  transform: scale(2.0) !important; /* MASSIVE scale to force visibility */
+  transform: scale(1.8) !important; /* 영상 확대 */
   transform-origin: center !important;
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
   will-change: auto;
-  border: 5px solid red !important; /* DEBUG: 규칙 적용 확인용 */
-  background: yellow !important; /* DEBUG: 규칙 적용 확인용 */
 }
 
 /* Ensure stepzero video is always muted and has no controls */
