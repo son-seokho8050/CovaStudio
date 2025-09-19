@@ -1212,7 +1212,10 @@ class CovaModal2 {
     
     // Update basic content
     this.title.textContent = programData.title;
-    this.description.textContent = programData.description;
+    // Skip description for kickoff layout
+    if (program !== 'kickoff') {
+      this.description.textContent = programData.description;
+    }
     
     // Set video source
     const videoSrc = programData.videoSrc || window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
@@ -1293,8 +1296,8 @@ class CovaModal2 {
       }
     }
     
-    // 1. Setup Video Information Display
-    this.setupVideoHeader(kickoffData);
+    // Video header removed for kickoff layout
+    // this.setupVideoHeader(kickoffData);
     
     // 2. Setup Key Moment Markers
     this.setupKeyMomentMarkers(kickoffData);

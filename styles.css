@@ -324,13 +324,13 @@ body.modal-open {
   overflow-y: auto;
 }
 
-/* Enhanced description area for kickoff content */
-.cova-modal2.kickoff-layout .modal2-description {
-  font-size: var(--text-xs);
-  line-height: var(--leading-normal);
-  color: var(--text-secondary);
-  margin-top: var(--space-8);
-  margin-bottom: var(--space-3);
+/* Hide video description areas for kickoff layout */
+.cova-modal2.kickoff-layout .modal2-video-header {
+  display: none !important;
+}
+
+.cova-modal2.kickoff-layout .modal2-panel .modal2-description {
+  display: none !important;
 }
 
 .cova-modal2.kickoff-layout .modal2-kickoff-details {
