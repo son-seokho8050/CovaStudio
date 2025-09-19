@@ -268,9 +268,9 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding: var(--space-4);
+  padding: var(--space-2) var(--space-4) var(--space-6) var(--space-4);
   border-top: 1px solid var(--border);
   min-height: 0;
 }
