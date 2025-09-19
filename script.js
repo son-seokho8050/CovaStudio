@@ -1391,7 +1391,7 @@ class CovaModal2 {
     // Setup Image Section with shared thumbnails
     this.setupImageSection(stepZeroData);
     
-    // Setup Tabbed Content
+    // Setup Tabbed Content  
     this.setupTabbedContent(stepZeroData);
     
     // Initialize Tab Navigation
@@ -1807,18 +1807,18 @@ class CovaModal2 {
     setTimeout(() => tooltip.remove(), 3000);
   }
   
-  setupTabbedContent(kickoffData) {
+  setupTabbedContent(programData) {
     // Setup Overview Tab
-    this.setupOverviewTab(kickoffData);
+    this.setupOverviewTab(programData);
     
     // Setup Curriculum Tab
-    this.setupCurriculumTab(kickoffData);
+    this.setupCurriculumTab(programData);
     
     // Setup Philosophy Tab
-    this.setupPhilosophyTab(kickoffData);
+    this.setupPhilosophyTab(programData);
     
     // Setup FAQ Tab
-    this.setupFAQTab(kickoffData);
+    this.setupFAQTab(programData);
     
     // Show tabbed content
     const kickoffDetails = document.getElementById('modal2KickoffDetails');
@@ -1827,7 +1827,7 @@ class CovaModal2 {
     }
   }
   
-  setupOverviewTab(kickoffData) {
+  setupOverviewTab(programData) {
     
     // Program Overview (프로그램 개요)
     const overviewElement = document.getElementById('kickoffGoals');
@@ -1835,24 +1835,24 @@ class CovaModal2 {
       let overviewHTML = '';
       
       // Add overview section if exists
-      if (kickoffData.overview) {
+      if (programData.overview) {
         overviewHTML += `
           <div class="modal2-overview-section" data-testid="program-overview">
-            <div class="modal2-overview-content">${kickoffData.overview.content.replace(/\n/g, '<br>')}</div>
+            <div class="modal2-overview-content">${programData.overview.content.replace(/\n/g, '<br>')}</div>
           </div>
         `;
       }
       
       // Add education goals section if exists
-      if (kickoffData.educationGoals) {
+      if (programData.educationGoals) {
         overviewHTML += `
           <div class="modal2-education-goals-section" data-testid="education-goals">
             <div class="modal2-education-goals-header">
               <div class="modal2-education-goals-icon">🎯</div>
-              <div class="modal2-education-goals-title">${kickoffData.educationGoals.title}</div>
+              <div class="modal2-education-goals-title">${programData.educationGoals.title}</div>
             </div>
             <div class="modal2-education-goals-list">
-              ${kickoffData.educationGoals.items.map((item, index) => `
+              ${programData.educationGoals.items.map((item, index) => `
                 <div class="modal2-education-goal-item" data-testid="education-goal-${index}">
                   <span class="modal2-goal-bullet">•</span>
                   <span class="modal2-goal-text">${item}</span>
@@ -1961,44 +1961,44 @@ class CovaModal2 {
     }
   }
   
-  setupPhilosophyTab(kickoffData) {
+  setupPhilosophyTab(programData) {
     // Core Philosophy (질문)
     const philosophyCore = document.getElementById('kickoffPhilosophyCore');
-    if (philosophyCore && kickoffData.philosophy) {
-      philosophyCore.textContent = kickoffData.philosophy.core;
+    if (philosophyCore && programData.philosophy) {
+      philosophyCore.textContent = programData.philosophy.core;
     }
     
     // Philosophy Principles (탐구와 관찰)
     const philosophyPrinciples = document.getElementById('kickoffPhilosophyPrinciples');
-    if (philosophyPrinciples && kickoffData.philosophy) {
-      philosophyPrinciples.textContent = kickoffData.philosophy.observation;
+    if (philosophyPrinciples && programData.philosophy) {
+      philosophyPrinciples.textContent = programData.philosophy.observation;
     }
     
     // Philosophy Motto (표현과 공유)
     const philosophyMotto = document.getElementById('kickoffPhilosophyMotto');
-    if (philosophyMotto && kickoffData.philosophy) {
-      philosophyMotto.textContent = kickoffData.philosophy.expression;
+    if (philosophyMotto && programData.philosophy) {
+      philosophyMotto.textContent = programData.philosophy.expression;
     }
     
     // Philosophy Feedback (피드백)
     const philosophyFeedback = document.getElementById('kickoffPhilosophyFeedback');
-    if (philosophyFeedback && kickoffData.philosophy) {
-      philosophyFeedback.textContent = kickoffData.philosophy.feedback;
+    if (philosophyFeedback && programData.philosophy) {
+      philosophyFeedback.textContent = programData.philosophy.feedback;
     }
     
     // Philosophy Connection (연결)
     const philosophyConnection = document.getElementById('kickoffPhilosophyConnection');
-    if (philosophyConnection && kickoffData.philosophy) {
-      philosophyConnection.textContent = kickoffData.philosophy.connection;
+    if (philosophyConnection && programData.philosophy) {
+      philosophyConnection.textContent = programData.philosophy.connection;
     }
   }
   
-  setupFAQTab(kickoffData) {
+  setupFAQTab(programData) {
     const faqElement = document.getElementById('kickoffFAQ');
-    if (faqElement && kickoffData.faq) {
+    if (faqElement && programData.faq) {
       const faqHTML = `
         <div class="modal2-faq-list" data-testid="faq-list">
-          ${kickoffData.faq.map((faq, index) => `
+          ${programData.faq.map((faq, index) => `
             <div class="modal2-faq-item" data-testid="faq-item-${index}">
               <div class="modal2-faq-question" data-testid="faq-question-${index}">${faq.q}</div>
               <div class="modal2-faq-answer" data-testid="faq-answer-${index}">${faq.a}</div>
