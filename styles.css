@@ -467,26 +467,37 @@ body.modal-open {
   overflow-y: auto;
 }
 
-/* Custom Scrollbar for kickoff panel */
+/* Overlay Scrollbar for kickoff panel - no layout shift */
+.cova-modal2.kickoff-layout .modal2-panel {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  position: relative;
+}
+
 .cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar {
-  width: 6px;
-  margin-right: 8px;
+  width: 0; /* Hide scrollbar completely */
+  background: transparent;
 }
 
-.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
-  margin-right: 8px;
-}
-
-.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-thumb {
+/* Custom overlay scrollbar indicator */
+.cova-modal2.kickoff-layout .modal2-panel::after {
+  content: '';
+  position: fixed;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
 }
 
-.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+.cova-modal2.kickoff-layout .modal2-panel:hover::after {
+  opacity: 1;
 }
 
 /* Hide video description areas for kickoff layout */
