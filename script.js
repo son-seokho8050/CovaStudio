@@ -1369,6 +1369,12 @@ class CovaModal2 {
     this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
     this.applyCinematicEffects('ambient'); // ADD MISSING AMBIENT EFFECTS
     
+    // STEPZERO 영상 위치 조정
+    if (this.video) {
+      this.video.style.objectPosition = '65% center';
+      console.log('Applied stepzero video positioning');
+    }
+    
     // Skip Key Moment Markers for stepzero - no timeline needed
     // this.setupKeyMomentMarkers(stepZeroData);
     

@@ -693,6 +693,11 @@ body.modal-open {
   will-change: auto;
 }
 
+/* STEPZERO 간단한 백업 규칙 */
+video.modal2-video.ambient {
+  object-position: 65% center !important; /* 영상 내용을 오른쪽으로 이동 */
+}
+
 /* Ensure stepzero video is always muted and has no controls */
 .cova-modal2.stepzero-layout .modal2-video,
 .cova-modal2.stepzero-layout .modal2-video.ambient {
