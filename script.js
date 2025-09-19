@@ -2337,10 +2337,8 @@ class CovaModal2 {
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
         goals: [
-          { icon: "book", title: "기초 이론 학습", desc: "미술의 기본 개념과 원리 이해" },
-          { icon: "palette", title: "표현 기법 습득", desc: "다양한 재료와 기법 실습" },
-          { icon: "compass", title: "탐구 능력 개발", desc: "작품 분석과 비교 연구" },
-          { icon: "target", title: "체계적 학습법", desc: "COVA 방법론 적용 연습" }
+          { icon: "target", title: "학생의 다양한 시도와 \"왜 이렇게 했는가\"를 스스로 말할 수 있도록 합니다.", desc: "" },
+          { icon: "compass", title: "탐구를 통해 자기만의 시선과 해석력을 기릅니다.", desc: "" }
         ],
         curriculum: [
           { step: "기초", content: "드로잉과 색채의 기본 원리", time: "4주" },
