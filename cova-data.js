@@ -168,7 +168,7 @@ window.COVA_DATA = {
       content: "COVA 중등 과정은 \"첫 흔적\"을 남기는 수업입니다.\n그림을 잘 그리는 것보다 중요한 것은, 종이에 남긴 낙서·조각난 색채·만들어진 작은 입체물들이 내가 탐구한 증거가 되는 경험입니다.\n\n미술이 처음인 학생도 거부감 없이 참여할 수 있도록, 탐구의 즐거움, 기록의 발견, 표현의 기쁨을 중심에 둡니다."
     },
     
-    videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
+    videoSrc: "attached_assets/그림_그리는_여자_초_동영상_1758277254394.mp4",
     imageSrc: "attached_assets/cocodio_A_minimalist_sculpture_of_the_letter_J_abstract_desig_06a67b63-acc6-4b46-97f8-489d88cdfdac_1_1758276688421.png",
     keyMoments: [
       { id: "km1", t: 8.7, title: "Grade-Junior 소개", summary: "월요일 30분 사고 훈련의 의미" },
