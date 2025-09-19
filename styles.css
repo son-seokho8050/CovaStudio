@@ -326,10 +326,11 @@ body.modal-open {
 
 /* Enhanced description area for kickoff content */
 .cova-modal2.kickoff-layout .modal2-description {
-  font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .cova-modal2.kickoff-layout .modal2-kickoff-details {
