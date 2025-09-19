@@ -1974,8 +1974,16 @@ class CovaModal2 {
   
   loadKeyMoments(keyMoments) {
     if (!keyMoments || keyMoments.length === 0) {
-      this.keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      // Hide the entire key moments container
+      if (this.keyMomentsContainer) {
+        this.keyMomentsContainer.style.display = 'none';
+      }
       return;
+    }
+    
+    // Show the container if it was hidden
+    if (this.keyMomentsContainer) {
+      this.keyMomentsContainer.style.display = 'block';
     }
     
     const keyMomentsHTML = keyMoments.map(km => `
@@ -2898,9 +2906,12 @@ class KeyMomentsController {
     }
 
     if (!this.keyMoments || this.keyMoments.length === 0) {
-      keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      keyMomentsContainer.style.display = 'none';
       return;
     }
+    
+    // Show the container if it was hidden
+    keyMomentsContainer.style.display = 'block';
 
     const keyMomentsHTML = this.keyMoments.map(km => `
       <div class="modal2-keymoment" data-time="${km.t}">
@@ -2944,9 +2955,12 @@ class KeyMomentsController {
     }
 
     if (!this.keyMoments || this.keyMoments.length === 0) {
-      keyMomentsContainer.innerHTML = '<p class="modal2-no-keymoments">이 프로그램에는 키 모먼트가 없습니다.</p>';
+      keyMomentsContainer.style.display = 'none';
       return;
     }
+    
+    // Show the container if it was hidden
+    keyMomentsContainer.style.display = 'block';
 
     const keyMomentsHTML = this.keyMoments.map(km => `
       <div class="modal2-keymoment" data-time="${km.t}">
