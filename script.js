@@ -1213,7 +1213,7 @@ class CovaModal2 {
     // Update basic content
     this.title.textContent = programData.title;
     // Skip description for kickoff layout
-    if (program !== 'kickoff') {
+    if (programId !== 'kickoff') {
       this.description.textContent = programData.description;
     }
     
