@@ -1672,10 +1672,6 @@ class CovaModal2 {
   }
   
   setupOverviewTab(kickoffData) {
-    console.log('Setting up overview tab for:', kickoffData);
-    console.log('Overview data:', kickoffData.overview);
-    console.log('Available keys:', Object.keys(kickoffData));
-    console.log('COVA_DATA.stepZero overview:', window.COVA_DATA?.stepZero?.overview);
     
     // Program Overview (프로그램 개요)
     const overviewElement = document.getElementById('kickoffGoals');
@@ -2059,6 +2055,7 @@ class CovaModal2 {
       'stepzero': {
         title: window.COVA_DATA?.stepZero?.title || 'GRADE-JUNIOR',
         description: window.COVA_DATA?.stepZero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
+        overview: window.COVA_DATA?.stepZero?.overview || null,
         videoSrc: window.COVA_DATA?.stepZero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
         imageSrc: window.COVA_DATA?.stepZero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.stepZero?.keyMoments || [],
