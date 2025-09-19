@@ -1375,7 +1375,7 @@ class CovaModal2 {
       this.video.style.objectPosition = '85% 50%'; // 더 오른쪽으로 이동
       this.video.style.setProperty('object-position', '85% 50%', 'important');
       this.video.style.setProperty('object-fit', 'cover', 'important');
-      this.video.style.setProperty('transform', 'translateX(15%) scale(1.1)', 'important'); // 추가 이동 + 확대
+      this.video.style.setProperty('transform', 'translateX(15%) scale(1.4)', 'important'); // 추가 이동 + 더 큰 확대
       
       // 현재 적용된 스타일 확인 로그
       const computedStyle = window.getComputedStyle(this.video);
