@@ -2357,7 +2357,7 @@ class CovaModal2 {
         curriculum: [
           { step: "탐구 착수", content: "간단한 시도·실험으로 시작", time: "" },
           { step: "발견 기록", content: "관찰한 점, 새롭게 느낀 점을 디지털 프로세스 폴리오에 남김.", time: "4주" },
-          { step: "실습", content: "개인 프로젝트 진행", time: "4주" },
+          { step: "비교 분석", content: "동료·거장 작품과 비교해 차이점 찾기.", time: "" },
           { step: "발표", content: "포트폴리오 제작과 발표", time: "2주" }
         ],
         philosophy: {
