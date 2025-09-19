@@ -461,10 +461,32 @@ body.modal-open {
   grid-area: panel;
   display: flex;
   flex-direction: column;
-  padding: var(--space-6) var(--space-3) var(--space-6) var(--space-6);
+  padding: var(--space-6) var(--space-5) var(--space-6) var(--space-6);
   background: var(--bg);
   border-left: 1px solid var(--border);
   overflow-y: auto;
+}
+
+/* Custom Scrollbar for kickoff panel */
+.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar {
+  width: 6px;
+  margin-right: 8px;
+}
+
+.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cova-modal2.kickoff-layout .modal2-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Hide video description areas for kickoff layout */
