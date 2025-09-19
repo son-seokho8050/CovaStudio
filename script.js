@@ -1443,6 +1443,13 @@ class CovaModal2 {
       return;
     }
     
+    // Check if the element already has content from setupOverviewTab
+    // If it has educationGoals content, don't overwrite it
+    if (goalsElement.querySelector('.modal2-education-goals-section')) {
+      console.log('Goals element already has educationGoals content, skipping renderKickoffGoals');
+      return;
+    }
+    
     const goals = kickoffData.goals || [];
     if (goals.length === 0) {
       console.warn('No goals found for kickoff');
