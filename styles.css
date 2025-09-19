@@ -682,11 +682,12 @@ body.modal-open {
   height: 100% !important;
   margin: 0 auto !important; /* 가운데 정렬 */
   object-fit: cover !important; 
+  object-position: center center !important; /* 영상 내용을 중앙으로 */
   aspect-ratio: 3 / 2 !important; 
   max-height: none !important;
   max-width: none !important;
   transform: scale(1.26) !important; /* 영상 확대 30% 줄임 */
-  transform-origin: center !important;
+  transform-origin: center center !important; /* 확대 기준점을 중앙으로 */
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
   will-change: auto;
