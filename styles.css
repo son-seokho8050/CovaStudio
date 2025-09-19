@@ -279,12 +279,12 @@ body.modal-open {
 /* Thumbnails Grid for Kickoff Layout */
 .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: var(--space-3);
-  width: 85%;
+  gap: var(--space-2);
+  width: 90%;
   height: 75%;
-  padding: var(--space-3);
+  padding: var(--space-2);
   box-sizing: border-box;
   min-height: 0;
 }
@@ -839,7 +839,7 @@ body.modal-open {
   /* Mobile thumbnails grid */
   .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     gap: var(--space-1);
     padding: var(--space-2);
   }
