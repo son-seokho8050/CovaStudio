@@ -4187,6 +4187,66 @@ summary:focus {
   z-index: 1;
 }
 
+/* 풀스크린 모드에서 비디오 크롭핑 문제 해결 */
+.philosophy-bg-video:fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: none;
+  object-fit: contain;
+  opacity: 1;
+  filter: none;
+  z-index: 99999;
+  background: #000;
+}
+
+/* 웹킷 브라우저 풀스크린 지원 */
+.philosophy-bg-video:-webkit-full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: none;
+  object-fit: contain;
+  opacity: 1;
+  filter: none;
+  z-index: 99999;
+  background: #000;
+}
+
+/* 모질라 브라우저 풀스크린 지원 */
+.philosophy-bg-video:-moz-full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: none;
+  object-fit: contain;
+  opacity: 1;
+  filter: none;
+  z-index: 99999;
+  background: #000;
+}
+
+/* Microsoft Edge 풀스크린 지원 */
+.philosophy-bg-video:-ms-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: none;
+  object-fit: contain;
+  opacity: 1;
+  filter: none;
+  z-index: 99999;
+  background: #000;
+}
+
 .philosophy-video-overlay {
   position: absolute;
   top: 0;
