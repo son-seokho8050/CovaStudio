@@ -674,10 +674,10 @@ body.modal-open {
 }
 
 /* STEPZERO video scaling - 영상 확대 효과 */
-.cova-modal2.stepzero-layout .modal2-video,
-.cova-modal2.stepzero-layout .modal2-video.ambient,
-.cova-modal2.stepzero-layout .cinematic-wrap .modal2-video,
-.cova-modal2.stepzero-layout .cinematic-wrap .modal2-video.ambient {
+.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video,
+.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video.ambient,
+.cova-modal2.kickoff-layout.stepzero-video-scaled .cinematic-wrap .modal2-video,
+.cova-modal2.kickoff-layout.stepzero-video-scaled .cinematic-wrap .modal2-video.ambient {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important; 

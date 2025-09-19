@@ -1202,9 +1202,16 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Apply program-specific layout class
-      const layoutClass = `${programId}-layout`;
-      this.modal.classList.add(layoutClass);
+      // Apply special layout for all programs
+      this.modal.classList.add('kickoff-layout');
+      
+      // Add additional class for stepzero video scaling
+      if (programId === 'stepzero') {
+        this.modal.classList.add('stepzero-video-scaled');
+      } else {
+        this.modal.classList.remove('stepzero-video-scaled');
+      }
+      
       console.log('Applied special layout for program:', programId);
     } else {
       // Remove special layout (fallback)
