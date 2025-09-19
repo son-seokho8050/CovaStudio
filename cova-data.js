@@ -217,6 +217,7 @@ window.COVA_DATA = {
     philosophy: {
       core: "오늘은 무엇을 새롭게 해볼까? 질문으로 사고의 시작을 알립니다.",
       observation: "색·형태·질감·재료를 마음껏 탐색.",
+      expression: "평면 드로잉, 색채 실험, 입체 만들기 등 자유롭게 작업.",
       motto: "'생각하는 습관'을 만드는 것이 Grade-Junior의 목표입니다.",
       principles: [
         "사고 우선: 기술보다 사고력을 먼저 기르는 순서 중시",
