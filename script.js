@@ -1344,16 +1344,16 @@ class CovaModal2 {
   }
 
   setupStepZeroContent() {
-    console.log('Setting up stepzero content v2');
+    console.log('Setting up Grade-Junior content v2');
     
     const stepZeroData = this.getProgramData('stepzero');
     if (!stepZeroData) {
-      console.warn('StepZero data not found');
+      console.warn('Grade-Junior data not found');
       return;
     }
     
     // Setup video with ambient effects
-    this.setupVideoForProgram(stepZeroData, 'StepZero');
+    this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
     
     // Setup Key Moment Markers (using kickoff keyMoments as fallback)
     this.setupKeyMomentMarkers(stepZeroData);
@@ -1367,7 +1367,7 @@ class CovaModal2 {
     // Initialize Tab Navigation
     this.initializeTabNavigation();
     
-    console.log('StepZero content setup completed');
+    console.log('Grade-Junior content setup completed');
   }
 
   setupGrade1Content() {
@@ -2007,7 +2007,7 @@ class CovaModal2 {
   getProgramData(program) {
     const programsMap = {
       'stepzero': {
-        title: window.COVA_DATA?.stepZero?.title || 'STEP ZERO',
+        title: window.COVA_DATA?.stepZero?.title || 'GRADE-JUNIOR',
         description: window.COVA_DATA?.stepZero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
         videoSrc: window.COVA_DATA?.stepZero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
         imageSrc: window.COVA_DATA?.stepZero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
@@ -2724,7 +2724,7 @@ class ProgramModalController {
         ]
       },
       stepzero: {
-        title: 'STEP-ZERO (사고·기록·시각화)',
+        title: 'GRADE-JUNIOR (사고·기록·시각화)',
         description: '사고발달 루틴으로 루브릭 피드백 습관을 구축하는 일일 훈련 프로그램입니다.',
         duration: '지속형',
         level: '기본',

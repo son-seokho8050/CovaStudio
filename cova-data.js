@@ -167,12 +167,12 @@ window.COVA_DATA = {
   },
 
   stepZero: {
-    title: "STEP ZERO",
+    title: "GRADE-JUNIOR",
     description: "COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다. 월요일 30분 사고 훈련을 통해 창의적 사고력을 기릅니다.",
     videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
     imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
     keyMoments: [
-      { id: "km1", t: 8.7, title: "Step-Zero 소개", summary: "월요일 30분 사고 훈련의 의미" },
+      { id: "km1", t: 8.7, title: "Grade-Junior 소개", summary: "월요일 30분 사고 훈련의 의미" },
       { id: "km2", t: 35.1, title: "사고 질문 예시", summary: "Lv1-3 질문의 차이점과 접근법" },
       { id: "km3", t: 62.8, title: "기록 방법", summary: "키워드에서 문장으로 확장하는 법" },
       { id: "km4", t: 94.2, title: "시각화 실습", summary: "낙서와 기호로 아이디어 표현하기" },
@@ -196,7 +196,7 @@ window.COVA_DATA = {
     ],
     philosophy: {
       core: "사고 중심의 체계적 학습을 통해 창의적 문제 해결 능력과 시각적 표현력을 동시에 기릅니다.",
-      motto: "'생각하는 습관'을 만드는 것이 Step Zero의 목표입니다.",
+      motto: "'생각하는 습관'을 만드는 것이 Grade-Junior의 목표입니다.",
       principles: [
         "사고 우선: 기술보다 사고력을 먼저 기르는 순서 중시",
         "기록 중심: 생각의 과정을 체계적으로 기록하고 축적",
@@ -225,16 +225,16 @@ window.COVA_DATA = {
     ],
     faq: [
       {
-        q: "Step Zero는 어떤 학생에게 적합한가요?",
+        q: "Grade-Junior는 어떤 학생에게 적합한가요?",
         a: "미술을 처음 시작하거나 체계적인 사고 훈련이 필요한 모든 학생에게 적합합니다. 특히 창의적 사고력을 기르고 싶은 학생들에게 권장합니다."
       },
       {
         q: "30분이라는 시간이 충분한가요?",
-        a: "Step Zero는 짧은 시간 집중을 통한 효과적 학습을 지향합니다. 30분의 집중된 사고 훈련이 장시간의 수동적 학습보다 더 효과적입니다."
+        a: "Grade-Junior는 짧은 시간 집중을 통한 효과적 학습을 지향합니다. 30분의 집중된 사고 훈련이 장시간의 수동적 학습보다 더 효과적입니다."
       },
       {
         q: "그림을 못 그려도 참여할 수 있나요?",
-        a: "네, 가능합니다. Step Zero의 시각화는 완성된 그림이 아닌 아이디어 표현이 목적이므로, 그림 실력과 관계없이 누구나 참여할 수 있습니다."
+        a: "네, 가능합니다. Grade-Junior의 시각화는 완성된 그림이 아닌 아이디어 표현이 목적이므로, 그림 실력과 관계없이 누구나 참여할 수 있습니다."
       }
     ],
     daily: [
@@ -257,7 +257,7 @@ window.COVA_DATA = {
   faq: [
     ["왜 월요일 30분인가요?",
      "한 주를 사고·표현으로 여는 의식(ritual)입니다. 정규 과제와 브리지되어 집중도가 높아집니다."],
-    ["Step-Zero는 평가하나요?",
+    ["Grade-Junior는 평가하나요?",
      "루브릭 한 줄 피드백으로 칭찬 중심 평가를 합니다(정량 점수 아님)."],
     ["학부모 공유는 어떻게 하나요?",
      "주간 포트폴리오(PDF 스캔)와 월간 리포트(성과 3줄·Before/After)를 제공합니다."]
