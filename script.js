@@ -1870,10 +1870,10 @@ class CovaModal2 {
     
     // Methodology
     const methodologyElement = document.getElementById('kickoffMethodology');
-    if (methodologyElement && kickoffData.methodology) {
+    if (methodologyElement && programData.methodology) {
       const methodologyHTML = `
         <div class="modal2-methodology-timeline">
-          ${kickoffData.methodology.map(method => `
+          ${programData.methodology.map(method => `
             <div class="modal2-methodology-item">
               <div class="modal2-methodology-phase">${method.phase}</div>
               <div class="modal2-methodology-content">${method.content}</div>
@@ -1890,10 +1890,10 @@ class CovaModal2 {
     
     // Expected Outcomes
     const outcomesElement = document.getElementById('kickoffOutcomes');
-    if (outcomesElement && kickoffData.expectedOutcomes) {
+    if (outcomesElement && programData.expectedOutcomes) {
       const outcomesHTML = `
         <div class="modal2-outcomes-list">
-          ${kickoffData.expectedOutcomes.map(outcome => `
+          ${programData.expectedOutcomes.map(outcome => `
             <div class="modal2-outcome-item">
               <div class="modal2-outcome-text">${outcome}</div>
             </div>
