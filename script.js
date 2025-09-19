@@ -1753,36 +1753,43 @@ class CovaModal2 {
       curriculumElement.innerHTML = curriculumHTML;
     }
     
-    // G1 Preview
-    const g1Preview = document.getElementById('kickoffG1Preview');
-    if (g1Preview && kickoffData.g1) {
-      const g1HTML = `
+    // Step 2 Preview (기존 G1 Preview 위치)
+    const step2Preview = document.getElementById('kickoffG1Preview');
+    if (step2Preview && kickoffData.step2) {
+      const step2HTML = `
         <div class="modal2-curriculum-preview">
-          ${kickoffData.g1.slice(0, 6).map(([week, question]) => `
-            <div class="modal2-curriculum-item">
-              <div class="modal2-curriculum-week">${week}</div>
-              <div class="modal2-curriculum-question">${question}</div>
-            </div>
-          `).join('')}
+          <div class="modal2-step-content">
+            <p>${kickoffData.step2.content}</p>
+          </div>
         </div>
       `;
-      g1Preview.innerHTML = g1HTML;
+      step2Preview.innerHTML = step2HTML;
     }
     
-    // G2 Preview
-    const g2Preview = document.getElementById('kickoffG2Preview');
-    if (g2Preview && kickoffData.g2) {
-      const g2HTML = `
+    // Step 3 Preview (기존 G2 Preview 위치)
+    const step3Preview = document.getElementById('kickoffG2Preview');
+    if (step3Preview && kickoffData.step3) {
+      const step3HTML = `
         <div class="modal2-curriculum-preview">
-          ${kickoffData.g2.slice(0, 6).map(([week, question]) => `
-            <div class="modal2-curriculum-item">
-              <div class="modal2-curriculum-week">${week}</div>
-              <div class="modal2-curriculum-question">${question}</div>
-            </div>
-          `).join('')}
+          <div class="modal2-step-content">
+            <p>${kickoffData.step3.content}</p>
+          </div>
         </div>
       `;
-      g2Preview.innerHTML = g2HTML;
+      step3Preview.innerHTML = step3HTML;
+    }
+    
+    // Step 4 Preview (새로 추가)
+    const step4Preview = document.getElementById('kickoffStep4');
+    if (step4Preview && kickoffData.step4) {
+      const step4HTML = `
+        <div class="modal2-curriculum-preview">
+          <div class="modal2-step-content">
+            <p>${kickoffData.step4.content}</p>
+          </div>
+        </div>
+      `;
+      step4Preview.innerHTML = step4HTML;
     }
   }
   
