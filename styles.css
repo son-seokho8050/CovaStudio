@@ -267,10 +267,12 @@ body.modal-open {
 /* Image section (bottom left) */
 .cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: var(--space-4);
   border-top: 1px solid var(--border);
-  min-height: 0; /* Remove height constraints */
+  min-height: 0;
 }
 
 /* Thumbnails Grid for Kickoff Layout */
