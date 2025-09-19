@@ -1283,6 +1283,9 @@ class CovaModal2 {
         this.video.controls = false;
         this.video.disablePictureInPicture = true;
         
+        // Apply cinematic effects
+        this.applyCinematicEffects();
+        
         const playPromise = this.video.play();
         if (playPromise !== undefined) {
           playPromise
@@ -1317,7 +1320,38 @@ class CovaModal2 {
     
     console.log('Kickoff content setup completed');
   }
-  
+
+  applyCinematicEffects() {
+    if (!this.video || !this.video.parentElement) return;
+    
+    // Add cinematic class to video
+    this.video.classList.add('cinematic');
+    
+    // Check if already wrapped
+    if (this.video.parentElement.classList.contains('cinematic-wrap')) {
+      return;
+    }
+    
+    // Create cinematic wrapper
+    const cinematicWrap = document.createElement('div');
+    cinematicWrap.className = 'cinematic-wrap';
+    
+    // Insert wrapper before video and move video inside
+    this.video.parentElement.insertBefore(cinematicWrap, this.video);
+    cinematicWrap.appendChild(this.video);
+    
+    // Create grain overlay
+    const grainOverlay = document.createElement('div');
+    grainOverlay.className = 'grain';
+    cinematicWrap.appendChild(grainOverlay);
+    
+    // Create bloom overlay
+    const bloomOverlay = document.createElement('div');
+    bloomOverlay.className = 'bloom';
+    cinematicWrap.appendChild(bloomOverlay);
+    
+    console.log('Cinematic effects applied to video');
+  }
 
   setupVideoHeader(kickoffData) {
     const videoHeader = document.getElementById('modal2VideoHeader');

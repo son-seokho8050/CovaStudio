@@ -256,6 +256,14 @@ body.modal-open {
   justify-content: center;
 }
 
+/* Cinematic wrapper for professional video effects */
+.cova-modal2.kickoff-layout .cinematic-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
 .cova-modal2.kickoff-layout .modal2-video {
   width: 100%;
   height: 100%;
@@ -269,6 +277,77 @@ body.modal-open {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* Professional color grading */
+.cova-modal2.kickoff-layout .modal2-video.cinematic {
+  filter: contrast(1.08) saturate(1.12) brightness(0.96) sepia(0.06) hue-rotate(-5deg);
+  will-change: transform;
+  animation: cam-drift 12s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Subtle handheld camera movement */
+@keyframes cam-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1.018); }
+  25% { transform: translate3d(0.2%, -0.15%, 0) scale(1.022); }
+  50% { transform: translate3d(-0.1%, 0.1%, 0) scale(1.020); }
+  75% { transform: translate3d(0.15%, -0.05%, 0) scale(1.019); }
+  100% { transform: translate3d(0, 0, 0) scale(1.018); }
+}
+
+/* Vignette effect */
+.cova-modal2.kickoff-layout .cinematic-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.18) 80%, rgba(0,0,0,0.35) 100%);
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* Film grain */
+.cova-modal2.kickoff-layout .grain {
+  position: absolute;
+  inset: -2%;
+  pointer-events: none;
+  opacity: 0.04;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.08) 0 1px,
+    rgba(0,0,0,0.08) 1px 2px
+  );
+  mix-blend-mode: soft-light;
+  animation: grain-move 1.8s steps(3) infinite;
+  z-index: 2;
+}
+
+@keyframes grain-move {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-0.8%, 0.5%); }
+  66% { transform: translate(0.6%, -0.3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Subtle bloom effect */
+.cova-modal2.kickoff-layout .bloom {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.04), transparent 65%);
+  mix-blend-mode: screen;
+  z-index: 3;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .cova-modal2.kickoff-layout .modal2-video.cinematic {
+    animation: none;
+  }
+  .cova-modal2.kickoff-layout .grain {
+    animation: none;
+  }
 }
 
 .cova-modal2.kickoff-layout .modal2-video::-webkit-media-controls {
