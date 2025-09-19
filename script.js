@@ -1721,10 +1721,10 @@ class CovaModal2 {
             <div class="modal2-methodology-item">
               <div class="modal2-methodology-phase">${method.phase}</div>
               <div class="modal2-methodology-content">${method.content}</div>
-              <div class="modal2-methodology-time">${method.time}</div>
-              <div class="modal2-methodology-details">
+              ${method.time ? `<div class="modal2-methodology-time">${method.time}</div>` : ''}
+              ${method.details ? `<div class="modal2-methodology-details">
                 ${method.details.map(detail => `<span class="modal2-methodology-detail">${detail}</span>`).join('')}
-              </div>
+              </div>` : ''}
             </div>
           `).join('')}
         </div>
