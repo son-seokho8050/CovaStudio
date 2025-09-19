@@ -661,20 +661,30 @@ body.modal-open {
   overflow: hidden; /* Keep frame size, crop enlarged video */
 }
 
-.cova-modal2.stepzero-layout .modal2-video {
+/* Create stepzero cinematic wrapper like kickoff */
+.cova-modal2.stepzero-layout .cinematic-wrap {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Match kickoff video object-fit */
-  aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio like kickoff */
-  max-height: none; /* Remove height restriction for expansion */
-  max-width: none; /* Remove width restriction for expansion */
-  transform: scale(1.4) !important; /* Force enlarge video content by 40% */
-  transform-origin: center !important; /* Scale from center */
 }
 
-/* Force stepzero video to be enlarged like kickoff */
-.cova-modal2.stepzero-layout .modal2-video.ambient {
-  transform: scale(1.6) !important; /* Much larger than kickoff to match user request */
+.cova-modal2.stepzero-layout .cinematic-wrap.ambient {
+  opacity: 0.82;
+}
+
+/* STEPZERO video scaling - ALL possible selectors */
+.cova-modal2.stepzero-layout .modal2-video,
+.cova-modal2.stepzero-layout .modal2-video.ambient,
+.cova-modal2.stepzero-layout .cinematic-wrap .modal2-video,
+.cova-modal2.stepzero-layout .cinematic-wrap .modal2-video.ambient {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; 
+  aspect-ratio: 3 / 2 !important; 
+  max-height: none !important;
+  max-width: none !important;
+  transform: scale(2.0) !important; /* MASSIVE scale to force visibility */
   transform-origin: center !important;
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
