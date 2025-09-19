@@ -1819,6 +1819,12 @@ class CovaModal2 {
     if (philosophyMotto && kickoffData.philosophy) {
       philosophyMotto.textContent = kickoffData.philosophy.motto;
     }
+    
+    // Philosophy Feedback (피드백 섹션)
+    const philosophyFeedback = document.getElementById('kickoffPhilosophyFeedback');
+    if (philosophyFeedback && kickoffData.philosophy && kickoffData.philosophy.feedback) {
+      philosophyFeedback.textContent = kickoffData.philosophy.feedback;
+    }
   }
   
   setupFAQTab(kickoffData) {
