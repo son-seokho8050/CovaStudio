@@ -1357,8 +1357,9 @@ class CovaModal2 {
       return;
     }
     
-    // Setup video with ambient effects
+    // Setup video with ambient effects - FIXED: Apply ambient effects
     this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
+    this.applyCinematicEffects('ambient'); // ADD MISSING AMBIENT EFFECTS
     
     // Skip Key Moment Markers for stepzero - no timeline needed
     // this.setupKeyMomentMarkers(stepZeroData);
