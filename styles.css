@@ -265,9 +265,7 @@ body.modal-open {
 /* Image section (bottom left) */
 .cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block; /* Changed from flex to block to avoid grid conflicts */
   padding: var(--space-4);
   border-top: 1px solid var(--border);
   min-height: 300px; /* Ensure sufficient height for thumbnails grid */
@@ -275,12 +273,12 @@ body.modal-open {
 
 /* Thumbnails Grid for Kickoff Layout */
 .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
-  display: grid;
+  display: grid !important; /* Force grid display */
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: var(--space-2);
   width: 100%;
-  height: 100%;
+  height: 280px; /* Fixed height instead of 100% */
   padding: var(--space-2);
 }
 
