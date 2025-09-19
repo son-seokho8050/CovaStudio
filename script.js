@@ -1840,6 +1840,8 @@ class CovaModal2 {
     
     // Program Overview (프로그램 개요) - scope to Modal v2 only
     const overviewElement = this.modal.querySelector('#kickoffGoals');
+    console.log('Modal v2 overviewElement found:', !!overviewElement);
+    console.log('Modal v2 overviewElement innerHTML length:', overviewElement?.innerHTML?.length || 0);
     if (overviewElement) {
       let overviewHTML = '';
       
@@ -1876,6 +1878,8 @@ class CovaModal2 {
       // Goals section removed per user request
       
       overviewElement.innerHTML = overviewHTML;
+      console.log('Modal v2 overviewElement updated with HTML length:', overviewHTML.length);
+      console.log('Modal v2 overviewElement final innerHTML length:', overviewElement.innerHTML.length);
     }
     
     // Methodology
