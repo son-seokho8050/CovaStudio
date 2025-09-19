@@ -1198,22 +1198,22 @@ class CovaModal2 {
     const programData = this.getProgramData(programId);
     this.currentProgram = programId;
     
-    // Check if this is a kickoff modal for special layout
-    const isKickoff = programId === 'kickoff';
+    // Apply special layout for all programs (Modal v2)
+    const useSpecialLayout = true;
     
-    if (isKickoff) {
-      // Apply kickoff-specific layout
+    if (useSpecialLayout) {
+      // Apply special layout for all programs
       this.modal.classList.add('kickoff-layout');
-      console.log('Applied kickoff layout');
+      console.log('Applied special layout for program:', programId);
     } else {
-      // Remove kickoff layout for other programs
+      // Remove special layout (fallback)
       this.modal.classList.remove('kickoff-layout');
     }
     
     // Update basic content
     this.title.textContent = programData.title;
-    // Skip description for kickoff layout
-    if (programId !== 'kickoff') {
+    // Skip description for special layout (all programs)
+    if (!useSpecialLayout) {
       this.description.textContent = programData.description;
     }
     
@@ -1222,11 +1222,11 @@ class CovaModal2 {
     this.videoSource.src = videoSrc;
     this.video.load();
     
-    // Handle kickoff-specific content
-    if (isKickoff) {
-      this.setupKickoffContent();
+    // Handle program-specific content setup
+    if (useSpecialLayout) {
+      this.setupProgramContent(programId);
     } else {
-      this.hideKickoffContent();
+      this.hideSpecialContent();
     }
     
     // Load key moments
@@ -1248,14 +1248,14 @@ class CovaModal2 {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
-    this.modal.classList.remove('kickoff-layout'); // Remove kickoff layout
+    this.modal.classList.remove('kickoff-layout'); // Remove special layout
     document.body.classList.remove('modal-open');
     
     // Pause video
     this.video.pause();
     
-    // Hide kickoff content
-    this.hideKickoffContent();
+    // Hide special content
+    this.hideSpecialContent();
     
     // Disconnect KeyMomentsController
     if (window.keyMomentsController) {
@@ -1265,6 +1265,28 @@ class CovaModal2 {
     this.currentProgram = null;
   }
   
+  setupProgramContent(programId) {
+    console.log('Setting up program content for:', programId);
+    
+    switch(programId) {
+      case 'kickoff':
+        this.setupKickoffContent();
+        break;
+      case 'stepzero':
+        this.setupStepZeroContent();
+        break;
+      case 'grade1':
+        this.setupGrade1Content();
+        break;
+      case 'grade2':
+        this.setupGrade2Content();
+        break;
+      default:
+        // Fallback to kickoff setup for unknown programs
+        this.setupKickoffContent();
+    }
+  }
+
   setupKickoffContent() {
     console.log('Setting up kickoff-specific content v2');
     
@@ -1319,6 +1341,115 @@ class CovaModal2 {
     this.initializeTabNavigation();
     
     console.log('Kickoff content setup completed');
+  }
+
+  setupStepZeroContent() {
+    console.log('Setting up stepzero content v2');
+    
+    const stepZeroData = this.getProgramData('stepzero');
+    if (!stepZeroData) {
+      console.warn('StepZero data not found');
+      return;
+    }
+    
+    // Setup video with ambient effects
+    this.setupVideoForProgram(stepZeroData, 'StepZero');
+    
+    // Setup Key Moment Markers (using kickoff keyMoments as fallback)
+    this.setupKeyMomentMarkers(stepZeroData);
+    
+    // Setup Image Section with shared thumbnails
+    this.setupImageSection(stepZeroData);
+    
+    // Setup Tabbed Content
+    this.setupTabbedContent(stepZeroData);
+    
+    // Initialize Tab Navigation
+    this.initializeTabNavigation();
+    
+    console.log('StepZero content setup completed');
+  }
+
+  setupGrade1Content() {
+    console.log('Setting up grade1 content v2');
+    
+    const grade1Data = this.getProgramData('grade1');
+    if (!grade1Data) {
+      console.warn('Grade1 data not found');
+      return;
+    }
+    
+    // Setup video with ambient effects
+    this.setupVideoForProgram(grade1Data, 'Grade1');
+    
+    // Setup Key Moment Markers (using kickoff keyMoments as fallback)
+    this.setupKeyMomentMarkers(grade1Data);
+    
+    // Setup Image Section with shared thumbnails
+    this.setupImageSection(grade1Data);
+    
+    // Setup Tabbed Content
+    this.setupTabbedContent(grade1Data);
+    
+    // Initialize Tab Navigation
+    this.initializeTabNavigation();
+    
+    console.log('Grade1 content setup completed');
+  }
+
+  setupGrade2Content() {
+    console.log('Setting up grade2 content v2');
+    
+    const grade2Data = this.getProgramData('grade2');
+    if (!grade2Data) {
+      console.warn('Grade2 data not found');
+      return;
+    }
+    
+    // Setup video with ambient effects
+    this.setupVideoForProgram(grade2Data, 'Grade2');
+    
+    // Setup Key Moment Markers (using kickoff keyMoments as fallback)
+    this.setupKeyMomentMarkers(grade2Data);
+    
+    // Setup Image Section with shared thumbnails
+    this.setupImageSection(grade2Data);
+    
+    // Setup Tabbed Content
+    this.setupTabbedContent(grade2Data);
+    
+    // Initialize Tab Navigation
+    this.initializeTabNavigation();
+    
+    console.log('Grade2 content setup completed');
+  }
+
+  setupVideoForProgram(programData, programName) {
+    if (this.video) {
+      try {
+        this.video.autoplay = true;
+        this.video.muted = true;
+        this.video.loop = true;
+        this.video.controls = false;
+        this.video.disablePictureInPicture = true;
+        
+        // Apply ambient effects for background feel
+        this.applyCinematicEffects('ambient');
+        
+        const playPromise = this.video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log(`${programName} video autoplay started successfully`);
+            })
+            .catch(error => {
+              console.warn(`${programName} video autoplay failed:`, error);
+            });
+        }
+      } catch (error) {
+        console.warn(`${programName} video autoplay setup failed:`, error);
+      }
+    }
   }
 
   applyCinematicEffects(mode = 'cinematic') {
@@ -1729,8 +1860,8 @@ class CovaModal2 {
     });
   }
   
-  hideKickoffContent() {
-    console.log('Hiding kickoff-specific content');
+  hideSpecialContent() {
+    console.log('Hiding special content and resetting modal state');
     
     // Hide image section
     const imageSection = document.getElementById('modal2ImageSection');
@@ -1738,11 +1869,107 @@ class CovaModal2 {
       imageSection.style.display = 'none';
     }
     
-    // Hide kickoff details
-    const kickoffDetails = document.getElementById('modal2KickoffDetails');
-    if (kickoffDetails) {
-      kickoffDetails.style.display = 'none';
+    // Hide special details
+    const specialDetails = document.getElementById('modal2KickoffDetails');
+    if (specialDetails) {
+      specialDetails.style.display = 'none';
     }
+    
+    // Hide video header section
+    const videoHeader = document.getElementById('modal2VideoHeader');
+    if (videoHeader) {
+      videoHeader.style.display = 'none';
+    }
+    
+    // Hide thumbnails grid
+    const thumbnailsGrid = document.getElementById('modal2ThumbnailsGrid');
+    if (thumbnailsGrid) {
+      thumbnailsGrid.style.display = 'none';
+      // Clear thumbnails content to prevent memory leaks
+      thumbnailsGrid.innerHTML = '';
+    }
+    
+    // Reset tab navigation to default state
+    const tabNav = document.getElementById('modal2TabNavigation');
+    if (tabNav) {
+      const tabButtons = tabNav.querySelectorAll('.modal2-tab-btn');
+      const tabContents = document.querySelectorAll('.modal2-tab-content');
+      
+      // Remove active states from all tabs
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        // Remove event listeners to prevent memory leaks
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+      });
+      
+      // Hide all tab contents
+      tabContents.forEach(content => {
+        content.classList.remove('active');
+        content.style.display = 'none';
+      });
+      
+      // Reset to default tab (first one) if exists
+      const firstTab = tabNav.querySelector('.modal2-tab-btn');
+      const firstContent = document.querySelector('.modal2-tab-content');
+      if (firstTab && firstContent) {
+        firstTab.classList.add('active');
+        firstContent.classList.add('active');
+        firstContent.style.display = 'block';
+      }
+    }
+    
+    // Pause and reset video if exists
+    if (this.video) {
+      this.video.pause();
+      this.video.currentTime = 0;
+    }
+    
+    // Reset ambient video elements
+    const ambientVideo = document.querySelector('.modal2-ambient-video');
+    if (ambientVideo) {
+      ambientVideo.pause();
+      ambientVideo.currentTime = 0;
+      ambientVideo.style.opacity = '0';
+    }
+    
+    // Clear key moments container
+    if (this.keyMomentsContainer) {
+      this.keyMomentsContainer.innerHTML = '';
+    }
+    
+    // Remove special layout classes from modal
+    if (this.modal) {
+      this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout');
+    }
+    
+    // Clear program-specific data
+    this.currentProgramId = null;
+    
+    // Reset modal title and description to default
+    const modalTitle = document.getElementById('modal2Title');
+    const modalDescription = document.getElementById('modal2Description');
+    if (modalTitle) modalTitle.textContent = '';
+    if (modalDescription) modalDescription.textContent = '';
+    
+    // Hide goals, curriculum, philosophy, and FAQ sections
+    const sectionsToHide = [
+      'modal2Goals',
+      'modal2Curriculum', 
+      'modal2Philosophy',
+      'modal2FAQ',
+      'modal2Methodology'
+    ];
+    
+    sectionsToHide.forEach(sectionId => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.style.display = 'none';
+        section.innerHTML = '';
+      }
+    });
+    
+    console.log('Special content hidden and modal state reset completely');
   }
   
   loadKeyMoments(keyMoments) {
@@ -1779,6 +2006,92 @@ class CovaModal2 {
   
   getProgramData(program) {
     const programsMap = {
+      'stepzero': {
+        title: window.COVA_DATA?.stepZero?.title || 'STEP ZERO',
+        description: window.COVA_DATA?.stepZero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
+        videoSrc: window.COVA_DATA?.stepZero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
+        imageSrc: window.COVA_DATA?.stepZero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        keyMoments: window.COVA_DATA?.stepZero?.keyMoments || [],
+        goals: window.COVA_DATA?.stepZero?.goals || [],
+        curriculum: window.COVA_DATA?.stepZero?.curriculum || [],
+        philosophy: window.COVA_DATA?.stepZero?.philosophy || '',
+        methodology: window.COVA_DATA?.stepZero?.methodology || [],
+        faq: window.COVA_DATA?.stepZero?.faq || []
+      },
+      'grade1': {
+        title: 'GRADE 1 기초소양',
+        description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
+        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
+        imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
+        goals: [
+          { icon: "book", title: "기초 이론 학습", desc: "미술의 기본 개념과 원리 이해" },
+          { icon: "palette", title: "표현 기법 습득", desc: "다양한 재료와 기법 실습" },
+          { icon: "compass", title: "탐구 능력 개발", desc: "작품 분석과 비교 연구" },
+          { icon: "target", title: "체계적 학습법", desc: "COVA 방법론 적용 연습" }
+        ],
+        curriculum: [
+          { step: "기초", content: "드로잉과 색채의 기본 원리", time: "4주" },
+          { step: "탐구", content: "작품 분석과 비교 연구", time: "4주" },
+          { step: "실습", content: "개인 프로젝트 진행", time: "4주" },
+          { step: "발표", content: "포트폴리오 제작과 발표", time: "2주" }
+        ],
+        philosophy: {
+          core: "체계적인 기초 학습을 통해 미술적 사고력을 기르고 창의적 표현 능력을 개발합니다.",
+          motto: "'기초가 탄탄한 학생'이 되는 것이 Grade 1의 목표입니다.",
+          principles: [
+            "체계적 학습: 단계별 커리큘럼으로 기초 실력 향상",
+            "탐구 중심: 작품 분석을 통한 심화 학습",
+            "개별 맞춤: 학생별 수준에 맞는 개별 지도"
+          ]
+        },
+        methodology: [
+          { phase: "Pre(준비)", time: "20분", content: "학습 목표 설정과 자료 준비", details: ["목표 설정", "자료 수집", "도구 준비"] },
+          { phase: "Core(실습)", time: "100분", content: "체계적인 기법 학습과 실습", details: ["이론 학습", "기법 실습", "작품 제작"] },
+          { phase: "Post(정리)", time: "20분", content: "결과 정리와 성찰", details: ["작품 정리", "학습 성찰", "다음 계획"] }
+        ],
+        faq: [
+          { q: "Grade 1 과정의 난이도는 어떤가요?", a: "미술을 처음 시작하는 학생도 쉽게 따라올 수 있도록 기초부터 차근차근 진행합니다." },
+          { q: "어떤 재료를 준비해야 하나요?", a: "기본적인 드로잉 도구(연필, 지우개, 스케치북)부터 시작하며, 필요한 재료는 단계별로 안내해 드립니다." }
+        ]
+      },
+      'grade2': {
+        title: 'GRADE 2 실기력 강화',
+        description: 'COVA 방법론을 실전에 적용하여 고2 학생들의 실기 능력을 체계적으로 향상시킵니다.',
+        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
+        imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
+        goals: [
+          { icon: "trophy", title: "실기 능력 완성", desc: "입시 수준의 실기 실력 완성" },
+          { icon: "clock", title: "시간 관리 능력", desc: "제한된 시간 내 작품 완성" },
+          { icon: "eye", title: "작품 분석력", desc: "고급 작품 분석과 해석 능력" },
+          { icon: "star", title: "개성 있는 표현", desc: "자신만의 독창적 표현 방식 개발" }
+        ],
+        curriculum: [
+          { step: "심화", content: "고급 기법과 표현 방법", time: "3주" },
+          { step: "응용", content: "다양한 주제와 재료 활용", time: "4주" },
+          { step: "완성", content: "포트폴리오 제작", time: "4주" },
+          { step: "마무리", content: "최종 점검과 보완", time: "3주" }
+        ],
+        philosophy: {
+          core: "실전 경험을 통해 완성도 높은 작품을 제작하고 입시에 대비한 실기 능력을 완성합니다.",
+          motto: "'실력 있는 예술가'로 성장하는 것이 Grade 2의 목표입니다.",
+          principles: [
+            "실전 중심: 입시와 실무에 직접 활용 가능한 실습",
+            "완성도 추구: 작품의 질적 완성도 극대화",
+            "개성 개발: 자신만의 독창적 스타일 확립"
+          ]
+        },
+        methodology: [
+          { phase: "Pre(기획)", time: "30분", content: "작품 기획과 전략 수립", details: ["주제 분석", "작품 기획", "전략 수립"] },
+          { phase: "Core(제작)", time: "120분", content: "고급 기법을 활용한 작품 제작", details: ["기법 적용", "작품 제작", "완성도 관리"] },
+          { phase: "Post(평가)", time: "30분", content: "작품 평가와 개선 방안 도출", details: ["작품 평가", "피드백", "개선 계획"] }
+        ],
+        faq: [
+          { q: "Grade 2는 어떤 학생에게 적합한가요?", a: "기초 실력을 갖추고 본격적인 입시 준비를 하는 고2 학생들에게 적합합니다." },
+          { q: "포트폴리오 제작도 도움받을 수 있나요?", a: "네, 개별 맞춤형 포트폴리오 제작 지도와 입시 전략 수립을 도와드립니다." }
+        ]
+      },
       'g1-foundation': {
         title: 'G1 기초소양 탐구',
         description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
@@ -1800,7 +2113,8 @@ class CovaModal2 {
         goals: window.COVA_DATA?.kickoff?.goals || [],
         curriculum: window.COVA_DATA?.kickoff?.curriculum || [],
         philosophy: window.COVA_DATA?.kickoff?.philosophy || '',
-        methodology: window.COVA_DATA?.kickoff?.methodology || []
+        methodology: window.COVA_DATA?.kickoff?.methodology || [],
+        faq: window.COVA_DATA?.kickoff?.faq || []
       }
     };
     

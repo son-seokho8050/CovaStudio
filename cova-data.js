@@ -167,7 +167,10 @@ window.COVA_DATA = {
   },
 
   stepZero: {
+    title: "STEP ZERO",
+    description: "COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다. 월요일 30분 사고 훈련을 통해 창의적 사고력을 기릅니다.",
     videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4",
+    imageSrc: "attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png",
     keyMoments: [
       { id: "km1", t: 8.7, title: "Step-Zero 소개", summary: "월요일 30분 사고 훈련의 의미" },
       { id: "km2", t: 35.1, title: "사고 질문 예시", summary: "Lv1-3 질문의 차이점과 접근법" },
@@ -176,6 +179,63 @@ window.COVA_DATA = {
       { id: "km5", t: 128.6, title: "실기 연결", summary: "사고와 관찰 드로잉의 브리지" },
       { id: "km6", t: 156.9, title: "피드백 루브릭", summary: "해석력, 창의성, 표현력, 진정성 평가" },
       { id: "km7", t: 185.3, title: "포트폴리오", summary: "주간 성장 기록과 가시화 방법" }
+    ],
+    goals: [
+      { icon: "brain", title: "사고력 개발", desc: "체계적인 사고 훈련을 통한 창의적 문제 해결 능력 향상" },
+      { icon: "pencil", title: "시각화 능력", desc: "아이디어를 시각적으로 표현하는 기본 능력 습득" },
+      { icon: "book", title: "기록 습관", desc: "일상의 관찰과 생각을 체계적으로 기록하는 습관 형성" },
+      { icon: "target", title: "COVA 방법론", desc: "COVA 교육 철학과 방법론의 기초 이해" }
+    ],
+    curriculum: [
+      { step: "사고 질문", content: "Lv1~Lv3 단계별 사고 질문 훈련", time: "7분" },
+      { step: "기록 훈련", content: "키워드에서 문장으로 확장하는 기록법", time: "3-5줄" },
+      { step: "시각화", content: "낙서와 기호를 통한 아이디어 시각화", time: "3분" },
+      { step: "실기 연결", content: "관찰 드로잉을 통한 실기 연결", time: "주2회 5분" },
+      { step: "피드백", content: "루브릭 기반 개별 맞춤 피드백", time: "2-3분" },
+      { step: "포트폴리오", content: "주간 성장 기록 및 가시화", time: "주 1장" }
+    ],
+    philosophy: {
+      core: "사고 중심의 체계적 학습을 통해 창의적 문제 해결 능력과 시각적 표현력을 동시에 기릅니다.",
+      motto: "'생각하는 습관'을 만드는 것이 Step Zero의 목표입니다.",
+      principles: [
+        "사고 우선: 기술보다 사고력을 먼저 기르는 순서 중시",
+        "기록 중심: 생각의 과정을 체계적으로 기록하고 축적",
+        "시각화 훈련: 추상적 사고를 구체적 이미지로 변환하는 능력 개발"
+      ]
+    },
+    methodology: [
+      { 
+        phase: "사고(Think)", 
+        time: "7분", 
+        content: "단계별 사고 질문을 통한 창의적 사고 훈련",
+        details: ["Lv1-3 질문", "정답 없는 탐구", "개별적 해석"]
+      },
+      { 
+        phase: "기록(Record)", 
+        time: "5분", 
+        content: "생각의 과정을 체계적으로 문자화",
+        details: ["키워드 도출", "문장 확장", "논리적 연결"]
+      },
+      { 
+        phase: "시각화(Visualize)", 
+        time: "3분", 
+        content: "아이디어를 시각적으로 표현",
+        details: ["낙서와 기호", "색상 활용", "실패 불가 원칙"]
+      }
+    ],
+    faq: [
+      {
+        q: "Step Zero는 어떤 학생에게 적합한가요?",
+        a: "미술을 처음 시작하거나 체계적인 사고 훈련이 필요한 모든 학생에게 적합합니다. 특히 창의적 사고력을 기르고 싶은 학생들에게 권장합니다."
+      },
+      {
+        q: "30분이라는 시간이 충분한가요?",
+        a: "Step Zero는 짧은 시간 집중을 통한 효과적 학습을 지향합니다. 30분의 집중된 사고 훈련이 장시간의 수동적 학습보다 더 효과적입니다."
+      },
+      {
+        q: "그림을 못 그려도 참여할 수 있나요?",
+        a: "네, 가능합니다. Step Zero의 시각화는 완성된 그림이 아닌 아이디어 표현이 목적이므로, 그림 실력과 관계없이 누구나 참여할 수 있습니다."
+      }
     ],
     daily: [
       "사고 질문(7′): Lv1~Lv3, 정답 없음",
