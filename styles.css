@@ -492,13 +492,7 @@ body.modal-open {
   ) !important;
   backdrop-filter: blur(25px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(25px) saturate(200%) !important;
-  border: 2px solid !important;
-  border-image: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 100%
-  ) 1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
   border-radius: 20px !important;
   padding: var(--space-4);
   position: relative !important;
@@ -553,12 +547,7 @@ body.modal-open {
   ) !important;
   backdrop-filter: blur(30px) saturate(220%) !important;
   -webkit-backdrop-filter: blur(30px) saturate(220%) !important;
-  border-image: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.7) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.15) 100%
-  ) 1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: 
     0 16px 50px rgba(0, 0, 0, 0.5),
     inset 0 2px 0 rgba(255, 255, 255, 0.3),
@@ -792,12 +781,7 @@ body.modal-open {
 .modal2-tab-btn {
   flex: 1;
   padding: var(--space-2) var(--space-3);
-  border: 1px solid;
-  border-image: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  ) 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(
     145deg,
     rgba(255, 255, 255, 0.06) 0%,
@@ -844,11 +828,7 @@ body.modal-open {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: #ffffff;
-  border-image: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.15) 100%
-  ) 1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
     0 6px 20px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
@@ -866,11 +846,7 @@ body.modal-open {
   backdrop-filter: blur(18px) saturate(170%);
   -webkit-backdrop-filter: blur(18px) saturate(170%);
   color: #ffffff;
-  border-image: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  ) 1;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 
     0 5px 18px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
