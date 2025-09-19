@@ -665,8 +665,10 @@ body.modal-open {
   height: 100%;
   object-fit: cover; /* Match kickoff video object-fit */
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio like kickoff */
-  max-height: 100%;
-  max-width: 100%;
+  max-height: none; /* Remove height restriction for expansion */
+  max-width: none; /* Remove width restriction for expansion */
+  transform: scale(1.15); /* Enlarge video by 15% */
+  transform-origin: center; /* Scale from center */
 }
 
 /* Apply same glassmorphism effects for stepzero layout */
