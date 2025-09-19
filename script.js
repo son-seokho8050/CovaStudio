@@ -1342,6 +1342,9 @@ class CovaModal2 {
     // 6. Initialize Tab Navigation
     this.initializeTabNavigation();
     
+    // 7. Explicitly render kickoff goals (program overview)
+    this.renderKickoffGoals(kickoffData);
+    
     console.log('Kickoff content setup completed');
   }
 
@@ -1405,6 +1408,50 @@ class CovaModal2 {
     
     outcomesElement.innerHTML = featuresHTML;
     console.log('Step-zero features rendered:', features.length, 'items');
+  }
+
+  renderKickoffGoals(kickoffData) {
+    // Find the goals element in the overview tab
+    const goalsElement = document.getElementById('kickoffGoals');
+    if (!goalsElement) {
+      console.warn('Could not find kickoff goals element');
+      return;
+    }
+    
+    const goals = kickoffData.goals || [];
+    if (goals.length === 0) {
+      console.warn('No goals found for kickoff');
+      return;
+    }
+    
+    // Clear existing content and render new goals
+    const goalsHTML = goals.map((goal, index) => `
+      <div class="modal2-goal-item" data-testid="kickoff-goal-${index}">
+        <div class="modal2-goal-icon">
+          ${this.getIconHTML(goal.icon || 'circle')}
+        </div>
+        <div class="modal2-goal-content">
+          <div class="modal2-goal-title">${goal.title}</div>
+          <div class="modal2-goal-desc">${goal.desc}</div>
+        </div>
+      </div>
+    `).join('');
+    
+    goalsElement.innerHTML = `<div class="modal2-goals-list">${goalsHTML}</div>`;
+    console.log('Kickoff goals rendered:', goals.length, 'items');
+  }
+
+  getIconHTML(iconName) {
+    const iconMap = {
+      'calendar': '📅',
+      'activity': '⚡',
+      'circle': '●',
+      'book': '📚',
+      'palette': '🎨',
+      'compass': '🧭', 
+      'target': '🎯'
+    };
+    return iconMap[iconName] || '●';
   }
 
   setupGrade1Content() {
