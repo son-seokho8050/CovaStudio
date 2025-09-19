@@ -229,7 +229,7 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-media {
   grid-area: media;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) minmax(240px, 1.5fr); /* Guarantee space for thumbnails */
+  grid-template-rows: minmax(0, 1fr) minmax(320px, 2fr); /* Larger frame for thumbnails */
   gap: 1px;
   background: #000000;
   padding: 0;
