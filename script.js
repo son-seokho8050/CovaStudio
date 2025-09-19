@@ -1369,7 +1369,42 @@ class CovaModal2 {
     // Initialize Tab Navigation
     this.initializeTabNavigation();
     
+    // Explicitly render program features for stepzero
+    this.renderStepZeroFeatures(stepZeroData);
+    
     console.log('Grade-Junior content setup completed');
+  }
+
+  renderStepZeroFeatures(stepZeroData) {
+    // Find the features/outcomes element in the overview tab
+    const outcomesElement = document.getElementById('kickoffOutcomes');
+    if (!outcomesElement) {
+      console.warn('Could not find outcomes element for stepzero features');
+      return;
+    }
+    
+    // Use expectedOutcomes if available, otherwise map from goals
+    const features = stepZeroData.expectedOutcomes || 
+                    (stepZeroData.goals ? stepZeroData.goals.map(g => `${g.title} : ${g.desc}`) : []);
+    
+    if (features.length === 0) {
+      console.warn('No features found for stepzero');
+      return;
+    }
+    
+    // Clear existing content and render new features
+    const featuresHTML = `
+      <div class="modal2-outcomes-list">
+        ${features.map((feature, index) => `
+          <div class="modal2-outcome-item" data-testid="stepzero-feature-${index}">
+            <div class="modal2-outcome-text">${feature}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    
+    outcomesElement.innerHTML = featuresHTML;
+    console.log('Step-zero features rendered:', features.length, 'items');
   }
 
   setupGrade1Content() {
