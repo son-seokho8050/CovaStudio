@@ -1342,6 +1342,33 @@ video.modal2-video[src*="그림_그리는_여자"] {
 }
 
 /* ===================================
+   CURRICULUM FONT SIZE UNIFICATION
+   =================================== */
+
+/* Ensure all curriculum sections have unified font size */
+.modal2-step-content {
+  font-size: var(--text-xs) !important;
+  line-height: var(--leading-relaxed) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.modal2-curriculum-preview .modal2-step-content {
+  font-size: var(--text-xs) !important;
+  line-height: var(--leading-relaxed) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Target all curriculum detail content containers */
+#kickoffCurriculum .modal2-step-content,
+#kickoffG1Preview .modal2-step-content, 
+#kickoffG2Preview .modal2-step-content,
+#kickoffStep4 .modal2-step-content {
+  font-size: var(--text-xs) !important;
+  line-height: var(--leading-relaxed) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ===================================
    ENHANCED KICKOFF CONTENT STYLING
    =================================== */
 
