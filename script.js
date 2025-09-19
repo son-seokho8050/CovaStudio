@@ -1363,9 +1363,6 @@ class CovaModal2 {
     // Setup Image Section with shared thumbnails
     this.setupImageSection(stepZeroData);
     
-    // Setup Program Features (Goals)
-    this.setupProgramFeatures(stepZeroData);
-    
     // Setup Tabbed Content
     this.setupTabbedContent(stepZeroData);
     
