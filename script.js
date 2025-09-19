@@ -2355,7 +2355,7 @@ class CovaModal2 {
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
         goals: [],
         curriculum: [
-          { step: "기초", content: "드로잉과 색채의 기본 원리", time: "4주" },
+          { step: "탐구 착수", content: "간단한 시도·실험으로 시작", time: "" },
           { step: "탐구", content: "작품 분석과 비교 연구", time: "4주" },
           { step: "실습", content: "개인 프로젝트 진행", time: "4주" },
           { step: "발표", content: "포트폴리오 제작과 발표", time: "2주" }
