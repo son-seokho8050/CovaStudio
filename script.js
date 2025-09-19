@@ -1905,6 +1905,17 @@ class CovaModal2 {
   }
   
   setupCurriculumTab(programData) {
+    // Update section titles dynamically based on program data
+    if (programData.curriculum) {
+      programData.curriculum.forEach((item, index) => {
+        const sectionTitleSelector = `#tab-curriculum .modal2-detail-section:nth-child(${index + 1}) .modal2-detail-title`;
+        const titleElement = document.querySelector(sectionTitleSelector);
+        if (titleElement && item.step) {
+          titleElement.textContent = `${index + 1}️⃣ ${item.step}`;
+        }
+      });
+    }
+    
     // Main Curriculum - Use program-agnostic selector
     const curriculumElement = document.getElementById('kickoffCurriculum');
     if (curriculumElement && programData.curriculum) {
@@ -1912,10 +1923,6 @@ class CovaModal2 {
         <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
           ${programData.curriculum.map((item, index) => `
             <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
-              <div class="modal2-step-header">
-                <span class="modal2-step-number">${index + 1}</span>
-                <span class="modal2-step-title">${item.step || item.phase || `Step ${index + 1}`}</span>
-              </div>
               <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
               ${item.time ? `<div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>` : ''}
             </div>
