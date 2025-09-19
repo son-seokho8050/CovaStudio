@@ -1735,6 +1735,18 @@ class CovaModal2 {
             'attached_assets/7_1758276759956.png',
             'attached_assets/8_1758276759956.png'
           ];
+        } else if (currentProgram === 'grade1') {
+          // GRADE-1 썸네일
+          thumbnailSources = [
+            'attached_assets/1_1758290924433.png',
+            'attached_assets/111_1758290924434.png',
+            'attached_assets/2222 (3)_1758290924434.png',
+            'attached_assets/11111_1758290924434.png',
+            'attached_assets/22222 (3)_1758290924434.png',
+            'attached_assets/cocodio_a_minimalist_three-dimensional_sculptural_colored_pen_6da4dd11-0bb7-4688-993d-738a432ea26f_0_1758290924435.png',
+            'attached_assets/cocodio_a_minimalist_three-dimensional_sculptural_colored_pen_8483023e-5d44-4ee4-8a4a-389df631fe9b_1_1758290924435.png',
+            'attached_assets/cocodio_A_simple_and_minimalist_flat-color_pencil_drawing_tha_febc20d6-d86e-40ef-87a3-2a3e92fc2701_3_1758290924435.png'
+          ];
         } else {
           // 다른 프로그램들은 킥오프 썸네일 사용
           thumbnailSources = [
