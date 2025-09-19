@@ -240,7 +240,7 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-video-section {
   background: #000000;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   position: relative;
   min-height: 0;
@@ -287,7 +287,7 @@ body.modal-open {
   padding: var(--space-2);
   box-sizing: border-box;
   min-height: 0;
-  margin-top: 42%;
+  margin-top: 35%;
   margin-bottom: var(--space-2);
 }
 
