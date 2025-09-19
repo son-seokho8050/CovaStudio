@@ -2359,6 +2359,9 @@ class CovaModal2 {
         ],
         philosophy: {
           core: "무엇을 다르게 볼 수 있을까?",
+          observation: "짧은 드로잉, 디지털프로세스폴리오 기록.",
+          expression: "다른 작품과의 차이 설명, 자신의 발견을 글로 정리.",
+          feedback: "교사가 학생의 시도와 발견을 짚어주며, 다음 실험으로 연결",
           motto: "'기초가 탄탄한 학생'이 되는 것이 Grade 1의 목표입니다.",
           principles: [
             "체계적 학습: 단계별 커리큘럼으로 기초 실력 향상",
