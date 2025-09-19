@@ -1166,6 +1166,29 @@ body.modal-open {
   }
 }
 
+/* Force modal2 features to be visible - override any collapsible/hidden styles */
+.cova-modal2 .modal2-program-features {
+  display: block !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+
+.cova-modal2 .modal2-features-grid {
+  display: grid !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.cova-modal2 .modal2-feature-item {
+  display: flex !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 /* Hide all timeline elements for stepzero layout */
 .cova-modal2.stepzero-layout .modal2-keymoment-time,
 .cova-modal2.stepzero-layout .keymoment-marker,

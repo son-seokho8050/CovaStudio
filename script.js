@@ -1910,7 +1910,34 @@ class CovaModal2 {
 
     // Insert after video section
     videoSection.parentNode.insertBefore(featuresSection, videoSection.nextSibling);
+    
+    // Explicitly ensure visibility after insertion
+    featuresSection.classList.add('is-open');
+    featuresSection.style.display = 'block';
+    featuresSection.style.maxHeight = 'none';
+    featuresSection.style.opacity = '1';
+    featuresSection.style.visibility = 'visible';
+    
+    // Also ensure the grid is visible
+    const gridElement = featuresSection.querySelector('.modal2-features-grid');
+    if (gridElement) {
+      gridElement.style.display = 'grid';
+      gridElement.style.maxHeight = 'none';
+      gridElement.style.opacity = '1';
+      gridElement.style.visibility = 'visible';
+    }
+    
     console.log('Program features section added for GRADE-JUNIOR with', items.length, 'items');
+    
+    // Diagnostic check
+    setTimeout(() => {
+      const gridCheck = featuresSection.querySelector('.modal2-features-grid');
+      if (gridCheck && gridCheck.offsetHeight === 0) {
+        console.warn('Features grid collapsed - height is 0');
+      } else {
+        console.log('Features section successfully rendered with height:', gridCheck?.offsetHeight);
+      }
+    }, 100);
   }
 
   getIconHTML(iconName) {
