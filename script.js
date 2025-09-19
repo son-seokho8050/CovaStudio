@@ -1355,8 +1355,8 @@ class CovaModal2 {
     // Setup video with ambient effects
     this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
     
-    // Setup Key Moment Markers (using kickoff keyMoments as fallback)
-    this.setupKeyMomentMarkers(stepZeroData);
+    // Skip Key Moment Markers for stepzero - no timeline needed
+    // this.setupKeyMomentMarkers(stepZeroData);
     
     // Setup Image Section with shared thumbnails
     this.setupImageSection(stepZeroData);
