@@ -698,29 +698,23 @@ body.modal-open {
   display: none !important;
 }
 
-/* Hide timeline elements for stepzero layout */
-.cova-modal2.stepzero-layout .modal2-keymoment-time {
+/* Hide all timeline elements for stepzero layout */
+.cova-modal2.stepzero-layout .modal2-keymoment-time,
+.cova-modal2.stepzero-layout .keymoment-marker,
+.cova-modal2.stepzero-layout .modal2-methodology-time,
+.cova-modal2.stepzero-layout .modal2-step-time,
+.cova-modal2.stepzero-layout .timeline-progress,
+.cova-modal2.stepzero-layout .keymoments-timeline,
+.cova-modal2.stepzero-layout .modal2-keymoment,
+.cova-modal2.stepzero-layout .keymoment-item,
+.cova-modal2.stepzero-layout .moment-time,
+.cova-modal2.stepzero-layout .keymoments-list,
+.cova-modal2.stepzero-layout .keymoments-container,
+.cova-modal2.stepzero-layout [data-time],
+.cova-modal2.stepzero-layout *[class*="time"],
+.cova-modal2.stepzero-layout *[class*="moment"]:not(.modal2-detail-section) {
   display: none !important;
-}
-
-.cova-modal2.stepzero-layout .keymoment-marker {
-  display: none !important;
-}
-
-.cova-modal2.stepzero-layout .modal2-methodology-time {
-  display: none !important;
-}
-
-.cova-modal2.stepzero-layout .modal2-step-time {
-  display: none !important;
-}
-
-.cova-modal2.stepzero-layout .timeline-progress {
-  display: none !important;
-}
-
-.cova-modal2.stepzero-layout .keymoments-timeline {
-  display: none !important;
+  visibility: hidden !important;
 }
 
 .cova-modal2.kickoff-layout .modal2-detail-title {
