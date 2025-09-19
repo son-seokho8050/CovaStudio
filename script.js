@@ -1816,6 +1816,12 @@ class CovaModal2 {
     if (philosophyFeedback && kickoffData.philosophy) {
       philosophyFeedback.textContent = kickoffData.philosophy.feedback;
     }
+    
+    // Philosophy Connection (연결)
+    const philosophyConnection = document.getElementById('kickoffPhilosophyConnection');
+    if (philosophyConnection && kickoffData.philosophy) {
+      philosophyConnection.textContent = kickoffData.philosophy.connection;
+    }
   }
   
   setupFAQTab(kickoffData) {
