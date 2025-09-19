@@ -1743,7 +1743,6 @@ class CovaModal2 {
         <div class="modal2-curriculum-steps" data-testid="curriculum-steps">
           ${kickoffData.curriculum.map((item, index) => `
             <div class="modal2-curriculum-step" data-testid="curriculum-step-${index}">
-              <div class="modal2-step-number" data-testid="step-number-${index}">${index + 1}</div>
               <div class="modal2-step-content" data-testid="step-content-${index}">${item.content}</div>
               <div class="modal2-step-time" data-testid="step-time-${index}">${item.time}</div>
             </div>
