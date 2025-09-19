@@ -1424,7 +1424,7 @@ class CovaModal2 {
       return;
     }
     
-    // Clear existing content and render new goals (title only)
+    // Clear existing content and render new goals
     const goalsHTML = goals.map((goal, index) => `
       <div class="modal2-goal-item" data-testid="kickoff-goal-${index}">
         <div class="modal2-goal-icon">
@@ -1432,6 +1432,7 @@ class CovaModal2 {
         </div>
         <div class="modal2-goal-content">
           <div class="modal2-goal-title">${goal.title}</div>
+          <div class="modal2-goal-desc">${goal.desc}</div>
         </div>
       </div>
     `).join('');
