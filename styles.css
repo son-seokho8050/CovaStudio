@@ -689,6 +689,8 @@ body.modal-open {
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
   will-change: auto;
+  border: 5px solid red !important; /* DEBUG: 규칙 적용 확인용 */
+  background: yellow !important; /* DEBUG: 규칙 적용 확인용 */
 }
 
 /* Ensure stepzero video is always muted and has no controls */
