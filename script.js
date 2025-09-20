@@ -2074,7 +2074,7 @@ class CovaModal2 {
     // Philosophy Connection (연결)
     const philosophyConnection = document.getElementById('kickoffPhilosophyConnection');
     if (philosophyConnection && programData.philosophy) {
-      philosophyConnection.textContent = programData.philosophy.connection;
+      philosophyConnection.innerHTML = programData.philosophy.connection ? programData.philosophy.connection.replace(/\n/g, '<br>') : '';
     }
     
     // Philosophy Design (설계)
@@ -2467,6 +2467,7 @@ class CovaModal2 {
           observation: '조건을 빠르게 해석하고, 아이디어를 스케치·구상으로 전환.\n\n제한 시간 안에 구도·재료·표현 방식을 과감히 선택.',
           expression: '제한 시간내 완성 경험: 착수 → 작업 → 마감까지 흐름 유지.\n\n희망 전공(디자인 분야별·공예 등) 전공에 맞는 표현 방식을 반영.',
           feedback: '교사 피드백: 조건 해석력·시간 관리·표현 의도·전공 적합성·언어화 능력 5축 점검.\n\n학생 스스로 강점·보완점을 기록해, 다음 과제로 연결.',
+          connection: '결과물 뒤에 설명문 작성.\n\n"왜 이 조건을 이렇게 풀었는가?", "어떤 선택·수정을 거쳤는가?"를 언어화.',
           motto: "'실력 있는 예술가'로 성장하는 것이 Grade 2의 목표입니다.",
           principles: [
             "실전 환경 시뮬레이션: 제시 조건·시간·평가 구조 학습.",
