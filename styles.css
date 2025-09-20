@@ -4299,11 +4299,13 @@ summary:focus {
   -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
   padding: 0 !important;
   margin: 0 !important;
-  display: inline-block;
-  width: auto;
-  max-width: 85%;
+  display: block;
+  width: 85%;
+  min-height: 120px;
   box-sizing: border-box;
   margin-left: 8% !important;
+  display: flex;
+  align-items: center;
 }
 
 #philosophy #philosophyContent {
