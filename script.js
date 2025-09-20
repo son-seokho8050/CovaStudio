@@ -1465,7 +1465,6 @@ class CovaModal2 {
       <div class="modal2-outcomes-list">
         ${features.map((feature, index) => `
           <div class="modal2-outcome-item" data-testid="philosophy-feature-${index}">
-            <div class="modal2-outcome-icon">✓</div>
             <div class="modal2-outcome-text">${feature}</div>
           </div>
         `).join('')}
