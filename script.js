@@ -1211,8 +1211,12 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Apply special layout for all programs
-      this.modal.classList.add('kickoff-layout');
+      // Apply program-specific layout classes
+      if (programId === 'grade1') {
+        this.modal.classList.add('grade1-layout');
+      } else {
+        this.modal.classList.add('kickoff-layout');
+      }
       
       // Add additional class for stepzero video scaling
       if (programId === 'stepzero') {
@@ -1267,7 +1271,7 @@ class CovaModal2 {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
-    this.modal.classList.remove('kickoff-layout'); // Remove special layout
+    this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout'); // Remove all special layouts
     document.body.classList.remove('modal-open');
     
     // Pause video
