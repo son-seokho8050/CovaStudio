@@ -4160,8 +4160,8 @@ summary:focus {
 #philosophy {
   position: relative;
   overflow: hidden;
-  min-height: 120vh;
-  padding: 8rem 0;
+  min-height: calc(120vh - 150px);
+  padding: 6rem 0;
 }
 
 .philosophy-video-background {
