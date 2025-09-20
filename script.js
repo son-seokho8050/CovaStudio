@@ -1781,7 +1781,7 @@ class CovaModal2 {
         } else if (currentProgram === 'grade1') {
           // GRADE-1 썸네일
           thumbnailSources = [
-            'attached_assets/grade1_main_thumbnail_1758365297.png',
+            'attached_assets/grade1_thumbnail_1_1758365617.png',
             'attached_assets/111_1758290924434.png',
             'attached_assets/2222 (3)_1758290924434.png',
             'attached_assets/grade1_thumbnail_4_1758365484.png',
