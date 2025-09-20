@@ -2091,7 +2091,7 @@ class CovaModal2 {
         <div class="modal2-faq-list" data-testid="faq-list">
           ${programData.faq.map((faq, index) => `
             <div class="modal2-faq-item" data-testid="faq-item-${index}">
-              <div class="modal2-faq-question" data-testid="faq-question-${index}">${faq.q}</div>
+              ${faq.q ? `<div class="modal2-faq-question" data-testid="faq-question-${index}">${faq.q}</div>` : ''}
               <div class="modal2-faq-answer" data-testid="faq-answer-${index}">${faq.a}</div>
             </div>
           `).join('')}
@@ -2484,30 +2484,27 @@ class CovaModal2 {
         ],
         faq: [
           { 
-            q: "성과", 
-            a: `1) 즉각 성과 (수업 직후)
+            q: "", 
+            a: `<div class="grade2-results-section">
+<h4>1) 즉각 변화 (수업 직후)</h4>
+<p>• 제시 조건을 빠르게 해석하고, 핵심 문제를 정의하는 힘이 생깁니다.</p>
+<p>• 제한된 시간 안에 작업을 완결하는 경험으로 실전 감각이 길러집니다.</p>
+<p>• 결과물 뒤에 설명을 작성하며, 자기 선택과 과정을 언어로 설명하는 습관이 자리잡습니다.</p>
+</div>
 
-제시 조건을 빠르게 해석하고, 핵심 문제를 정의하는 힘이 생깁니다.
+<div class="grade2-results-section">
+<h4>2) 중간 변화</h4>
+<p>• 모든 작업이 디지털 프로세스 폴리오(작품 + 기록 + 설명)로 누적되어, 초석이 쌓입니다.</p>
+<p>• Before/After 비교를 통해, 탐구적 시도가 실전 결과로 발전하는 흐름이 눈에 보입니다.</p>
+<p>• 조건 해석–표현–설명 간의 연결력이 강화되며, 입시 실전 대비력이 상승합니다.</p>
+</div>
 
-제한된 시간 안에 작업을 완결하는 경험으로 실전 감각이 길러집니다.
-
-결과물 뒤에 설명을 작성하며, 자기 선택과 과정을 언어로 설명하는 습관이 자리잡습니다.
-
-2) 중간 성과
-
-모든 작업이 성과 디지털 프로세스 폴리오(작품 + 기록 + 설명)로 누적되어, 초석이 쌓입니다.
-
-Before/After 비교를 통해, 탐구적 시도가 실전 결과로 발전하는 흐름이 눈에 보입니다.
-
-조건 해석–표현–설명 간의 연결력이 강화되며, 입시 실전 대비력이 상승합니다.
-
-3) 장기 성과
-
-앞으로의 변화하는 대학이 요구하는 4대 핵심 역량, 창의성·과정성·전공성·설명력을 균형 있게 체득합니다.
-
-희망 전공과 연계된 과제를 경험하면서, 전공 적합성과 진로 자신감을 확보합니다.
-
-고3 입시 단계에서 실전 입시와 대응력을 갖춘 학생으로 성장합니다.`
+<div class="grade2-results-section">
+<h4>3) 장기 변화</h4>
+<p>• 앞으로의 변화하는 대학이 요구하는 4대 핵심 역량, 창의성·과정성·전공성·설명력을 균형 있게 체득합니다.</p>
+<p>• 희망 전공과 연계된 과제를 경험하면서, 전공 적합성과 진로 자신감을 확보합니다.</p>
+<p>• 고3 입시 단계에서 실전 입시와 대응력을 갖춘 학생으로 성장합니다.</p>
+</div>`
           }
         ]
       },
