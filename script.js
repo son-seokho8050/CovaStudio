@@ -2458,7 +2458,7 @@ class CovaModal2 {
         ],
         curriculum: [
           { step: "조건 해석", content: "제시어·제약 조건을 빠르게 이해하고 방향 설정.", time: "" },
-          { step: "응용", content: "다양한 주제와 재료 활용", time: "4주" },
+          { step: "착수와 실행", content: "제한된 시간 내 구상·작업·표현.", time: "" },
           { step: "완성", content: "포트폴리오 제작", time: "4주" },
           { step: "마무리", content: "최종 점검과 보완", time: "3주" }
         ],
