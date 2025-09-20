@@ -1,6 +1,9 @@
 /* COVA Education System - Minimalist Architectural Design */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
+/* CSS Cascade Layers - 우선순위 제어 시스템 */
+@layer reset, base, components, utilities, overrides;
+
 /* ===================================
    MODAL V2 SYSTEM - CSS-ONLY LAYOUT  
    No JavaScript Interference
@@ -6627,4 +6630,77 @@ summary:focus {
 /* 5. 우측 패널 스크롤 */
 .cova-modal .modal-info-panel { 
   overflow: auto; 
+}
+
+/* ===================================
+   PHILOSOPHY 섹션 완전 격리 해결책
+   모든 간섭 요소 제거 및 CSS 우선순위 완전 제어
+   =================================== */
+
+@layer overrides {
+  /* 완전 격리된 PHILOSOPHY 스코프 */
+  #philosophy .ph-scope,
+  #philosophy .ph-scope * {
+    backdrop-filter: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    outline: 0 !important;
+  }
+  
+  /* ph-text 클래스 - 완전히 새로운 텍스트 스타일 */
+  #philosophy .ph-scope .ph-text {
+    all: revert-layer;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Inter', system-ui, sans-serif !important;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem) !important;
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
+    filter: none !important;
+  }
+  
+  /* card 요소도 완전 초기화 */
+  #philosophy .ph-scope .card {
+    transform: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    position: relative !important;
+    display: inline-block !important;
+    width: fit-content !important;
+    margin-left: 8% !important;
+  }
+  
+  /* pseudo-elements 완전 제거 */
+  #philosophy .ph-scope [class*="text-"]::before,
+  #philosophy .ph-scope [class*="text-"]::after,
+  #philosophy .ph-scope .card::before,
+  #philosophy .ph-scope .card::after {
+    content: none !important;
+    display: none !important;
+  }
+  
+  /* 투명 배경 카드 효과만 유지 */
+  #philosophy .ph-scope .card::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: 0 !important;
+    inset: calc(-1 * 24px) calc(-1 * 32px) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 16px !important;
+    backdrop-filter: blur(8px) saturate(140%) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
+    pointer-events: none !important;
+    display: block !important;
+  }
 }

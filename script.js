@@ -7,7 +7,7 @@ const $$ = sel => document.querySelectorAll(sel);
 function renderPhilosophy(){
   $("#philosophyContent").innerHTML = `
     <div class="card">
-      <p class="text-reveal">
+      <p class="ph-text">
         COVA의 철학은<br>
         과정 중심의 사고, 개념을 언어화하는 능력, 비교와 연결을 통한 탐구을 바탕으로<br>
         고1,2 입시미술 학습의 '과정을 기록하고, 생각을 언어와 그림으로 증명하며, 탐구에서 실전까지' 이어지는 '성장'입니다.
@@ -215,11 +215,16 @@ function initSmoothScrolling() {
   });
 }
 
-// Card Hover Effects
+// Card Hover Effects (exclude #philosophy)
 function initCardEffects() {
   const cards = document.querySelectorAll('.card');
   
   cards.forEach(card => {
+    // Skip cards inside #philosophy section
+    if (card.closest('#philosophy') || card.closest('[data-no-anim]')) {
+      return;
+    }
+    
     card.addEventListener('mouseenter', () => {
       card.style.transform = 'translateY(-2px)';
     });
@@ -235,9 +240,13 @@ function initDynamicTextEffects() {
   // Mark document as JS enabled
   document.documentElement.classList.add('js-enabled');
   
-  // Intersection Observer for text animations
+  // Intersection Observer for text animations (exclude #philosophy)
   const textObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      // Skip elements inside #philosophy section
+      if (entry.target.closest('#philosophy') || entry.target.closest('[data-no-anim]')) {
+        return;
+      }
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         console.log('Animation triggered for:', entry.target.className);
