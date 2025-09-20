@@ -4160,7 +4160,7 @@ summary:focus {
 #philosophy {
   position: relative;
   overflow: hidden;
-  min-height: 120vh;
+  min-height: calc(120vh - 190px);
   padding: 8rem 0;
 }
 
