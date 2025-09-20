@@ -270,7 +270,7 @@ body.modal-open {
 .cova-modal2.kickoff-layout .modal2-video {
   width: calc(100% - 2cm); /* 좌우 폭을 총 2cm 줄임 */
   height: 100%;
-  margin: 0 auto; /* 좌우기준 중앙 정렬 */
+  margin-left: 2cm; /* 2cm 오른쪽으로 이동 */
   object-fit: cover;
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
   max-height: 100%;
