@@ -1909,15 +1909,22 @@ class CovaModal2 {
         `;
       }
       
-      // Add education goals section if exists
+      // Education goals moved to methodology section
+      
+      // Goals section removed per user request
+      
+      overviewElement.innerHTML = overviewHTML;
+      console.log('Modal v2 overviewElement updated with HTML length:', overviewHTML.length);
+      console.log('Modal v2 overviewElement final innerHTML length:', overviewElement.innerHTML.length);
+    }
+    
+    // Education Goals in methodology section (⏱️ 교육 목표)
+    const methodologyElement = this.modal.querySelector('#kickoffMethodology');
+    if (methodologyElement) {
       if (programData.educationGoals) {
-        console.log('Rendering educationGoals:', programData.educationGoals);
-        overviewHTML += `
+        console.log('Rendering educationGoals in methodology section:', programData.educationGoals);
+        const educationGoalsHTML = `
           <div class="modal2-education-goals-section" data-testid="education-goals">
-            <div class="modal2-education-goals-header">
-              <div class="modal2-education-goals-icon">🎯</div>
-              <div class="modal2-education-goals-title">${programData.educationGoals.title}</div>
-            </div>
             <div class="modal2-education-goals-list">
               ${programData.educationGoals.items.map((item, index) => `
                 <div class="modal2-education-goal-item" data-testid="education-goal-${index}">
@@ -1928,33 +1935,24 @@ class CovaModal2 {
             </div>
           </div>
         `;
+        methodologyElement.innerHTML = educationGoalsHTML;
+      } else if (programData.methodology) {
+        const methodologyHTML = `
+          <div class="modal2-methodology-timeline">
+            ${programData.methodology.map(method => `
+              <div class="modal2-methodology-item">
+                <div class="modal2-methodology-phase">${method.phase}</div>
+                <div class="modal2-methodology-content">${method.content}</div>
+                ${method.time ? `<div class="modal2-methodology-time">${method.time}</div>` : ''}
+                ${method.details ? `<div class="modal2-methodology-details">
+                  ${method.details.map(detail => `<span class="modal2-methodology-detail">${detail}</span>`).join('')}
+                </div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        `;
+        methodologyElement.innerHTML = methodologyHTML;
       }
-      
-      // Goals section removed per user request
-      
-      overviewElement.innerHTML = overviewHTML;
-      console.log('Modal v2 overviewElement updated with HTML length:', overviewHTML.length);
-      console.log('Modal v2 overviewElement final innerHTML length:', overviewElement.innerHTML.length);
-    }
-    
-    // Methodology
-    const methodologyElement = this.modal.querySelector('#kickoffMethodology');
-    if (methodologyElement && programData.methodology) {
-      const methodologyHTML = `
-        <div class="modal2-methodology-timeline">
-          ${programData.methodology.map(method => `
-            <div class="modal2-methodology-item">
-              <div class="modal2-methodology-phase">${method.phase}</div>
-              <div class="modal2-methodology-content">${method.content}</div>
-              ${method.time ? `<div class="modal2-methodology-time">${method.time}</div>` : ''}
-              ${method.details ? `<div class="modal2-methodology-details">
-                ${method.details.map(detail => `<span class="modal2-methodology-detail">${detail}</span>`).join('')}
-              </div>` : ''}
-            </div>
-          `).join('')}
-        </div>
-      `;
-      methodologyElement.innerHTML = methodologyHTML;
     }
     
     // Expected Outcomes
