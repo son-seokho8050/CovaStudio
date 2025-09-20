@@ -2450,7 +2450,7 @@ class CovaModal2 {
         overview: window.COVA_DATA?.g1?.overview || null,
         educationGoals: window.COVA_DATA?.g1?.educationGoals || null,
         videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
-        imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_httpss.mj.runh4XtrOKMTrA_httpss.mj.runD0rMXAWbSs8_htt_c782fc3f-79d8-4ef2-b228-e5de600df80c_2_1758363630855.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
         goals: [],
         curriculum: [
