@@ -4295,16 +4295,12 @@ summary:focus {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
   backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
   box-shadow: none;
   background-clip: padding-box;
-  min-height: 120px;
-  width: fit-content;
-  max-width: 90%;
-  display: inline-block;
 }
 
 #philosophy #philosophyContent {
@@ -4313,6 +4309,16 @@ summary:focus {
 
 #philosophy #philosophyContent .card * {
   background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#philosophy #philosophyContent .text-reveal {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#philosophy .modal2-philosophy-motto {
   margin: 0 !important;
   padding: 0 !important;
 }
