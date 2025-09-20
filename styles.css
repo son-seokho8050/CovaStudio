@@ -852,27 +852,15 @@ video.modal2-video[src*="그림_그리는_여자"] {
    GRADE1 LAYOUT STYLES
    =================================== */
 
-/* CRITICAL: Hide thumbnails in GRADE-1 to show video */
-.cova-modal2.grade1-layout .modal2-image-section {
-  display: none !important;
-}
-
-.cova-modal2.grade1-layout .modal2-thumbnails-grid {
-  display: none !important;
-}
-
 /* GRADE-1 specific video styling */
 .cova-modal2.grade1-layout .modal2-video {
   width: calc(100% - 1cm) !important; /* 좌우 폭을 1cm 줄임 */
-  height: 100% !important;
+  height: 100%;
   margin-left: 0.5cm !important; /* 중앙 정렬 */
-  object-fit: cover !important;
+  object-fit: cover;
   aspect-ratio: 3 / 2;
-  max-height: 100% !important;
+  max-height: 100%;
   max-width: calc(100% - 1cm) !important;
-  display: block !important; /* 강제 표시 */
-  z-index: 999 !important; /* 최상위 */
-  position: relative !important;
   pointer-events: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
