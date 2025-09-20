@@ -1784,7 +1784,7 @@ class CovaModal2 {
             'attached_assets/grade1_main_thumbnail_1758365297.png',
             'attached_assets/111_1758290924434.png',
             'attached_assets/2222 (3)_1758290924434.png',
-            'attached_assets/11111_1758290924434.png',
+            'attached_assets/grade1_thumbnail_4_1758365484.png',
             'attached_assets/22222 (3)_1758290924434.png',
             'attached_assets/cocodio_a_minimalist_three-dimensional_sculptural_colored_pen_6da4dd11-0bb7-4688-993d-738a432ea26f_0_1758290924435.png',
             'attached_assets/cocodio_a_minimalist_three-dimensional_sculptural_colored_pen_8483023e-5d44-4ee4-8a4a-389df631fe9b_1_1758290924435.png',
