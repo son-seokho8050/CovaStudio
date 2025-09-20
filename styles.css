@@ -6661,12 +6661,15 @@ summary:focus {
     filter: none !important;
   }
   
-  /* card 요소도 완전 초기화 */
+  /* card 요소 - 투명 배경 카드가 보이도록 설정 */
   #philosophy .ph-scope .card {
     transform: none !important;
-    background: transparent !important;
-    border: 0 !important;
-    padding: 0 !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 16px !important;
+    backdrop-filter: blur(12px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
+    padding: 24px 32px !important;
     margin: 0 !important;
     box-shadow: none !important;
     position: relative !important;
@@ -6682,18 +6685,5 @@ summary:focus {
     display: none !important;
   }
   
-  /* 투명 배경 카드 효과 - 깔끔하고 잘 보이게 조정 */
-  #philosophy .ph-scope .card::before {
-    content: "" !important;
-    position: absolute !important;
-    z-index: 0 !important;
-    inset: calc(-1 * 24px) calc(-1 * 32px) !important;
-    background: rgba(255, 255, 255, 0.12) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 16px !important;
-    backdrop-filter: blur(12px) saturate(150%) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
-    pointer-events: none !important;
-    display: block !important;
-  }
+  /* ::before 요소는 이제 필요 없음 - 카드 자체에 배경 적용 */
 }
