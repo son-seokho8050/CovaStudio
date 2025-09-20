@@ -290,23 +290,6 @@ body.modal-open {
   will-change: auto;
 }
 
-/* GRADE-1 layout specific video styling - maintains original positioning */
-.cova-modal2.grade1-layout .modal2-video {
-  width: 100%;
-  height: 100%;
-  margin: 0 auto; /* 중앙 정렬 */
-  object-fit: contain;
-  aspect-ratio: 3 / 2;
-  max-height: 100%;
-  max-width: 100%;
-  pointer-events: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 /* Professional color grading (preserve for other contexts) */
 .cova-modal2.kickoff-layout .modal2-video.cinematic {
   filter: contrast(1.08) saturate(1.12) brightness(0.96) sepia(0.06) hue-rotate(-5deg);

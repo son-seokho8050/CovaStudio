@@ -1211,32 +1211,20 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Remove all layout classes first
-      this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout');
+      // Apply special layout for all programs
+      this.modal.classList.add('kickoff-layout');
       
-      // Apply appropriate layout class based on program
-      switch(programId) {
-        case 'kickoff':
-          this.modal.classList.add('kickoff-layout');
-          break;
-        case 'grade1':
-          this.modal.classList.add('grade1-layout');
-          break;
-        case 'grade2':
-          this.modal.classList.add('grade2-layout');
-          break;
-        case 'stepzero':
-          this.modal.classList.add('stepzero-layout');
-          this.modal.classList.add('stepzero-video-scaled');
-          break;
-        default:
-          this.modal.classList.add('kickoff-layout'); // fallback
+      // Add additional class for stepzero video scaling
+      if (programId === 'stepzero') {
+        this.modal.classList.add('stepzero-video-scaled');
+      } else {
+        this.modal.classList.remove('stepzero-video-scaled');
       }
       
-      console.log('Applied layout for program:', programId);
+      console.log('Applied special layout for program:', programId);
     } else {
-      // Remove all layout classes (fallback)
-      this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+      // Remove special layout (fallback)
+      this.modal.classList.remove('kickoff-layout');
     }
     
     // Update basic content
@@ -1279,8 +1267,7 @@ class CovaModal2 {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
-    // Remove all layout classes
-    this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+    this.modal.classList.remove('kickoff-layout'); // Remove special layout
     document.body.classList.remove('modal-open');
     
     // Pause video
