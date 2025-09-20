@@ -4297,7 +4297,7 @@ summary:focus {
   border-radius: 16px;
   backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
-  padding: 2rem 3rem !important;
+  padding: 0 !important;
   margin: 0 !important;
   display: inline-block;
   width: auto;
