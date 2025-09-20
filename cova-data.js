@@ -61,7 +61,7 @@ window.COVA_DATA = {
     videoTitle: "COVA 킥오프 실제 수업 장면",
     videoDescription: "실제 킥오프 수업에서 강사와 학생들이 기초 드로잉 기법을 배우는 과정을 담은 영상입니다.",
     
-    imageSrc: "attached_assets/image_1758364497778.png",
+    imageSrc: "attached_assets/grade1_main_thumbnail_1758365297.png",
     imageTitle: "COVA 핵심 컨셉 비주얼",
     imageDescription: "창의적 사고와 체계적 접근을 상징하는 추상적 조형물로, COVA의 '생각하며 그리는' 철학을 시각화합니다.",
     
