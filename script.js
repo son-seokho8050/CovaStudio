@@ -2438,8 +2438,10 @@ class CovaModal2 {
           ]
         },
         methodology: [
-          { phase: "교육 목표 1", time: "", content: "주어진 조건과 시간 안에서 빠른 해석·집중 표현·자기 설명 능력을 강화합니다.", details: [] },
-          { phase: "교육 목표 2", time: "", content: "실제 시험 환경과 유사한 상황에 익숙해지게 합니다.", details: [] }
+          { phase: "조건 해석력 강화", time: "", content: "제시어·제약 조건을 빠르게 이해하고 창의적으로 해결.", details: [] },
+          { phase: "시간 관리 훈련", time: "", content: "제한된 시간, 착수·작업·마감을 경험해 실전 감각 습득.", details: [] },
+          { phase: "전공 탐구 확장", time: "", content: "희망 전공과 연결된 주제·방식을 시도해 학문적 시야 확장.", details: [] },
+          { phase: "자기 언어화 능력", time: "", content: "결과물과 과정을 설명하며, 면접·실기 대비.", details: [] }
         ],
         faq: [
           { q: "Grade 2는 어떤 학생에게 적합한가요?", a: "기초 실력을 갖추고 본격적인 입시 준비를 하는 고2 학생들에게 적합합니다." },
