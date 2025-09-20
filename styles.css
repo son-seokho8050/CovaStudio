@@ -268,12 +268,13 @@ body.modal-open {
 }
 
 .cova-modal2.kickoff-layout .modal2-video {
-  width: 100%;
+  width: calc(100% - 2cm); /* 좌우 폭을 총 2cm 줄임 */
   height: 100%;
+  margin: 0 auto; /* 좌우기준 중앙 정렬 */
   object-fit: cover;
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
   max-height: 100%;
-  max-width: 100%;
+  max-width: calc(100% - 2cm); /* 최대 너비도 동일하게 조정 */
   pointer-events: none; /* Disable all mouse interactions */
   -webkit-touch-callout: none; /* Disable callout on iOS */
   -webkit-user-select: none; /* Disable text selection */
