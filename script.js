@@ -1810,9 +1810,14 @@ class CovaModal2 {
           thumbnailItem.className = 'thumbnail-item';
           
           const img = document.createElement('img');
-          img.src = src;
+          // 캐시 버스팅을 위한 타임스탬프 추가
+          const cacheBustingSrc = src + '?v=' + Date.now();
+          img.src = cacheBustingSrc;
           img.alt = `${currentProgram} 썸네일 ${index + 1}`;
           img.setAttribute('data-testid', `thumbnail-${index + 1}`);
+          
+          // 디버깅을 위한 로그 추가
+          console.log(`DEBUG: Setting thumbnail ${index + 1} for ${currentProgram}:`, cacheBustingSrc);
           
           thumbnailItem.appendChild(img);
           thumbnailsGrid.appendChild(thumbnailItem);
@@ -1820,6 +1825,7 @@ class CovaModal2 {
         
         thumbnailsGrid.style.display = 'grid';
         console.log('Thumbnails rehydrated for', currentProgram, 'with', thumbnailSources.length, 'items');
+        console.log('DEBUG: First thumbnail source:', thumbnailSources[0]);
       }
     }
   }
