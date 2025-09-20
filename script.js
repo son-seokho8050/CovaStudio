@@ -1810,11 +1810,16 @@ class CovaModal2 {
           thumbnailItem.className = 'thumbnail-item';
           
           const img = document.createElement('img');
-          // 캐시 버스팅을 위한 타임스탬프 추가
-          const cacheBustingSrc = src + '?v=' + Date.now();
+          // 강력한 캐시 버스팅: 타임스탬프 + 랜덤값 + no-cache 헤더
+          const cacheBustingSrc = src + '?v=' + Date.now() + '&r=' + Math.random().toString(36).substr(2, 9) + '&cache=false';
           img.src = cacheBustingSrc;
           img.alt = `${currentProgram} 썸네일 ${index + 1}`;
           img.setAttribute('data-testid', `thumbnail-${index + 1}`);
+          
+          // 캐시 무시 속성들 추가
+          img.setAttribute('crossorigin', 'anonymous');
+          img.setAttribute('referrerpolicy', 'no-referrer');
+          img.style.imageRendering = 'auto';
           
           // 디버깅을 위한 로그 추가
           console.log(`DEBUG: Setting thumbnail ${index + 1} for ${currentProgram}:`, cacheBustingSrc);
