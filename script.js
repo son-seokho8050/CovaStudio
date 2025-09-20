@@ -1444,6 +1444,38 @@ class CovaModal2 {
     console.log('Step-zero features rendered:', features.length, 'items');
   }
 
+  renderGrade2PhilosophyFeatures(grade2Data) {
+    // Find the features element in the philosophy tab
+    const outcomesElement = document.getElementById('kickoffOutcomes');
+    if (!outcomesElement) {
+      console.warn('Could not find outcomes element for Grade2 features');
+      return;
+    }
+    
+    // Use philosophy.principles for Grade2
+    const features = grade2Data.philosophy?.principles || [];
+    
+    if (features.length === 0) {
+      console.warn('No philosophy principles found for Grade2');
+      return;
+    }
+    
+    // Clear existing content and render Grade2 philosophy features
+    const featuresHTML = `
+      <div class="modal2-outcomes-list">
+        ${features.map((feature, index) => `
+          <div class="modal2-outcome-item" data-testid="philosophy-feature-${index}">
+            <div class="modal2-outcome-icon">✓</div>
+            <div class="modal2-outcome-text">${feature}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    
+    outcomesElement.innerHTML = featuresHTML;
+    console.log('Grade2 philosophy features rendered:', features.length, 'items');
+  }
+
   renderKickoffGoals(kickoffData) {
     // Find the goals element in the overview tab
     const goalsElement = document.getElementById('kickoffGoals');
@@ -1545,6 +1577,9 @@ class CovaModal2 {
     
     // Initialize Tab Navigation
     this.initializeTabNavigation();
+    
+    // Explicitly render Grade2 philosophy features
+    this.renderGrade2PhilosophyFeatures(grade2Data);
     
     console.log('Grade2 content setup completed');
   }
