@@ -4178,7 +4178,7 @@ summary:focus {
   position: absolute;
   top: 45%;
   left: 50%;
-  min-width: calc(100% + 150px);
+  min-width: calc(100% + 300px);
   min-height: 100%;
   width: auto;
   height: auto;
