@@ -4292,23 +4292,29 @@ summary:focus {
 }
 
 #philosophy #philosophyContent .card {
+  position: relative;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-block;
+  width: auto;
+  max-width: 90%;
+  line-height: 1;
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  margin-left: 8% !important;
+}
+
+#philosophy #philosophyContent .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
-  padding: 0 !important;
-  margin: 0 !important;
   backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
-  box-shadow: none;
-  background-clip: padding-box;
-  min-height: calc(120px + 3cm);
-  width: 85%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-left: 8% !important;
-  margin-right: auto !important;
+  pointer-events: none;
 }
 
 #philosophy #philosophyContent {
@@ -4326,30 +4332,27 @@ summary:focus {
 }
 
 #philosophy #philosophyContent .card * {
-  background-color: transparent !important;
   margin: 0 !important;
   padding: 0 !important;
-  box-sizing: border-box !important;
-}
-
-#philosophy #philosophyContent .text-reveal {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100% !important;
-  display: block !important;
-}
-
-#philosophy .modal2-philosophy-motto {
-  margin: 0 !important;
-  padding: 0 !important;
+  line-height: 1 !important;
 }
 
 #philosophy #philosophyContent .card p {
   margin: 0 !important;
   padding: 0 !important;
+  line-height: 1.4 !important;
 }
 
-#philosophy #philosophyContent .card div {
+#philosophy #philosophyContent .card h1,
+#philosophy #philosophyContent .card h2,
+#philosophy #philosophyContent .card h3 {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#philosophy #philosophyContent .text-reveal {
+  display: block;
+  line-height: 1.4 !important;
   margin: 0 !important;
   padding: 0 !important;
 }
