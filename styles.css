@@ -4301,10 +4301,20 @@ summary:focus {
   -webkit-backdrop-filter: blur(8px) saturate(140%);
   box-shadow: none;
   background-clip: padding-box;
+  min-height: calc(120px + 3cm);
+  width: 70%;
+  max-width: 800px;
+  display: block;
 }
 
 #philosophy #philosophyContent {
-  text-align: center;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+#philosophy #philosophyContent .text-reveal {
+  text-align: left;
 }
 
 #philosophy #philosophyContent .card * {
