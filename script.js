@@ -1539,8 +1539,8 @@ class CovaModal2 {
       return;
     }
     
-    // Setup video with ambient effects
-    this.setupVideoForProgram(grade1Data, 'Grade1');
+    // Setup video WITHOUT ambient effects (Grade1 should show clear main video)
+    this.setupVideoForProgram(grade1Data, 'Grade1', false);
     
     // Setup Key Moment Markers (using kickoff keyMoments as fallback)
     this.setupKeyMomentMarkers(grade1Data);
@@ -1587,7 +1587,7 @@ class CovaModal2 {
     console.log('Grade2 content setup completed');
   }
 
-  setupVideoForProgram(programData, programName) {
+  setupVideoForProgram(programData, programName, applyAmbientEffects = true) {
     if (this.video) {
       try {
         // 프리로딩 설정
@@ -1598,8 +1598,10 @@ class CovaModal2 {
         this.video.controls = false;
         this.video.disablePictureInPicture = true;
         
-        // Apply ambient effects for background feel
-        this.applyCinematicEffects('ambient');
+        // Apply ambient effects only if requested
+        if (applyAmbientEffects) {
+          this.applyCinematicEffects('ambient');
+        }
         
         // 비디오 로딩 완료 대기 후 재생
         const playVideo = () => {
