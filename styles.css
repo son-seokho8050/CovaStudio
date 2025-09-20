@@ -6680,11 +6680,9 @@ summary:focus {
     margin-left: 8% !important;
   }
   
-  /* pseudo-elements 완전 제거 */
-  #philosophy .ph-scope [class*="text-"]::before,
-  #philosophy .ph-scope [class*="text-"]::after,
-  #philosophy .ph-scope .card::before,
-  #philosophy .ph-scope .card::after {
+  /* 텍스트 관련 pseudo-elements만 제거 */
+  #philosophy .ph-scope .ph-text::before,
+  #philosophy .ph-scope .ph-text::after {
     content: none !important;
     display: none !important;
   }

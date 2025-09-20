@@ -220,8 +220,8 @@ function initCardEffects() {
   const cards = document.querySelectorAll('.card');
   
   cards.forEach(card => {
-    // Skip cards inside #philosophy section
-    if (card.closest('#philosophy') || card.closest('[data-no-anim]')) {
+    // Skip only cards with data-no-anim attribute
+    if (card.closest('[data-no-anim]')) {
       return;
     }
     
@@ -243,8 +243,8 @@ function initDynamicTextEffects() {
   // Intersection Observer for text animations (exclude #philosophy)
   const textObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      // Skip elements inside #philosophy section
-      if (entry.target.closest('#philosophy') || entry.target.closest('[data-no-anim]')) {
+      // Skip only elements with data-no-anim or ph-text class
+      if (entry.target.closest('[data-no-anim]') || entry.target.classList.contains('ph-text')) {
         return;
       }
       if (entry.isIntersecting) {
