@@ -20,24 +20,23 @@
 </div>
 
 <script>
-// 최우선 실행 로딩 스크린
+// 빠른 로딩 스크린 - DOM 준비 즉시 표시
 window.addEventListener('DOMContentLoaded', function() {
   const loader = document.getElementById('priorityLoader');
   const percent = document.getElementById('priorityPercent');
   const mainContent = document.querySelector('header');
   
-  if (!loader || !percent) return;
+  if (!loader || !percent || !mainContent) return;
   
   console.log('Priority loader started');
   
   // 메인 콘텐츠 숨기기
-  if (mainContent) {
-    mainContent.style.display = 'none';
-  }
+  mainContent.style.display = 'none';
   
+  // 빠른 로딩 애니메이션 (500ms)
   let progress = 0;
   const timer = setInterval(() => {
-    progress += Math.random() * 12 + 8;
+    progress += 25; // 빠른 증가
     if (progress > 100) progress = 100;
     percent.textContent = Math.floor(progress) + '%';
     console.log('Loading progress:', progress + '%');
@@ -46,21 +45,18 @@ window.addEventListener('DOMContentLoaded', function() {
       clearInterval(timer);
       console.log('Loading complete, showing main content');
       
+      // 즉시 콘텐츠 표시 (지연 제거)
+      loader.style.opacity = '0';
+      loader.style.transition = 'opacity 0.3s';
+      
       setTimeout(() => {
-        loader.style.opacity = '0';
-        loader.style.transition = 'opacity 0.5s';
-        
-        setTimeout(() => {
-          loader.style.display = 'none';
-          if (mainContent) {
-            mainContent.style.display = 'block';
-            document.body.style.opacity = '1';
-            document.body.style.transition = 'opacity 0.5s';
-          }
-        }, 500);
-      }, 1000);
+        loader.style.display = 'none';
+        mainContent.style.display = 'block';
+        document.body.style.opacity = '1';
+        document.body.style.transition = 'opacity 0.3s';
+      }, 300);
     }
-  }, 150);
+  }, 50); // 더 자주 업데이트
 });
 </script>
 

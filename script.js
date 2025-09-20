@@ -1586,6 +1586,8 @@ class CovaModal2 {
   setupVideoForProgram(programData, programName) {
     if (this.video) {
       try {
+        // 프리로딩 설정
+        this.video.preload = 'metadata';
         this.video.autoplay = true;
         this.video.muted = true;
         this.video.loop = true;
@@ -1595,19 +1597,57 @@ class CovaModal2 {
         // Apply ambient effects for background feel
         this.applyCinematicEffects('ambient');
         
-        const playPromise = this.video.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log(`${programName} video autoplay started successfully`);
-            })
-            .catch(error => {
-              console.warn(`${programName} video autoplay failed:`, error);
-            });
+        // 비디오 로딩 완료 대기 후 재생
+        const playVideo = () => {
+          const playPromise = this.video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                console.log(`${programName} video autoplay started successfully`);
+              })
+              .catch(error => {
+                console.warn(`${programName} video autoplay failed:`, error);
+                // 자동재생 실패 시 사용자 클릭 후 재생하도록 설정
+                this.setupClickToPlay(programName);
+              });
+          }
+        };
+        
+        // 비디오가 로딩되면 재생
+        if (this.video.readyState >= 3) {
+          // 이미 로드됨
+          setTimeout(playVideo, 100);
+        } else {
+          // 로딩 대기
+          this.video.addEventListener('canplay', playVideo, { once: true });
+          this.video.addEventListener('loadedmetadata', () => {
+            console.log(`${programName} video metadata loaded`);
+          }, { once: true });
         }
+        
       } catch (error) {
         console.warn(`${programName} video autoplay setup failed:`, error);
       }
+    }
+  }
+  
+  setupClickToPlay(programName) {
+    if (this.video && this.video.paused) {
+      const overlay = document.createElement('div');
+      overlay.className = 'video-play-overlay';
+      overlay.innerHTML = '▶ Click to play';
+      overlay.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; z-index: 10;';
+      
+      this.video.parentElement.appendChild(overlay);
+      
+      overlay.addEventListener('click', () => {
+        this.video.play().then(() => {
+          overlay.remove();
+          console.log(`${programName} video started via user interaction`);
+        }).catch(error => {
+          console.warn(`${programName} video play failed even with user interaction:`, error);
+        });
+      });
     }
   }
 
@@ -1810,19 +1850,27 @@ class CovaModal2 {
           thumbnailItem.className = 'thumbnail-item';
           
           const img = document.createElement('img');
-          // 강력한 캐시 버스팅: 타임스탬프 + 랜덤값 + no-cache 헤더
-          const cacheBustingSrc = src + '?v=' + Date.now() + '&r=' + Math.random().toString(36).substr(2, 9) + '&cache=false';
-          img.src = cacheBustingSrc;
+          
+          // 스마트 캐시 전략: 최근 업로드 이미지만 캐시 버스팅
+          let finalSrc = src;
+          const isRecentUpload = src.includes('_1758365') || src.includes('grade1_thumbnail_');
+          
+          if (isRecentUpload) {
+            // 최근 업로드 이미지는 캐시 버스팅 적용
+            finalSrc = src + '?v=' + Date.now();
+            console.log(`Cache busting applied for recent upload: ${src}`);
+          } else {
+            // 기존 이미지는 캐시 활용 (고정 버전)
+            finalSrc = src + '?v=stable';
+          }
+          
+          img.src = finalSrc;
           img.alt = `${currentProgram} 썸네일 ${index + 1}`;
           img.setAttribute('data-testid', `thumbnail-${index + 1}`);
+          img.loading = 'lazy'; // 지연 로딩 활성화
           
-          // 캐시 무시 속성들 추가
-          img.setAttribute('crossorigin', 'anonymous');
-          img.setAttribute('referrerpolicy', 'no-referrer');
-          img.style.imageRendering = 'auto';
-          
-          // 디버깅을 위한 로그 추가
-          console.log(`DEBUG: Setting thumbnail ${index + 1} for ${currentProgram}:`, cacheBustingSrc);
+          // 디버깅 로그 간소화
+          console.log(`DEBUG: Setting thumbnail ${index + 1} for ${currentProgram}:`, finalSrc);
           
           thumbnailItem.appendChild(img);
           thumbnailsGrid.appendChild(thumbnailItem);
