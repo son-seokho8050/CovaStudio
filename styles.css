@@ -4292,12 +4292,18 @@ summary:focus {
 }
 
 #philosophy #philosophyContent .card {
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
-  padding: 2.5rem;
-  backdrop-filter: none;
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
   box-shadow: none;
+  background-clip: padding-box;
+}
+
+#philosophy #philosophyContent .card * {
+  background-color: transparent !important;
 }
 
 /* Program Modal Styles */
