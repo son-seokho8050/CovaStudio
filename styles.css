@@ -4291,36 +4291,39 @@ summary:focus {
   font-style: normal;
 }
 
-#philosophy #philosophyContent .card {
-  position: relative !important;
-  display: inline-block !important;
-  padding: 0 !important;
-  margin: 0 !important;
+#philosophyContent .card {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  padding: 0;
+  margin: 0;
   background: transparent !important;
-  border: none !important;
+  border: 0;
   margin-left: 8% !important;
-  overflow: hidden;
 }
 
-#philosophy #philosophyContent .card::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: -24px -40px !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
-  border-radius: 16px !important;
-  backdrop-filter: blur(8px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
-  pointer-events: none !important;
-  z-index: 0 !important;
+#philosophyContent .card::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: calc(-1 * 24px) calc(-1 * 32px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  backdrop-filter: blur(8px) saturate(140%);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  pointer-events: none;
 }
 
-#philosophy #philosophyContent .card p.text-reveal {
-  position: relative !important;
-  z-index: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  line-height: 1.4 !important;
+#philosophyContent .card > .text-reveal {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  background: transparent !important;
+  filter: none !important;
+  text-shadow: none !important;
 }
 
 #philosophy #philosophyContent {
