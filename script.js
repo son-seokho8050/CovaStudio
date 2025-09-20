@@ -2553,7 +2553,7 @@ class CovaModal2 {
           content: "고2 과정은 고1에서 길러진 탐구·기록 습관을 입시 실전 역량으로 전환하는 브리지 단계입니다.\n\n조건 해석·시간 압박·자기 언어화·전공 탐구를 통합적으로 훈련하며, 대학이 요구하는 창의성·과정성·전공성·설명력을 길러냅니다."
         },
         educationGoals: null,
-        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
+        videoSrc: 'attached_assets/한국_남녀_세_영상_설명_1758369902890.mp4',
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
         goals: [
