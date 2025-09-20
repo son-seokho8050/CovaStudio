@@ -4296,18 +4296,25 @@ summary:focus {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
   padding: 0;
+  margin: 0;
   backdrop-filter: blur(8px) saturate(140%);
   -webkit-backdrop-filter: blur(8px) saturate(140%);
   box-shadow: none;
   background-clip: padding-box;
   min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: fit-content;
+  max-width: 90%;
+  display: inline-block;
+}
+
+#philosophy #philosophyContent {
+  text-align: center;
 }
 
 #philosophy #philosophyContent .card * {
   background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Program Modal Styles */
