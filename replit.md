@@ -82,3 +82,29 @@ Preferred communication style: Simple, everyday language.
 
 ### Fonts and Typography
 - **Google Fonts**: Inter, Space Grotesk, Playfair Display, and additional Korean-supporting fonts via CDN
+
+## Development Guidelines and Lessons Learned
+
+### CSS Architecture and Debugging Methodology
+- **CSS Specificity Management**: Use @layer system for cascade control instead of !important overuse
+- **Conflict Resolution**: Always analyze CSS specificity, browser caching, JavaScript interference, and font metrics simultaneously
+- **Integrated Solutions**: Address multiple root causes in single comprehensive fix rather than piecemeal approaches
+- **Real-time Verification**: Use DevTools computed styles to verify actual application before declaring completion
+
+### Technical Problem-Solving Approach
+1. **Comprehensive Initial Analysis**: Consider all potential causes (CSS conflicts, caching, JS interference, browser rendering)
+2. **Root Cause Identification**: Diagnose fundamental issues rather than treating symptoms
+3. **Systematic Testing**: Verify each change with actual browser inspection before proceeding
+4. **No Premature Completion**: Only declare success after confirmed user verification
+
+### Communication and Responsibility Standards
+- **User Clarity Recognition**: Acknowledge when users provide clear requirements, screenshots, and context
+- **Technical Accountability**: Own technical failures without deflecting to user communication gaps  
+- **Honest Assessment**: Admit technical limitations or knowledge gaps instead of making assumptions
+- **Solution-Focused**: Concentrate on resolving issues rather than explaining why they occurred
+
+### Styling Best Practices
+- **Layer-Based Architecture**: Implement CSS layers (reset, base, components, utilities, overrides) for predictable cascade
+- **Scoped Isolation**: Use container isolation and data attributes to prevent cross-section interference
+- **Progressive Enhancement**: Build base functionality first, then add sophisticated effects
+- **Browser Compatibility**: Test backdrop-filter and advanced CSS features across different browsers
