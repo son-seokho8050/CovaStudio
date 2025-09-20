@@ -2364,7 +2364,7 @@ class CovaModal2 {
         faq: window.COVA_DATA?.stepZero?.faq || []
       },
       'grade1': {
-        title: 'GRADE 1 기초소양',
+        title: 'GRADE 1',
         description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
         overview: window.COVA_DATA?.g1?.overview || null,
         educationGoals: window.COVA_DATA?.g1?.educationGoals || null,
