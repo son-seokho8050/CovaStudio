@@ -6640,7 +6640,7 @@ summary:focus {
 @layer overrides {
   /* 완전 격리된 PHILOSOPHY 스코프 */
   #philosophy .ph-scope,
-  #philosophy .ph-scope * {
+  #philosophy .ph-scope *:not(.card):not(.card::before) {
     backdrop-filter: none !important;
     filter: none !important;
     text-shadow: none !important;
@@ -6687,7 +6687,7 @@ summary:focus {
     display: none !important;
   }
   
-  /* 투명 배경 카드 효과만 유지 */
+  /* 투명 배경 카드 효과 - 더 높은 특이성으로 강제 적용 */
   #philosophy .ph-scope .card::before {
     content: "" !important;
     position: absolute !important;
@@ -6700,5 +6700,7 @@ summary:focus {
     -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
     pointer-events: none !important;
     display: block !important;
+    /* 강제로 테두리 효과 보장 */
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16) !important;
   }
 }
