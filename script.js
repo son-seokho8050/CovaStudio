@@ -1211,19 +1211,14 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Clean layout class application - NO DOM DESTRUCTION
-      this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+      // Apply special layout for all programs
+      this.modal.classList.add('kickoff-layout');
       
-      // Apply program-specific layout class
-      if (programId === 'grade1') {
-        this.modal.classList.add('grade1-layout');
-      } else if (programId === 'stepzero') {
-        this.modal.classList.add('stepzero-layout');
+      // Add additional class for stepzero video scaling
+      if (programId === 'stepzero') {
         this.modal.classList.add('stepzero-video-scaled');
-      } else if (programId === 'grade2') {
-        this.modal.classList.add('grade2-layout');
       } else {
-        this.modal.classList.add('kickoff-layout');
+        this.modal.classList.remove('stepzero-video-scaled');
       }
       
       console.log('Applied special layout for program:', programId);
@@ -1272,7 +1267,7 @@ class CovaModal2 {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
-    this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+    this.modal.classList.remove('kickoff-layout'); // Remove special layout
     document.body.classList.remove('modal-open');
     
     // Pause video
@@ -1540,8 +1535,8 @@ class CovaModal2 {
       return;
     }
     
-    // Setup video WITHOUT ambient effects (Grade1 should show clear main video)
-    this.setupVideoForProgram(grade1Data, 'Grade1', false);
+    // Setup video with ambient effects
+    this.setupVideoForProgram(grade1Data, 'Grade1');
     
     // Setup Key Moment Markers (using kickoff keyMoments as fallback)
     this.setupKeyMomentMarkers(grade1Data);
@@ -1588,7 +1583,7 @@ class CovaModal2 {
     console.log('Grade2 content setup completed');
   }
 
-  setupVideoForProgram(programData, programName, applyAmbientEffects = true) {
+  setupVideoForProgram(programData, programName) {
     if (this.video) {
       try {
         // 프리로딩 설정
@@ -1599,10 +1594,8 @@ class CovaModal2 {
         this.video.controls = false;
         this.video.disablePictureInPicture = true;
         
-        // Apply ambient effects only if requested
-        if (applyAmbientEffects) {
-          this.applyCinematicEffects('ambient');
-        }
+        // Apply ambient effects for background feel
+        this.applyCinematicEffects('ambient');
         
         // 비디오 로딩 완료 대기 후 재생
         const playVideo = () => {
@@ -3591,30 +3584,6 @@ class KeyMomentsController {
     if (this.boundHandlers.keydown) {
       document.removeEventListener('keydown', this.boundHandlers.keydown);
       this.boundHandlers.keydown = null;
-    }
-  }
-
-  onKeyDown(e) {
-    if (!this.isActive || !this.video) return;
-    
-    // Handle keyboard shortcuts for video control
-    switch(e.key) {
-      case ' ':
-        e.preventDefault();
-        if (this.video.paused) {
-          this.video.play();
-        } else {
-          this.video.pause();
-        }
-        break;
-      case 'ArrowLeft':
-        e.preventDefault();
-        this.video.currentTime = Math.max(0, this.video.currentTime - 5);
-        break;
-      case 'ArrowRight':
-        e.preventDefault();
-        this.video.currentTime = Math.min(this.video.duration, this.video.currentTime + 5);
-        break;
     }
   }
 
