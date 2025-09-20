@@ -2062,7 +2062,7 @@ class CovaModal2 {
     // Philosophy Motto (표현과 공유)
     const philosophyMotto = document.getElementById('kickoffPhilosophyMotto');
     if (philosophyMotto && programData.philosophy) {
-      philosophyMotto.textContent = programData.philosophy.expression;
+      philosophyMotto.innerHTML = programData.philosophy.expression ? programData.philosophy.expression.replace(/\n/g, '<br>') : '';
     }
     
     // Philosophy Feedback (피드백)
