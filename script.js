@@ -3594,6 +3594,30 @@ class KeyMomentsController {
     }
   }
 
+  onKeyDown(e) {
+    if (!this.isActive || !this.video) return;
+    
+    // Handle keyboard shortcuts for video control
+    switch(e.key) {
+      case ' ':
+        e.preventDefault();
+        if (this.video.paused) {
+          this.video.play();
+        } else {
+          this.video.pause();
+        }
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        this.video.currentTime = Math.max(0, this.video.currentTime - 5);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        this.video.currentTime = Math.min(this.video.duration, this.video.currentTime + 5);
+        break;
+    }
+  }
+
   onModalHide() {
     if (!this.isActive) return;
     
