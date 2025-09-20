@@ -4269,6 +4269,7 @@ summary:focus {
 #philosophy .container {
   position: relative;
   z-index: 3;
+  margin-top: 150px;
 }
 
 #philosophy .section-header,
