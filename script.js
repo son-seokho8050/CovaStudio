@@ -2407,7 +2407,7 @@ class CovaModal2 {
       },
       'grade2': {
         title: 'GRADE 2 실전 브리지',
-        description: 'COVA 방법론을 실전에 적용하여 고2 학생들의 실기 능력을 체계적으로 향상시킵니다.',
+        description: '고2 과정은 고1에서 만든 탐구 습관을 입시 실전 감각으로 연결하는 과정입니다.',
         videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
