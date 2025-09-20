@@ -2457,7 +2457,7 @@ class CovaModal2 {
           { icon: "star", title: "개성 있는 표현", desc: "자신만의 독창적 표현 방식 개발" }
         ],
         curriculum: [
-          { step: "심화", content: "고급 기법과 표현 방법", time: "3주" },
+          { step: "조건 해석", content: "제시어·제약 조건을 빠르게 이해하고 방향 설정.", time: "" },
           { step: "응용", content: "다양한 주제와 재료 활용", time: "4주" },
           { step: "완성", content: "포트폴리오 제작", time: "4주" },
           { step: "마무리", content: "최종 점검과 보완", time: "3주" }
