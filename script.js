@@ -2068,7 +2068,7 @@ class CovaModal2 {
     // Philosophy Feedback (피드백)
     const philosophyFeedback = document.getElementById('kickoffPhilosophyFeedback');
     if (philosophyFeedback && programData.philosophy) {
-      philosophyFeedback.textContent = programData.philosophy.feedback;
+      philosophyFeedback.innerHTML = programData.philosophy.feedback ? programData.philosophy.feedback.replace(/\n/g, '<br>') : '';
     }
     
     // Philosophy Connection (연결)
@@ -2466,6 +2466,7 @@ class CovaModal2 {
           core: '"주어진 조건을 어떻게 풀어낼까?"\n\n"내 전공적 시야로 어떤 해석이 가능할까?"\n\n→ 조건을 문제로 전환하는 사고 출발점.',
           observation: '조건을 빠르게 해석하고, 아이디어를 스케치·구상으로 전환.\n\n제한 시간 안에 구도·재료·표현 방식을 과감히 선택.',
           expression: '제한 시간내 완성 경험: 착수 → 작업 → 마감까지 흐름 유지.\n\n희망 전공(디자인 분야별·공예 등) 전공에 맞는 표현 방식을 반영.',
+          feedback: '교사 피드백: 조건 해석력·시간 관리·표현 의도·전공 적합성·언어화 능력 5축 점검.\n\n학생 스스로 강점·보완점을 기록해, 다음 과제로 연결.',
           motto: "'실력 있는 예술가'로 성장하는 것이 Grade 2의 목표입니다.",
           principles: [
             "실전 환경 시뮬레이션: 제시 조건·시간·평가 구조 학습.",
