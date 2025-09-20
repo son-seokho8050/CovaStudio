@@ -4292,21 +4292,32 @@ summary:focus {
 }
 
 #philosophy #philosophyContent .card {
+  position: relative !important;
+  display: inline-block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  margin-left: 8% !important;
+  overflow: hidden;
+}
+
+#philosophy #philosophyContent .card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -24px -40px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255, 255, 255, 0.16) !important;
   border-radius: 16px !important;
   backdrop-filter: blur(8px) saturate(140%) !important;
   -webkit-backdrop-filter: blur(8px) saturate(140%) !important;
-  padding: 1.8rem 2.8rem !important;
-  margin: 0 !important;
-  display: inline-block;
-  width: auto;
-  max-width: 85%;
-  box-sizing: border-box;
-  margin-left: 8% !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
 }
 
 #philosophy #philosophyContent .card p.text-reveal {
+  position: relative !important;
+  z-index: 1 !important;
   margin: 0 !important;
   padding: 0 !important;
   line-height: 1.4 !important;
