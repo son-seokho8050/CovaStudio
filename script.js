@@ -2085,6 +2085,12 @@ class CovaModal2 {
   }
   
   setupFAQTab(programData) {
+    // For Grade 2, show results instead of FAQ
+    if (programData.results) {
+      this.setupResultsTab(programData);
+      return;
+    }
+    
     const faqElement = document.getElementById('kickoffFAQ');
     if (faqElement && programData.faq) {
       const faqHTML = `
@@ -2099,6 +2105,49 @@ class CovaModal2 {
       `;
       faqElement.innerHTML = faqHTML;
     }
+  }
+
+  setupResultsTab(programData) {
+    const container = document.getElementById('kickoffFAQ');
+    if (!container || !programData.results) return;
+
+    // Clear existing content
+    container.innerHTML = '';
+
+    // Create results container
+    const resultsContainer = document.createElement('div');
+    resultsContainer.className = 'modal2-results';
+    resultsContainer.setAttribute('data-testid', 'results-container');
+
+    // Create each result step
+    programData.results.steps.forEach((step, index) => {
+      const stepElement = document.createElement('article');
+      stepElement.className = 'result-step';
+      stepElement.setAttribute('data-testid', `result-step-${step.id}`);
+
+      // Step title
+      const titleElement = document.createElement('h4');
+      titleElement.className = 'result-step-title';
+      titleElement.textContent = step.title;
+      stepElement.appendChild(titleElement);
+
+      // Step items list
+      const listElement = document.createElement('ul');
+      listElement.className = 'result-step-list';
+      
+      step.items.forEach((item, itemIndex) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'result-step-item';
+        listItem.textContent = item;
+        listItem.setAttribute('data-testid', `result-item-${step.id}-${itemIndex}`);
+        listElement.appendChild(listItem);
+      });
+
+      stepElement.appendChild(listElement);
+      resultsContainer.appendChild(stepElement);
+    });
+
+    container.appendChild(resultsContainer);
   }
 
   setupProgramFeatures(stepZeroData) {
@@ -2482,31 +2531,39 @@ class CovaModal2 {
           { phase: "전공 탐구 확장", time: "", content: "희망 전공과 연결된 주제·방식을 시도해 학문적 시야 확장.", details: [] },
           { phase: "자기 언어화 능력", time: "", content: "결과물과 과정을 설명하며, 면접·실기 대비.", details: [] }
         ],
-        faq: [
-          { 
-            q: "", 
-            a: `<div class="grade2-results-section">
-<h4>1) 즉각 변화 (수업 직후)</h4>
-<p>• 제시 조건을 빠르게 해석하고, 핵심 문제를 정의하는 힘이 생깁니다.</p>
-<p>• 제한된 시간 안에 작업을 완결하는 경험으로 실전 감각이 길러집니다.</p>
-<p>• 결과물 뒤에 설명을 작성하며, 자기 선택과 과정을 언어로 설명하는 습관이 자리잡습니다.</p>
-</div>
-
-<div class="grade2-results-section">
-<h4>2) 중간 변화</h4>
-<p>• 모든 작업이 디지털 프로세스 폴리오(작품 + 기록 + 설명)로 누적되어, 초석이 쌓입니다.</p>
-<p>• Before/After 비교를 통해, 탐구적 시도가 실전 결과로 발전하는 흐름이 눈에 보입니다.</p>
-<p>• 조건 해석–표현–설명 간의 연결력이 강화되며, 입시 실전 대비력이 상승합니다.</p>
-</div>
-
-<div class="grade2-results-section">
-<h4>3) 장기 변화</h4>
-<p>• 앞으로의 변화하는 대학이 요구하는 4대 핵심 역량, 창의성·과정성·전공성·설명력을 균형 있게 체득합니다.</p>
-<p>• 희망 전공과 연계된 과제를 경험하면서, 전공 적합성과 진로 자신감을 확보합니다.</p>
-<p>• 고3 입시 단계에서 실전 입시와 대응력을 갖춘 학생으로 성장합니다.</p>
-</div>`
-          }
-        ]
+        results: {
+          title: "성과",
+          steps: [
+            {
+              id: "immediate",
+              title: "즉각 변화 (수업 직후)", 
+              items: [
+                "제시 조건을 빠르게 해석하고, 핵심 문제를 정의하는 힘이 생깁니다.",
+                "제한된 시간 안에 작업을 완결하는 경험으로 실전 감각이 길러집니다.",
+                "결과물 뒤에 설명을 작성하며, 자기 선택과 과정을 언어로 설명하는 습관이 자리잡습니다."
+              ]
+            },
+            {
+              id: "mid",
+              title: "중간 변화",
+              items: [
+                "모든 작업이 디지털 프로세스 폴리오(작품 + 기록 + 설명)로 누적되어, 초석이 쌓입니다.",
+                "Before/After 비교를 통해, 탐구적 시도가 실전 결과로 발전하는 흐름이 눈에 보입니다.",
+                "조건 해석–표현–설명 간의 연결력이 강화되며, 입시 실전 대비력이 상승합니다."
+              ]
+            },
+            {
+              id: "long",
+              title: "장기 변화",
+              items: [
+                "앞으로의 변화하는 대학이 요구하는 4대 핵심 역량, 창의성·과정성·전공성·설명력을 균형 있게 체득합니다.",
+                "희망 전공과 연계된 과제를 경험하면서, 전공 적합성과 진로 자신감을 확보합니다.",
+                "고3 입시 단계에서 실전 입시와 대응력을 갖춘 학생으로 성장합니다."
+              ]
+            }
+          ]
+        },
+        faq: []
       },
       'g1-foundation': {
         title: 'G1 기초소양 탐구',
