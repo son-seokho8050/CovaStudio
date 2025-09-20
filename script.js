@@ -2508,7 +2508,7 @@ class CovaModal2 {
         description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
         overview: window.COVA_DATA?.g1?.overview || null,
         educationGoals: window.COVA_DATA?.g1?.educationGoals || null,
-        videoSrc: window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4',
+        videoSrc: 'attached_assets/KakaoTalk_20250920_201245440_1758366850509.mp4',
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_httpss.mj.runh4XtrOKMTrA_httpss.mj.runD0rMXAWbSs8_htt_c782fc3f-79d8-4ef2-b228-e5de600df80c_2_1758363630855.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
         goals: [],
