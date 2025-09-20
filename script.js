@@ -1211,21 +1211,41 @@ class CovaModal2 {
     const useSpecialLayout = true;
     
     if (useSpecialLayout) {
-      // Apply program-specific layout classes
+      // CRITICAL: Remove ALL existing layout classes to prevent contamination
+      this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+      
+      // Clear media area DOM to remove kickoff residuals
+      const mediaArea = this.modal.querySelector('.modal2-media');
+      if (mediaArea) {
+        mediaArea.innerHTML = '';
+        // Rebuild clean video container for any program
+        const videoContainer = document.createElement('div');
+        videoContainer.className = 'modal2-media-box';
+        videoContainer.innerHTML = `
+          <video class="modal2-video" preload="metadata" muted loop playsinline>
+            <source src="" type="video/mp4">
+          </video>`;
+        mediaArea.appendChild(videoContainer);
+        
+        // Update video reference
+        this.video = videoContainer.querySelector('.modal2-video');
+        this.videoSource = this.video.querySelector('source');
+      }
+      
+      // Apply EXCLUSIVE program-specific layout class
+      this.modal.setAttribute('data-program', programId);
       if (programId === 'grade1') {
         this.modal.classList.add('grade1-layout');
+      } else if (programId === 'stepzero') {
+        this.modal.classList.add('stepzero-layout');
+        this.modal.classList.add('stepzero-video-scaled');
+      } else if (programId === 'grade2') {
+        this.modal.classList.add('grade2-layout');
       } else {
         this.modal.classList.add('kickoff-layout');
       }
       
-      // Add additional class for stepzero video scaling
-      if (programId === 'stepzero') {
-        this.modal.classList.add('stepzero-video-scaled');
-      } else {
-        this.modal.classList.remove('stepzero-video-scaled');
-      }
-      
-      console.log('Applied special layout for program:', programId);
+      console.log('Applied EXCLUSIVE layout for program:', programId);
     } else {
       // Remove special layout (fallback)
       this.modal.classList.remove('kickoff-layout');
@@ -1271,7 +1291,16 @@ class CovaModal2 {
     console.log('Closing Modal v2');
     
     this.modal.classList.remove('is-open');
-    this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout'); // Remove all special layouts
+    // CRITICAL: Complete layout and DOM reset
+    this.modal.classList.remove('kickoff-layout', 'grade1-layout', 'grade2-layout', 'stepzero-layout', 'stepzero-video-scaled');
+    this.modal.removeAttribute('data-program');
+    
+    // Clear media area completely to prevent residual DOM
+    const mediaArea = this.modal.querySelector('.modal2-media');
+    if (mediaArea) {
+      mediaArea.innerHTML = '';
+    }
+    
     document.body.classList.remove('modal-open');
     
     // Pause video
