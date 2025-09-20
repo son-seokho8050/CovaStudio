@@ -2438,9 +2438,8 @@ class CovaModal2 {
           ]
         },
         methodology: [
-          { phase: "Pre(기획)", time: "30분", content: "작품 기획과 전략 수립", details: ["주제 분석", "작품 기획", "전략 수립"] },
-          { phase: "Core(제작)", time: "120분", content: "고급 기법을 활용한 작품 제작", details: ["기법 적용", "작품 제작", "완성도 관리"] },
-          { phase: "Post(평가)", time: "30분", content: "작품 평가와 개선 방안 도출", details: ["작품 평가", "피드백", "개선 계획"] }
+          { phase: "교육 목표 1", time: "", content: "주어진 조건과 시간 안에서 빠른 해석·집중 표현·자기 설명 능력을 강화합니다.", details: [] },
+          { phase: "교육 목표 2", time: "", content: "실제 시험 환경과 유사한 상황에 익숙해지게 합니다.", details: [] }
         ],
         faq: [
           { q: "Grade 2는 어떤 학생에게 적합한가요?", a: "기초 실력을 갖추고 본격적인 입시 준비를 하는 고2 학생들에게 적합합니다." },
