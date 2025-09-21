@@ -678,38 +678,9 @@ body.modal-open {
   opacity: 0.82;
 }
 
-/* STEPZERO video scaling - 영상 확대 효과 */
-.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video,
-.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video.ambient,
-.cova-modal2.kickoff-layout.stepzero-video-scaled .cinematic-wrap .modal2-video,
-.cova-modal2.kickoff-layout.stepzero-video-scaled .cinematic-wrap .modal2-video.ambient {
-  width: 90% !important; /* 좌우 넓이 줄임 - 프레임 안에 맞게 */
-  height: 100% !important;
-  margin: 0 auto !important; /* 가운데 정렬 */
-  object-fit: cover !important; 
-  object-position: 65% center !important; /* 영상 내용을 오른쪽으로 이동 */
-  aspect-ratio: 3 / 2 !important; 
-  max-height: none !important;
-  max-width: none !important;
-  transform: scale(1.26) !important; /* 영상 확대 30% 줄임 */
-  transform-origin: center center !important; /* 확대 기준점을 중앙으로 */
-  filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
-  animation: none;
-  will-change: auto;
-}
+/* Removed cross-layout coupling selector - now handled in isolated system */
 
-/* STEPZERO 영상 위치 수정 - 적당한 크기 */
-.cova-modal2.kickoff-layout.stepzero-video-scaled .modal2-video,
-.cova-modal2.stepzero-layout .modal2-video,
-video.modal2-video[src*="그림_그리는_여자"] {
-  object-fit: cover !important; /* contain에서 cover로 변경 */
-  object-position: 85% 50% !important; /* 훨씬 더 오른쪽으로 */
-  transform: translateX(12%) scale(1.25) !important; /* 왼쪽으로 0.5cm 이동 조정 */
-  width: 115% !important; /* 영상 넓이 적당히 증가 */
-  height: 115% !important; /* 영상 높이도 적당히 증가 */
-  left: -7% !important; /* 왼쪽 여백 적당히 조정 */
-  top: -7% !important; /* 위쪽 여백도 적당히 조정 */
-}
+/* Removed global and cross-layout selectors - now handled in isolated system */
 
 /* Ensure stepzero video is always muted and has no controls */
 .cova-modal2.stepzero-layout .modal2-video,
@@ -853,24 +824,7 @@ video.modal2-video[src*="그림_그리는_여자"] {
    GRADE1 LAYOUT STYLES
    =================================== */
 
-/* GRADE-1 specific video styling - HIGH PRIORITY OVERRIDE */
-.cova-modal2.grade1-layout .modal2-video,
-.cova-modal2.kickoff-layout.grade1-layout .modal2-video,
-.cova-modal2 .cova-modal2-dialog.grade1-layout .modal2-video {
-  width: calc(100% - 4cm) !important; /* 오른쪽을 1cm 더 줄여서 타이틀과 겹치지 않도록 */
-  height: 100%;
-  margin-left: 1.5cm !important; /* 중앙 정렬을 위해 여백 조정 */
-  object-fit: cover;
-  aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
-  max-height: 100%;
-  max-width: calc(100% - 4cm) !important; /* 최대 너비도 동일하게 조정 */
-  pointer-events: none; /* Disable all mouse interactions */
-  -webkit-touch-callout: none; /* Disable callout on iOS */
-  -webkit-user-select: none; /* Disable text selection */
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+/* Removed duplicate - now handled in isolated system at end of file */
 
 /* Apply same glassmorphism effects for grade1 layout */
 .cova-modal2.grade1-layout .modal2-detail-section {
@@ -996,22 +950,7 @@ video.modal2-video[src*="그림_그리는_여자"] {
    GRADE2 LAYOUT STYLES
    =================================== */
 
-/* GRADE-2 specific video styling to prevent overlap with thumbnails */
-.cova-modal2.grade2-layout .modal2-video {
-  width: 95% !important; /* 영상 크기를 5% 줄여서 썸네일과 겹치지 않도록 */
-  height: 85% !important; /* 높이도 약간 줄여서 여백 확보 */
-  margin: auto !important; /* 중앙 정렬 */
-  object-fit: cover;
-  aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
-  max-width: 95% !important;
-  max-height: 85% !important;
-  pointer-events: none; /* Disable all mouse interactions */
-  -webkit-touch-callout: none; /* Disable callout on iOS */
-  -webkit-user-select: none; /* Disable text selection */
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+/* Removed duplicate - now handled in isolated system at end of file */
 
 /* Apply same glassmorphism effects for grade2 layout */
 .cova-modal2.grade2-layout .modal2-detail-section {
@@ -6782,16 +6721,48 @@ summary:focus {
 }
 
 /* ===================================
-   GRADE 1 VIDEO OVERRIDE - FINAL PRIORITY
+   COMPLETELY ISOLATED MODAL VIDEO SYSTEM
+   Each modal has independent styles - no cross-contamination
    =================================== */
 
-/* GRADE 1 영상 크기 조정 - 컨테이너 기반 접근법 (JS 재정의 방지) */
+/* KICKOFF 모달 - 컨테이너와 비디오 완전 분리 */
+.cova-modal2.kickoff-layout .modal2-media-box {
+  padding-left: 0.5rem;
+  margin-top: -5%;
+}
+
+.cova-modal2.kickoff-layout .modal2-video {
+  width: 100%;
+  height: 85%;
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+  pointer-events: none;
+}
+
+/* GRADE 1 모달 - 컨테이너 패딩으로 오른쪽 줄이기 */
 .cova-modal2.grade1-layout .modal2-media-box {
-  box-sizing: border-box !important;
-  padding-right: 1cm !important;
+  padding-right: 3rem; /* 오른쪽에 3rem 패딩으로 영상 영역 줄임 */
 }
 
 .cova-modal2.grade1-layout .modal2-video {
-  max-width: 100% !important;
-  object-fit: contain !important;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* GRADE 2 모달 - 기본 컨테이너 설정 */
+.cova-modal2.grade2-layout .modal2-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* STEPZERO 모달 - 기본 컨테이너 설정 */
+.cova-modal2.stepzero-layout .modal2-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
