@@ -1372,17 +1372,11 @@ class CovaModal2 {
     this.setupVideoForProgram(stepZeroData, 'Grade-Junior');
     this.applyCinematicEffects('ambient'); // ADD MISSING AMBIENT EFFECTS
     
-    // STEPZERO 영상 위치 조정 - 극적 개선 방안
+    // CSS Variables handle all stepzero video positioning now
+    // No more inline styles - let CSS data-program attributes control styling
     if (this.video) {
-      this.video.style.objectFit = 'cover';
-      this.video.style.objectPosition = '85% 50%'; // 더 오른쪽으로 이동
-      this.video.style.setProperty('object-position', '85% 50%', 'important');
-      this.video.style.setProperty('object-fit', 'cover', 'important');
-      this.video.style.setProperty('transform', 'translateX(12%) scale(1.25)', 'important'); // 왼쪽으로 0.5cm 이동 조정
-      
-      // 현재 적용된 스타일 확인 로그
       const computedStyle = window.getComputedStyle(this.video);
-      console.log('Applied DRAMATIC stepzero video positioning');
+      console.log('CSS Variables applied for stepzero video positioning');
       console.log('Computed object-fit:', computedStyle.objectFit);
       console.log('Computed object-position:', computedStyle.objectPosition);
       console.log('Computed transform:', computedStyle.transform);

@@ -6727,8 +6727,8 @@ summary:focus {
    Single rule set consumes these variables - no conflicts
    =================================== */
 
-/* Program-specific CSS variable definitions */
-[data-program="kickoff"] {
+/* Program-specific CSS variable definitions with modal scoping */
+.cova-modal2[data-program="kickoff"] {
   --video-width: 100%;
   --video-height: 85%;
   --video-object-fit: cover;
@@ -6737,20 +6737,20 @@ summary:focus {
   --media-box-margin-top: -5%;
 }
 
-[data-program="grade1"] {
+.cova-modal2[data-program="grade1"] {
   --video-width: 100%;
   --video-height: 100%;
   --video-object-fit: contain;
   --media-box-padding-right: 3rem;
 }
 
-[data-program="grade2"] {
+.cova-modal2[data-program="grade2"] {
   --video-width: 100%;
   --video-height: 100%;
   --video-object-fit: contain;
 }
 
-[data-program="stepzero"] {
+.cova-modal2[data-program="stepzero"] {
   --video-width: 115%;
   --video-height: 115%;
   --video-object-fit: cover;
