@@ -1935,6 +1935,7 @@ class CovaModal2 {
     // Show tabbed content
     const kickoffDetails = document.getElementById('modal2KickoffDetails');
     if (kickoffDetails) {
+      kickoffDetails.setAttribute('data-visible', 'true');
       kickoffDetails.style.display = 'block';
     }
   }
