@@ -6751,13 +6751,13 @@ summary:focus {
 }
 
 .cova-modal2[data-program="stepzero"] {
-  --video-width: 115%;
-  --video-height: 100%;
+  --video-width: 130%;
+  --video-height: 130%;
   --video-object-fit: cover;
   --video-object-position: center center;
   --video-transform: none;
-  --video-left: -2.5%;
-  --video-top: 0;
+  --video-left: -15%;
+  --video-top: -15%;
 }
 
 /* DEFAULT LAYOUT FOR NON-KICKOFF PROGRAMS */
