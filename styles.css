@@ -228,8 +228,8 @@ body.modal-open {
   width: min(1400px, 96vw);
 }
 
-/* Left area - split into video (top) and image (bottom) - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .modal2-media {
+/* Left area - split into video (top) and image (bottom) - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .modal2-media {
   grid-area: media;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto; /* Content-sized bottom */
@@ -239,8 +239,8 @@ body.modal-open {
   min-height: 0;
 }
 
-/* Video section (top left) - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .modal2-video-section {
+/* Video section (top left) - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .modal2-video-section {
   background: #000000;
   display: flex;
   align-items: center;
@@ -250,7 +250,7 @@ body.modal-open {
   margin-top: -38px;
 }
 
-.cova-modal2 .modal2-media-box {
+.cova-modal2.kickoff-layout .modal2-media-box {
   width: 100%;
   height: 100%;
   aspect-ratio: unset; /* Remove fixed aspect ratio */
@@ -259,8 +259,8 @@ body.modal-open {
   justify-content: center;
 }
 
-/* Cinematic wrapper for professional video effects - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .cinematic-wrap {
+/* Cinematic wrapper for professional video effects - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .cinematic-wrap {
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -284,8 +284,8 @@ body.modal-open {
   user-select: none;
 }
 
-/* Ambient background video styling - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .modal2-video.ambient {
+/* Ambient background video styling - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .modal2-video.ambient {
   filter: blur(1.2px) saturate(0.58) contrast(0.9) brightness(0.85);
   animation: none;
   will-change: auto;
@@ -413,8 +413,8 @@ body.modal-open {
   display: none !important;
 }
 
-/* Image section (bottom left) - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .modal2-image-section {
+/* Image section (bottom left) - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .modal2-image-section {
   background: var(--bg-secondary);
   display: grid;
   place-content: end center;
@@ -424,8 +424,8 @@ body.modal-open {
   overflow: hidden;
 }
 
-/* Thumbnails Grid - UNIFIED FOR ALL PROGRAMS */
-.cova-modal2 .modal2-thumbnails-grid {
+/* Thumbnails Grid - KICKOFF ONLY */
+.cova-modal2.kickoff-layout .modal2-thumbnails-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, auto);
@@ -1304,12 +1304,12 @@ body.modal-open {
     gap: 0;
   }
   
-  .cova-modal2 .modal2-media {
+  .cova-modal2.kickoff-layout .modal2-media {
     grid-template-rows: 1fr auto; /* Video takes more space, image compacts */
     max-height: 60vh;
   }
   
-  .cova-modal2 .modal2-image-section {
+  .cova-modal2.kickoff-layout .modal2-image-section {
     padding: var(--space-2);
     max-height: 240px; /* Sufficient height for 2x3 mobile grid */
   }
@@ -1956,8 +1956,8 @@ body.modal-open {
     color: var(--text-secondary);
   }
   
-  /* Mobile thumbnails grid - UNIFIED FOR ALL PROGRAMS */
-  .cova-modal2 .modal2-thumbnails-grid {
+  /* Mobile thumbnails grid - KICKOFF ONLY */
+  .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: var(--space-1);
@@ -6758,6 +6758,28 @@ summary:focus {
   --video-transform: translateX(12%) scale(1.25);
   --video-left: -7%;
   --video-top: -7%;
+}
+
+/* DEFAULT LAYOUT FOR NON-KICKOFF PROGRAMS */
+.cova-modal2:not(.kickoff-layout) .modal2-media {
+  grid-area: media;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  padding: var(--space-4);
+}
+
+.cova-modal2:not(.kickoff-layout) .modal2-video-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cova-modal2:not(.kickoff-layout) .modal2-image-section {
+  display: none; /* Hide thumbnails for non-kickoff programs */
 }
 
 /* Single unified video system using CSS variables */
