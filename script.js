@@ -980,14 +980,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
     // Portfolio content is now displayed in HTML with static structure
 
     // Kick-Off tables
-    renderTable("#kickG1", COVA_DATA.kickoff.g1);
-    renderTable("#kickG2", COVA_DATA.kickoff.g2);
+    renderTable("#kickG1", COVA_DATA.kickoff.grade1);
+    renderTable("#kickG2", COVA_DATA.kickoff.grade2);
 
     // Step-Zero section removed
 
     // KPI
     renderList("#kpiCommon", COVA_DATA.kpi.common);
-    renderList("#kpiG2", COVA_DATA.kpi.g2);
+    renderList("#kpiG2", COVA_DATA.kpi.grade2);
 
     // FAQ
     renderFAQ();
@@ -2481,24 +2481,24 @@ class CovaModal2 {
   getProgramData(program) {
     const programsMap = {
       'stepzero': {
-        title: window.COVA_DATA?.stepZero?.title || 'GRADE-JUNIOR',
-        description: window.COVA_DATA?.stepZero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
-        overview: window.COVA_DATA?.stepZero?.overview || null,
-        educationGoals: window.COVA_DATA?.stepZero?.educationGoals || null,
-        videoSrc: window.COVA_DATA?.stepZero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
-        imageSrc: window.COVA_DATA?.stepZero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
-        keyMoments: window.COVA_DATA?.stepZero?.keyMoments || [],
-        goals: window.COVA_DATA?.stepZero?.goals || [],
-        curriculum: window.COVA_DATA?.stepZero?.curriculum || [],
-        philosophy: window.COVA_DATA?.stepZero?.philosophy || '',
-        methodology: window.COVA_DATA?.stepZero?.methodology || [],
-        faq: window.COVA_DATA?.stepZero?.faq || []
+        title: window.COVA_DATA?.stepzero?.title || 'GRADE-JUNIOR',
+        description: window.COVA_DATA?.stepzero?.description || 'COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다.',
+        overview: window.COVA_DATA?.stepzero?.overview || null,
+        educationGoals: window.COVA_DATA?.stepzero?.educationGoals || null,
+        videoSrc: window.COVA_DATA?.stepzero?.videoSrc || 'attached_assets/진지한_설명_경청하는_여성들_영상_1757923529915.mp4',
+        imageSrc: window.COVA_DATA?.stepzero?.imageSrc || window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_Minimalist_abstract_sculptural_image_centered_on_the__caa1e2f2-e518-44ea-89d1-a98ba77a4b50_2_1757919225708.png',
+        keyMoments: window.COVA_DATA?.stepzero?.keyMoments || [],
+        goals: window.COVA_DATA?.stepzero?.goals || [],
+        curriculum: window.COVA_DATA?.stepzero?.curriculum || [],
+        philosophy: window.COVA_DATA?.stepzero?.philosophy || '',
+        methodology: window.COVA_DATA?.stepzero?.methodology || [],
+        faq: window.COVA_DATA?.stepzero?.faq || []
       },
       'grade1': {
         title: 'GRADE 1',
         description: 'COVA 기초소양을 통한 탐구 중심 학습으로 고1 학생들의 미술적 사고력을 키워줍니다.',
-        overview: window.COVA_DATA?.g1?.overview || null,
-        educationGoals: window.COVA_DATA?.g1?.educationGoals || null,
+        overview: window.COVA_DATA?.grade1?.overview || null,
+        educationGoals: window.COVA_DATA?.grade1?.educationGoals || null,
         videoSrc: 'attached_assets/KakaoTalk_20250920_201245440_1758366850509.mp4',
         imageSrc: window.COVA_DATA?.kickoff?.imageSrc || 'attached_assets/cocodio_httpss.mj.runh4XtrOKMTrA_httpss.mj.runD0rMXAWbSs8_htt_c782fc3f-79d8-4ef2-b228-e5de600df80c_2_1758363630855.png',
         keyMoments: window.COVA_DATA?.kickoff?.keyMoments || [],
