@@ -6777,7 +6777,7 @@ summary:focus {
   top: 7.5% !important;
   object-fit: cover !important;
   transform-origin: center;
-  transform: translateX(-5%) scale(0.95, 1);
+  transform: translateX(-2%) scale(0.95, 1);
 }
 
 /* DEFAULT LAYOUT FOR NON-KICKOFF PROGRAMS */
