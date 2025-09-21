@@ -1223,8 +1223,8 @@ class CovaModal2 {
     
     // Update basic content
     this.title.textContent = programData.title;
-    // Skip description for special layout (all programs)
-    if (!useSpecialLayout) {
+    // Skip description for special layout programs
+    if (programId !== 'kickoff') {
       this.description.textContent = programData.description;
     }
     
@@ -1234,7 +1234,7 @@ class CovaModal2 {
     this.video.load();
     
     // Handle program-specific content setup
-    if (useSpecialLayout) {
+    if (programId === 'kickoff' || programId === 'stepzero' || programId === 'grade1' || programId === 'grade2') {
       this.setupProgramContent(programId);
     } else {
       this.hideSpecialContent();
