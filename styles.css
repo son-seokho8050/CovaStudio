@@ -6776,6 +6776,7 @@ summary:focus {
   left: 0 !important;
   top: 7.5% !important;
   object-fit: cover !important;
+  object-position: 15% center;
   transform-origin: center;
   transform: translateX(-2%) scale(0.95, 1);
 }
