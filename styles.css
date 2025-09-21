@@ -685,6 +685,7 @@ body.modal-open {
 /* Ensure stepzero video is always muted and has no controls */
 .cova-modal2.stepzero-layout .modal2-video,
 .cova-modal2.stepzero-layout .modal2-video.ambient {
+  /* 영상 위치와 크기는 JavaScript에서 설정하므로 여기서는 제거 */
   pointer-events: none !important; /* Disable all interactions */
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
@@ -6759,14 +6760,4 @@ summary:focus {
   pointer-events: none;
 }
 
-/* STEPZERO 모달 - 원래 DRAMATIC 비디오 효과 복원 */
-.cova-modal2.stepzero-layout .modal2-video {
-  object-fit: cover !important;
-  object-position: 85% 50% !important;
-  transform: translateX(12%) scale(1.25) !important;
-  width: 115% !important;
-  height: 115% !important;
-  left: -7% !important;
-  top: -7% !important;
-  pointer-events: none;
-}
+/* STEPZERO 모달 - JavaScript 설정을 방해하지 않도록 제거 */
