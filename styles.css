@@ -6750,14 +6750,19 @@ summary:focus {
   --video-object-fit: contain;
 }
 
-.cova-modal2[data-program="stepzero"] {
-  --video-width: 130%;
-  --video-height: 130%;
-  --video-object-fit: cover;
-  --video-object-position: center center;
-  --video-transform: none;
-  --video-left: -15%;
-  --video-top: -15%;
+/* STEPZERO: CSS-only video cropping to remove letterbox */
+.cova-modal2[data-program="stepzero"] .modal2-media-box {
+  overflow: hidden;
+}
+
+.cova-modal2[data-program="stepzero"] .modal2-video {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+  object-fit: cover !important;
+  transform-origin: center;
+  transform: translate(-1%, 0) scale(1.15, 1.15);
 }
 
 /* DEFAULT LAYOUT FOR NON-KICKOFF PROGRAMS */
