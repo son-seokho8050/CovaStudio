@@ -995,6 +995,23 @@ video.modal2-video[src*="그림_그리는_여자"] {
    GRADE2 LAYOUT STYLES
    =================================== */
 
+/* GRADE-2 specific video styling to prevent overlap with thumbnails */
+.cova-modal2.grade2-layout .modal2-video {
+  width: 95% !important; /* 영상 크기를 5% 줄여서 썸네일과 겹치지 않도록 */
+  height: 85% !important; /* 높이도 약간 줄여서 여백 확보 */
+  margin: auto !important; /* 중앙 정렬 */
+  object-fit: cover;
+  aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
+  max-width: 95% !important;
+  max-height: 85% !important;
+  pointer-events: none; /* Disable all mouse interactions */
+  -webkit-touch-callout: none; /* Disable callout on iOS */
+  -webkit-user-select: none; /* Disable text selection */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 /* Apply same glassmorphism effects for grade2 layout */
 .cova-modal2.grade2-layout .modal2-detail-section {
   background: linear-gradient(
