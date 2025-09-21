@@ -585,6 +585,7 @@ class TileMosaicController {
           console.log('Tile mosaic became visible - starting animations');
           this.isVisible = true;
           this.startAnimations();
+          this.initializeVideoLazyLoading();
         } else if (!entry.isIntersecting && this.isVisible) {
           console.log('Tile mosaic became hidden - pausing animations');
           this.isVisible = false;
@@ -600,6 +601,64 @@ class TileMosaicController {
     if (this.container) {
       this.observer.observe(this.container);
     }
+  }
+
+  initializeVideoLazyLoading() {
+    // 첫 번째 고우선순위 비디오 즉시 재생
+    const highPriorityVideo = document.querySelector('.tile-video[data-priority="high"]');
+    if (highPriorityVideo && highPriorityVideo.preload === 'metadata') {
+      highPriorityVideo.addEventListener('canplaythrough', () => {
+        if (this.isVisible && !this.isPaused) {
+          highPriorityVideo.play().catch(e => {
+            console.log('High priority video autoplay blocked:', e.message);
+          });
+        }
+      }, { once: true });
+      highPriorityVideo.load(); // 즉시 로드 시작
+    }
+
+    // 저우선순위 비디오들 지연 로딩
+    const lowPriorityVideos = document.querySelectorAll('.tile-video[data-priority="low"]');
+    this.pendingVideoTimeouts = []; // 타이머 추적용
+    
+    lowPriorityVideos.forEach((video, index) => {
+      // 점진적 로딩: 2초씩 지연하여 순차적으로 로드
+      const timeoutId = setTimeout(() => {
+        if (video.preload === 'none' && this.isVisible) {
+          video.preload = 'metadata';
+          video.load();
+          console.log(`DEBUG: Lazy loading video ${index + 2}`);
+          
+          // 로드 완료 후 재생 시도
+          video.addEventListener('canplaythrough', () => {
+            if (this.isVisible && !this.isPaused) {
+              video.play().catch(e => {
+                console.log('Video autoplay blocked:', e.message);
+              });
+            }
+          }, { once: true });
+        }
+      }, index * 2000 + 1000); // 1초 후부터 2초씩 간격
+      
+      this.pendingVideoTimeouts.push(timeoutId);
+    });
+
+    // 다른 섹션의 비디오들도 지연 로딩
+    this.setupBackgroundVideoLazyLoading();
+  }
+
+  setupBackgroundVideoLazyLoading() {
+    const backgroundVideos = document.querySelectorAll('.philosophy-bg-video, .ambient-video');
+    
+    backgroundVideos.forEach((video, index) => {
+      setTimeout(() => {
+        if (video.preload === 'none') {
+          video.preload = 'metadata';
+          video.load();
+          console.log(`DEBUG: Lazy loading background video ${index + 1}`);
+        }
+      }, 5000 + index * 1000); // 5초 후부터 시작
+    });
   }
 
   setupPageVisibilityAPI() {
@@ -846,6 +905,13 @@ class TileMosaicController {
         animation.pause();
       }
     });
+    
+    // 펜딩 중인 비디오 로딩 타이머들 취소
+    if (this.pendingVideoTimeouts) {
+      this.pendingVideoTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+      this.pendingVideoTimeouts = [];
+      console.log('Cancelled pending video loading timeouts');
+    }
   }
 
   resumeAnimations() {
@@ -882,6 +948,13 @@ class TileMosaicController {
     
     // Stop all animations first
     this.stopAnimations();
+    
+    // Cancel pending video loading timeouts
+    if (this.pendingVideoTimeouts) {
+      this.pendingVideoTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+      this.pendingVideoTimeouts = [];
+      console.log('Cleared all pending video timeouts');
+    }
     
     // Disconnect all observers
     if (this.observer) {
@@ -1220,9 +1293,13 @@ class CovaModal2 {
       this.description.textContent = programData.description;
     }
     
-    // Set video source
+    // Set video source with cache optimization and lazy loading
     const videoSrc = programData.videoSrc || window.COVA_DATA?.kickoff?.videoSrc || 'attached_assets/남성_강사의_스케치_수업_1758107827768.mp4';
-    this.videoSource.src = videoSrc;
+    const optimizedVideoSrc = this.optimizeMediaSrc(videoSrc);
+    this.videoSource.src = optimizedVideoSrc;
+    
+    // 모달이 열릴 때만 비디오 로드
+    this.video.preload = 'metadata';
     this.video.load();
     
     // Handle program-specific content setup
@@ -1256,8 +1333,10 @@ class CovaModal2 {
     this.modal.classList.remove('kickoff-layout'); // Remove special layout
     document.body.classList.remove('modal-open');
     
-    // Pause video
+    // Pause and unload video to save memory
     this.video.pause();
+    this.video.preload = 'none';
+    this.video.src = ''; // Clear src to free memory
     
     // Hide special content
     this.hideSpecialContent();
@@ -1569,8 +1648,8 @@ class CovaModal2 {
   setupVideoForProgram(programData, programName) {
     if (this.video) {
       try {
-        // 프리로딩 설정
-        this.video.preload = 'metadata';
+        // 초기 설정 - 모달이 열릴 때 preload 설정
+        this.video.preload = 'none';
         this.video.autoplay = true;
         this.video.muted = true;
         this.video.loop = true;
@@ -1839,37 +1918,43 @@ class CovaModal2 {
           ];
         }
         
-        // 새 썸네일 생성
+        // 성능 최적화된 썸네일 생성
         thumbnailSources.forEach((src, index) => {
           const thumbnailItem = document.createElement('div');
           thumbnailItem.className = 'thumbnail-item';
           
           const img = document.createElement('img');
           
-          // 스마트 캐시 전략: 최근 업로드 이미지만 캐시 버스팅
-          let finalSrc = src;
-          const isRecentUpload = src.includes('_1758365') || src.includes('grade1_thumbnail_') || src.includes('_1758444038266') || src.includes('_1758444038267');
+          // 통합 미디어 캐시 최적화 적용
+          const finalSrc = this.optimizeMediaSrc(src);
           
-          if (isRecentUpload) {
-            // 최근 업로드 이미지는 캐시 버스팅 적용
-            finalSrc = src + '?v=' + Date.now();
-            console.log(`Cache busting applied for recent upload: ${src}`);
+          // 첫 4개는 즉시 로드, 나머지는 점진적 로드
+          if (index < 4) {
+            img.src = finalSrc;
+            img.loading = 'eager';
           } else {
-            // 기존 이미지는 캐시 활용 (고정 버전)
-            finalSrc = src + '?v=stable';
+            // 나머지는 data-src에 저장하고 나중에 로드
+            img.setAttribute('data-src', finalSrc);
+            img.loading = 'lazy';
+            img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg=='; // 1x1 투명 placeholder
           }
           
-          img.src = finalSrc;
           img.alt = `${currentProgram} 썸네일 ${index + 1}`;
           img.setAttribute('data-testid', `thumbnail-${index + 1}`);
-          img.loading = 'lazy'; // 지연 로딩 활성화
           
           // 디버깅 로그 간소화
-          console.log(`DEBUG: Setting thumbnail ${index + 1} for ${currentProgram}:`, finalSrc);
+          if (index < 4) {
+            console.log(`DEBUG: Eager loading thumbnail ${index + 1} for ${currentProgram}`);
+          } else {
+            console.log(`DEBUG: Deferred loading thumbnail ${index + 1} for ${currentProgram}`);
+          }
           
           thumbnailItem.appendChild(img);
           thumbnailsGrid.appendChild(thumbnailItem);
         });
+
+        // 지연된 썸네일들을 Intersection Observer로 로드
+        this.setupThumbnailLazyLoading(thumbnailsGrid);
         
         thumbnailsGrid.setAttribute('data-visible', 'true'); // Use data attribute instead of inline style
         console.log('Thumbnails rehydrated for', currentProgram, 'with', thumbnailSources.length, 'items');
@@ -1878,6 +1963,73 @@ class CovaModal2 {
     }
   }
   
+  optimizeMediaSrc(src) {
+    if (!src) return src;
+
+    // 최근 업로드 파일 패턴 감지
+    const isRecentUpload = src.includes('_1758365') || 
+                          src.includes('grade1_thumbnail_') || 
+                          src.includes('_1758444038266') || 
+                          src.includes('_1758444038267') ||
+                          src.includes('KakaoTalk_20250920') ||
+                          src.includes('_1758369902890') ||
+                          src.includes('_1758366850509');
+
+    let optimizedSrc = src;
+
+    if (isRecentUpload) {
+      // 최근 파일: 10분마다 캐시 갱신 (개발 중)
+      const cacheVersion = Math.floor(Date.now() / (1000 * 60 * 10));
+      optimizedSrc = src + '?v=dev_' + cacheVersion;
+    } else {
+      // 기존 파일: 장기 캐시 사용
+      optimizedSrc = src + '?v=stable';
+    }
+
+    return optimizedSrc;
+  }
+
+  setupThumbnailLazyLoading(thumbnailsGrid) {
+    // Intersection Observer로 지연된 썸네일들을 점진적 로딩
+    const lazyImages = thumbnailsGrid.querySelectorAll('img[data-src]');
+    
+    if (lazyImages.length === 0) return;
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          
+          // 점진적 로딩: 100ms씩 지연
+          setTimeout(() => {
+            img.src = img.getAttribute('data-src');
+            img.removeAttribute('data-src');
+            observer.unobserve(img);
+            console.log(`DEBUG: Lazy loaded thumbnail:`, img.alt);
+          }, index * 100);
+        }
+      });
+    }, {
+      root: thumbnailsGrid,
+      rootMargin: '50px',
+      threshold: 0.1
+    });
+
+    // 모든 지연된 이미지를 관찰 시작
+    lazyImages.forEach(img => imageObserver.observe(img));
+
+    // 3초 후에는 남은 이미지들 모두 로드 (fallback)
+    setTimeout(() => {
+      lazyImages.forEach(img => {
+        if (img.getAttribute('data-src')) {
+          img.src = img.getAttribute('data-src');
+          img.removeAttribute('data-src');
+          imageObserver.unobserve(img);
+        }
+      });
+    }, 3000);
+  }
+
   setupConceptVisualization() {
     const conceptVisual = document.getElementById('modal2ConceptVisual');
     if (conceptVisual) {
