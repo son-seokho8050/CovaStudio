@@ -3685,7 +3685,7 @@ class KeyMomentsController {
     if (modalTitle) {
       const titleText = modalTitle.textContent.toLowerCase();
       if (titleText.includes('kick-off')) return 'kickoff';
-      if (titleText.includes('step-zero')) return 'stepZero';
+      if (titleText.includes('step-zero')) return 'stepzero';
     }
     
     // Fallback to checking active program card
