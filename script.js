@@ -1207,19 +1207,11 @@ class CovaModal2 {
     const programData = this.getProgramData(programId);
     this.currentProgram = programId;
     
-    // Apply special layout ONLY for kickoff program
-    if (programId === 'kickoff') {
-      this.modal.classList.add('kickoff-layout');
-      this.modal.setAttribute('data-program', programId);
-      
-      console.log('Applied special kickoff layout for program:', programId);
-    } else {
-      // Use default layout for other programs (no special layout classes)
-      this.modal.classList.remove('kickoff-layout');
-      this.modal.setAttribute('data-program', programId);
-      
-      console.log('Applied default layout for program:', programId);
-    }
+    // Apply kickoff-style layout for ALL programs
+    this.modal.classList.add('kickoff-layout');
+    this.modal.setAttribute('data-program', programId);
+    
+    console.log('Applied kickoff-style layout for program:', programId);
     
     // Update basic content
     this.title.textContent = programData.title;
