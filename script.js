@@ -1813,6 +1813,18 @@ class CovaModal2 {
             'attached_assets/cocodio_a_minimalist_three-dimensional_sculptural_colored_pen_8483023e-5d44-4ee4-8a4a-389df631fe9b_1_1758290924435.png',
             'attached_assets/cocodio_A_simple_and_minimalist_flat-color_pencil_drawing_tha_febc20d6-d86e-40ef-87a3-2a3e92fc2701_3_1758290924435.png'
           ];
+        } else if (currentProgram === 'grade2') {
+          // GRADE 2 썸네일
+          thumbnailSources = [
+            'attached_assets/1_1758444038266.png',
+            'attached_assets/2_1758444038266.png',
+            'attached_assets/3_1758444038266.png',
+            'attached_assets/4_1758444038266.png',
+            'attached_assets/5_1758444038266.png',
+            'attached_assets/7_1758444038267.png',
+            'attached_assets/8_1758444038267.png',
+            'attached_assets/9_1758444038267.png'
+          ];
         } else {
           // 다른 프로그램들은 킥오프 썸네일 사용
           thumbnailSources = [
@@ -1836,7 +1848,7 @@ class CovaModal2 {
           
           // 스마트 캐시 전략: 최근 업로드 이미지만 캐시 버스팅
           let finalSrc = src;
-          const isRecentUpload = src.includes('_1758365') || src.includes('grade1_thumbnail_');
+          const isRecentUpload = src.includes('_1758365') || src.includes('grade1_thumbnail_') || src.includes('_1758444038266') || src.includes('_1758444038267');
           
           if (isRecentUpload) {
             // 최근 업로드 이미지는 캐시 버스팅 적용
