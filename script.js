@@ -1538,17 +1538,8 @@ class CovaModal2 {
     // Setup video with ambient effects
     this.setupVideoForProgram(grade1Data, 'Grade1');
     
-    // Apply GRADE 1 specific video sizing to prevent overlap with title
-    setTimeout(() => {
-      const video = document.querySelector('.cova-modal2.grade1-layout .modal2-video');
-      if (video) {
-        video.style.width = 'calc(100% - 5cm)';
-        video.style.maxWidth = 'calc(100% - 5cm)';
-        video.style.marginLeft = '1.5cm';
-        video.style.marginRight = '3.5cm';
-        console.log('Applied GRADE 1 video sizing adjustments');
-      }
-    }, 100);
+    // Skip video style overrides for Grade 1 - let CSS container padding handle sizing
+    console.log('Grade 1 video sizing handled by CSS container method');
     
     // Setup Key Moment Markers (using kickoff keyMoments as fallback)
     this.setupKeyMomentMarkers(grade1Data);
