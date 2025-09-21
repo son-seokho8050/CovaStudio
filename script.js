@@ -2317,6 +2317,19 @@ class CovaModal2 {
         }
       });
     });
+    
+    // CRITICAL FIX: Initialize first tab as visible
+    if (tabButtons.length > 0) {
+      const firstButton = tabButtons[0];
+      const firstTab = firstButton.getAttribute('data-tab') || 'overview';
+      const firstContent = document.getElementById(`tab-${firstTab}`);
+      
+      if (firstContent) {
+        firstButton.setAttribute('data-active', 'true');
+        firstContent.setAttribute('data-visible', 'true');
+        console.log('First tab initialized as visible:', firstTab);
+      }
+    }
   }
   
   hideSpecialContent() {
