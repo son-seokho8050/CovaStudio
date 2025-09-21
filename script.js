@@ -1207,18 +1207,18 @@ class CovaModal2 {
     const programData = this.getProgramData(programId);
     this.currentProgram = programId;
     
-    // Apply special layout for all programs (Modal v2)
-    const useSpecialLayout = true;
-    
-    if (useSpecialLayout) {
-      // Apply program-specific layout and data attributes
-      this.modal.classList.add(`${programId}-layout`);
+    // Apply special layout ONLY for kickoff program
+    if (programId === 'kickoff') {
+      this.modal.classList.add('kickoff-layout');
       this.modal.setAttribute('data-program', programId);
       
-      console.log('Applied special layout for program:', programId);
+      console.log('Applied special kickoff layout for program:', programId);
     } else {
-      // Remove special layout (fallback)
+      // Use default layout for other programs (no special layout classes)
       this.modal.classList.remove('kickoff-layout');
+      this.modal.setAttribute('data-program', programId);
+      
+      console.log('Applied default layout for program:', programId);
     }
     
     // Update basic content
@@ -3575,6 +3575,13 @@ class KeyMomentsController {
     if (this.boundHandlers.keydown) {
       document.removeEventListener('keydown', this.boundHandlers.keydown);
       this.boundHandlers.keydown = null;
+    }
+  }
+  
+  onKeyDown(e) {
+    // Handle keyboard events for modal
+    if (e.key === 'Escape') {
+      this.close();
     }
   }
 
