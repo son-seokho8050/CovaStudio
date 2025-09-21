@@ -6765,7 +6765,7 @@ summary:focus {
   transform: translate(-1%, 0) scale(1.15, 1.15);
 }
 
-/* GRADE2: CSS-only video cropping to remove letterbox */
+/* GRADE2: CSS-only video sizing to match thumbnail width */
 .cova-modal2[data-program="grade2"] .modal2-media-box {
   overflow: hidden;
 }
@@ -6777,7 +6777,7 @@ summary:focus {
   top: 0 !important;
   object-fit: cover !important;
   transform-origin: center;
-  transform: translate(-1%, 0) scale(1.15, 1.15);
+  transform: none;
 }
 
 /* DEFAULT LAYOUT FOR NON-KICKOFF PROGRAMS */
