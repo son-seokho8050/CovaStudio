@@ -3141,7 +3141,6 @@ class ProgramModalController {
       grade2: {
         title: 'GRADE-2 (전공학별 핵심원리)',
         description: '고2 학생들을 위한 심화 과정으로, 사고와 실기의 균형을 유지하며 보완과 실전 경험을 통해 탐구를 완성으로 확장하는 전환 단계입니다.',
-        duration: '12개월',
         level: '심화',
         stats: {
           weeks: 48,
