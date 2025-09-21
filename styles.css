@@ -6820,6 +6820,12 @@ summary:focus {
   display: block !important;
 }
 
+.cova-modal2.kickoff-layout .modal2-kickoff-details[data-visible="true"] {
+  display: flex !important;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .cova-modal2 .modal2-tab-content[data-visible="true"] {
   display: block !important;
 }
