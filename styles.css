@@ -6780,3 +6780,17 @@ summary:focus {
   
   /* ::before 요소는 이제 필요 없음 - 카드 자체에 배경 적용 */
 }
+
+/* ===================================
+   GRADE 1 VIDEO OVERRIDE - FINAL PRIORITY
+   =================================== */
+
+/* GRADE 1 영상 크기 최종 조정 - 타이틀과 겹치지 않도록 오른쪽 1cm 줄임 */
+.cova-modal2.grade1-layout .modal2-video,
+.cova-modal2-dialog.grade1-layout .modal2-video,
+body .cova-modal2.grade1-layout .modal2-video {
+  width: calc(100% - 5cm) !important;
+  max-width: calc(100% - 5cm) !important;
+  margin-left: 1.5cm !important;
+  margin-right: 3.5cm !important;
+}
