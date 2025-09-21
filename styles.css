@@ -6751,12 +6751,12 @@ summary:focus {
 }
 
 .cova-modal2[data-program="stepzero"] {
-  --video-width: 110%;
+  --video-width: 115%;
   --video-height: 100%;
   --video-object-fit: cover;
   --video-object-position: center center;
   --video-transform: none;
-  --video-left: -5%;
+  --video-left: -2.5%;
   --video-top: 0;
 }
 
