@@ -268,14 +268,14 @@ body.modal-open {
 }
 
 .cova-modal2.kickoff-layout .modal2-video {
-  width: calc(100% - 2cm); /* 오른쪽을 1cm 더 줄여서 타이틀과 겹치지 않도록 */
+  width: 100%; /* 오른쪽을 2cm 늘려서 원래 크기로 복원 */
   height: 85% !important; /* 높이를 85%로 줄여서 썸네일과 겹치지 않도록 */
   margin-left: 0.5cm; /* 중앙 정렬을 위해 여백 조정 */
   margin-top: -2% !important; /* 영상을 위로 올려서 썸네일과 겹치지 않도록 */
   object-fit: cover;
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
   max-height: 85% !important;
-  max-width: calc(100% - 2cm); /* 최대 너비도 동일하게 조정 */
+  max-width: 100%; /* 최대 너비도 동일하게 조정 */
   pointer-events: none; /* Disable all mouse interactions */
   -webkit-touch-callout: none; /* Disable callout on iOS */
   -webkit-user-select: none; /* Disable text selection */
