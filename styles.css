@@ -6782,6 +6782,57 @@ summary:focus {
   display: none; /* Hide thumbnails for non-kickoff programs */
 }
 
+/* DEFAULT HIDDEN STATES WITH HIGH SPECIFICITY */
+.cova-modal2 .modal2-image-section {
+  display: none !important;
+}
+
+.cova-modal2 .modal2-thumbnails-grid {
+  display: none !important;
+}
+
+.cova-modal2 .modal2-video-header {
+  display: none !important;
+}
+
+.cova-modal2 .modal2-kickoff-details {
+  display: none !important;
+}
+
+.cova-modal2 .modal2-tab-content {
+  display: none !important;
+}
+
+/* VISIBLE STATES VIA DATA ATTRIBUTES */
+.cova-modal2 .modal2-image-section[data-visible="true"] {
+  display: flex !important;
+}
+
+.cova-modal2 .modal2-thumbnails-grid[data-visible="true"] {
+  display: grid !important;
+}
+
+.cova-modal2 .modal2-video-header[data-visible="true"] {
+  display: block !important;
+}
+
+.cova-modal2 .modal2-kickoff-details[data-visible="true"] {
+  display: block !important;
+}
+
+.cova-modal2 .modal2-tab-content[data-visible="true"] {
+  display: block !important;
+}
+
+/* FIX KICKOFF SPECIFICITY CONFLICTS */
+.cova-modal2.kickoff-layout .modal2-thumbnails-grid:not([data-visible="true"]) {
+  display: none !important;
+}
+
+.cova-modal2.kickoff-layout .modal2-image-section:not([data-visible="true"]) {
+  display: none !important;
+}
+
 /* Single unified video system using CSS variables */
 .cova-modal2 .modal2-media-box {
   padding-left: var(--media-box-padding-left, 0);

@@ -1693,7 +1693,7 @@ class CovaModal2 {
     const videoDuration = document.getElementById('modal2VideoDuration');
     
     if (videoHeader && videoTitle && videoDesc && videoDuration) {
-      videoHeader.style.display = 'block';
+      videoHeader.setAttribute('data-visible', 'true'); // Use data attribute instead of inline style
       videoHeader.setAttribute('data-testid', 'video-header');
       
       videoTitle.textContent = kickoffData.videoTitle || '킥오프 수업 영상';
@@ -1772,7 +1772,7 @@ class CovaModal2 {
     const imageSection = document.getElementById('modal2ImageSection');
     
     if (imageSection) {
-      imageSection.style.display = 'flex';
+      imageSection.setAttribute('data-visible', 'true'); // Use data attribute instead of inline style
       imageSection.setAttribute('data-testid', 'image-section');
       
       // CRITICAL: 썸네일 완전 초기화 - 전문가 해결책
@@ -1867,7 +1867,7 @@ class CovaModal2 {
           thumbnailsGrid.appendChild(thumbnailItem);
         });
         
-        thumbnailsGrid.style.display = 'grid';
+        thumbnailsGrid.setAttribute('data-visible', 'true'); // Use data attribute instead of inline style
         console.log('Thumbnails rehydrated for', currentProgram, 'with', thumbnailSources.length, 'items');
         console.log('DEBUG: First thumbnail source:', thumbnailSources[0]);
       }
@@ -2311,15 +2311,15 @@ class CovaModal2 {
       button.setAttribute('data-testid', `tab-button-${targetTab}`);
       
       button.addEventListener('click', () => {
-        // Remove active class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+        // Remove active state from all buttons and contents
+        tabButtons.forEach(btn => btn.removeAttribute('data-active'));
+        tabContents.forEach(content => content.removeAttribute('data-visible'));
         
-        // Add active class to clicked button and corresponding content
-        button.classList.add('active');
+        // Add active state to clicked button and corresponding content
+        button.setAttribute('data-active', 'true');
         const targetContent = document.getElementById(`tab-${targetTab}`);
         if (targetContent) {
-          targetContent.classList.add('active');
+          targetContent.setAttribute('data-visible', 'true'); // Fix tab visibility with data attribute
           targetContent.setAttribute('data-testid', `tab-content-${targetTab}`);
         }
       });
@@ -2332,25 +2332,25 @@ class CovaModal2 {
     // Hide image section
     const imageSection = document.getElementById('modal2ImageSection');
     if (imageSection) {
-      imageSection.style.display = 'none';
+      imageSection.removeAttribute('data-visible'); // Use data attribute instead of inline style
     }
     
     // Hide special details
     const specialDetails = document.getElementById('modal2KickoffDetails');
     if (specialDetails) {
-      specialDetails.style.display = 'none';
+      specialDetails.removeAttribute('data-visible'); // Use data attribute instead of inline style
     }
     
     // Hide video header section
     const videoHeader = document.getElementById('modal2VideoHeader');
     if (videoHeader) {
-      videoHeader.style.display = 'none';
+      videoHeader.removeAttribute('data-visible'); // Use data attribute instead of inline style
     }
     
     // Hide thumbnails grid
     const thumbnailsGrid = document.getElementById('modal2ThumbnailsGrid');
     if (thumbnailsGrid) {
-      thumbnailsGrid.style.display = 'none';
+      thumbnailsGrid.removeAttribute('data-visible'); // Use data attribute instead of inline style
       // Clear thumbnails content to prevent memory leaks
       thumbnailsGrid.innerHTML = '';
     }
@@ -2371,17 +2371,17 @@ class CovaModal2 {
       
       // Hide all tab contents
       tabContents.forEach(content => {
-        content.classList.remove('active');
-        content.style.display = 'none';
+        content.removeAttribute('data-visible');
+        content.removeAttribute('data-visible'); // Use data attribute instead of inline style
       });
       
       // Reset to default tab (first one) if exists
       const firstTab = tabNav.querySelector('.modal2-tab-btn');
       const firstContent = document.querySelector('.modal2-tab-content');
       if (firstTab && firstContent) {
-        firstTab.classList.add('active');
-        firstContent.classList.add('active');
-        firstContent.style.display = 'block';
+        firstTab.setAttribute('data-active', 'true');
+        firstContent.setAttribute('data-visible', 'true');
+        firstContent.setAttribute('data-visible', 'true'); // Use data attribute instead of inline style
       }
     }
     
@@ -2886,9 +2886,9 @@ class ProgramModalController {
     
     // Update tab states
     this.tabs.forEach(tab => {
-      tab.classList.remove('active');
+      tab.removeAttribute('data-active');
       if (tab.dataset.tab === tabName) {
-        tab.classList.add('active');
+        tab.setAttribute('data-active', 'true');
       }
     });
     
@@ -3979,7 +3979,7 @@ class KeyMomentsController {
     if (!this.modal || !this.modal.classList.contains('active')) return;
     
     // Check if key moments tab is active (if tabs exist)
-    const activeTab = this.modal.querySelector('.modal-tab.active');
+    const activeTab = this.modal.querySelector('[data-active="true"]');
     if (activeTab && activeTab.dataset.tab && activeTab.dataset.tab !== 'keymoments') return;
     
     // Only handle if modal is focused or no other input is focused
