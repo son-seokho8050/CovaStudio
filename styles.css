@@ -6772,11 +6772,11 @@ summary:focus {
 
 .cova-modal2[data-program="grade2"] .modal2-video {
   width: 100% !important;
-  height: 85% !important;
+  height: 80% !important;
   left: 0 !important;
   top: 7.5% !important;
   object-fit: cover !important;
-  object-position: 15% center;
+  object-position: 15% 30%;
   transform-origin: center;
   transform: translateX(-2%) scale(0.95, 1);
 }
