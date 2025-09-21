@@ -10,9 +10,19 @@ window.COVA_DATA = {
     iep: "IEP: 생활 숫자·장면 중심 커뮤니케이션(예: 4주 30컷)"
   },
 
-  g1: {
+  grade1: {
+    title: "GRADE 1",
+    description: "고1 과정은 탐구와 발견을 중심으로 진행됩니다. 자유로운 시도와 기록을 통해 생각하는 습관을 만들어 갑니다.",
+    videoSrc: "attached_assets/grade1_main_video.mp4",
+    videoDuration: "3:45",
+    videoTitle: "Grade 1 탐구 중심 훈련 과정",
+    videoDescription: "고1 학생들이 다양한 조형 요소를 탐구하고 발견하는 과정을 담은 실제 수업 영상입니다.",
+    imageSrc: "attached_assets/grade1_main_thumbnail_1758365297.png", 
+    imageTitle: "Grade 1 프로그램 대표 이미지",
+    imageDescription: "탐구와 발견을 상징하는 조형 작품으로 Grade 1의 창의적 사고 과정을 시각화합니다.",
+    
     overview: {
-      title: "프로그램 개요",
+      title: "프로그램 개요", 
       content: "고1 과정은 탐구와 발견을 중심으로 진행됩니다.\n\n자유로운 시도와 기록을 통해 생각하는 습관을 만들어 갑니다."
     },
     educationGoals: {
@@ -35,10 +45,27 @@ window.COVA_DATA = {
       "Day 3: 완결·증거화 — Before/After + KPI 기록"
     ],
     monthly: ["3월 점·선","4월 균형","5월 리듬","6월 대비","9월 색채","10월 구도","11월 작가 연구","12월 디자이너 탐구"],
-    checkbell: ["무게중심","대칭/비대칭 전략","여백의 역할","의도적 실험 1개"]
+    checkbell: ["무게중심","대칭/비대칭 전략","여백의 역할","의도적 실험 1개"],
+    
+    keyMoments: [
+      { id: "km1", t: 12.3, title: "Grade 1 소개", summary: "탐구 중심 학습의 핵심 원리" },
+      { id: "km2", t: 45.7, title: "자유 탐구", summary: "조형 요소별 실험 방법" },
+      { id: "km3", t: 89.2, title: "기록과 비교", summary: "발견한 것을 체계적으로 기록하는 법" },
+      { id: "km4", t: 134.5, title: "언어화 훈련", summary: "시각적 발견을 언어로 표현하기" }
+    ]
   },
 
-  g2: {
+  grade2: {
+    title: "GRADE 2",
+    description: "고2 과정은 실기력 강화를 중심으로 진행됩니다. 조건 브리핑과 체계적 작업을 통해 실전 능력을 기릅니다.",
+    videoSrc: "attached_assets/grade2_main_video.mp4",
+    videoDuration: "4:15",
+    videoTitle: "Grade 2 실기력 강화 과정",
+    videoDescription: "고2 학생들이 조건에 따른 작업과 체계적 접근을 통해 실기력을 향상시키는 과정입니다.",
+    imageSrc: "attached_assets/grade2_main_thumbnail.png",
+    imageTitle: "Grade 2 프로그램 대표 이미지",
+    imageDescription: "실기력 강화와 체계적 접근을 상징하는 조형 작품으로 Grade 2의 전문적 역량을 시각화합니다.",
+    
     dayLoop: [
       "Pre(30′): 조건 브리핑 + 학생 발현(재정의·대조·포커스)",
       "Core(120′): 착수 → 작업(구도·표현·체크벨) → 마감",
@@ -50,7 +77,14 @@ window.COVA_DATA = {
       "Day 3: 완결·증거화 — KPI 리포트 + 브리지 문장"
     ],
     monthly: ["3월 리듬","4월 균형","5월 대비","6월 색채","9월 구도","10월 전공 탐구","11월 작가 연구","12월 종합 브리지"],
-    gates: ["조건 확인","포커스 문장 작성","체크벨 진행","언어화 기록","보완 확정"]
+    gates: ["조건 확인","포커스 문장 작성","체크벨 진행","언어화 기록","보완 확정"],
+    
+    keyMoments: [
+      { id: "km1", t: 18.4, title: "Grade 2 소개", summary: "실기력 강화와 체계적 접근법" },
+      { id: "km2", t: 52.1, title: "조건 브리핑", summary: "작업 조건 및 요구사항 분석" },
+      { id: "km3", t: 97.6, title: "체계적 작업", summary: "구도-표현-체크벨 단계별 접근" },
+      { id: "km4", t: 142.8, title: "삼각채점", summary: "자기평가와 보완점 도출" }
+    ]
   },
 
   kickoff: {
@@ -141,7 +175,7 @@ window.COVA_DATA = {
     ],
     
     keyMoments: [],
-    g1: [
+    grade1: [
       ["1주차","오늘을 선 3개로 표현한다면?"],
       ["2주차","내 기분을 점 5개로 표현한다면?"],
       ["3주차","내 삶의 균형을 그림으로 표현한다면?"],
@@ -155,7 +189,7 @@ window.COVA_DATA = {
       ["11주차","내 하루를 구도로 표현한다면?"],
       ["12주차","가장 인상적인 풍경을 구도로 재현한다면?"]
     ],
-    g2: [
+    grade2: [
       ["1주차","우리 반을 도시로 표현한다면?"],
       ["2주차","도시의 균형을 잃은 장면은?"],
       ["3주차","사회가 균형을 잃었을 때 떠오르는 장면은?"],
@@ -171,7 +205,7 @@ window.COVA_DATA = {
     ]
   },
 
-  stepZero: {
+  stepzero: {
     title: "GRADE-JUNIOR",
     description: "COVA 기초 준비 과정으로 미술 학습의 기본기를 탄탄히 다져줍니다. 월요일 30분 사고 훈련을 통해 창의적 사고력을 기릅니다.",
     
@@ -182,7 +216,12 @@ window.COVA_DATA = {
     },
     
     videoSrc: "attached_assets/그림_그리는_여자_초_동영상_1758277254394.mp4",
+    videoDuration: "3:12",
+    videoTitle: "GRADE-JUNIOR 기초 준비 과정",
+    videoDescription: "중등 학생들이 미술 학습의 기본기를 다지며 창의적 사고력을 기르는 과정입니다.",
     imageSrc: "attached_assets/cocodio_A_minimalist_sculpture_of_the_letter_J_abstract_desig_06a67b63-acc6-4b46-97f8-489d88cdfdac_1_1758276688421.png",
+    imageTitle: "GRADE-JUNIOR 대표 이미지",
+    imageDescription: "기초 준비와 창의적 사고를 상징하는 미니멀 조형물로 GRADE-JUNIOR의 탐구 정신을 시각화합니다.",
     keyMoments: [
       { id: "km1", t: 8.7, title: "Grade-Junior 소개", summary: "월요일 30분 사고 훈련의 의미" },
       { id: "km2", t: 35.1, title: "사고 질문 예시", summary: "Lv1-3 질문의 차이점과 접근법" },
