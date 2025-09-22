@@ -604,23 +604,46 @@ class TileMosaicController {
   }
 
   initializeVideoLazyLoading() {
-    // 모든 타일 비디오들 즉시 재생
+    // 대역폭 경쟁을 피하기 위해 타일 비디오들을 순차적으로 로딩
     const allTileVideos = document.querySelectorAll('.tile-video');
+    const maxConcurrentLoads = 3; // 동시에 로딩할 비디오 수 제한
+    let loadQueue = Array.from(allTileVideos);
+    let currentlyLoading = 0;
     
-    allTileVideos.forEach((video, index) => {
+    const loadNextVideo = () => {
+      if (loadQueue.length === 0 || currentlyLoading >= maxConcurrentLoads) {
+        return;
+      }
+      
+      const video = loadQueue.shift();
+      const index = Array.from(allTileVideos).indexOf(video);
+      currentlyLoading++;
+      
       if (video.preload === 'metadata') {
+        console.log(`Starting load for tile video ${index + 1} (${currentlyLoading}/${maxConcurrentLoads} concurrent)`);
+        
+        // 로딩 완료 후 다음 비디오 로딩
+        const onLoadComplete = () => {
+          currentlyLoading--;
+          setTimeout(loadNextVideo, 150); // 150ms 후 다음 비디오 로딩
+        };
+        
         // 더 빠른 재생을 위해 loadeddata 이벤트 사용
         video.addEventListener('loadeddata', () => {
           if (this.isVisible && !this.isPaused) {
             video.play().then(() => {
               console.log(`Tile video ${index + 1} playing successfully`);
+              onLoadComplete();
             }).catch(e => {
               console.log(`Tile video ${index + 1} autoplay blocked:`, e.message);
               // 수동 재생을 위해 비디오에 클릭 이벤트 추가
               video.addEventListener('click', () => {
                 video.play().then(() => console.log(`Manual play successful for tile ${index + 1}`));
               }, { once: true });
+              onLoadComplete();
             });
+          } else {
+            onLoadComplete();
           }
         }, { once: true });
         
@@ -631,44 +654,64 @@ class TileMosaicController {
           }
         }, { once: true });
         
-        video.load(); // 즉시 로드 시작
-        console.log(`Loading tile video ${index + 1}`);
+        // 로딩 에러 처리
+        video.addEventListener('error', () => {
+          console.warn(`Tile video ${index + 1} failed to load`);
+          onLoadComplete();
+        }, { once: true });
+        
+        video.load(); // 로드 시작
+      } else {
+        currentlyLoading--;
+        loadNextVideo();
       }
-    });
+    };
+    
+    // 초기 배치로 최대 동시 로딩 수만큼 시작
+    for (let i = 0; i < maxConcurrentLoads; i++) {
+      setTimeout(loadNextVideo, i * 100); // 100ms 간격으로 시작
+    }
 
-    // 다른 섹션의 비디오들도 로딩
-    this.setupBackgroundVideoLazyLoading();
+    // 다른 섹션의 비디오들은 타일 로딩 후에 시작
+    setTimeout(() => {
+      this.setupBackgroundVideoLazyLoading();
+    }, 500);
   }
 
   setupBackgroundVideoLazyLoading() {
     const backgroundVideos = document.querySelectorAll('.philosophy-bg-video, .ambient-video');
     
+    // 백그라운드 비디오들도 순차적으로 로딩 (대역폭 보호)
     backgroundVideos.forEach((video, index) => {
       if (video.preload === 'metadata') {
-        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
-        video.addEventListener('loadeddata', () => {
-          if (this.isVisible && !this.isPaused) {
-            video.play().then(() => {
-              console.log(`Background video ${index + 1} playing successfully`);
-            }).catch(e => {
-              console.log(`Background video ${index + 1} autoplay blocked:`, e.message);
-              // 수동 재생을 위해 클릭 이벤트 추가
-              video.addEventListener('click', () => {
-                video.play().then(() => console.log(`Manual play successful for background ${index + 1}`));
-              }, { once: true });
-            });
-          }
-        }, { once: true });
-        
-        // 백업으로 canplay 이벤트도 추가
-        video.addEventListener('canplay', () => {
-          if (this.isVisible && !this.isPaused && video.paused) {
-            video.play().catch(e => console.log(`Backup play failed for background ${index + 1}:`, e.message));
-          }
-        }, { once: true });
-        
-        video.load();
-        console.log(`Loading background video ${index + 1}`);
+        // 각 비디오를 200ms 간격으로 순차 로딩
+        setTimeout(() => {
+          console.log(`Loading background video ${index + 1}`);
+          
+          // 더 빠른 재생을 위해 loadeddata 이벤트 사용
+          video.addEventListener('loadeddata', () => {
+            if (this.isVisible && !this.isPaused) {
+              video.play().then(() => {
+                console.log(`Background video ${index + 1} playing successfully`);
+              }).catch(e => {
+                console.log(`Background video ${index + 1} autoplay blocked:`, e.message);
+                // 수동 재생을 위해 클릭 이벤트 추가
+                video.addEventListener('click', () => {
+                  video.play().then(() => console.log(`Manual play successful for background ${index + 1}`));
+                }, { once: true });
+              });
+            }
+          }, { once: true });
+          
+          // 백업으로 canplay 이벤트도 추가
+          video.addEventListener('canplay', () => {
+            if (this.isVisible && !this.isPaused && video.paused) {
+              video.play().catch(e => console.log(`Backup play failed for background ${index + 1}:`, e.message));
+            }
+          }, { once: true });
+          
+          video.load();
+        }, index * 200); // 200ms 간격으로 순차 시작
       }
     });
   }
