@@ -1264,14 +1264,23 @@ class SimpleVideoController {
   constructor() {
     this.loadedVideos = new Set();
     this.isModalOpen = false;
-    this.maxConcurrent = 2; // 안전한 동시 로딩 수
+    this.maxConcurrent = 1; // 완전 순차 로딩으로 변경
     this.currentLoading = 0;
+    this.loadingQueue = [];
     console.log('SimpleVideoController initialized');
   }
   
   loadVideoSafely(video, onSuccess) {
-    if (this.loadedVideos.has(video) || this.currentLoading >= this.maxConcurrent) {
-      return; // 이미 로딩됨 또는 제한 초과
+    if (this.loadedVideos.has(video)) {
+      console.log('Video already loaded, skipping');
+      return; // 이미 로딩됨
+    }
+    
+    if (this.currentLoading >= this.maxConcurrent) {
+      // 큐에 추가
+      this.loadingQueue.push({ video, onSuccess });
+      console.log(`Added to queue (queue length: ${this.loadingQueue.length})`);
+      return;
     }
     
     this.currentLoading++;
@@ -1281,7 +1290,7 @@ class SimpleVideoController {
     video.muted = true;
     video.playsInline = true;
     video.loop = true;
-    video.preload = 'metadata';
+    video.preload = 'none'; // 더 보수적으로 변경
     
     // 로딩 완료 이벤트
     video.addEventListener('loadeddata', () => {
@@ -1289,16 +1298,30 @@ class SimpleVideoController {
       this.loadedVideos.add(video);
       console.log(`Video loaded successfully (${this.currentLoading}/${this.maxConcurrent})`);
       if (onSuccess) onSuccess();
+      
+      // 큐에서 다음 비디오 처리
+      this.processQueue();
     }, { once: true });
     
     // 에러 처리
     video.addEventListener('error', () => {
       this.currentLoading--;
       console.error('Video loading failed');
+      
+      // 큐에서 다음 비디오 처리
+      this.processQueue();
     }, { once: true });
     
     // 로딩 시작
     video.load();
+  }
+  
+  processQueue() {
+    if (this.loadingQueue.length > 0 && this.currentLoading < this.maxConcurrent) {
+      const { video, onSuccess } = this.loadingQueue.shift();
+      console.log(`Processing queue (remaining: ${this.loadingQueue.length})`);
+      this.loadVideoSafely(video, onSuccess);
+    }
   }
   
   pauseAllExcept(exceptVideo) {
