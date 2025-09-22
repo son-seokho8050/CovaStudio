@@ -7,7 +7,8 @@ window.COVA_DATA = {
     ],
     loop: "RE–DE–UP–NEO–LOOP / 4전략(정밀·단순화·관점전환·하이브리드) / 9역량(지각·변환·개념화)",
     mode: "FOLOW(학습) ↔ FoLLoW(실전) — 맥락에 따른 전환",
-    iep: "IEP: 생활 숫자·장면 중심 커뮤니케이션(예: 4주 30컷)"
+    iep: "IEP: 생활 숫자·장면 중심 커뮤니케이션(예: 4주 30컷)",
+    videoSrc: "attached_assets/진지한_설명_경청하는_여성들_영상_1757853306735.mp4"
   },
 
   grade1: {
