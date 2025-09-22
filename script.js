@@ -1381,6 +1381,9 @@ class CovaModal2 {
     this.video.preload = 'none';
     this.video.src = ''; // Clear src to free memory
     
+    // 백그라운드 비디오들 재개 (대역폭 복구)
+    this.resumeBackgroundVideos();
+    
     // Hide special content
     this.hideSpecialContent();
     
@@ -1733,114 +1736,111 @@ class CovaModal2 {
   }
 
   setupVideoForProgram(programData, programName) {
-    console.log(`[DEBUG] Setting up video for ${programName}:`, programData?.videoSrc);
+    console.log(`Setting up video for ${programName}:`, programData?.videoSrc);
     
-    if (this.video) {
-      try {
-        // 초기 설정 - 모달이 열릴 때 preload 설정
-        this.video.preload = 'metadata';
-        this.video.autoplay = true;
-        this.video.muted = true;
-        this.video.loop = true;
-        this.video.controls = false;
-        this.video.disablePictureInPicture = true;
-        
-        // Apply ambient effects for background feel
-        this.applyCinematicEffects('ambient');
-        
-        // 비디오 소스 확인 및 설정
-        if (!programData?.videoSrc) {
-          console.warn(`[DEBUG] No video source found for ${programName}`);
-          return;
-        }
-        
-        console.log(`[DEBUG] Video readyState for ${programName}:`, this.video.readyState);
-        
-        // 비디오 로딩 완료 대기 후 재생
-        const playVideo = () => {
-          const playPromise = this.video.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                console.log(`${programName} video autoplay started successfully`);
-              })
-              .catch(error => {
-                console.warn(`${programName} video autoplay failed:`, error);
-                // 자동재생 실패 시 사용자 클릭 후 재생하도록 설정
-                this.setupClickToPlay(programName);
-              });
-          }
-        };
-        
-        // 모바일 autoplay 신뢰성을 위한 설정
-        this.video.playsInline = true;
-        this.video.setAttribute('playsinline', '');
-        this.video.setAttribute('webkit-playsinline', '');
-        
-        // 더 공격적인 비디오 재생 전략 - 버퍼링을 기다리지 않고 즉시 시작
-        const aggressivePlayVideo = () => {
-          console.log(`[DEBUG] Attempting aggressive video play for ${programName}, readyState: ${this.video.readyState}`);
-          
-          // 비디오 소스가 제대로 설정되었는지 확인
-          if (!this.video.src || this.video.src === '') {
-            console.warn(`[DEBUG] Video source not set for ${programName}, setting now...`);
-            // 비디오 소스가 설정되지 않은 경우 강제로 설정
-            return;
-          }
-          
-          const playPromise = this.video.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                console.log(`${programName} video started successfully (aggressive mode)`);
-                // 재생 성공 후에만 리버퍼링 보호 설정
-                this.setupRebufferProtection(programName);
-              })
-              .catch(error => {
-                console.warn(`${programName} video autoplay failed (aggressive mode):`, error);
-                this.setupClickToPlay(programName);
-              });
-          }
-        };
-        
-        // 다양한 이벤트에서 재생 시도 (가장 빠른 것부터)
-        this.video.addEventListener('loadedmetadata', () => {
-          console.log(`[DEBUG] ${programName} video metadata loaded, attempting play...`);
-          aggressivePlayVideo();
-        }, { once: true });
-        
-        this.video.addEventListener('loadeddata', () => {
-          console.log(`[DEBUG] ${programName} video data loaded, attempting play...`);
-          if (this.video.paused) {
-            aggressivePlayVideo();
-          }
-        }, { once: true });
-        
-        this.video.addEventListener('canplay', () => {
-          console.log(`[DEBUG] ${programName} video can play, attempting play...`);
-          if (this.video.paused) {
-            aggressivePlayVideo();
-          }
-        }, { once: true });
-        
-        // 이미 로딩된 경우 즉시 재생 시도
-        if (this.video.readyState >= 1) {
-          console.log(`[DEBUG] ${programName} video already loaded (readyState: ${this.video.readyState}), playing immediately...`);
-          setTimeout(aggressivePlayVideo, 50);
-        }
-        
-        // 백업: 500ms 후에도 재생되지 않았다면 강제 재생 시도
-        setTimeout(() => {
-          if (this.video.paused) {
-            console.warn(`[DEBUG] ${programName} video still paused after 500ms, forcing play...`);
-            aggressivePlayVideo();
-          }
-        }, 500);
-        
-      } catch (error) {
-        console.warn(`${programName} video autoplay setup failed:`, error);
-      }
+    if (!this.video || !programData?.videoSrc) {
+      console.warn(`Video element or source missing for ${programName}`);
+      return;
     }
+    
+    try {
+      // 대역폭 보호: 모달 열릴 때 다른 비디오들 일시정지
+      this.pauseBackgroundVideos();
+      
+      // 비디오 엘리먼트 완전 리셋
+      this.video.pause();
+      this.video.removeAttribute('src');
+      
+      // 기존 source 엘리먼트들 제거
+      const sources = this.video.querySelectorAll('source');
+      sources.forEach(source => source.remove());
+      
+      // 기본 설정
+      this.video.muted = true;
+      this.video.playsInline = true;
+      this.video.preload = 'auto';
+      this.video.loop = true;
+      this.video.controls = false;
+      this.video.disablePictureInPicture = true;
+      
+      // Apply ambient effects
+      this.applyCinematicEffects('ambient');
+      
+      // 비디오 소스 직접 설정 및 로딩 시작
+      this.video.src = programData.videoSrc;
+      this.video.load();
+      
+      console.log(`${programName} video source set and loading started`);
+      
+      // 이벤트 기반 재생 로직
+      const attemptPlay = () => {
+        this.video.play()
+          .then(() => {
+            console.log(`${programName} video playing successfully`);
+            this.setupRebufferProtection(programName);
+          })
+          .catch(error => {
+            console.warn(`${programName} video play failed:`, error.name, error.message);
+            this.setupClickToPlay(programName);
+          });
+      };
+      
+      // 로딩 완료 이벤트 리스너
+      this.video.addEventListener('loadeddata', () => {
+        console.log(`${programName} video data loaded, attempting autoplay`);
+        attemptPlay();
+      }, { once: true });
+      
+      // 백업: canplaythrough 이벤트
+      this.video.addEventListener('canplaythrough', () => {
+        console.log(`${programName} video can play through, attempting autoplay`);
+        if (this.video.paused) {
+          attemptPlay();
+        }
+      }, { once: true });
+      
+      // 에러 처리
+      this.video.addEventListener('error', (e) => {
+        console.error(`${programName} video loading error:`, e.target.error);
+        this.setupClickToPlay(programName);
+      }, { once: true });
+      
+      // 타임아웃 백업 (5초 후 수동 재생 옵션 제공)
+      setTimeout(() => {
+        if (this.video.readyState < 2) {
+          console.warn(`${programName} video loading timeout, showing manual play option`);
+          this.setupClickToPlay(programName);
+        }
+      }, 5000);
+      
+    } catch (error) {
+      console.error(`${programName} video setup failed:`, error.name, error.message);
+      this.setupClickToPlay(programName);
+    }
+  }
+  
+  pauseBackgroundVideos() {
+    // 모달이 열릴 때 다른 비디오들을 일시정지하여 대역폭 확보
+    const backgroundVideos = document.querySelectorAll('.tile-video, .philosophy-bg-video, .ambient-video');
+    backgroundVideos.forEach(video => {
+      if (!video.paused) {
+        video.dataset.wasPlaying = 'true';
+        video.pause();
+      }
+    });
+    console.log('Background videos paused for modal bandwidth');
+  }
+  
+  resumeBackgroundVideos() {
+    // 모달이 닫힐 때 일시정지했던 비디오들 재개
+    const backgroundVideos = document.querySelectorAll('.tile-video, .philosophy-bg-video, .ambient-video');
+    backgroundVideos.forEach(video => {
+      if (video.dataset.wasPlaying === 'true') {
+        video.play().catch(e => console.log('Background video resume failed:', e.message));
+        delete video.dataset.wasPlaying;
+      }
+    });
+    console.log('Background videos resumed after modal close');
   }
   
   setupRebufferProtection(programName) {
