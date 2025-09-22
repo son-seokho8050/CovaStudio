@@ -585,11 +585,19 @@ class TileMosaicController {
           console.log('Tile mosaic became visible - starting animations');
           this.isVisible = true;
           this.startAnimations();
-          this.initializeVideoLazyLoading();
+          
+          // 처음만 비디오 초기화, 이후에는 재생만
+          if (!this.videosInitialized) {
+            this.initializeVideoLazyLoading();
+            this.videosInitialized = true;
+          } else {
+            this.resumeTileVideos();
+          }
         } else if (!entry.isIntersecting && this.isVisible) {
           console.log('Tile mosaic became hidden - pausing animations');
           this.isVisible = false;
           this.pauseAnimations();
+          this.pauseTileVideos();
         }
       });
     }, {
@@ -604,75 +612,39 @@ class TileMosaicController {
   }
 
   initializeVideoLazyLoading() {
-    // 대역폭 경쟁을 피하기 위해 타일 비디오들을 순차적으로 로딩
+    // VideoManager를 사용한 중앙집중식 비디오 관리
     const allTileVideos = document.querySelectorAll('.tile-video');
-    const maxConcurrentLoads = 3; // 동시에 로딩할 비디오 수 제한
-    let loadQueue = Array.from(allTileVideos);
-    let currentlyLoading = 0;
     
-    const loadNextVideo = () => {
-      if (loadQueue.length === 0 || currentlyLoading >= maxConcurrentLoads) {
-        return;
-      }
+    allTileVideos.forEach((video, index) => {
+      const videoId = `tile-${index + 1}`;
+      const src = video.dataset.src;
       
-      const video = loadQueue.shift();
-      const index = Array.from(allTileVideos).indexOf(video);
-      currentlyLoading++;
+      // VideoManager에 등록 (이미 등록된 경우 무시됨)
+      window.videoManager.register(video, videoId, src, 1); // priority 1 = 타일
+      window.videoManager.initializeVideo(videoId);
       
-      if (video.preload === 'metadata') {
-        console.log(`Starting load for tile video ${index + 1} (${currentlyLoading}/${maxConcurrentLoads} concurrent)`);
-        
-        // 로딩 완료 후 다음 비디오 로딩
-        const onLoadComplete = () => {
-          currentlyLoading--;
-          setTimeout(loadNextVideo, 150); // 150ms 후 다음 비디오 로딩
-        };
-        
-        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
-        video.addEventListener('loadeddata', () => {
-          if (this.isVisible && !this.isPaused) {
-            video.play().then(() => {
-              console.log(`Tile video ${index + 1} playing successfully`);
-              onLoadComplete();
-            }).catch(e => {
-              console.log(`Tile video ${index + 1} autoplay blocked:`, e.message);
-              // 수동 재생을 위해 비디오에 클릭 이벤트 추가
-              video.addEventListener('click', () => {
-                video.play().then(() => console.log(`Manual play successful for tile ${index + 1}`));
-              }, { once: true });
-              onLoadComplete();
-            });
-          } else {
-            onLoadComplete();
-          }
-        }, { once: true });
-        
-        // 백업으로 canplay 이벤트도 추가 (더 빠른 트리거)
-        video.addEventListener('canplay', () => {
-          if (this.isVisible && !this.isPaused && video.paused) {
-            video.play().catch(e => console.log(`Backup play failed for tile ${index + 1}:`, e.message));
-          }
-        }, { once: true });
-        
-        // 로딩 에러 처리
-        video.addEventListener('error', () => {
-          console.warn(`Tile video ${index + 1} failed to load`);
-          onLoadComplete();
-        }, { once: true });
-        
-        video.load(); // 로드 시작
-      } else {
-        currentlyLoading--;
-        loadNextVideo();
-      }
-    };
+      // 로딩 요청 (큐 시스템으로 순차 처리됨)
+      window.videoManager.requestLoad(videoId);
+      
+      // 로딩 완료 시 자동 재생
+      video.addEventListener('loadeddata', () => {
+        if (this.isVisible && !this.isPaused) {
+          video.play().then(() => {
+            console.log(`Tile video ${index + 1} playing successfully`);
+          }).catch(e => {
+            console.log(`Tile video ${index + 1} autoplay blocked:`, e.message);
+            // 수동 재생을 위해 비디오에 클릭 이벤트 추가
+            video.addEventListener('click', () => {
+              video.play().then(() => console.log(`Manual play successful for tile ${index + 1}`));
+            }, { once: true });
+          });
+        }
+      }, { once: true });
+    });
     
-    // 초기 배치로 최대 동시 로딩 수만큼 시작
-    for (let i = 0; i < maxConcurrentLoads; i++) {
-      setTimeout(loadNextVideo, i * 100); // 100ms 간격으로 시작
-    }
+    console.log(`VideoManager: Registered ${allTileVideos.length} tile videos`);
 
-    // 다른 섹션의 비디오들은 타일 로딩 후에 시작
+    // 백그라운드 비디오들은 나중에 시작
     setTimeout(() => {
       this.setupBackgroundVideoLazyLoading();
     }, 500);
@@ -681,39 +653,47 @@ class TileMosaicController {
   setupBackgroundVideoLazyLoading() {
     const backgroundVideos = document.querySelectorAll('.philosophy-bg-video, .ambient-video');
     
-    // 백그라운드 비디오들도 순차적으로 로딩 (대역폭 보호)
     backgroundVideos.forEach((video, index) => {
-      if (video.preload === 'metadata') {
-        // 각 비디오를 200ms 간격으로 순차 로딩
-        setTimeout(() => {
-          console.log(`Loading background video ${index + 1}`);
-          
-          // 더 빠른 재생을 위해 loadeddata 이벤트 사용
-          video.addEventListener('loadeddata', () => {
-            if (this.isVisible && !this.isPaused) {
-              video.play().then(() => {
-                console.log(`Background video ${index + 1} playing successfully`);
-              }).catch(e => {
-                console.log(`Background video ${index + 1} autoplay blocked:`, e.message);
-                // 수동 재생을 위해 클릭 이벤트 추가
-                video.addEventListener('click', () => {
-                  video.play().then(() => console.log(`Manual play successful for background ${index + 1}`));
-                }, { once: true });
-              });
-            }
-          }, { once: true });
-          
-          // 백업으로 canplay 이벤트도 추가
-          video.addEventListener('canplay', () => {
-            if (this.isVisible && !this.isPaused && video.paused) {
-              video.play().catch(e => console.log(`Backup play failed for background ${index + 1}:`, e.message));
-            }
-          }, { once: true });
-          
-          video.load();
-        }, index * 200); // 200ms 간격으로 순차 시작
-      }
+      const videoId = `background-${index + 1}`;
+      const src = video.dataset.src || video.src;
+      
+      // VideoManager에 등록 (낮은 우선순위)
+      window.videoManager.register(video, videoId, src, 2); // priority 2 = 백그라운드
+      window.videoManager.initializeVideo(videoId);
+      
+      // 타일 비디오 이후에 로딩 시작
+      setTimeout(() => {
+        window.videoManager.requestLoad(videoId);
+        
+        video.addEventListener('loadeddata', () => {
+          if (this.isVisible && !this.isPaused) {
+            video.play().then(() => {
+              console.log(`Background video ${index + 1} playing successfully`);
+            }).catch(e => {
+              console.log(`Background video ${index + 1} autoplay blocked:`, e.message);
+            });
+          }
+        }, { once: true });
+      }, index * 300); // 더 긴 간격으로 순차 로딩
     });
+    
+    console.log(`VideoManager: Registered ${backgroundVideos.length} background videos`);
+  }
+  
+  resumeTileVideos() {
+    // 타일 비디오들 재생 재개 (재로딩 없이)
+    for (let i = 1; i <= 8; i++) {
+      window.videoManager.play(`tile-${i}`);
+    }
+    console.log('VideoManager: Resumed tile videos');
+  }
+  
+  pauseTileVideos() {
+    // 타일 비디오들 일시정지
+    for (let i = 1; i <= 8; i++) {
+      window.videoManager.pause(`tile-${i}`);
+    }
+    console.log('VideoManager: Paused tile videos');
   }
 
   setupPageVisibilityAPI() {
@@ -1275,6 +1255,165 @@ function initCarousel() {
 }
 
 // ===================================
+// Global Video Manager - 모든 비디오를 중앙에서 관리
+// ===================================================
+class VideoManager {
+  constructor() {
+    this.videos = new Map(); // videoId -> {element, state, priority, src}
+    this.loadingQueue = [];
+    this.maxConcurrent = this.detectDeviceCapacity();
+    this.currentlyLoading = 0;
+    this.modalMode = false;
+    
+    console.log(`VideoManager initialized - max concurrent: ${this.maxConcurrent}`);
+  }
+  
+  detectDeviceCapacity() {
+    // 디바이스 성능에 따른 동시 로딩 제한
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (connection) {
+      if (connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g') {
+        return 1; // 느린 연결
+      }
+    }
+    
+    return isMobile ? 2 : 4; // 모바일 2개, 데스크톱 4개
+  }
+  
+  register(videoElement, videoId, src, priority = 2) {
+    // 비디오 등록 (중복 방지)
+    if (this.videos.has(videoId)) {
+      console.log(`Video ${videoId} already registered`);
+      return;
+    }
+    
+    this.videos.set(videoId, {
+      element: videoElement,
+      src: src,
+      priority: priority, // 0=모달, 1=타일, 2=백그라운드
+      state: 'registered',
+      initialized: false
+    });
+    
+    console.log(`Registered video: ${videoId} (priority: ${priority})`);
+  }
+  
+  initializeVideo(videoId) {
+    const video = this.videos.get(videoId);
+    if (!video || video.initialized) return;
+    
+    // 한 번만 초기화 (중복 방지)
+    video.element.muted = true;
+    video.element.playsInline = true;
+    video.element.preload = 'metadata';
+    video.element.loop = true;
+    video.initialized = true;
+    
+    console.log(`Initialized video: ${videoId}`);
+  }
+  
+  requestLoad(videoId) {
+    const video = this.videos.get(videoId);
+    if (!video || video.state === 'loading' || video.state === 'loaded') {
+      return; // 이미 로딩 중이거나 완료됨
+    }
+    
+    if (this.currentlyLoading >= this.maxConcurrent) {
+      // 큐에 추가
+      this.loadingQueue.push(videoId);
+      console.log(`Queued video load: ${videoId} (queue: ${this.loadingQueue.length})`);
+      return;
+    }
+    
+    this.startLoad(videoId);
+  }
+  
+  startLoad(videoId) {
+    const video = this.videos.get(videoId);
+    if (!video) return;
+    
+    this.currentlyLoading++;
+    video.state = 'loading';
+    
+    console.log(`Starting load: ${videoId} (${this.currentlyLoading}/${this.maxConcurrent})`);
+    
+    video.element.src = video.src;
+    video.element.load();
+    
+    // 로딩 완료 이벤트
+    const onLoaded = () => {
+      this.currentlyLoading--;
+      video.state = 'loaded';
+      console.log(`Loaded: ${videoId} (${this.currentlyLoading}/${this.maxConcurrent})`);
+      
+      // 큐에서 다음 비디오 처리
+      this.processQueue();
+    };
+    
+    video.element.addEventListener('loadeddata', onLoaded, { once: true });
+    video.element.addEventListener('error', () => {
+      this.currentlyLoading--;
+      video.state = 'error';
+      console.error(`Load failed: ${videoId}`);
+      this.processQueue();
+    }, { once: true });
+  }
+  
+  processQueue() {
+    if (this.loadingQueue.length > 0 && this.currentlyLoading < this.maxConcurrent) {
+      const nextVideoId = this.loadingQueue.shift();
+      this.startLoad(nextVideoId);
+    }
+  }
+  
+  play(videoId) {
+    const video = this.videos.get(videoId);
+    if (!video) return;
+    
+    if (video.state === 'loaded') {
+      video.element.play().catch(e => console.warn(`Play failed: ${videoId}`, e.message));
+    } else if (video.state !== 'loading') {
+      this.requestLoad(videoId);
+    }
+  }
+  
+  pause(videoId) {
+    const video = this.videos.get(videoId);
+    if (video && video.element) {
+      video.element.pause();
+    }
+  }
+  
+  enterModalMode() {
+    // 모달 모드: 다른 모든 비디오 정지
+    this.modalMode = true;
+    console.log('VideoManager: Entering modal mode');
+    
+    for (const [videoId, video] of this.videos) {
+      if (video.priority !== 0) { // 모달이 아닌 비디오들
+        video.element.pause();
+      }
+    }
+  }
+  
+  exitModalMode() {
+    // 모달 모드 종료: 백그라운드 비디오들 재개
+    this.modalMode = false;
+    console.log('VideoManager: Exiting modal mode');
+    
+    for (const [videoId, video] of this.videos) {
+      if (video.priority === 1 && video.element.dataset.wasPlaying === 'true') {
+        this.play(videoId);
+      }
+    }
+  }
+}
+
+// 전역 VideoManager 인스턴스
+window.videoManager = new VideoManager();
+
 // Modal v2 System - CSS-only Layout
 // ===================================
 class CovaModal2 {
@@ -1766,11 +1905,13 @@ class CovaModal2 {
       // Apply ambient effects
       this.applyCinematicEffects('ambient');
       
-      // 비디오 소스 직접 설정 및 로딩 시작
-      this.video.src = programData.videoSrc;
-      this.video.load();
+      // VideoManager를 통한 모달 비디오 관리
+      const modalVideoId = `modal-${programName}`;
+      window.videoManager.register(this.video, modalVideoId, programData.videoSrc, 0); // priority 0 = 최우선
+      window.videoManager.initializeVideo(modalVideoId);
+      window.videoManager.requestLoad(modalVideoId);
       
-      console.log(`${programName} video source set and loading started`);
+      console.log(`${programName} video registered with VideoManager`);
       
       // 이벤트 기반 재생 로직 (리버퍼링 보호 비활성화)
       const attemptPlay = () => {
@@ -1833,27 +1974,15 @@ class CovaModal2 {
   }
   
   pauseBackgroundVideos() {
-    // 모달이 열릴 때 다른 비디오들을 일시정지하여 대역폭 확보
-    const backgroundVideos = document.querySelectorAll('.tile-video, .philosophy-bg-video, .ambient-video');
-    backgroundVideos.forEach(video => {
-      if (!video.paused) {
-        video.dataset.wasPlaying = 'true';
-        video.pause();
-      }
-    });
-    console.log('Background videos paused for modal bandwidth');
+    // VideoManager 모달 모드 활성화
+    window.videoManager.enterModalMode();
+    console.log('VideoManager: Entered modal mode - background videos paused');
   }
   
   resumeBackgroundVideos() {
-    // 모달이 닫힐 때 일시정지했던 비디오들 재개
-    const backgroundVideos = document.querySelectorAll('.tile-video, .philosophy-bg-video, .ambient-video');
-    backgroundVideos.forEach(video => {
-      if (video.dataset.wasPlaying === 'true') {
-        video.play().catch(e => console.log('Background video resume failed:', e.message));
-        delete video.dataset.wasPlaying;
-      }
-    });
-    console.log('Background videos resumed after modal close');
+    // VideoManager 모달 모드 종료
+    window.videoManager.exitModalMode();
+    console.log('VideoManager: Exited modal mode - background videos resumed');
   }
   
   retryVideoLoad(programData, programName) {
