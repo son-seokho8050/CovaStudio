@@ -1733,6 +1733,8 @@ class CovaModal2 {
   }
 
   setupVideoForProgram(programData, programName) {
+    console.log(`[DEBUG] Setting up video for ${programName}:`, programData?.videoSrc);
+    
     if (this.video) {
       try {
         // 초기 설정 - 모달이 열릴 때 preload 설정
@@ -1745,6 +1747,14 @@ class CovaModal2 {
         
         // Apply ambient effects for background feel
         this.applyCinematicEffects('ambient');
+        
+        // 비디오 소스 확인 및 설정
+        if (!programData?.videoSrc) {
+          console.warn(`[DEBUG] No video source found for ${programName}`);
+          return;
+        }
+        
+        console.log(`[DEBUG] Video readyState for ${programName}:`, this.video.readyState);
         
         // 비디오 로딩 완료 대기 후 재생
         const playVideo = () => {
@@ -1762,60 +1772,70 @@ class CovaModal2 {
           }
         };
         
-        // 모달 비디오용 강력한 버퍼링 전략
-        const checkBuffering = () => {
-          if (this.video.buffered.length > 0) {
-            const bufferedEnd = this.video.buffered.end(0);
-            const bufferedAhead = bufferedEnd - this.video.currentTime;
-            return bufferedAhead >= 1.0; // 1초 이상 버퍼링됨
-          }
-          return false;
-        };
-        
-        const safePlayVideo = () => {
-          // 모달 비디오는 충분히 버퍼링된 후 재생하여 끊김 방지
-          if (this.video.readyState >= 3 || checkBuffering()) {
-            const playPromise = this.video.play();
-            if (playPromise !== undefined) {
-              playPromise
-                .then(() => {
-                  console.log(`${programName} video started with sufficient buffering`);
-                  this.setupRebufferProtection(programName);
-                })
-                .catch(error => {
-                  console.warn(`${programName} video autoplay failed:`, error);
-                  this.setupClickToPlay(programName);
-                });
-            }
-          } else {
-            // 충분히 버퍼링되지 않은 경우 조금 더 기다림
-            console.log(`${programName} video waiting for sufficient buffering...`);
-            setTimeout(() => {
-              if (!this.video.paused) return; // 이미 재생 중이면 무시
-              safePlayVideo();
-            }, 200);
-          }
-        };
-        
         // 모바일 autoplay 신뢰성을 위한 설정
         this.video.playsInline = true;
         this.video.setAttribute('playsinline', '');
         this.video.setAttribute('webkit-playsinline', '');
         
-        // 충분한 데이터가 로딩되면 재생
-        this.video.addEventListener('canplaythrough', safePlayVideo, { once: true });
+        // 더 공격적인 비디오 재생 전략 - 버퍼링을 기다리지 않고 즉시 시작
+        const aggressivePlayVideo = () => {
+          console.log(`[DEBUG] Attempting aggressive video play for ${programName}, readyState: ${this.video.readyState}`);
+          
+          // 비디오 소스가 제대로 설정되었는지 확인
+          if (!this.video.src || this.video.src === '') {
+            console.warn(`[DEBUG] Video source not set for ${programName}, setting now...`);
+            // 비디오 소스가 설정되지 않은 경우 강제로 설정
+            return;
+          }
+          
+          const playPromise = this.video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                console.log(`${programName} video started successfully (aggressive mode)`);
+                // 재생 성공 후에만 리버퍼링 보호 설정
+                this.setupRebufferProtection(programName);
+              })
+              .catch(error => {
+                console.warn(`${programName} video autoplay failed (aggressive mode):`, error);
+                this.setupClickToPlay(programName);
+              });
+          }
+        };
         
-        // 백업으로 canplay 이벤트도 추가 (충분히 버퍼링된 경우만)
-        this.video.addEventListener('canplay', () => {
-          if (this.video.paused && this.video.readyState >= 3) {
-            safePlayVideo();
+        // 다양한 이벤트에서 재생 시도 (가장 빠른 것부터)
+        this.video.addEventListener('loadedmetadata', () => {
+          console.log(`[DEBUG] ${programName} video metadata loaded, attempting play...`);
+          aggressivePlayVideo();
+        }, { once: true });
+        
+        this.video.addEventListener('loadeddata', () => {
+          console.log(`[DEBUG] ${programName} video data loaded, attempting play...`);
+          if (this.video.paused) {
+            aggressivePlayVideo();
           }
         }, { once: true });
         
-        // 이미 충분히 로딩된 경우 즉시 재생
-        if (this.video.readyState >= 3) {
-          setTimeout(safePlayVideo, 100);
+        this.video.addEventListener('canplay', () => {
+          console.log(`[DEBUG] ${programName} video can play, attempting play...`);
+          if (this.video.paused) {
+            aggressivePlayVideo();
+          }
+        }, { once: true });
+        
+        // 이미 로딩된 경우 즉시 재생 시도
+        if (this.video.readyState >= 1) {
+          console.log(`[DEBUG] ${programName} video already loaded (readyState: ${this.video.readyState}), playing immediately...`);
+          setTimeout(aggressivePlayVideo, 50);
         }
+        
+        // 백업: 500ms 후에도 재생되지 않았다면 강제 재생 시도
+        setTimeout(() => {
+          if (this.video.paused) {
+            console.warn(`[DEBUG] ${programName} video still paused after 500ms, forcing play...`);
+            aggressivePlayVideo();
+          }
+        }, 500);
         
       } catch (error) {
         console.warn(`${programName} video autoplay setup failed:`, error);
