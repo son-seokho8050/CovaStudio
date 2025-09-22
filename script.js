@@ -609,13 +609,28 @@ class TileMosaicController {
     
     allTileVideos.forEach((video, index) => {
       if (video.preload === 'metadata') {
-        video.addEventListener('canplaythrough', () => {
+        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
+        video.addEventListener('loadeddata', () => {
           if (this.isVisible && !this.isPaused) {
-            video.play().catch(e => {
-              console.log('Video autoplay blocked:', e.message);
+            video.play().then(() => {
+              console.log(`Tile video ${index + 1} playing successfully`);
+            }).catch(e => {
+              console.log(`Tile video ${index + 1} autoplay blocked:`, e.message);
+              // 수동 재생을 위해 비디오에 클릭 이벤트 추가
+              video.addEventListener('click', () => {
+                video.play().then(() => console.log(`Manual play successful for tile ${index + 1}`));
+              }, { once: true });
             });
           }
         }, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가 (더 빠른 트리거)
+        video.addEventListener('canplay', () => {
+          if (this.isVisible && !this.isPaused && video.paused) {
+            video.play().catch(e => console.log(`Backup play failed for tile ${index + 1}:`, e.message));
+          }
+        }, { once: true });
+        
         video.load(); // 즉시 로드 시작
         console.log(`Loading tile video ${index + 1}`);
       }
@@ -630,13 +645,28 @@ class TileMosaicController {
     
     backgroundVideos.forEach((video, index) => {
       if (video.preload === 'metadata') {
-        video.addEventListener('canplaythrough', () => {
+        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
+        video.addEventListener('loadeddata', () => {
           if (this.isVisible && !this.isPaused) {
-            video.play().catch(e => {
-              console.log('Background video autoplay blocked:', e.message);
+            video.play().then(() => {
+              console.log(`Background video ${index + 1} playing successfully`);
+            }).catch(e => {
+              console.log(`Background video ${index + 1} autoplay blocked:`, e.message);
+              // 수동 재생을 위해 클릭 이벤트 추가
+              video.addEventListener('click', () => {
+                video.play().then(() => console.log(`Manual play successful for background ${index + 1}`));
+              }, { once: true });
             });
           }
         }, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가
+        video.addEventListener('canplay', () => {
+          if (this.isVisible && !this.isPaused && video.paused) {
+            video.play().catch(e => console.log(`Backup play failed for background ${index + 1}:`, e.message));
+          }
+        }, { once: true });
+        
         video.load();
         console.log(`Loading background video ${index + 1}`);
       }
@@ -1362,15 +1392,34 @@ class CovaModal2 {
         // Apply ambient effects for background feel
         this.applyCinematicEffects('ambient');
         
-        const playPromise = this.video.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              console.log('Kickoff video autoplay started successfully');
-            })
-            .catch(error => {
-              console.warn('Kickoff video autoplay failed:', error);
-            });
+        // 더 빠르고 안정적인 비디오 재생 로직
+        const playVideo = () => {
+          const playPromise = this.video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                console.log('Kickoff video autoplay started successfully');
+              })
+              .catch(error => {
+                console.warn('Kickoff video autoplay failed:', error);
+                this.setupClickToPlay('Kickoff');
+              });
+          }
+        };
+        
+        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
+        this.video.addEventListener('loadeddata', playVideo, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가
+        this.video.addEventListener('canplay', () => {
+          if (this.video.paused) {
+            playVideo();
+          }
+        }, { once: true });
+        
+        // 이미 로딩된 경우 즉시 재생
+        if (this.video.readyState >= 2) {
+          setTimeout(playVideo, 50);
         }
       } catch (error) {
         console.warn('Kickoff video autoplay setup failed:', error);
@@ -1645,16 +1694,20 @@ class CovaModal2 {
           }
         };
         
-        // 비디오가 로딩되면 재생
-        if (this.video.readyState >= 3) {
-          // 이미 로드됨
-          setTimeout(playVideo, 100);
-        } else {
-          // 로딩 대기
-          this.video.addEventListener('canplay', playVideo, { once: true });
-          this.video.addEventListener('loadedmetadata', () => {
-            console.log(`${programName} video metadata loaded`);
-          }, { once: true });
+        // 더 빠른 비디오 재생을 위해 여러 이벤트 사용
+        // loadeddata 이벤트가 canplay보다 빠름
+        this.video.addEventListener('loadeddata', playVideo, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가
+        this.video.addEventListener('canplay', () => {
+          if (this.video.paused) {
+            playVideo();
+          }
+        }, { once: true });
+        
+        // 이미 로딩된 경우 즉시 재생 (더 빠른 트리거)
+        if (this.video.readyState >= 2) {
+          setTimeout(playVideo, 50);
         }
         
       } catch (error) {
