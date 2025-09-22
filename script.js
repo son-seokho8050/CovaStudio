@@ -1772,12 +1772,13 @@ class CovaModal2 {
       
       console.log(`${programName} video source set and loading started`);
       
-      // 이벤트 기반 재생 로직
+      // 이벤트 기반 재생 로직 (리버퍼링 보호 비활성화)
       const attemptPlay = () => {
         this.video.play()
           .then(() => {
             console.log(`${programName} video playing successfully`);
-            this.setupRebufferProtection(programName);
+            // 리버퍼링 보호를 일시적으로 비활성화 (너무 민감함)
+            // this.setupRebufferProtection(programName);
           })
           .catch(error => {
             console.warn(`${programName} video play failed:`, error.name, error.message);
@@ -1844,6 +1845,11 @@ class CovaModal2 {
   }
   
   setupRebufferProtection(programName) {
+    // 리버퍼링 보호 일시적으로 완전 비활성화 (너무 민감하여 사용자 경험 저해)
+    console.log(`Rebuffer protection disabled for ${programName} (too sensitive)`);
+    return;
+    
+    /* 기존 코드 주석처리
     if (!this.video) return;
     
     // 리버퍼링 이벤트 처리 (waiting/stalled)
@@ -1876,6 +1882,7 @@ class CovaModal2 {
     this.video.addEventListener('stalled', handleRebuffering);
     this.video.addEventListener('canplay', handleBufferingComplete);
     this.video.addEventListener('canplaythrough', handleBufferingComplete);
+    */
   }
   
   showBufferingOverlay(programName) {
