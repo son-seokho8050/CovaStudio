@@ -616,11 +616,18 @@ class TileMosaicController {
     const allTileVideos = document.querySelectorAll('.tile-video');
     
     allTileVideos.forEach((video, index) => {
-      if (video.dataset.src) {
-        video.src = video.dataset.src;
+      // <source> 태그에서 비디오 경로 가져오기
+      const sourceElement = video.querySelector('source');
+      if (sourceElement && sourceElement.src) {
+        const videoSrc = sourceElement.src;
+        console.log(`Found tile video ${index + 1} source: ${videoSrc}`);
+        
+        // 비디오 엘리먼트에 직접 src 설정
+        video.src = videoSrc;
         
         // 순차적으로 로딩 (대역폭 보호)
         setTimeout(() => {
+          console.log(`Starting load for tile video ${index + 1}`);
           window.simpleVideoController.loadVideoSafely(video, () => {
             if (this.isVisible && !this.isPaused) {
               video.play().then(() => {
@@ -630,7 +637,9 @@ class TileMosaicController {
               });
             }
           });
-        }, index * 200); // 200ms 간격으로 순차 로딩
+        }, index * 300); // 300ms 간격으로 순차 로딩
+      } else {
+        console.warn(`No source found for tile video ${index + 1}`);
       }
     });
     
