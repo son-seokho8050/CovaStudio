@@ -3031,7 +3031,7 @@ a:hover {
   90% { transform: translate3d(-2px, -1px, 0) scale(1.002) !important; }
 }
 
-/* Real Video Elements with Cinematic Effects */
+/* Real Video Elements with Cinematic Effects and Loading States */
 .tile-video {
   position: absolute;
   top: 0;
@@ -3043,9 +3043,35 @@ a:hover {
   object-fit: cover;
   will-change: transform, opacity;
   mix-blend-mode: screen;
-  opacity: 0.95;
+  opacity: 0; /* Start invisible */
   border-radius: 12px;
   filter: brightness(1.2) contrast(1.1) saturate(1.15);
+  transform: scale(0.95); /* Start slightly smaller */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+}
+
+/* Loading state shimmer effect - visible during loading */
+.tile-video.loading {
+  opacity: 0.5 !important; /* 로딩 중에도 보이도록 */
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a, #1a1a1a);
+  background-size: 200% 200%;
+  animation: shimmer 2s ease-in-out infinite;
+  mix-blend-mode: normal; /* 로딩 중에는 블렌드 모드 제거 */
+}
+
+/* Loaded state - smooth appearance */
+.tile-video.loaded {
+  opacity: 0.95;
+  transform: scale(1);
+  background: none; /* 로딩 완료 후 배경 제거 */
+  mix-blend-mode: screen; /* 원래 블렌드 모드 복원 */
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Real video styling complete - gradient fallbacks removed */

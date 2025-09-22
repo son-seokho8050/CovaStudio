@@ -623,12 +623,12 @@ class TileMosaicController {
         const videoSrc = sourceElement.src;
         console.log(`Found tile video ${index + 1} source: ${videoSrc}`);
         
-        // 비디오 엘리먼트에 직접 src 설정
-        video.src = videoSrc;
+        // 대역폭 제어: src는 실제 로딩 시점에 설정, 지금은 data-src에 저장
+        video.setAttribute('data-src', videoSrc);
         
-        // 처음 4개는 빠르게, 나머지 4개는 천천히 로딩
+        // 최적화: 처음 4개는 빠르게, 나머지 4개는 더 빨리 시작
         const isFirstBatch = index < 4;
-        const delay = isFirstBatch ? index * 500 : (index * 1000) + 2000; // 나머지는 2초 후 시작
+        const delay = isFirstBatch ? index * 250 : (index * 400) + 1500; // 첫 배치 250ms 간격, 두 번째 배치 1.5초 후
         
         setTimeout(() => {
           const batchType = isFirstBatch ? 'priority' : 'background';
@@ -1270,10 +1270,10 @@ class SimpleVideoController {
   constructor() {
     this.loadedVideos = new Set();
     this.isModalOpen = false;
-    this.maxConcurrent = 1; // 완전 순차 로딩으로 변경
+    this.maxConcurrent = 2; // 최적화: 안전 범위 내에서 2개 동시 로딩
     this.currentLoading = 0;
     this.loadingQueue = [];
-    console.log('SimpleVideoController initialized');
+    console.log('SimpleVideoController initialized - optimized for 2 concurrent');
   }
   
   loadVideoSafely(video, onSuccess) {
@@ -1290,20 +1290,34 @@ class SimpleVideoController {
     }
     
     this.currentLoading++;
-    console.log(`Loading video (${this.currentLoading}/${this.maxConcurrent})`);
+    console.log(`Loading video (${this.currentLoading}/${this.maxConcurrent}) - OPTIMIZED`);
     
-    // 기본 설정 (대역폭 최적화)
+    // 최적화된 설정 (빠른 로딩을 위해)
     video.muted = true;
     video.playsInline = true;
     video.loop = true;
-    video.preload = 'none'; // 명시적으로 대역폭 절약
-    video.setAttribute('preload', 'none'); // 강제 설정
+    video.preload = 'metadata'; // 최적화: 빠른 시작을 위해 metadata로 변경
+    video.setAttribute('preload', 'metadata'); // 강제 설정
+    
+    // 대역폭 제어: 실제 로딩 시점에 src 설정
+    const videoSrc = video.getAttribute('data-src');
+    if (videoSrc) {
+      video.src = videoSrc;
+    }
+    
+    // 로딩 상태 시각적 피드백 추가
+    video.classList.add('loading');
     
     // 로딩 완료 이벤트
     video.addEventListener('loadeddata', () => {
       this.currentLoading--;
       this.loadedVideos.add(video);
       console.log(`Video loaded successfully (${this.currentLoading}/${this.maxConcurrent})`);
+      
+      // 로딩 완료 시각적 피드백
+      video.classList.remove('loading');
+      video.classList.add('loaded');
+      
       if (onSuccess) onSuccess();
       
       // 큐에서 다음 비디오 처리
