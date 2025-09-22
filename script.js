@@ -615,7 +615,13 @@ class TileMosaicController {
     // SimpleVideoController를 사용한 단순한 비디오 관리
     const allTileVideos = document.querySelectorAll('.tile-video');
     
+    // 테스트: 처음 4개 비디오만 로딩 (대역폭 테스트)
     allTileVideos.forEach((video, index) => {
+      if (index >= 4) {
+        console.log(`Skipping tile video ${index + 1} for bandwidth test`);
+        return; // 4개만 로딩하여 대역폭 테스트
+      }
+      
       // <source> 태그에서 비디오 경로 가져오기
       const sourceElement = video.querySelector('source');
       if (sourceElement && sourceElement.src) {
@@ -637,7 +643,7 @@ class TileMosaicController {
               });
             }
           });
-        }, index * 300); // 300ms 간격으로 순차 로딩
+        }, index * 500); // 500ms로 더 길게 간격
       } else {
         console.warn(`No source found for tile video ${index + 1}`);
       }
