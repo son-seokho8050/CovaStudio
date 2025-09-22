@@ -659,15 +659,35 @@ class TileMosaicController {
 
   setupBackgroundVideoLazyLoading() {
     const backgroundVideos = document.querySelectorAll('.philosophy-bg-video, .ambient-video');
+    console.log(`Found ${backgroundVideos.length} background video elements`);
     
     backgroundVideos.forEach((video, index) => {
+      console.log(`Checking background video ${index + 1}:`, {
+        src: video.src,
+        dataSrc: video.dataset.src,
+        classList: video.classList.toString()
+      });
+      
       if (video.dataset.src || video.src) {
         const src = video.dataset.src || video.src;
-        if (!video.src) video.src = src;
+        console.log(`Setting up background video ${index + 1} with source: ${src}`);
+        
+        // 필수 속성 강제 설정
+        video.muted = true;
+        video.playsInline = true;
+        video.loop = true;
+        video.preload = 'metadata';
+        
+        if (!video.src) {
+          video.src = src;
+          console.log(`Assigned source to background video ${index + 1}`);
+        }
         
         // 타일 비디오 로딩 후 천천히 로딩
         setTimeout(() => {
+          console.log(`Starting load for background video ${index + 1}`);
           window.simpleVideoController.loadVideoSafely(video, () => {
+            console.log(`Background video ${index + 1} loaded, attempting play`);
             if (this.isVisible && !this.isPaused) {
               video.play().then(() => {
                 console.log(`Background video ${index + 1} playing successfully`);
@@ -677,6 +697,8 @@ class TileMosaicController {
             }
           });
         }, index * 500); // 500ms 간격으로 천천히 로딩
+      } else {
+        console.warn(`Background video ${index + 1} has no source configured`);
       }
     });
     
