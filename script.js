@@ -1800,19 +1800,31 @@ class CovaModal2 {
         }
       }, { once: true });
       
-      // 에러 처리
+      // 에러 처리 개선 (더 자세한 로깅)
       this.video.addEventListener('error', (e) => {
-        console.error(`${programName} video loading error:`, e.target.error);
-        this.setupClickToPlay(programName);
+        const error = e.target.error;
+        console.error(`${programName} video loading error:`, {
+          code: error?.code,
+          message: error?.message,
+          src: this.video.src,
+          readyState: this.video.readyState,
+          networkState: this.video.networkState
+        });
+        
+        // 에러 발생 시 즉시 대체 재생 시도
+        console.log(`${programName} attempting error recovery...`);
+        setTimeout(() => {
+          this.retryVideoLoad(programData, programName);
+        }, 1000);
       }, { once: true });
       
-      // 타임아웃 백업 (5초 후 수동 재생 옵션 제공)
+      // 타임아웃을 15초로 늘리고 더 관대하게 처리
       setTimeout(() => {
-        if (this.video.readyState < 2) {
-          console.warn(`${programName} video loading timeout, showing manual play option`);
+        if (this.video.readyState < 2 && this.video.paused) {
+          console.warn(`${programName} video loading timeout after 15s, providing manual option`);
           this.setupClickToPlay(programName);
         }
-      }, 5000);
+      }, 15000);
       
     } catch (error) {
       console.error(`${programName} video setup failed:`, error.name, error.message);
@@ -1842,6 +1854,44 @@ class CovaModal2 {
       }
     });
     console.log('Background videos resumed after modal close');
+  }
+  
+  retryVideoLoad(programData, programName) {
+    // 비디오 로딩 실패 시 재시도
+    console.log(`${programName} retrying video load...`);
+    
+    if (!this.video || !programData?.videoSrc) return;
+    
+    try {
+      // 완전히 초기화 후 재시도
+      this.video.pause();
+      this.video.removeAttribute('src');
+      this.video.load();
+      
+      // 더 보수적인 설정으로 재시도
+      this.video.preload = 'auto';
+      this.video.muted = true;
+      this.video.playsInline = true;
+      
+      // 다시 소스 설정
+      this.video.src = programData.videoSrc;
+      this.video.load();
+      
+      // 한 번만 재생 시도
+      this.video.addEventListener('canplay', () => {
+        console.log(`${programName} retry canplay - attempting play`);
+        this.video.play()
+          .then(() => console.log(`${programName} retry successful`))
+          .catch(e => {
+            console.warn(`${programName} retry failed:`, e.name, e.message);
+            this.setupClickToPlay(programName);
+          });
+      }, { once: true });
+      
+    } catch (error) {
+      console.error(`${programName} retry failed:`, error.message);
+      this.setupClickToPlay(programName);
+    }
   }
   
   setupRebufferProtection(programName) {
