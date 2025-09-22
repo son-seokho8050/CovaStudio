@@ -604,46 +604,24 @@ class TileMosaicController {
   }
 
   initializeVideoLazyLoading() {
-    // 첫 번째 고우선순위 비디오 즉시 재생
-    const highPriorityVideo = document.querySelector('.tile-video[data-priority="high"]');
-    if (highPriorityVideo && highPriorityVideo.preload === 'metadata') {
-      highPriorityVideo.addEventListener('canplaythrough', () => {
-        if (this.isVisible && !this.isPaused) {
-          highPriorityVideo.play().catch(e => {
-            console.log('High priority video autoplay blocked:', e.message);
-          });
-        }
-      }, { once: true });
-      highPriorityVideo.load(); // 즉시 로드 시작
-    }
-
-    // 저우선순위 비디오들 지연 로딩
-    const lowPriorityVideos = document.querySelectorAll('.tile-video[data-priority="low"]');
-    this.pendingVideoTimeouts = []; // 타이머 추적용
+    // 모든 타일 비디오들 즉시 재생
+    const allTileVideos = document.querySelectorAll('.tile-video');
     
-    lowPriorityVideos.forEach((video, index) => {
-      // 점진적 로딩: 2초씩 지연하여 순차적으로 로드
-      const timeoutId = setTimeout(() => {
-        if (video.preload === 'none' && this.isVisible) {
-          video.preload = 'metadata';
-          video.load();
-          console.log(`DEBUG: Lazy loading video ${index + 2}`);
-          
-          // 로드 완료 후 재생 시도
-          video.addEventListener('canplaythrough', () => {
-            if (this.isVisible && !this.isPaused) {
-              video.play().catch(e => {
-                console.log('Video autoplay blocked:', e.message);
-              });
-            }
-          }, { once: true });
-        }
-      }, index * 2000 + 1000); // 1초 후부터 2초씩 간격
-      
-      this.pendingVideoTimeouts.push(timeoutId);
+    allTileVideos.forEach((video, index) => {
+      if (video.preload === 'metadata') {
+        video.addEventListener('canplaythrough', () => {
+          if (this.isVisible && !this.isPaused) {
+            video.play().catch(e => {
+              console.log('Video autoplay blocked:', e.message);
+            });
+          }
+        }, { once: true });
+        video.load(); // 즉시 로드 시작
+        console.log(`Loading tile video ${index + 1}`);
+      }
     });
 
-    // 다른 섹션의 비디오들도 지연 로딩
+    // 다른 섹션의 비디오들도 로딩
     this.setupBackgroundVideoLazyLoading();
   }
 
@@ -651,13 +629,17 @@ class TileMosaicController {
     const backgroundVideos = document.querySelectorAll('.philosophy-bg-video, .ambient-video');
     
     backgroundVideos.forEach((video, index) => {
-      setTimeout(() => {
-        if (video.preload === 'none') {
-          video.preload = 'metadata';
-          video.load();
-          console.log(`DEBUG: Lazy loading background video ${index + 1}`);
-        }
-      }, 5000 + index * 1000); // 5초 후부터 시작
+      if (video.preload === 'metadata') {
+        video.addEventListener('canplaythrough', () => {
+          if (this.isVisible && !this.isPaused) {
+            video.play().catch(e => {
+              console.log('Background video autoplay blocked:', e.message);
+            });
+          }
+        }, { once: true });
+        video.load();
+        console.log(`Loading background video ${index + 1}`);
+      }
     });
   }
 
@@ -906,12 +888,6 @@ class TileMosaicController {
       }
     });
     
-    // 펜딩 중인 비디오 로딩 타이머들 취소
-    if (this.pendingVideoTimeouts) {
-      this.pendingVideoTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-      this.pendingVideoTimeouts = [];
-      console.log('Cancelled pending video loading timeouts');
-    }
   }
 
   resumeAnimations() {
@@ -949,12 +925,6 @@ class TileMosaicController {
     // Stop all animations first
     this.stopAnimations();
     
-    // Cancel pending video loading timeouts
-    if (this.pendingVideoTimeouts) {
-      this.pendingVideoTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-      this.pendingVideoTimeouts = [];
-      console.log('Cleared all pending video timeouts');
-    }
     
     // Disconnect all observers
     if (this.observer) {
@@ -1649,7 +1619,7 @@ class CovaModal2 {
     if (this.video) {
       try {
         // 초기 설정 - 모달이 열릴 때 preload 설정
-        this.video.preload = 'none';
+        this.video.preload = 'metadata';
         this.video.autoplay = true;
         this.video.muted = true;
         this.video.loop = true;
