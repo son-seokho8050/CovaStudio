@@ -586,7 +586,7 @@ class TileMosaicController {
           this.isVisible = true;
           this.startAnimations();
           
-          // 처음만 비디오 초기화, 이후에는 재생만
+          // 처음만 비디오 초기화, 이후에는 재생만 (중복 방지)
           if (!this.videosInitialized) {
             this.initializeVideoLazyLoading();
             this.videosInitialized = true;
@@ -615,13 +615,8 @@ class TileMosaicController {
     // SimpleVideoController를 사용한 단순한 비디오 관리
     const allTileVideos = document.querySelectorAll('.tile-video');
     
-    // 테스트: 처음 4개 비디오만 로딩 (대역폭 테스트)
+    // 스마트 로딩: 처음 4개 먼저, 나머지 4개는 나중에 천천히
     allTileVideos.forEach((video, index) => {
-      if (index >= 4) {
-        console.log(`Skipping tile video ${index + 1} for bandwidth test`);
-        return; // 4개만 로딩하여 대역폭 테스트
-      }
-      
       // <source> 태그에서 비디오 경로 가져오기
       const sourceElement = video.querySelector('source');
       if (sourceElement && sourceElement.src) {
@@ -631,9 +626,14 @@ class TileMosaicController {
         // 비디오 엘리먼트에 직접 src 설정
         video.src = videoSrc;
         
-        // 순차적으로 로딩 (대역폭 보호)
+        // 처음 4개는 빠르게, 나머지 4개는 천천히 로딩
+        const isFirstBatch = index < 4;
+        const delay = isFirstBatch ? index * 500 : (index * 1000) + 2000; // 나머지는 2초 후 시작
+        
         setTimeout(() => {
-          console.log(`Starting load for tile video ${index + 1}`);
+          const batchType = isFirstBatch ? 'priority' : 'background';
+          console.log(`Starting load for tile video ${index + 1} (${batchType} batch)`);
+          
           window.simpleVideoController.loadVideoSafely(video, () => {
             if (this.isVisible && !this.isPaused) {
               video.play().then(() => {
@@ -643,7 +643,7 @@ class TileMosaicController {
               });
             }
           });
-        }, index * 500); // 500ms로 더 길게 간격
+        }, delay);
       } else {
         console.warn(`No source found for tile video ${index + 1}`);
       }
@@ -1292,11 +1292,12 @@ class SimpleVideoController {
     this.currentLoading++;
     console.log(`Loading video (${this.currentLoading}/${this.maxConcurrent})`);
     
-    // 기본 설정
+    // 기본 설정 (대역폭 최적화)
     video.muted = true;
     video.playsInline = true;
     video.loop = true;
-    video.preload = 'none'; // 더 보수적으로 변경
+    video.preload = 'none'; // 명시적으로 대역폭 절약
+    video.setAttribute('preload', 'none'); // 강제 설정
     
     // 로딩 완료 이벤트
     video.addEventListener('loadeddata', () => {
