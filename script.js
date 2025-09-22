@@ -1392,34 +1392,59 @@ class CovaModal2 {
         // Apply ambient effects for background feel
         this.applyCinematicEffects('ambient');
         
-        // 더 빠르고 안정적인 비디오 재생 로직
+        // 더 강력한 버퍼링 전략으로 리버퍼링 방지
+        const checkBuffering = () => {
+          if (this.video.buffered.length > 0) {
+            const bufferedEnd = this.video.buffered.end(0);
+            const bufferedAhead = bufferedEnd - this.video.currentTime;
+            return bufferedAhead >= 1.0; // 1초 이상 버퍼링됨
+          }
+          return false;
+        };
+        
         const playVideo = () => {
-          const playPromise = this.video.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                console.log('Kickoff video autoplay started successfully');
-              })
-              .catch(error => {
-                console.warn('Kickoff video autoplay failed:', error);
-                this.setupClickToPlay('Kickoff');
-              });
+          // 모달 비디오는 충분히 버퍼링된 후 재생하여 끊김 방지
+          if (this.video.readyState >= 3 || checkBuffering()) {
+            const playPromise = this.video.play();
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  console.log('Kickoff video started with sufficient buffering');
+                  this.setupRebufferProtection('Kickoff');
+                })
+                .catch(error => {
+                  console.warn('Kickoff video autoplay failed:', error);
+                  this.setupClickToPlay('Kickoff');
+                });
+            }
+          } else {
+            // 충분히 버퍼링되지 않은 경우 조금 더 기다림
+            console.log('Kickoff video waiting for sufficient buffering...');
+            setTimeout(() => {
+              if (!this.video.paused) return; // 이미 재생 중이면 무시
+              playVideo();
+            }, 200);
           }
         };
         
-        // 더 빠른 재생을 위해 loadeddata 이벤트 사용
-        this.video.addEventListener('loadeddata', playVideo, { once: true });
+        // 모바일 autoplay 신뢰성을 위한 설정
+        this.video.playsInline = true;
+        this.video.setAttribute('playsinline', '');
+        this.video.setAttribute('webkit-playsinline', '');
         
-        // 백업으로 canplay 이벤트도 추가
+        // 충분한 데이터가 로딩되면 재생
+        this.video.addEventListener('canplaythrough', playVideo, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가 (더 빠른 시작용)
         this.video.addEventListener('canplay', () => {
-          if (this.video.paused) {
+          if (this.video.paused && this.video.readyState >= 3) {
             playVideo();
           }
         }, { once: true });
         
-        // 이미 로딩된 경우 즉시 재생
-        if (this.video.readyState >= 2) {
-          setTimeout(playVideo, 50);
+        // 이미 충분히 로딩된 경우 즉시 재생
+        if (this.video.readyState >= 3) {
+          setTimeout(playVideo, 100);
         }
       } catch (error) {
         console.warn('Kickoff video autoplay setup failed:', error);
@@ -1694,25 +1719,121 @@ class CovaModal2 {
           }
         };
         
-        // 더 빠른 비디오 재생을 위해 여러 이벤트 사용
-        // loadeddata 이벤트가 canplay보다 빠름
-        this.video.addEventListener('loadeddata', playVideo, { once: true });
+        // 모달 비디오용 강력한 버퍼링 전략
+        const checkBuffering = () => {
+          if (this.video.buffered.length > 0) {
+            const bufferedEnd = this.video.buffered.end(0);
+            const bufferedAhead = bufferedEnd - this.video.currentTime;
+            return bufferedAhead >= 1.0; // 1초 이상 버퍼링됨
+          }
+          return false;
+        };
         
-        // 백업으로 canplay 이벤트도 추가
+        const safePlayVideo = () => {
+          // 모달 비디오는 충분히 버퍼링된 후 재생하여 끊김 방지
+          if (this.video.readyState >= 3 || checkBuffering()) {
+            const playPromise = this.video.play();
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  console.log(`${programName} video started with sufficient buffering`);
+                  this.setupRebufferProtection(programName);
+                })
+                .catch(error => {
+                  console.warn(`${programName} video autoplay failed:`, error);
+                  this.setupClickToPlay(programName);
+                });
+            }
+          } else {
+            // 충분히 버퍼링되지 않은 경우 조금 더 기다림
+            console.log(`${programName} video waiting for sufficient buffering...`);
+            setTimeout(() => {
+              if (!this.video.paused) return; // 이미 재생 중이면 무시
+              safePlayVideo();
+            }, 200);
+          }
+        };
+        
+        // 모바일 autoplay 신뢰성을 위한 설정
+        this.video.playsInline = true;
+        this.video.setAttribute('playsinline', '');
+        this.video.setAttribute('webkit-playsinline', '');
+        
+        // 충분한 데이터가 로딩되면 재생
+        this.video.addEventListener('canplaythrough', safePlayVideo, { once: true });
+        
+        // 백업으로 canplay 이벤트도 추가 (충분히 버퍼링된 경우만)
         this.video.addEventListener('canplay', () => {
-          if (this.video.paused) {
-            playVideo();
+          if (this.video.paused && this.video.readyState >= 3) {
+            safePlayVideo();
           }
         }, { once: true });
         
-        // 이미 로딩된 경우 즉시 재생 (더 빠른 트리거)
-        if (this.video.readyState >= 2) {
-          setTimeout(playVideo, 50);
+        // 이미 충분히 로딩된 경우 즉시 재생
+        if (this.video.readyState >= 3) {
+          setTimeout(safePlayVideo, 100);
         }
         
       } catch (error) {
         console.warn(`${programName} video autoplay setup failed:`, error);
       }
+    }
+  }
+  
+  setupRebufferProtection(programName) {
+    if (!this.video) return;
+    
+    // 리버퍼링 이벤트 처리 (waiting/stalled)
+    const handleRebuffering = () => {
+      console.log(`${programName} video rebuffering detected, pausing...`);
+      this.video.pause();
+      
+      // 버퍼링 오버레이 표시 (선택적)
+      this.showBufferingOverlay(programName);
+    };
+    
+    const handleBufferingComplete = () => {
+      console.log(`${programName} video buffering complete, resuming...`);
+      this.hideBufferingOverlay();
+      
+      // 충분히 버퍼링되었는지 확인 후 재생
+      if (this.video.buffered.length > 0) {
+        const bufferedEnd = this.video.buffered.end(0);
+        const bufferedAhead = bufferedEnd - this.video.currentTime;
+        if (bufferedAhead >= 0.5) { // 0.5초 이상 버퍼링되면 재생
+          this.video.play().catch(error => {
+            console.warn(`${programName} video resume failed:`, error);
+          });
+        }
+      }
+    };
+    
+    // 리버퍼링 이벤트 리스너 추가
+    this.video.addEventListener('waiting', handleRebuffering);
+    this.video.addEventListener('stalled', handleRebuffering);
+    this.video.addEventListener('canplay', handleBufferingComplete);
+    this.video.addEventListener('canplaythrough', handleBufferingComplete);
+  }
+  
+  showBufferingOverlay(programName) {
+    if (this.video && this.video.parentElement) {
+      // 기존 오버레이가 있으면 제거
+      const existingOverlay = this.video.parentElement.querySelector('.video-buffering-overlay');
+      if (existingOverlay) existingOverlay.remove();
+      
+      const overlay = document.createElement('div');
+      overlay.className = 'video-buffering-overlay';
+      overlay.innerHTML = '⏳ Buffering...';
+      overlay.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 8px 16px; border-radius: 4px; font-size: 14px; z-index: 15;';
+      
+      this.video.parentElement.appendChild(overlay);
+    }
+  }
+  
+  hideBufferingOverlay() {
+    if (this.video && this.video.parentElement) {
+      const overlay = this.video.parentElement.querySelector('.video-buffering-overlay');
+      if (overlay) overlay.remove();
     }
   }
   
@@ -1729,6 +1850,8 @@ class CovaModal2 {
         this.video.play().then(() => {
           overlay.remove();
           console.log(`${programName} video started via user interaction`);
+          // 수동 재생 시에도 리버퍼링 보호 적용
+          this.setupRebufferProtection(programName);
         }).catch(error => {
           console.warn(`${programName} video play failed even with user interaction:`, error);
         });
