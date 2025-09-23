@@ -1091,9 +1091,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     // G1 and G2 sections replaced with horizontal portfolio
     // Portfolio content is now displayed in HTML with static structure
 
-    // Kick-Off tables
-    renderTable("#kickG1", COVA_DATA.kickoff.grade1);
-    renderTable("#kickG2", COVA_DATA.kickoff.grade2);
+    // Kick-Off tables - removed per user request
 
     // Step-Zero section removed
 
@@ -1884,8 +1882,8 @@ class CovaModal2 {
         this.video.play()
           .then(() => {
             console.log(`${programName} video playing successfully`);
-            // 리버퍼링 보호를 일시적으로 비활성화 (너무 민감함)
-            // this.setupRebufferProtection(programName);
+            // 개선된 리버퍼링 보호 활성화
+            this.setupRebufferProtection(programName);
           })
           .catch(error => {
             console.warn(`${programName} video play failed:`, error.name, error.message);
@@ -1990,9 +1988,58 @@ class CovaModal2 {
   }
   
   setupRebufferProtection(programName) {
-    // 리버퍼링 보호 일시적으로 완전 비활성화 (너무 민감하여 사용자 경험 저해)
-    console.log(`Rebuffer protection disabled for ${programName} (too sensitive)`);
-    return;
+    if (!this.video) return;
+    
+    let rebufferCount = 0;
+    const maxRebuffers = 2; // 최대 2회까지만 일시정지
+    let rebufferTimeout;
+    
+    const handleRebuffering = () => {
+      rebufferCount++;
+      console.log(`${programName} video rebuffering detected (${rebufferCount}/${maxRebuffers})`);
+      
+      // 너무 많은 리버퍼링은 무시 (사용자 경험 보호)
+      if (rebufferCount > maxRebuffers) {
+        console.log(`${programName} ignoring rebuffering - letting video continue`);
+        return;
+      }
+      
+      // 짧은 지연 후 버퍼 체크 - 일시적 네트워크 지연일 수 있음
+      clearTimeout(rebufferTimeout);
+      rebufferTimeout = setTimeout(() => {
+        if (this.video.buffered.length > 0) {
+          const bufferedEnd = this.video.buffered.end(0);
+          const bufferedAhead = bufferedEnd - this.video.currentTime;
+          
+          // 0.5초 이상 버퍼가 있으면 계속 재생
+          if (bufferedAhead >= 0.5) {
+            console.log(`${programName} sufficient buffer (${bufferedAhead.toFixed(1)}s) - continuing`);
+            return;
+          }
+        }
+        
+        // 실제로 버퍼 부족 시에만 일시정지
+        console.log(`${programName} pausing for rebuffering`);
+        this.video.pause();
+        this.showBufferingOverlay(programName);
+      }, 300); // 300ms 대기
+    };
+    
+    const handleBufferingComplete = () => {
+      clearTimeout(rebufferTimeout);
+      if (this.video.paused) {
+        console.log(`${programName} buffering complete, resuming playback`);
+        this.hideBufferingOverlay();
+        this.video.play().catch(e => console.warn('Resume failed:', e));
+      }
+    };
+    
+    // 리버퍼링 이벤트 리스너 추가 (더 관대한 로직)
+    this.video.addEventListener('waiting', handleRebuffering);
+    this.video.addEventListener('canplay', handleBufferingComplete);
+    this.video.addEventListener('canplaythrough', handleBufferingComplete);
+    
+    console.log(`Enhanced rebuffer protection enabled for ${programName}`);
     
     /* 기존 코드 주석처리
     if (!this.video) return;
