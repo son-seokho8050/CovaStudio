@@ -667,8 +667,18 @@ class TileMosaicController {
     // SimpleVideoController를 사용한 단순한 비디오 관리
     const allTileVideos = document.querySelectorAll('.tile-video');
     
-    // 스마트 로딩: 처음 4개 먼저, 나머지 4개는 나중에 천천히
+    // CRITICAL: 모바일에서는 처음 4개만 로드, 나머지는 완전히 스킵
+    const maxVideos = this.isMobile ? 4 : 8;
+    console.log(`${this.isMobile ? 'Mobile' : 'Desktop'}: Loading ${maxVideos} tile videos`);
+    
+    // 스마트 로딩: 모바일은 4개, 데스크톱은 8개
     allTileVideos.forEach((video, index) => {
+      // 모바일에서 4개 이후는 완전히 스킵
+      if (this.isMobile && index >= 4) {
+        console.log(`Mobile: Skipping tile video ${index + 1} (not needed)`);
+        return;
+      }
+      
       // <source> 태그에서 비디오 경로 가져오기
       const sourceElement = video.querySelector('source');
       if (sourceElement && sourceElement.src) {

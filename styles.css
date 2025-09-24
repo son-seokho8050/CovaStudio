@@ -2336,28 +2336,28 @@ body.modal-open {
     left: 30px !important; 
     top: 40px !important; 
     width: 150px !important; 
-    height: 85px !important;
+    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
   }
   
   .video-tile[data-tile="tile-2"] {
     right: 30px !important; 
     top: 60px !important; 
     width: 130px !important; 
-    height: 75px !important;
+    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
   }
   
   .video-tile[data-tile="tile-3"] {
     left: 40px !important; 
     bottom: 70px !important; 
     width: 140px !important; 
-    height: 80px !important;
+    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
   }
   
   .video-tile[data-tile="tile-4"] {
     right: 40px !important; 
     bottom: 50px !important; 
     width: 120px !important; 
-    height: 70px !important;
+    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
   }
   
   .video-tile {
@@ -2909,6 +2909,7 @@ a:hover {
   opacity: 0.85 !important;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  aspect-ratio: 16 / 9 !important; /* FIXED: 영상 비율 설정 */
 }
 
 /* Explicit positioning for each tile - PC Desktop */
