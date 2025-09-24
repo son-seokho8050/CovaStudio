@@ -2331,32 +2331,32 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Mobile: 깔끔한 4개 타일 배치 - 모든 타일 동일한 크기 */
+  /* Mobile: 깔끔한 4개 타일 배치 - 화면 중앙 2x2 그리드 */
   .video-tile[data-tile="tile-1"] {
-    left: 20px !important; 
-    top: 60px !important; 
-    width: 140px !important; 
+    left: 15% !important; 
+    top: 25% !important; 
+    width: 25% !important; 
     height: auto !important;
   }
   
   .video-tile[data-tile="tile-2"] {
-    right: 20px !important; 
-    top: 60px !important; 
-    width: 140px !important; 
+    right: 15% !important; 
+    top: 25% !important; 
+    width: 25% !important; 
     height: auto !important;
   }
   
   .video-tile[data-tile="tile-3"] {
-    left: 20px !important; 
-    bottom: 80px !important; 
-    width: 140px !important; 
+    left: 15% !important; 
+    top: 55% !important; 
+    width: 25% !important; 
     height: auto !important;
   }
   
   .video-tile[data-tile="tile-4"] {
-    right: 20px !important; 
-    bottom: 80px !important; 
-    width: 140px !important; 
+    right: 15% !important; 
+    top: 55% !important; 
+    width: 25% !important; 
     height: auto !important;
   }
   
