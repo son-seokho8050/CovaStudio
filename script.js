@@ -17,6 +17,27 @@ function renderPhilosophy(){
 
 function renderList(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
 
+function renderKpiWithDetails() {
+  const container = $("#kpiCommon");
+  if (!container) return;
+  
+  const indicators = COVA_DATA.kpi.indicators;
+  container.innerHTML = indicators.map(indicator => `
+    <li style="margin-bottom: 1.5rem;">
+      <div style="margin-bottom: 0.5rem;">
+        <strong style="color: var(--primary); font-size: 1.1em;">${indicator.category}</strong>
+      </div>
+      <div style="margin-left: 0;">
+        ${indicator.questions.map(question => `
+          <div style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
+            "${question}"
+          </div>
+        `).join('')}
+      </div>
+    </li>
+  `).join('');
+}
+
 function renderKpiIndicators() {
   const container = $("#kpiIndicators");
   if (!container) return;
@@ -1115,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     // Step-Zero section removed
 
     // KPI
-    renderList("#kpiCommon", COVA_DATA.kpi.common);
+    renderKpiWithDetails();
     renderKpiIndicators();
 
     // FAQ
