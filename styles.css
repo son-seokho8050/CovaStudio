@@ -392,20 +392,19 @@
     min-height: 240px !important;
   }
   
-  /* Hide video mosaic on small mobile too */
+  /* Scale video mosaic for tiny screens */
   .video-mosaic-container {
-    display: none !important;
+    padding: 10px !important;
   }
   
   .video-tile {
-    display: none !important;
+    transform: scale(0.5) !important; /* Even smaller tiles on tiny screens */
+    opacity: 0.4 !important;
   }
   
-  /* Simplified hero background for tiny screens */
+  /* Keep hero height compact */
   .hero {
     min-height: 45vh !important;
-    background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), 
-                var(--bg-secondary) !important;
   }
   
   /* Override all desktop min-width constraints for tiny screens */
@@ -2302,22 +2301,15 @@ body.modal-open {
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    --video-opacity-mobile: 0.6;
-    --grain-opacity-mobile: 0.08;
-    --vignette-opacity-mobile: 0.55;
-    padding: 20px !important;
-    display: none !important; /* Hide complex mosaic on mobile */
+    --video-opacity-mobile: 0.5;
+    --grain-opacity-mobile: 0.05;
+    --vignette-opacity-mobile: 0.4;
+    padding: 15px !important;
   }
   
   .video-tile {
     opacity: var(--video-opacity-mobile) !important;
-    display: none !important; /* Hide individual tiles on mobile */
-  }
-  
-  /* Show simplified background instead */
-  .hero {
-    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), 
-                var(--bg-secondary);
+    transform: scale(0.7) !important; /* Smaller tiles on mobile */
   }
   
   .performance-toggle .toggle-text {
