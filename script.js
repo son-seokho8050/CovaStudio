@@ -42,19 +42,29 @@ function renderKpiIndicators() {
   const container = $("#kpiIndicators");
   if (!container) return;
   
-  const indicators = COVA_DATA.kpi.indicators;
-  container.innerHTML = indicators.map(indicator => `
-    <div class="indicator-category" style="margin-bottom: 1.5rem;">
-      <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-weight: bold;">${indicator.category}</h4>
-      <ul style="list-style: none; padding-left: 0;">
-        ${indicator.questions.map(question => `
-          <li style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
-            "${question}"
-          </li>
-        `).join('')}
-      </ul>
+  const reports = COVA_DATA.kpi.reports;
+  container.innerHTML = `
+    <div class="reports-description" style="margin-bottom: 1.5rem;">
+      <p style="color: var(--text-primary); font-size: 0.95em; line-height: 1.4;">${reports.description.replace(/\n/g, '<br>')}</p>
     </div>
-  `).join('');
+    
+    ${reports.types.map(reportType => `
+      <div class="report-category" style="margin-bottom: 1.5rem;">
+        <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-weight: bold;">${reportType.category}</h4>
+        <ul style="list-style: none; padding-left: 0;">
+          ${reportType.items.map(item => `
+            <li style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
+              ${item}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `).join('')}
+    
+    <div class="reports-conclusion" style="margin-top: 1.5rem;">
+      <p style="color: var(--text-primary); font-size: 0.95em; line-height: 1.4; font-style: italic;">${reports.conclusion}</p>
+    </div>
+  `;
 }
 function renderOrdered(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
 
