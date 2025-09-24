@@ -50,7 +50,7 @@ function renderKpiIndicators() {
     
     ${reports.types.map(reportType => `
       <div class="report-category" style="margin-bottom: 1.5rem;">
-        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem; font-weight: bold;">${reportType.category}</h4>
+        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem; font-weight: bold; font-size: 1.1em;">${reportType.category}</h4>
         <ul style="list-style: none; padding-left: 0;">
           ${reportType.items.map(item => `
             <li style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
