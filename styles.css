@@ -394,12 +394,28 @@
   
   /* Scale video mosaic for tiny screens */
   .video-mosaic-container {
-    padding: 10px !important;
+    padding: 15px !important;
   }
   
-  .video-tile {
-    transform: scale(0.5) !important; /* Even smaller tiles on tiny screens */
-    opacity: 0.4 !important;
+  /* Keep 4 tiles but make them smaller on tiny screens */
+  .video-tile[data-tile="tile-1"] {
+    width: 100px !important; 
+    height: 60px !important;
+  }
+  
+  .video-tile[data-tile="tile-2"] {
+    width: 90px !important; 
+    height: 55px !important;
+  }
+  
+  .video-tile[data-tile="tile-3"] {
+    width: 95px !important; 
+    height: 58px !important;
+  }
+  
+  .video-tile[data-tile="tile-4"] {
+    width: 85px !important; 
+    height: 50px !important;
   }
   
   /* Keep hero height compact */
@@ -2301,15 +2317,51 @@ body.modal-open {
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    --video-opacity-mobile: 0.5;
+    --video-opacity-mobile: 0.6;
     --grain-opacity-mobile: 0.05;
     --vignette-opacity-mobile: 0.4;
-    padding: 15px !important;
+    padding: 20px !important;
+  }
+  
+  /* Hide 4 tiles on mobile, keep only first 4 */
+  .video-tile[data-tile="tile-5"],
+  .video-tile[data-tile="tile-6"], 
+  .video-tile[data-tile="tile-7"],
+  .video-tile[data-tile="tile-8"] {
+    display: none !important;
+  }
+  
+  /* Reposition first 4 tiles for mobile */
+  .video-tile[data-tile="tile-1"] {
+    left: 20px !important; 
+    top: 30px !important; 
+    width: 140px !important; 
+    height: 80px !important;
+  }
+  
+  .video-tile[data-tile="tile-2"] {
+    right: 20px !important; 
+    top: 50px !important; 
+    width: 120px !important; 
+    height: 70px !important;
+  }
+  
+  .video-tile[data-tile="tile-3"] {
+    left: 50px !important; 
+    bottom: 60px !important; 
+    width: 130px !important; 
+    height: 75px !important;
+  }
+  
+  .video-tile[data-tile="tile-4"] {
+    right: 40px !important; 
+    bottom: 40px !important; 
+    width: 110px !important; 
+    height: 65px !important;
   }
   
   .video-tile {
     opacity: var(--video-opacity-mobile) !important;
-    transform: scale(0.7) !important; /* Smaller tiles on mobile */
   }
   
   .performance-toggle .toggle-text {
