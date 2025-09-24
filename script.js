@@ -90,10 +90,12 @@ function initNav(){
 
 function initTheme(){
   const btn = $("#themeToggle");
-  btn.addEventListener("click", ()=>{
-    document.documentElement.classList.toggle("light");
-    btn.textContent = document.documentElement.classList.contains("light") ? "☀️" : "🌙";
-  });
+  if (btn) {
+    btn.addEventListener("click", ()=>{
+      document.documentElement.classList.toggle("light");
+      btn.textContent = document.documentElement.classList.contains("light") ? "☀️" : "🌙";
+    });
+  }
 }
 
 // 새로운 단순 COVA 로딩 스크린
