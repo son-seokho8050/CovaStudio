@@ -2798,15 +2798,31 @@ a:hover {
   background: var(--bg-secondary);
 }
 
-/* Hero Section */
+/* Hero Section - Base Styles */
 .hero {
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   background: var(--bg);
-  padding: var(--space-24) 0;
+  padding: var(--space-20) 0;
   position: relative;
   overflow: hidden;
+}
+
+/* Desktop hero height */
+@media (min-width: 769px) {
+  .hero {
+    min-height: 100vh;
+    padding: var(--space-24) 0;
+  }
+}
+
+/* Mobile hero height - more content-friendly */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 70vh;
+    padding: var(--space-16) 0;
+  }
 }
 
 /* Dynamic Mosaic Video Gallery - Absolute Positioning System */
@@ -4206,10 +4222,7 @@ a:hover {
     display: flex;
   }
 
-  .hero {
-    min-height: 80vh;
-    padding: var(--space-20) 0;
-  }
+  /* Hero height handled by unified responsive rules */
 
   .hero-content {
     padding: 0 var(--space-4);
@@ -7366,10 +7379,7 @@ summary:focus {
     padding: 0 var(--space-5);
   }
   
-  .hero {
-    min-height: 85vh;
-    padding: var(--space-20) 0;
-  }
+  /* Hero height handled by unified responsive rules */
   
   .hero-content {
     padding: 0 var(--space-5);
@@ -7432,10 +7442,7 @@ summary:focus {
     display: flex;
   }
   
-  .hero {
-    min-height: 80vh;
-    padding: var(--space-16) 0;
-  }
+  /* Hero height handled by unified responsive rules */
   
   .hero-content {
     padding: 0 var(--space-4);
@@ -7537,10 +7544,7 @@ summary:focus {
     gap: var(--space-2);
   }
   
-  .hero {
-    min-height: 75vh;
-    padding: var(--space-12) 0;
-  }
+  /* Hero height handled by unified responsive rules */
   
   .hero-content {
     padding: 0 var(--space-3);
