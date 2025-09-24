@@ -2317,13 +2317,13 @@ body.modal-open {
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    --video-opacity-mobile: 0.6;
+    --video-opacity-mobile: 0.7;
     --grain-opacity-mobile: 0.05;
     --vignette-opacity-mobile: 0.4;
     padding: 20px !important;
   }
   
-  /* Hide 4 tiles on mobile, keep only first 4 */
+  /* Hide 4 tiles on mobile, keep only first 4 for better performance */
   .video-tile[data-tile="tile-5"],
   .video-tile[data-tile="tile-6"], 
   .video-tile[data-tile="tile-7"],
@@ -2331,33 +2331,33 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Reposition first 4 tiles for mobile */
+  /* Mobile: Clean 4-tile layout - JavaScript positioning disabled */
   .video-tile[data-tile="tile-1"] {
-    left: 20px !important; 
-    top: 30px !important; 
-    width: 140px !important; 
-    height: 80px !important;
+    left: 30px !important; 
+    top: 40px !important; 
+    width: 150px !important; 
+    height: 85px !important;
   }
   
   .video-tile[data-tile="tile-2"] {
-    right: 20px !important; 
-    top: 50px !important; 
-    width: 120px !important; 
-    height: 70px !important;
-  }
-  
-  .video-tile[data-tile="tile-3"] {
-    left: 50px !important; 
-    bottom: 60px !important; 
+    right: 30px !important; 
+    top: 60px !important; 
     width: 130px !important; 
     height: 75px !important;
   }
   
+  .video-tile[data-tile="tile-3"] {
+    left: 40px !important; 
+    bottom: 70px !important; 
+    width: 140px !important; 
+    height: 80px !important;
+  }
+  
   .video-tile[data-tile="tile-4"] {
     right: 40px !important; 
-    bottom: 40px !important; 
-    width: 110px !important; 
-    height: 65px !important;
+    bottom: 50px !important; 
+    width: 120px !important; 
+    height: 70px !important;
   }
   
   .video-tile {

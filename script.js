@@ -619,14 +619,14 @@ class TileMosaicController {
 
     console.log(`TileMosaicController initialized with ${this.tiles.length} tiles`);
     
-    // Initialize all subsystems
+    // Initialize all subsystems (CRITICAL: Mobile optimization FIRST)
     this.checkReducedMotionPreference();
     this.checkPerformanceMode();
+    this.setupMobileOptimizations(); // MOVED: Must be before IntersectionObserver
     this.setupIntersectionObserver();
     this.setupPageVisibilityAPI();
     this.setupPerformanceMonitoring();
     this.setupErrorHandling();
-    this.setupMobileOptimizations();
     this.resetTilesToInitialState();
   }
 
@@ -892,13 +892,18 @@ class TileMosaicController {
     const isMobile = window.innerWidth <= 768;
     const isTouch = 'ontouchstart' in window;
     
-    if (isMobile || isTouch) {
-      console.log('Mobile device detected - applying optimizations');
+    this.isMobile = isMobile || isTouch; // Store mobile state for later use
+    
+    if (this.isMobile) {
+      console.log('Mobile device detected - disabling JavaScript positioning, using CSS layout');
       
       // Adjust CSS custom properties for mobile
       document.documentElement.style.setProperty('--tile-opacity-mobile', '0.6');
       document.documentElement.style.setProperty('--grain-opacity-mobile', '0.08');
       document.documentElement.style.setProperty('--vignette-opacity-mobile', '0.55');
+      
+      // CRITICAL: On mobile, don't apply animation transforms - let CSS handle positioning
+      console.log('Mobile: JavaScript animations disabled - CSS controls tile layout');
       
       // Reduce animation complexity on mobile
       this.animationConfigs.forEach(config => {
@@ -948,11 +953,22 @@ class TileMosaicController {
     this.tiles.forEach((tile, index) => {
       const config = this.animationConfigs[index];
       if (config) {
-        const initialState = config.patterns[0];
-        tile.style.transform = initialState.transform;
-        tile.style.opacity = initialState.opacity;
-        tile.style.transformOrigin = 'center center';
-        tile.style.willChange = 'transform, opacity';
+        // CRITICAL FIX: On mobile, don't apply JavaScript transforms - let CSS handle positioning
+        if (this.isMobile) {
+          console.log(`Mobile: Skipping JavaScript positioning for tile ${index + 1} - CSS controls layout`);
+          // Only set basic properties, no transform
+          tile.style.opacity = config.patterns[0].opacity;
+          tile.style.transformOrigin = 'center center';
+          tile.style.willChange = 'transform, opacity';
+          // Don't set transform - CSS media queries will handle positioning
+        } else {
+          // Desktop: Use JavaScript positioning as before
+          const initialState = config.patterns[0];
+          tile.style.transform = initialState.transform;
+          tile.style.opacity = initialState.opacity;
+          tile.style.transformOrigin = 'center center';
+          tile.style.willChange = 'transform, opacity';
+        }
       }
     });
   }
@@ -977,6 +993,12 @@ class TileMosaicController {
 
   startAnimations() {
     if (this.isPaused) return;
+    
+    // CRITICAL: Don't start animations on mobile - CSS handles positioning
+    if (this.isMobile) {
+      console.log('Mobile: Skipping JavaScript animations - CSS controls tile layout');
+      return;
+    }
 
     this.stopAnimations(); // Clear any existing animations
 
