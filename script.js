@@ -25,7 +25,7 @@ function renderKpiWithDetails() {
   container.innerHTML = indicators.map(indicator => `
     <li style="margin-bottom: 1.5rem;">
       <div style="margin-bottom: 0.5rem;">
-        <strong style="color: var(--text-primary); font-size: 1.1em;">${indicator.category}</strong>
+        <strong style="color: white; font-size: 1.1em;">${indicator.category}</strong>
       </div>
       <div style="margin-left: 0;">
         ${indicator.questions.map(question => `
@@ -50,7 +50,7 @@ function renderKpiIndicators() {
     
     ${reports.types.map(reportType => `
       <div class="report-category" style="margin-bottom: 1.5rem;">
-        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem; font-weight: bold; font-size: 1.1em;">${reportType.category}</h4>
+        <h4 style="color: white; margin-bottom: 0.5rem; font-weight: bold; font-size: 1.1em;">${reportType.category}</h4>
         <ul style="list-style: none; padding-left: 0;">
           ${reportType.items.map(item => `
             <li style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
