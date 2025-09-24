@@ -321,28 +321,30 @@ window.addEventListener('DOMContentLoaded', function() {
         <p class="text-stagger">COVA, 흔적이 성과가 되는 교육, "탐구의 흔적, 기록의 힘, 설명의 성장."</p>
       </div>
       
-      <div class="video-container" style="text-align: center;">
-        <video 
-          autoplay 
-          loop 
-          muted 
-          playsInline 
-          preload="metadata"
-          class="about-cova-video"
-          data-testid="video-about-cova"
-          style="width: 90%; filter: brightness(0.85);">
-          <source src="attached_assets/kick-off_1758689920154.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      
-      <div class="about-cova-description" style="margin-top: 1cm;">
-        <p><strong style="font-size: 1.1em;">코코</strong>는 기술력 향상을 목표로 학생을 만들려 하지 않습니다.<br>
-        대신 스스로 질문을 던지고, 작은 시도를 흔적으로 남기고, 그 과정을 자기 언어로 설명할 수 있는 학생을 기릅니다.</p>
+      <div style="display: flex; align-items: flex-start; gap: 2rem; margin-top: 2rem;">
+        <div class="about-cova-description" style="flex: 1; margin-top: 0;">
+          <p><strong style="font-size: 1.1em;">코코</strong>는 기술력 향상을 목표로 학생을 만들려 하지 않습니다.<br>
+          대신 스스로 질문을 던지고, 작은 시도를 흔적으로 남기고, 그 과정을 자기 언어로 설명할 수 있는 학생을 기릅니다.</p>
+          
+          <p>결국 대학, 사회가 묻는 것은 '너는 어떻게 탐구했고, 왜 그렇게 선택했는가?' 입니다.<br>
+          그 답은 완성작 속에 있지 않습니다.<br>
+          <strong style="font-size: 1.1em;">과정의 기록과 설명 속에 있습니다.</strong></p>
+        </div>
         
-        <p>결국 대학, 사회가 묻는 것은 '너는 어떻게 탐구했고, 왜 그렇게 선택했는가?' 입니다.<br>
-        그 답은 완성작 속에 있지 않습니다.<br>
-        <strong style="font-size: 1.1em;">과정의 기록과 설명 속에 있습니다.</strong></p>
+        <div class="video-container" style="flex: 1;">
+          <video 
+            autoplay 
+            loop 
+            muted 
+            playsInline 
+            preload="metadata"
+            class="about-cova-video"
+            data-testid="video-about-cova"
+            style="width: 100%; filter: brightness(0.85);">
+            <source src="attached_assets/kick-off_1758689920154.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
     </div>
   </section>
