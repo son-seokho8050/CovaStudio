@@ -2331,33 +2331,33 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Mobile: Clean 4-tile layout - JavaScript positioning disabled */
+  /* Mobile: 깔끔한 4개 타일 배치 - 모든 타일 동일한 크기 */
   .video-tile[data-tile="tile-1"] {
-    left: 30px !important; 
-    top: 40px !important; 
-    width: 150px !important; 
-    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
+    left: 20px !important; 
+    top: 60px !important; 
+    width: 140px !important; 
+    height: auto !important;
   }
   
   .video-tile[data-tile="tile-2"] {
-    right: 30px !important; 
+    right: 20px !important; 
     top: 60px !important; 
-    width: 130px !important; 
-    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
+    width: 140px !important; 
+    height: auto !important;
   }
   
   .video-tile[data-tile="tile-3"] {
-    left: 40px !important; 
-    bottom: 70px !important; 
+    left: 20px !important; 
+    bottom: 80px !important; 
     width: 140px !important; 
-    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
+    height: auto !important;
   }
   
   .video-tile[data-tile="tile-4"] {
-    right: 40px !important; 
-    bottom: 50px !important; 
-    width: 120px !important; 
-    height: auto !important; /* FIXED: aspect-ratio가 높이 계산 */
+    right: 20px !important; 
+    bottom: 80px !important; 
+    width: 140px !important; 
+    height: auto !important;
   }
   
   .video-tile {
