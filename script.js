@@ -25,11 +25,11 @@ function renderKpiWithDetails() {
   container.innerHTML = indicators.map(indicator => `
     <li style="margin-bottom: 1.5rem;">
       <div style="margin-bottom: 0.5rem;">
-        <strong style="color: var(--primary); font-size: 1.1em;">${indicator.category}</strong>
+        <strong style="color: var(--text-primary); font-size: 1.1em;">${indicator.category}</strong>
       </div>
       <div style="margin-left: 0;">
         ${indicator.questions.map(question => `
-          <div style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
+          <div style="margin-bottom: 0.3rem; color: var(--text-primary); font-size: 0.9em;">
             "${question}"
           </div>
         `).join('')}
