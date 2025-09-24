@@ -16,6 +16,25 @@ function renderPhilosophy(){
 }
 
 function renderList(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
+
+function renderKpiIndicators() {
+  const container = $("#kpiIndicators");
+  if (!container) return;
+  
+  const indicators = COVA_DATA.kpi.indicators;
+  container.innerHTML = indicators.map(indicator => `
+    <div class="indicator-category" style="margin-bottom: 1.5rem;">
+      <h4 style="color: var(--primary); margin-bottom: 0.5rem; font-weight: bold;">${indicator.category}</h4>
+      <ul style="list-style: none; padding-left: 0;">
+        ${indicator.questions.map(question => `
+          <li style="margin-bottom: 0.3rem; color: var(--text-secondary); font-size: 0.9em;">
+            "${question}"
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
 function renderOrdered(id, arr){ $(id).innerHTML = arr.map(x=>`<li>${x}</li>`).join(""); }
 
 function renderTable(targetId, rows){
@@ -1097,7 +1116,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     // KPI
     renderList("#kpiCommon", COVA_DATA.kpi.common);
-    renderList("#kpiG2", COVA_DATA.kpi.grade2);
+    renderKpiIndicators();
 
     // FAQ
     renderFAQ();
