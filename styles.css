@@ -2858,10 +2858,10 @@ a:hover {
   pointer-events: none;
   z-index: 1;
   
-  /* CSS Grid for 4 videos - background positioned */
+  /* CSS Grid for 4 videos - fixed size */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 160px 160px;
+  grid-template-rows: 120px 120px;
   gap: 15px;
   align-content: center;
   justify-content: center;
@@ -2875,8 +2875,8 @@ a:hover {
   opacity: 0.4;
   transition: all 0.6s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  aspect-ratio: 4 / 3;
   width: 100%;
+  height: 100%;
 }
 
 /* Video elements */
@@ -2900,6 +2900,8 @@ a:hover {
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
+    grid-template-columns: 130px 130px;
+    grid-template-rows: 100px 100px;
     padding: 15px;
     gap: 10px;
   }
@@ -2907,20 +2909,20 @@ a:hover {
   .video-tile {
     opacity: 0.3;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-    aspect-ratio: 3 / 2;
   }
 }
 
 /* Small mobile optimizations */
 @media (max-width: 480px) {
   .video-mosaic-container {
+    grid-template-columns: 100px 100px;
+    grid-template-rows: 100px 100px;
     padding: 10px;
     gap: 8px;
   }
   
   .video-tile {
     opacity: 0.25;
-    aspect-ratio: 1 / 1;
   }
 }
 
@@ -2937,12 +2939,13 @@ a:hover {
   animation: gradientShift2 12s ease-in-out infinite !important;
 }
 
-/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 물리적으로 왼쪽 이동 */
+/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 왼쪽+아래로 이동 */
 .video-tile[data-video="video-2"] > video {
   position: relative !important;
   width: 135% !important;
-  height: 100% !important;
+  height: 120% !important;
   left: -25% !important;
+  top: 15% !important;
   object-fit: cover !important;
 }
 
