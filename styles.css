@@ -2869,10 +2869,10 @@ a:hover {
   height: 180px;
   backdrop-filter: blur(2px);
   
-  /* JavaScript 애니메이션을 위한 초기 배치 */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* JavaScript가 완전히 제어 - CSS 배치 제거 */
+  top: 0;
+  left: 0;
+  /* transform은 JavaScript가 설정 */
 }
 
 /* Video elements - 통일된 크기와 세련된 스타일 */
