@@ -7287,6 +7287,11 @@ summary:focus {
   video.tile-video {
     filter: brightness(0.7) saturate(0.7) contrast(1.1) !important;
   }
+  
+  /* 모바일 타일영상 섹션 전체 오른쪽 4cm 이동 */
+  .video-mosaic-container {
+    margin-left: 151px; /* 4cm ≈ 151px */
+  }
 }
 
 /* 가로 모드 모바일 최적화 */
