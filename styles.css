@@ -3300,7 +3300,7 @@ a:hover {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  z-index: 1 !important;
+  z-index: 20 !important; /* FIXED: 높은 z-index로 다른 요소들 위에 확실히 표시 */
   overflow: hidden !important;
   padding: 40px !important;
   pointer-events: none !important;
