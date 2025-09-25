@@ -3351,7 +3351,7 @@ a:hover {
 
 .hero p {
   font-size: 1.125rem;
-  margin-bottom: var(--space-12);
+  margin-bottom: var(--space-8);
   max-width: 600px;
   line-height: 1.6;
 }
