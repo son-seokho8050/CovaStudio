@@ -6960,12 +6960,13 @@ summary:focus {
     font-weight: 600 !important;
   }
   
-  /* Video Mosaic - 모바일 성능 최적화 - PC와 동일하게 */
+  /* 3. Video Mosaic 중앙 배열 - 모바일 성능 최적화 */
   html body main section.hero .video-mosaic-container {
     padding: 40px !important; /* PC와 동일한 패딩으로 복원 */
     left: 50% !important; /* 중앙 정렬 */
     transform: translateX(-50%) !important; /* 중앙 정렬 완성 */
-    /* PC와 동일한 설정 - opacity, filter 제거 */
+    width: 100% !important; /* 전체 너비 */
+    margin: 0 auto !important; /* 추가 중앙 정렬 */
   }
   
   html body main section.hero .video-mosaic-container .video-tile {
@@ -6973,7 +6974,12 @@ summary:focus {
     animation-duration: 3s !important;
   }
   
-  /* 타일 비디오 override 제거 - PC 설정 그대로 사용 */
+  /* 1. 흐릿한 필터 제거 + 2. 밝기 은은하게 낮춤 - 강제 적용 */
+  html body main section.hero .video-mosaic-container .video-tile .tile-video,
+  html body main section.hero .video-mosaic-container .video-tile .tile-video.loaded {
+    filter: brightness(0.9) !important; /* blur 완전 제거 + 밝기 은은하게 낮춤 */
+    opacity: 0.9 !important; /* 추가 밝기 조정 */
+  }
   
   /* 검은 오버레이 완전 제거 - 모바일에서 */
   html body section.hero .hero-overlay {
