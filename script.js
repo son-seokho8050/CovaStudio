@@ -4846,8 +4846,7 @@ function applyMobileTileOptimizationsDirectly() {
       container.style.maxWidth = '100vw';  
       container.style.padding = '2px';
       container.style.margin = '0';
-      container.style.marginLeft = '151px'; /* 4cm 오른쪽 이동 */
-      container.style.left = '0';
+      container.style.left = '151px'; /* 4cm 오른쪽 이동 - absolute positioning에서는 left 사용 */
       container.style.transform = 'none';
       console.log('✅ Container width expanded for mobile + moved 4cm right');
     }
