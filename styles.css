@@ -2717,13 +2717,13 @@ a:hover {
   transform: none !important;
 }
 
-/* JavaScript opacity 덮어쓰기 방지 - 은은한 밝기 5% 증가 */
+/* JavaScript opacity 덮어쓰기 방지 - 필터 완전 제거 */
 .video-tile .tile-video,
 .video-mosaic-container .tile-video,
 [data-tile] .tile-video,
 video.tile-video {
   opacity: 1.0 !important;
-  filter: brightness(1.05) !important; /* 원본보다 5% 밝게 */
+  filter: none !important;
 }
 
 /* Video tile specific styling with animated backgrounds for nagi-style cinematics */
@@ -3002,9 +3002,9 @@ video.tile-video {
     brightness(0.96) 
     sepia(0.03) !important;
   
-  /* GPU acceleration for smooth performance */
-  transform: translate3d(0, 0, 0) !important;
-  will-change: filter !important;
+  /* 하드웨어 가속 제거 - 텍스트 선명도를 위해 */
+  transform: none !important;
+  will-change: auto !important;
 }
 
 /* 4. Enhanced Video Tiles with Cinematic Depth */
@@ -3025,9 +3025,9 @@ video.tile-video {
   width: var(--w, 100px) !important;
   height: var(--h, 100px) !important;
   
-  /* GPU acceleration */
-  transform: translate3d(0, 0, 0) !important;
-  will-change: transform, opacity !important;
+  /* GPU 가속 제거 - 텍스트 선명도를 위해 */
+  transform: none !important;
+  will-change: auto !important;
 }
 
 /* Individual video enhancement for nagi style */
@@ -3045,9 +3045,9 @@ video.tile-video {
     saturate(0.95) 
     brightness(0.98) !important;
   
-  /* GPU acceleration */
-  transform: translate3d(0, 0, 0) !important;
-  will-change: filter !important;
+  /* GPU 가속 제거 - 텍스트 선명도를 위해 */
+  transform: none !important;
+  will-change: auto !important;
 }
 
 /* 5. Cinematic Depth Enhancement - Subtle parallax effect */
@@ -3197,12 +3197,7 @@ video.tile-video {
 }
 
 .dark .video-mosaic-container {
-  filter: 
-    contrast(1.12) 
-    saturate(0.88) 
-    hue-rotate(-5deg) 
-    brightness(0.94) 
-    sepia(0.05) !important;
+  filter: none !important;
 }
 
 .dark .video-mosaic-container::after {

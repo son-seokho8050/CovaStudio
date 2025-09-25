@@ -4824,8 +4824,9 @@ function applyMobileTileOptimizationsDirectly() {
     tiles.forEach((tile, index) => {
       const video = tile.querySelector('.tile-video');
       if (video) {
-        // 1. 필터 제거 (텍스트 선명도를 위해)
+        // 1. 🎯 모든 비디오 필터 완전 제거 - 텍스트 선명도를 위해
         video.style.filter = 'none';
+        video.style.webkitFilter = 'none';
         
         // 2. 중앙 4개 타일(인덱스 2-5)은 폭 확장 제외하여 자연스러운 gap 유지
         const isCenterTile = index >= 2 && index <= 5;
@@ -4843,7 +4844,7 @@ function applyMobileTileOptimizationsDirectly() {
           tile.style.zIndex = '20';
         }
         
-        const optimizationType = isCenterTile ? 'filter + JS left:-40px + CSS left:-35px (DOUBLE SHIFT)' : 'filter + width expansion';
+        const optimizationType = isCenterTile ? 'FILTERS REMOVED + JS left:-40px + CSS left:-35px (DOUBLE SHIFT)' : 'FILTERS REMOVED + width expansion';
         console.log(`✅ Applied optimizations to tile ${index + 1}: ${optimizationType}`);
       } else {
         console.warn(`⚠️ No video found in tile ${index + 1}`);
