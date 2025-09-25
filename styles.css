@@ -2331,33 +2331,41 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Mobile: 깔끔한 4개 타일 배치 - 화면 중앙 2x2 그리드 */
+  /* Mobile: 확실히 보이는 4개 타일 배치 - 강제 표시 */
   .video-tile[data-tile="tile-1"] {
-    left: 15% !important; 
-    top: 25% !important; 
-    width: 25% !important; 
-    height: auto !important;
+    left: 20px !important; 
+    top: 100px !important; 
+    width: 120px !important; 
+    height: 67px !important; /* 16:9 비율 고정 */
+    z-index: 20 !important;
+    opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-2"] {
-    right: 15% !important; 
-    top: 25% !important; 
-    width: 25% !important; 
-    height: auto !important;
+    right: 20px !important; 
+    top: 100px !important; 
+    width: 120px !important; 
+    height: 67px !important; /* 16:9 비율 고정 */
+    z-index: 20 !important;
+    opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-3"] {
-    left: 15% !important; 
-    top: 55% !important; 
-    width: 25% !important; 
-    height: auto !important;
+    left: 20px !important; 
+    top: 220px !important; 
+    width: 120px !important; 
+    height: 67px !important; /* 16:9 비율 고정 */
+    z-index: 20 !important;
+    opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-4"] {
-    right: 15% !important; 
-    top: 55% !important; 
-    width: 25% !important; 
-    height: auto !important;
+    right: 20px !important; 
+    top: 220px !important; 
+    width: 120px !important; 
+    height: 67px !important; /* 16:9 비율 고정 */
+    z-index: 20 !important;
+    opacity: 0.9 !important;
   }
   
   .video-tile {
@@ -2896,7 +2904,7 @@ a:hover {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  z-index: 1 !important;
+  z-index: 10 !important; /* FIXED: 높은 z-index로 다른 요소 위에 표시 */
   overflow: hidden !important;
   padding: 40px !important;
   pointer-events: none !important;
@@ -2909,7 +2917,8 @@ a:hover {
   opacity: 0.85 !important;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-  aspect-ratio: 16 / 9 !important; /* FIXED: 영상 비율 설정 */
+  aspect-ratio: 16 / 9 !important;
+  z-index: 15 !important; /* FIXED: 영상 타일이 최상위에 표시 */
 }
 
 /* Explicit positioning for each tile - PC Desktop */
