@@ -915,11 +915,6 @@ class TileMosaicController {
       });
     } else {
       console.log('Desktop device detected - skipping mobile optimizations');
-      // 하지만 강제로 한 번만 테스트 적용
-      if (screenWidth <= 1024) {
-        console.log('Small desktop - applying mobile optimizations anyway');
-        this.applyMobileTileOptimizations();
-      }
     }
   }
 
@@ -4823,7 +4818,7 @@ function applyMobileTileOptimizationsDirectly() {
     return;
   }
   
-  if (isMobile || isTouch || isMobileUA || screenWidth <= 1024) {
+  if (isMobile || isTouch || isMobileUA) {
     console.log('📱 Applying mobile tile optimizations...');
     
     tiles.forEach((tile, index) => {
