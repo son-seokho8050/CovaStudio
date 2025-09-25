@@ -4409,7 +4409,7 @@ summary:focus {
 /* Desktop-only background video sizing */
 @media (min-width: 769px) {
   .philosophy-bg-video {
-    min-width: calc(100% + 185px);
+    min-width: calc(100% + 40px);
     min-height: 100%;
   }
 }
