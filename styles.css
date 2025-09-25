@@ -222,6 +222,13 @@
     color: #ffffff !important;
   }
 
+  /* 🎯 모바일 전용: text-highlight 배경 애니메이션 제거 - 텍스트 선명도 향상 */
+  .text-highlight::before {
+    transform: none !important;
+    transition: none !important;
+    opacity: 0 !important; /* 배경 강조바 완전 제거 */
+  }
+
   /* FOLLOW 버튼 원래대로 */
   .hero-content .btn {
     background: var(--accent) !important;
