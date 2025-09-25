@@ -4835,12 +4835,14 @@ function applyMobileTileOptimizationsDirectly() {
           tile.style.margin = '0';
           tile.style.padding = '1px'; // 최소 간격만 유지
         } else {
-          // 중앙 4개 타일을 JavaScript로도 좌측 이동 (CSS와 함께)
-          tile.style.position = 'relative';
-          tile.style.left = '-40px';
-          tile.style.marginLeft = '5px';
-          tile.style.marginRight = '15px';
-          tile.style.zIndex = '20';
+          // 중앙 4개 타일 강제 좌측 이동 - 모든 속성 덮어쓰기
+          tile.style.position = 'relative !important';
+          tile.style.left = '-50px !important';
+          tile.style.marginLeft = '0px !important';
+          tile.style.marginRight = '20px !important';
+          tile.style.transform = 'translateX(-30px) !important';
+          tile.style.zIndex = '25 !important';
+          tile.setAttribute('style', tile.getAttribute('style') + '; left: -50px !important; transform: translateX(-30px) !important;');
         }
         
         const optimizationType = isCenterTile ? 'filter + JS left:-40px + CSS left:-35px (DOUBLE SHIFT)' : 'filter + width expansion';
