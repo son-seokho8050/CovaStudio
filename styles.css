@@ -200,11 +200,9 @@
     padding: 20px !important;
   }
 
-  .hero-content *,
   .hero-content .text-reveal,
   .hero-content .hero-title-dynamic, 
   .hero-content .text-highlight,
-  .hero-content .btn,
   .tagline {
     -webkit-font-smoothing: antialiased !important;
     text-rendering: optimizeLegibility !important;
@@ -215,6 +213,25 @@
     transform: none !important;
     backdrop-filter: none !important;
     will-change: auto !important;
+  }
+
+  /* FOLLOW 버튼 완전히 보이도록 */
+  .hero-content .btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    padding: 15px 30px !important;
+    border-radius: 25px !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+    border: 2px solid var(--accent) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 1000 !important;
   }
 
   .hero-content .hero-title-dynamic {
