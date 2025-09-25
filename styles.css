@@ -7292,6 +7292,11 @@ summary:focus {
   .video-mosaic-container {
     margin-left: 151px; /* 4cm ≈ 151px */
   }
+  
+  /* 모바일 타일 간격 조정 - 중앙 타일들 간격 넓히기 */
+  .video-tile {
+    margin: 3px !important; /* 타일 간격 증가 */
+  }
 }
 
 /* 가로 모드 모바일 최적화 */

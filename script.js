@@ -4846,8 +4846,8 @@ function applyMobileTileOptimizationsDirectly() {
       container.style.maxWidth = '100vw';  
       container.style.padding = '2px';
       container.style.margin = '0';
-      container.style.setProperty('--mobile-offset', '-10px'); /* 좌측으로 조금 이동하여 간격 비율 맞춤 */
-      console.log('✅ Container width expanded for mobile + moved left 10px for proper spacing');
+      container.style.setProperty('--mobile-offset', '25px'); /* 우측으로 이동 */
+      console.log('✅ Container width expanded for mobile + moved right 25px for proper spacing');
     }
     
     console.log('🎯 Mobile tile optimizations completed!');
