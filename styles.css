@@ -3005,16 +3005,16 @@ a:hover {
 /* Small Mobile - 480px and below */
 @media (max-width: 480px) {
   .video-tile[data-tile="tile-1"] {
-    left: 15px; top: 30px; width: 120px; height: 68px;
+    left: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-2"] {
-    right: 20px; top: 40px; width: 105px; height: 75px;
+    right: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-3"] {
-    left: 140px; top: 25px; width: 90px; height: 52px;
+    left: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-4"] {
-    left: 20px; bottom: 60px; width: 115px; height: 82px;
+    right: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-5"] {
     right: 20px; bottom: 75px; width: 100px; height: 60px;
