@@ -4058,60 +4058,7 @@ a:hover {
   background: linear-gradient(90deg, transparent, var(--accent-sophisticated), transparent);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .site-header .container {
-    padding: 0 var(--space-4);
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-
-  .nav-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: var(--space-4);
-    flex-direction: column;
-    gap: var(--space-4);
-    box-shadow: var(--shadow-lg);
-    min-width: 200px;
-  }
-
-  .nav-list.open {
-    display: flex;
-  }
-
-  /* Hero height handled by unified responsive rules */
-
-  .hero-content {
-    padding: 0 var(--space-4);
-  }
-
-  .section {
-    padding: var(--space-20) 0;
-  }
-
-  .container {
-    padding: 0 var(--space-4);
-  }
-
-  .section-header {
-    margin-bottom: var(--space-16);
-  }
-
-  .card {
-    padding: var(--space-6);
-  }
-
-  .grid {
-    gap: var(--space-8);
-  }
-}
+/* 제거됨 - 통합된 모바일 쿼리로 대체 */
 
 /* Dynamic Text Movement Effects (inspired by ehyundai.com) */
 .text-reveal {
@@ -4400,25 +4347,35 @@ summary:focus {
   .philosophy-bg-video {
     min-width: calc(100% + 185px);
     min-height: 100%;
+    height: auto;
+    object-fit: cover;
+    opacity: 0.3;
   }
 }
 
-/* Mobile background video sizing */
+/* =========================
+   통합 모바일 최적화 (768px 이하)
+   ========================= */
 @media (max-width: 768px) {
-  /* Philosophy 영상 모바일 최적화 - 인물이 잘리지 않도록 */
-  .philosophy-bg-video {
-    height: 80%;
-    width: auto;
-    object-fit: contain;
-    opacity: 0.6;
+  /* Site Header 모바일 최적화 */
+  .site-header {
+    padding: var(--space-3) 0;
   }
   
-  /* Philosophy 오버레이 모바일용 가독성 향상 */
-  .philosophy-video-overlay {
-    background: rgba(0, 0, 0, 0.2);
+  .site-header .container {
+    padding: 0 var(--space-4);
+    position: relative;
   }
   
-  /* 네비게이션 버튼 모바일에서 오른쪽 배치 */
+  .brand .logo {
+    font-size: var(--text-2xl);
+  }
+  
+  .brand .tagline {
+    font-size: var(--text-sm);
+  }
+  
+  /* 네비게이션 모바일 최적화 */
   .nav-toggle {
     display: block;
     position: absolute;
@@ -4436,6 +4393,24 @@ summary:focus {
     z-index: 1001;
   }
   
+  .nav-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    flex-direction: column;
+    padding: var(--space-4);
+    gap: var(--space-3);
+  }
+  
+  .nav-list.active,
+  .nav-list.open {
+    display: flex;
+  }
+  
   /* 헤더 컨트롤 모바일 배치 */
   .header-controls {
     position: absolute;
@@ -4445,11 +4420,56 @@ summary:focus {
     z-index: 1002;
   }
   
-  /* 헤더 컨테이너 모바일 설정 */
-  .site-header .container {
-    position: relative;
+  /* Philosophy 영상 모바일 최적화 */
+  .philosophy-bg-video {
+    height: 80%;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.6;
   }
   
+  .philosophy-video-overlay {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Hero 모바일 최적화 */
+  .hero-content {
+    padding: 0 var(--space-4);
+    max-width: none;
+  }
+  
+  .hero-title-dynamic {
+    font-size: var(--text-5xl);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-6);
+  }
+  
+  .hero p {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-8);
+    line-height: var(--leading-relaxed);
+  }
+  
+  /* 일반 레이아웃 모바일 최적화 */
+  .section {
+    padding: var(--space-16) 0;
+  }
+  
+  .container {
+    padding: 0 var(--space-4);
+  }
+  
+  .section-header {
+    margin-bottom: var(--space-8);
+  }
+  
+  .card {
+    padding: var(--space-6);
+  }
+  
+  .grid {
+    gap: var(--space-8);
+  }
 }
 
 /* 풀스크린 모드에서 비디오 크롭핑 문제 해결 */
@@ -7313,76 +7333,6 @@ summary:focus {
   }
 }
 
-/* Mobile Responsive - General Layout */
-@media (max-width: 768px) {
-  .site-header {
-    padding: var(--space-3) 0;
-  }
-  
-  .site-header .container {
-    padding: 0 var(--space-4);
-  }
-  
-  .brand .logo {
-    font-size: var(--text-2xl);
-  }
-  
-  .brand .tagline {
-    font-size: var(--text-sm);
-  }
-  
-  .nav-toggle {
-    display: block;
-  }
-  
-  .nav-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    flex-direction: column;
-    padding: var(--space-4);
-    gap: var(--space-3);
-  }
-  
-  .nav-list.active {
-    display: flex;
-  }
-  
-  /* Hero height handled by unified responsive rules */
-  
-  .hero-content {
-    padding: 0 var(--space-4);
-    max-width: none;
-  }
-  
-  .hero-title-dynamic {
-    font-size: var(--text-5xl);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-  }
-  
-  .hero p {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-8);
-    line-height: var(--leading-relaxed);
-  }
-  
-  .section {
-    padding: var(--space-16) 0;
-  }
-  
-  .container {
-    padding: 0 var(--space-4);
-  }
-  
-  .section-header {
-    margin-bottom: var(--space-8);
-  }
-  
   .section-title-dynamic {
     font-size: var(--text-2xl);
     margin-bottom: var(--space-4);
