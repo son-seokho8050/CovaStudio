@@ -4013,13 +4013,13 @@ video.tile-video {
 /* Dynamic Text Movement Effects (inspired by ehyundai.com) */
 .text-reveal {
   opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* transform: translateY(50px); - 텍스트 흐림 원인 제거 */
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .text-reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  /* transform: translateY(0); - 깔끔한 페이드인만 */
 }
 
 .text-slide-left {
@@ -4118,10 +4118,10 @@ video.tile-video {
   50% { transform: translateY(-10px); }
 }
 
-/* Large hero text effects - Enhanced for dramatic impact */
+/* Large hero text effects - 3D 제거로 텍스트 선명도 향상 */
 .hero-title-dynamic {
-  perspective: 800px;
-  transform-style: preserve-3d;
+  /* perspective: 800px; - 텍스트 흐림 원인 제거 */
+  /* transform-style: preserve-3d; - 3D 컨텍스트 제거 */
   opacity: 1; /* Ensure always visible as fallback */
 }
 
@@ -4139,15 +4139,15 @@ video.tile-video {
   transition: all 0.6s ease;
 }
 
-/* 애니메이션이 있는 경우에만 초기 상태 */
+/* 애니메이션이 있는 경우에만 초기 상태 - Transform 제거 */
 .hero-title-dynamic.js-enabled .line span {
-  transform: translateX(-50px);
+  /* transform: translateX(-50px); - 텍스트 흐림 원인 제거 */
   opacity: 0;
 }
 
-/* 보이는 상태 */
+/* 보이는 상태 - Transform 제거 */
 .hero-title-dynamic.js-enabled.visible .line span {
-  transform: translateX(0);
+  /* transform: translateX(0); - 깔끔한 페이드인만 */
   opacity: 1;
 }
 
