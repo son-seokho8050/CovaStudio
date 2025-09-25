@@ -2838,65 +2838,48 @@ a:hover {
 
 
 /* ========================================
-   ORIGINAL PC VIDEO MOSAIC SYSTEM - RESTORED
+   SIMPLE 2x2 VIDEO GRID SYSTEM
    ======================================== */
 
-/* Main video container - 화면 전체 모자이크 레이아웃 */
+/* Main video container - 심플한 2x2 그리드 */
 .video-mosaic-container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 8px;
+  gap: 8px;
 }
 
-/* Individual video tiles - 원래 PC 모자이크 스타일 */
+/* 4개 타일만 표시 */
+.video-tile:nth-child(n+5) {
+  display: none;
+}
+
+/* Individual video tiles - 심플한 스타일 */
 .video-tile {
-  position: absolute;
+  position: relative;
   border-radius: 8px;
   overflow: hidden;
-  opacity: 0.8;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(1px);
-  transition: opacity 0.3s ease;
-  width: 180px;
-  height: 140px;
-  z-index: 2;
+  opacity: 0.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Video elements - 원래 스타일 복원 */
+/* Video elements */
 .video-tile video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 8px;
-}
-
-/* Mobile version - 간단한 2x2 그리드 */
-@media (max-width: 768px) {
-  .video-mosaic-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    padding: 8px;
-    gap: 8px;
-  }
-  
-  .video-tile:nth-child(n+5) {
-    display: none;
-  }
-  
-  .video-tile {
-    position: relative;
-    opacity: 0.6;
-    border-radius: 8px;
-  }
 }
 
 /* Clean video styling - original PC mosaic restored */

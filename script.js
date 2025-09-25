@@ -1209,55 +1209,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initMomentumAnimations();
     initCarousel();
     
-    // Initialize WAAPI Tile Mosaic Controller
-    try {
-      console.log('DEBUG: Creating TileMosaicController...');
-      window.tileMosaicController = new TileMosaicController();
-      console.log('DEBUG: Controller created, calling init()...');
-      window.tileMosaicController.init();
-      console.log('TileMosaicController initialized and ready');
-    } catch (error) {
-      console.error('ERROR: TileMosaicController initialization failed:', error);
-    }
+    // Simple video tiles - no complex animations
+    console.log('Simple 2x2 video grid initialized');
     
-    // Set up performance toggle event listener
-    const performanceToggle = document.getElementById('performance-toggle');
-    if (performanceToggle) {
-      performanceToggle.addEventListener('click', () => {
-        if (window.tileMosaicController) {
-          window.tileMosaicController.togglePerformanceMode();
-          
-          // Provide user feedback
-          const status = window.tileMosaicController.getStatus();
-          console.log('Performance mode toggled:', status.isPerformanceMode ? 'ON' : 'OFF');
-        }
-      });
-      
-      // Initial UI update
-      if (window.tileMosaicController) {
-        window.tileMosaicController.updatePerformanceToggleUI();
-      }
-    }
+    // No performance toggle needed for simple grid
     
   }, 100);
   
-  // Cleanup on page unload for memory management
-  window.addEventListener('beforeunload', () => {
-    if (window.tileMosaicController) {
-      console.log('Page unloading - cleaning up TileMosaicController');
-      window.tileMosaicController.destroy();
-    }
-  });
-  
-  // Handle page visibility changes globally
-  document.addEventListener('visibilitychange', () => {
-    if (window.tileMosaicController) {
-      const status = window.tileMosaicController.getStatus();
-      console.log('Page visibility changed:', document.hidden ? 'HIDDEN' : 'VISIBLE', 
-                  '- Performance mode:', status.isPerformanceMode, 
-                  '- Reduced motion:', status.isReducedMotion);
-    }
-  });
+  // Simple cleanup
+  console.log('Simple video grid loaded');
 });
 
 // Carousel functionality for program cards
