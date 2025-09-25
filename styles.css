@@ -181,18 +181,6 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  
-  /* 중앙 4개 타일 강제 좌측 이동 - HTML 최상위 레벨 */
-  html body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(3),
-  html body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(4),
-  html body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(5),
-  html body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(6) {
-    position: relative !important;
-    left: -60px !important;
-    margin-right: 25px !important;
-    z-index: 30 !important;
-  }
-
   .cova-modal2-dialog {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
