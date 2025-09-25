@@ -923,8 +923,8 @@ class TileMosaicController {
     this.tiles.forEach((tile) => {
       const video = tile.querySelector('.tile-video');
       if (video) {
-        // 1. 톤다운 효과 적용 (brightness, saturate, contrast)
-        video.style.filter = 'brightness(0.7) saturate(0.7) contrast(1.1)';
+        // 1. 필터 제거 (텍스트 선명도를 위해)
+        video.style.filter = 'none';
         
         // 2. 타일 폭 확장 - 좌우 여백 최소화
         tile.style.width = '100%';
@@ -4824,8 +4824,8 @@ function applyMobileTileOptimizationsDirectly() {
     tiles.forEach((tile, index) => {
       const video = tile.querySelector('.tile-video');
       if (video) {
-        // 1. 톤다운 효과 적용 (brightness, saturate, contrast)
-        video.style.filter = 'brightness(0.7) saturate(0.7) contrast(1.1)';
+        // 1. 필터 제거 (텍스트 선명도를 위해)
+        video.style.filter = 'none';
         
         // 2. 중앙 4개 타일(인덱스 2-5)은 폭 확장 제외하여 자연스러운 gap 유지
         const isCenterTile = index >= 2 && index <= 5;

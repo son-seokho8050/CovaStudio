@@ -7306,7 +7306,7 @@ summary:focus {
   .video-mosaic-container .tile-video,
   [data-tile] .tile-video,
   video.tile-video {
-    filter: brightness(0.7) saturate(0.7) contrast(1.1) !important;
+    filter: none !important;
   }
   
   /* 모바일 타일영상 섹션 전체 오른쪽 4cm 이동 */
