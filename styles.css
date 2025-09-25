@@ -187,7 +187,7 @@
 }
 
 @media (max-width: 768px) {
-  /* 모바일 텍스트 선명도 최적화 - 모든 흐림 제거 */
+  /* 모바일 텍스트 완전 선명화 - 모든 렌더링 최적화 */
   .hero-content,
   .hero-content *,
   .text-reveal,
@@ -195,12 +195,39 @@
   .text-highlight,
   .btn,
   .tagline {
-    -webkit-font-smoothing: antialiased !important;
+    /* 렌더링 최적화 */
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    -moz-osx-font-smoothing: auto !important;
     text-rendering: optimizeLegibility !important;
+    
+    /* 모든 효과 제거 */
     filter: none !important;
     backdrop-filter: none !important;
     text-shadow: none !important;
-    transform: translateZ(0) !important;
+    box-shadow: none !important;
+    
+    /* Transform 제거 */
+    transform: none !important;
+    will-change: auto !important;
+    
+    /* 레이어링 최적화 */
+    contain: none !important;
+    isolation: auto !important;
+    
+    /* 폰트 강화 */
+    font-weight: 600 !important;
+    letter-spacing: 0.01em !important;
+    
+    /* 색상 대비 강화 */
+    color: #000000 !important;
+  }
+
+  /* FOLLOW 버튼 선명도 추가 강화 */
+  .hero-content .btn {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
   }
 
   .cova-modal2-dialog {

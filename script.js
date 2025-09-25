@@ -933,7 +933,7 @@ class TileMosaicController {
         tile.style.padding = '2px'; // 최소 간격만 유지
       }
     });
-    console.log('Mobile tile optimizations applied - tone-down filters and width expansion');
+    console.log('Mobile tile optimizations applied - filters removed for text clarity');
   }
 
   restartAnimationsWithDelay() {
