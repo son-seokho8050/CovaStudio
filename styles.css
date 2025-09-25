@@ -7303,23 +7303,28 @@ summary:focus {
     gap: 16px !important; /* 모바일 최적화된 간격 더 증가 */
   }
   
-  /* 중앙 4개 타일 강제 좌측 이동 - reduced-motion 무시 */
-  .video-mosaic-tiles .video-tile:nth-child(3),
-  .video-mosaic-tiles .video-tile:nth-child(4),
-  .video-mosaic-tiles .video-tile:nth-child(5), 
-  .video-mosaic-tiles .video-tile:nth-child(6) {
-    margin: 12px !important; /* 중앙 타일 특별 간격 */
-    position: relative !important; /* transform 적용을 위한 position */
-    left: -30px !important; /* 좌측 이동 - transform 대신 left 사용 */
-    z-index: 10 !important; /* 다른 요소 위에 표시 */
+  /* 모바일 중앙 4개 타일 강제 좌측 이동 - 모든 조건 무시 */
+  body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(3),
+  body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(4),
+  body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(5), 
+  body .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(6) {
+    margin-left: 5px !important; /* 좌측 여백 줄임 */
+    margin-right: 15px !important; /* 우측 여백 늘림 */
+    position: relative !important;
+    left: -35px !important; /* 강제 좌측 이동 */
+    z-index: 15 !important;
   }
   
-  /* reduced-motion에서도 중앙 타일 이동 강제 적용 */
-  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(3),
-  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(4), 
-  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(5),
-  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(6) {
-    left: -30px !important; /* reduced-motion 상태에서도 좌측 이동 */
+  /* 모든 클래스 상태에서도 적용 */
+  body.reduced-motion .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(3),
+  body.reduced-motion .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(4), 
+  body.reduced-motion .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(5),
+  body.reduced-motion .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(6),
+  body.performance-mode .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(3),
+  body.performance-mode .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(4), 
+  body.performance-mode .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(5),
+  body.performance-mode .video-mosaic-container .video-mosaic-tiles .video-tile:nth-child(6) {
+    left: -35px !important; /* 모든 상태에서 강제 좌측 이동 */
   }
 }
 

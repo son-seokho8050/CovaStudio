@@ -4835,11 +4835,15 @@ function applyMobileTileOptimizationsDirectly() {
           tile.style.margin = '0';
           tile.style.padding = '1px'; // 최소 간격만 유지
         } else {
-          // 중앙 4개 타일을 좌측으로 조금 이동
-          tile.style.transform = 'translateX(-15px)';
+          // 중앙 4개 타일을 JavaScript로도 좌측 이동 (CSS와 함께)
+          tile.style.position = 'relative';
+          tile.style.left = '-40px';
+          tile.style.marginLeft = '5px';
+          tile.style.marginRight = '15px';
+          tile.style.zIndex = '20';
         }
         
-        const optimizationType = isCenterTile ? 'filter only (center tile) + CSS left shift' : 'filter + width expansion';
+        const optimizationType = isCenterTile ? 'filter + JS left:-40px + CSS left:-35px (DOUBLE SHIFT)' : 'filter + width expansion';
         console.log(`✅ Applied optimizations to tile ${index + 1}: ${optimizationType}`);
       } else {
         console.warn(`⚠️ No video found in tile ${index + 1}`);
