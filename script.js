@@ -1204,6 +1204,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
     window.tileMosaicController.init();
     console.log('TileMosaicController initialized and ready');
     
+    // 독립적인 모바일 타일영상 최적화 실행
+    setTimeout(() => {
+      applyMobileTileOptimizationsDirectly();
+    }, 1000); // 1초 후 실행으로 타일들이 완전히 로드된 후 적용
+    
     // Set up performance toggle event listener
     const performanceToggle = document.getElementById('performance-toggle');
     if (performanceToggle) {
@@ -4797,3 +4802,62 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.keyMomentsController = new KeyMomentsController();
 });
+
+// 독립적인 모바일 타일영상 최적화 함수
+function applyMobileTileOptimizationsDirectly() {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const isMobile = screenWidth <= 768 || screenHeight <= 1024 || window.innerWidth < window.innerHeight;
+  const isTouch = 'ontouchstart' in window || 'onmsgesturechange' in window;
+  const isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  console.log(`🔍 Mobile Detection - Screen: ${screenWidth}x${screenHeight}, Mobile: ${isMobile}, Touch: ${isTouch}, UA: ${isMobileUA}`);
+  
+  // 타일 영상들 찾기
+  const tiles = document.querySelectorAll('.video-tile');
+  console.log(`📱 Found ${tiles.length} tile elements`);
+  
+  if (tiles.length === 0) {
+    console.warn('⚠️ No tile elements found - retrying in 2 seconds');
+    setTimeout(applyMobileTileOptimizationsDirectly, 2000);
+    return;
+  }
+  
+  if (isMobile || isTouch || isMobileUA || screenWidth <= 1024) {
+    console.log('📱 Applying mobile tile optimizations...');
+    
+    tiles.forEach((tile, index) => {
+      const video = tile.querySelector('.tile-video');
+      if (video) {
+        // 1. 톤다운 효과 적용 (brightness, saturate, contrast)
+        video.style.filter = 'brightness(0.7) saturate(0.7) contrast(1.1)';
+        
+        // 2. 타일 폭 확장 - 좌우 여백 최소화  
+        tile.style.width = '100%';
+        tile.style.maxWidth = '100%'; 
+        tile.style.margin = '0';
+        tile.style.padding = '1px'; // 최소 간격만 유지
+        
+        console.log(`✅ Applied optimizations to tile ${index + 1}: filter + width expansion`);
+      } else {
+        console.warn(`⚠️ No video found in tile ${index + 1}`);
+      }
+    });
+    
+    // 컨테이너도 확장
+    const container = document.querySelector('.video-mosaic-container');
+    if (container) {
+      container.style.width = '100vw';
+      container.style.maxWidth = '100vw';  
+      container.style.padding = '2px';
+      container.style.margin = '0';
+      container.style.left = '0';
+      container.style.transform = 'none';
+      console.log('✅ Container width expanded for mobile');
+    }
+    
+    console.log('🎯 Mobile tile optimizations completed!');
+  } else {
+    console.log('🖥️ Desktop detected - no mobile optimizations needed');
+  }
+}
