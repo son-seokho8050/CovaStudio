@@ -180,49 +180,49 @@
 }
 
 /* Mobile Responsive */
-/* 타일영상 전체 프레임에 톤다운 오버레이 */
-.video-mosaic-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.video-mosaic-container {
-  position: relative;
-}
-
-/* 텍스트가 톤다운 오버레이 위에 표시되도록 + 선명하게 */
+/* PC 화면용 기본 설정 */
 .hero-content {
   position: relative;
   z-index: 3;
 }
 
-/* 텍스트 선명도 최적화 */
-.hero-content .text-reveal,
-.hero-content .hero-title-dynamic,
-.hero-content .text-highlight,
-.hero-content .btn,
-.tagline {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-}
-
-.hero-content .hero-title-dynamic {
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
-}
-
 @media (max-width: 768px) {
+  /* 모바일 전용: 타일영상 전체 프레임에 톤다운 오버레이 */
+  .video-mosaic-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .video-mosaic-container {
+    position: relative;
+  }
+
+  /* 모바일 전용: 텍스트 선명도 최적화 */
+  .hero-content .text-reveal,
+  .hero-content .hero-title-dynamic,
+  .hero-content .text-highlight,
+  .hero-content .btn,
+  .tagline {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .hero-content .hero-title-dynamic {
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  }
+
   .cova-modal2-dialog {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
