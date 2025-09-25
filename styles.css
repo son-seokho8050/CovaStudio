@@ -2867,26 +2867,28 @@ a:hover {
   justify-content: center;
 }
 
-/* Individual video tiles */
+/* Individual video tiles - 디자인 세련화 */
 .video-tile {
   position: relative;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   opacity: 0.4;
-  transition: all 0.6s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
   width: 100%;
   height: 100%;
+  backdrop-filter: blur(2px);
 }
 
-/* Video elements */
+/* Video elements - 통일된 크기와 세련된 스타일 */
 .video-tile video {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 16px;
   object-fit: cover;
-  transition: all 0.6s ease;
-  background: #1a1a1a;
+  object-position: center;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
 /* Hide tiles 5-8 (only show first 4) */
@@ -2897,32 +2899,44 @@ a:hover {
   display: none;
 }
 
-/* Mobile optimizations - 최대 확대 (좌우 0.5cm 여백만) */
+/* Mobile optimizations - 세련된 모바일 디자인 */
 @media (max-width: 768px) {
   .video-mosaic-container {
     grid-template-columns: 47vw 47vw;
     grid-template-rows: 35vw 35vw;
     padding: 1.5vw;
-    gap: 1vw;
+    gap: 1.5vw;
   }
   
   .video-tile {
     opacity: 0.3;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1), 0 3px 8px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(1px);
+  }
+  
+  .video-tile video {
+    border-radius: 12px;
   }
 }
 
-/* Small mobile optimizations - 화면 꽉 차게 최대 활용 */
+/* Small mobile optimizations - 최적화된 작은 화면 디자인 */
 @media (max-width: 480px) {
   .video-mosaic-container {
     grid-template-columns: 48vw 48vw;
     grid-template-rows: 36vw 36vw;
     padding: 1vw;
-    gap: 1vw;
+    gap: 1.2vw;
   }
   
   .video-tile {
     opacity: 0.25;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  
+  .video-tile video {
+    border-radius: 10px;
   }
 }
 
@@ -2939,21 +2953,18 @@ a:hover {
   animation: gradientShift2 12s ease-in-out infinite !important;
 }
 
-/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 왼쪽+아래로 이동 */
+/* 세련된 디자인을 위한 통일된 비디오 스타일링 */
 .video-tile[data-video="video-2"] > video {
-  position: relative !important;
-  width: 135% !important;
-  height: 120% !important;
-  left: -25% !important;
-  top: 15% !important;
-  object-fit: cover !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 25% 40%;
 }
 
-/* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 아래쪽 영역 표시 */
 .video-tile[data-video="video-3"] > video {
-  object-fit: cover !important;
-  transform: translateY(18%) scale(1.12) !important;
-  transform-origin: center center !important;
+  object-fit: cover;
+  object-position: center 65%;
 }
 
 .video-tile video[data-video="video-3"] {
