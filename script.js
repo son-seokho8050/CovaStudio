@@ -4863,6 +4863,9 @@ function applyMobileTileOptimizationsDirectly() {
     }
     
     console.log('🎯 Mobile tile optimizations completed!');
+    
+    // 📱 모바일 전용: 복잡한 텍스트를 순수한 선명한 텍스트로 교체
+    replaceMobileTextElements();
   } else {
     console.log('🖥️ Desktop detected - no mobile optimizations needed');
     // PC에서 이전에 적용된 톤다운 필터 제거
@@ -4876,4 +4879,47 @@ function applyMobileTileOptimizationsDirectly() {
       });
     }
   }
+}
+
+// 📱 모바일 전용: 흐린 텍스트를 선명한 텍스트로 완전 교체
+function replaceMobileTextElements() {
+  const textRevealElement = document.querySelector('.hero-content .text-reveal');
+  
+  if (!textRevealElement) {
+    console.warn('⚠️ text-reveal element not found');
+    return;
+  }
+  
+  // 기존 복잡한 텍스트 완전 숨김
+  textRevealElement.style.display = 'none';
+  
+  // 새로운 선명한 텍스트 생성
+  const cleanTextElement = document.createElement('div');
+  cleanTextElement.className = 'mobile-clean-text';
+  cleanTextElement.innerHTML = `
+    <p style="
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0 0 2rem 0;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-weight: 500;
+      max-width: 90%;
+      text-align: center;
+    ">
+      <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 0.5rem;">과정 중심의 사고</span>
+      <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 0.5rem;">개념을 언어화하는 능력</span>
+      <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 0.5rem;">비교와 연결을 통한 탐구</span>
+      <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 1rem; color: #70e1b8;">코코의 핵심 교육철학을 바탕으로</span>
+      <span style="font-size: 1rem; font-weight: 400; color: rgba(255, 255, 255, 0.85);">중등, 고1/2 미대입시 기초소양 학습 루프를 제공합니다.</span>
+    </p>
+  `;
+  
+  // 기존 텍스트 바로 뒤에 삽입
+  textRevealElement.parentNode.insertBefore(cleanTextElement, textRevealElement.nextSibling);
+  
+  console.log('✅ Mobile clean text replacement completed - crystal clear rendering');
 }
