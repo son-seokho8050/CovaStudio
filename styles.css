@@ -6973,10 +6973,9 @@ summary:focus {
   
   /* 타일 비디오 override 제거 - PC 설정 그대로 사용 */
   
-  /* 검은 오버레이 최소화 - 모바일에서 */
+  /* 검은 오버레이 완전 제거 - 모바일에서 */
   html body section.hero .hero-overlay {
-    background: rgba(0, 0, 0, 0.2) !important; /* 최소한의 오버레이 */
-    opacity: 0.4 !important; /* 약간의 어둠 */
+    display: none !important; /* 오버레이 완전 제거 */
   }
   
   /* Navigation - 모바일 최적화 - 최고 우선순위 */
@@ -7264,9 +7263,13 @@ summary:focus {
   }
   
   /* 블러 효과 축소 - 성능 향상 */
-  .film-vignette,
-  .hero-overlay {
+  .film-vignette {
     backdrop-filter: blur(5px) !important;
+  }
+  
+  /* 모바일에서 hero-overlay 제거 */
+  .hero-overlay {
+    display: none !important;
   }
 }
 
