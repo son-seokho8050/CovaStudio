@@ -2854,10 +2854,10 @@ a:hover {
   pointer-events: none;
   z-index: 1;
   
-  /* CSS Grid for 4 videos - maximized size */
+  /* CSS Grid for videos - PC=8개(4x2), Mobile=4개(2x2) */
   display: grid;
-  grid-template-columns: 240px 240px;
-  grid-template-rows: 180px 180px;
+  grid-template-columns: repeat(4, 240px);
+  grid-template-rows: repeat(2, 180px);
   gap: 8px;
   align-content: center;
   justify-content: center;
@@ -2887,16 +2887,23 @@ a:hover {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
 
-/* Hide tiles 5-8 (only show first 4) */
-.video-tile[data-tile="tile-5"],
-.video-tile[data-tile="tile-6"],
-.video-tile[data-tile="tile-7"],
-.video-tile[data-tile="tile-8"] {
-  display: none;
-}
+/* PC: 8개 타일 모두 표시, Mobile: 4개만 표시 */
 
 /* Mobile optimizations - 세련된 모바일 디자인 */
 @media (max-width: 768px) {
+  /* 모바일에서는 2x2 그리드로 제한 */
+  .video-mosaic-container {
+    grid-template-columns: repeat(2, 240px);
+    grid-template-rows: repeat(2, 180px);
+  }
+  
+  /* 모바일에서는 타일 5-8 숨기기 */
+  .video-tile[data-tile="tile-5"],
+  .video-tile[data-tile="tile-6"],
+  .video-tile[data-tile="tile-7"],
+  .video-tile[data-tile="tile-8"] {
+    display: none;
+  }
   .video-mosaic-container {
     grid-template-columns: 47vw 47vw;
     grid-template-rows: 35vw 35vw;
