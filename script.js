@@ -4827,13 +4827,17 @@ function applyMobileTileOptimizationsDirectly() {
         // 1. 톤다운 효과 적용 (brightness, saturate, contrast)
         video.style.filter = 'brightness(0.7) saturate(0.7) contrast(1.1)';
         
-        // 2. 타일 폭 확장 - 좌우 여백 최소화  
-        tile.style.width = '100%';
-        tile.style.maxWidth = '100%'; 
-        tile.style.margin = '0';
-        tile.style.padding = '1px'; // 최소 간격만 유지
+        // 2. 중앙 4개 타일(인덱스 2-5)은 폭 확장 제외하여 자연스러운 gap 유지
+        const isCenterTile = index >= 2 && index <= 5;
+        if (!isCenterTile) {
+          tile.style.width = '100%';
+          tile.style.maxWidth = '100%'; 
+          tile.style.margin = '0';
+          tile.style.padding = '1px'; // 최소 간격만 유지
+        }
         
-        console.log(`✅ Applied optimizations to tile ${index + 1}: filter + width expansion`);
+        const optimizationType = isCenterTile ? 'filter only (center tile)' : 'filter + width expansion';
+        console.log(`✅ Applied optimizations to tile ${index + 1}: ${optimizationType}`);
       } else {
         console.warn(`⚠️ No video found in tile ${index + 1}`);
       }

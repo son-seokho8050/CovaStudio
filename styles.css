@@ -7295,12 +7295,20 @@ summary:focus {
   
   /* 모바일 타일 간격 조정 - 중앙 타일들 간격 넓히기 */
   .video-tile {
-    margin: 6px !important; /* 타일 간격 증가 */
+    margin: 8px !important; /* 타일 간격 더 증가 */
   }
   
   /* 모바일 타일 모자이크 간격 조정 */
   .video-mosaic-tiles {
-    gap: 12px !important; /* 모바일 최적화된 간격 */
+    gap: 16px !important; /* 모바일 최적화된 간격 더 증가 */
+  }
+  
+  /* 중앙 4개 타일 특별 간격 */
+  .video-tile:nth-child(3),
+  .video-tile:nth-child(4),
+  .video-tile:nth-child(5), 
+  .video-tile:nth-child(6) {
+    margin: 12px !important; /* 중앙 타일 특별 간격 */
   }
 }
 
