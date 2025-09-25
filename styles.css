@@ -482,14 +482,10 @@ body.modal-open {
 }
 
 .cova-modal2.kickoff-layout .modal2-video {
-  width: 100%; /* 오른쪽을 2cm 늘려서 원래 크기로 복원 */
-  height: 85% !important; /* 높이를 85%로 줄여서 썸네일과 겹치지 않도록 */
-  margin-left: 0.5cm; /* 중앙 정렬을 위해 여백 조정 */
-  margin-top: -5% !important; /* 영상을 더 위로 올려서 썸네일과 겹치지 않도록 */
+  width: 100%;
   object-fit: cover;
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
-  max-height: 85% !important;
-  max-width: 100%; /* 최대 너비도 동일하게 조정 */
+  max-width: 100%;
   pointer-events: none; /* Disable all mouse interactions */
   -webkit-touch-callout: none; /* Disable callout on iOS */
   -webkit-user-select: none; /* Disable text selection */
@@ -4453,6 +4449,7 @@ summary:focus {
   .site-header .container {
     position: relative;
   }
+  
 }
 
 /* 풀스크린 모드에서 비디오 크롭핑 문제 해결 */
