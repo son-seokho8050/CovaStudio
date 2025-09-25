@@ -188,6 +188,8 @@
 .tagline {
   position: relative;
   z-index: 2;
+  filter: blur(0.3px);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content .text-reveal span::before,
@@ -199,11 +201,11 @@
   left: -12px;
   right: -12px;
   bottom: -8px;
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(1px);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(3px);
   border-radius: 6px;
   z-index: -1;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .tagline::before {
@@ -213,11 +215,11 @@
   left: -8px;
   right: -8px;
   bottom: -4px;
-  background: rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(0.5px);
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(2px);
   border-radius: 4px;
   z-index: -1;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 /* FOLLOW 버튼 주변 톤다운 */
@@ -228,10 +230,10 @@
   left: -15px;
   right: -15px;
   bottom: -10px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
   border-radius: 12px;
   z-index: -2;
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 @media (max-width: 768px) {
