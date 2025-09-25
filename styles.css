@@ -7151,6 +7151,16 @@ summary:focus {
   }
   
   
+  /* About COVA 섹션 기본 스타일 복구 */
+  .about-cova-description {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .about-cova-video {
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  
   /* 타일 비디오 모바일 최적화 - 검은 화면 문제 해결 */
   html body .tile-video.loaded,
   html body .hero-tile-video {
