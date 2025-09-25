@@ -2105,17 +2105,9 @@ body.modal-open {
   z-index: 2;
 }
 
-/* Mobile Performance Optimizations */
+/* Mobile Performance Optimizations - PC와 동일한 설정 사용 */
 @media (max-width: 768px) {
-  .video-mosaic-container {
-    --video-opacity-mobile: 1.0; /* PC와 동일하게 변경 */
-    --grain-opacity-mobile: 0.08;
-    --vignette-opacity-mobile: 0.55;
-  }
-  
-  .video-tile {
-    opacity: var(--video-opacity-mobile) !important; /* 이제 1.0이 됨 */
-  }
+  /* 비디오 관련 override 모두 제거 - PC 설정 그대로 사용 */
   
   .performance-toggle .toggle-text {
     display: none;
@@ -6979,11 +6971,7 @@ summary:focus {
     animation-duration: 3s !important;
   }
   
-  html body main section.hero .video-mosaic-container .video-tile .tile-video.loaded {
-    opacity: 0.95 !important; /* PC와 동일한 설정 */
-    filter: brightness(1.2) contrast(1.1) saturate(1.15) !important; /* PC와 동일한 설정 */
-    mix-blend-mode: screen !important; /* PC와 동일한 설정 */
-  }
+  /* 타일 비디오 override 제거 - PC 설정 그대로 사용 */
   
   /* 검은 오버레이 최소화 - 모바일에서 */
   html body section.hero .hero-overlay {
@@ -7219,9 +7207,7 @@ summary:focus {
     padding: 30px !important;
   }
   
-  .video-tile {
-    opacity: 0.5 !important;
-  }
+  /* .video-tile opacity override 제거 - PC와 동일하게 */
   
   /* Modal System - 태블릿 최적화 */
   .cova-modal2-dialog {
