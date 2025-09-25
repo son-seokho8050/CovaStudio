@@ -2070,7 +2070,7 @@ body.modal-open {
 .reduced-motion .video-tile {
   animation: none !important;
   transform: none !important;
-  opacity: 0.7 !important;
+  opacity: 0.92 !important;
 }
 
 .performance-mode .video-tile {
@@ -2629,42 +2629,26 @@ a:hover {
   overflow: hidden !important;
   padding: 40px !important;
   pointer-events: none !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 20px !important;
 }
 
 .video-tile {
-  position: absolute !important;
+  position: relative !important;
   border-radius: 12px !important;
   overflow: hidden !important;
-  opacity: 0.85 !important;
+  opacity: 0.92 !important;
   transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+  width: 280px !important;
+  height: 160px !important;
+  flex-shrink: 0 !important;
 }
 
-/* Explicit positioning for each tile */
-.video-tile[data-tile="tile-1"] {
-  left: 60px; top: 80px; width: 320px; height: 180px;
-}
-.video-tile[data-tile="tile-2"] {
-  right: 100px; top: 120px; width: 280px; height: 200px;
-}
-.video-tile[data-tile="tile-3"] {
-  left: 400px; top: 60px; width: 240px; height: 140px;
-}
-.video-tile[data-tile="tile-4"] {
-  left: 80px; bottom: 160px; width: 300px; height: 220px;
-}
-.video-tile[data-tile="tile-5"] {
-  right: 80px; bottom: 200px; width: 260px; height: 160px;
-}
-.video-tile[data-tile="tile-6"] {
-  left: 450px; bottom: 100px; width: 220px; height: 180px;
-}
-.video-tile[data-tile="tile-7"] {
-  left: 700px; top: 200px; width: 200px; height: 120px;
-}
-.video-tile[data-tile="tile-8"] {
-  right: 200px; top: 340px; width: 180px; height: 140px;
-}
+/* 타일들이 이제 flexbox 중앙 정렬로 배치됨 - 개별 위치 설정 불필요 */
 
 /* nagi-style cinematic video elements */
 .video-tile video {
