@@ -3034,10 +3034,10 @@ a:hover {
   height: 100%;
   object-fit: cover;
   will-change: transform, opacity;
-  mix-blend-mode: screen;
+  /* mix-blend-mode 제거 - PHILOSOPHY와 동일 */
   opacity: 0; /* Start invisible */
   border-radius: 12px;
-  filter: brightness(1.2) contrast(1.1) saturate(1.15);
+  filter: blur(0.5px) brightness(1.1); /* PHILOSOPHY와 동일한 필터 */
   transform: scale(0.95); /* Start slightly smaller */
   transition: opacity 0.6s ease, transform 0.6s ease;
   background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
@@ -3052,12 +3052,12 @@ a:hover {
   mix-blend-mode: normal; /* 로딩 중에는 블렌드 모드 제거 */
 }
 
-/* Loaded state - smooth appearance */
+/* Loaded state - PHILOSOPHY 영상과 동일한 설정 */
 .tile-video.loaded {
-  opacity: 0.95;
+  opacity: 1; /* PHILOSOPHY와 동일 */
   transform: scale(1);
   background: none; /* 로딩 완료 후 배경 제거 */
-  mix-blend-mode: screen; /* 원래 블렌드 모드 복원 */
+  /* mix-blend-mode 제거 - PHILOSOPHY와 동일 */
 }
 
 @keyframes shimmer {
