@@ -6971,12 +6971,18 @@ summary:focus {
   /* Video Mosaic - 모바일 성능 최적화 - 최고 우선순위 */
   html body main section.hero .video-mosaic-container {
     padding: 20px !important; /* 더 작은 패딩 */
-    opacity: 0.7 !important;
+    opacity: 1.0 !important; /* 어두운 설정 제거 - 밝게 */
+    filter: brightness(1.4) contrast(1.2) !important; /* 매우 밝게 */
   }
   
   html body main section.hero .video-mosaic-container .video-tile {
-    opacity: 0.4 !important; /* 배터리 절약 */
+    opacity: 1.0 !important; /* 어두운 설정 제거 - 완전 불투명 */
     animation-duration: 3s !important;
+  }
+  
+  html body main section.hero .video-mosaic-container .video-tile .tile-video {
+    opacity: 1.0 !important; /* 비디오 자체도 밝게 */
+    filter: brightness(1.3) contrast(1.15) !important; /* 각 비디오 밝게 */
   }
   
   /* Navigation - 모바일 최적화 - 최고 우선순위 */
