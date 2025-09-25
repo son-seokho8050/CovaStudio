@@ -218,16 +218,15 @@
     font-weight: 600 !important;
     letter-spacing: 0.01em !important;
     
-    /* 색상 대비 강화 */
-    color: #000000 !important;
+    /* 흰색 글씨로 되돌리기 */
+    color: #ffffff !important;
   }
 
-  /* FOLLOW 버튼 선명도 추가 강화 */
+  /* FOLLOW 버튼 원래대로 */
   .hero-content .btn {
-    background: #ffffff !important;
-    border: 2px solid #000000 !important;
-    color: #000000 !important;
-    font-weight: 700 !important;
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
   }
 
   .cova-modal2-dialog {
