@@ -188,8 +188,6 @@
 .tagline {
   position: relative;
   z-index: 2;
-  filter: blur(0.3px);
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .hero-content .text-reveal span::before,
