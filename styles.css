@@ -3376,6 +3376,7 @@ a:hover {
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
+  margin-top: -30px;
 }
 
 .btn::before {
