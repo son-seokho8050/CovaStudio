@@ -187,6 +187,21 @@
 }
 
 @media (max-width: 768px) {
+  /* 모바일 텍스트 선명도 최적화 - 모든 흐림 제거 */
+  .hero-content,
+  .hero-content *,
+  .text-reveal,
+  .hero-title-dynamic,
+  .text-highlight,
+  .btn,
+  .tagline {
+    -webkit-font-smoothing: antialiased !important;
+    text-rendering: optimizeLegibility !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    text-shadow: none !important;
+    transform: translateZ(0) !important;
+  }
 
   .cova-modal2-dialog {
     grid-template-columns: 1fr;
@@ -3231,7 +3246,6 @@ video.tile-video {
   text-transform: uppercase;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .btn::before {
