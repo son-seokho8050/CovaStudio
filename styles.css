@@ -2633,7 +2633,7 @@ a:hover {
   flex-wrap: wrap !important;
   justify-content: center !important;
   align-items: center !important;
-  gap: 20px !important;
+  gap: 12px !important; /* 모바일에서 더 작은 간격 */
 }
 
 .video-tile {
@@ -7295,7 +7295,12 @@ summary:focus {
   
   /* 모바일 타일 간격 조정 - 중앙 타일들 간격 넓히기 */
   .video-tile {
-    margin: 3px !important; /* 타일 간격 증가 */
+    margin: 6px !important; /* 타일 간격 증가 */
+  }
+  
+  /* 모바일 타일 모자이크 간격 조정 */
+  .video-mosaic-tiles {
+    gap: 12px !important; /* 모바일 최적화된 간격 */
   }
 }
 
