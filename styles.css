@@ -2651,7 +2651,7 @@ a:hover {
 .nav-toggle {
   display: block;
   position: absolute;
-  right: 80px;
+  right: 60px;
   top: 50%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.1);
