@@ -2670,13 +2670,13 @@ a:hover {
   transform: none !important;
 }
 
-/* JavaScript opacity 덮어쓰기 방지 - 모든 가능한 선택자 */
+/* JavaScript opacity 덮어쓰기 방지 - 모든 가능한 선택자 + 은은한 톤다운 효과 */
 .video-tile .tile-video,
 .video-mosaic-container .tile-video,
 [data-tile] .tile-video,
 video.tile-video {
   opacity: 1.0 !important;
-  filter: none !important;
+  filter: brightness(0.87) saturate(0.85) contrast(1.05) !important;
 }
 
 /* Video tile specific styling with animated backgrounds for nagi-style cinematics */
