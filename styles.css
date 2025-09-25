@@ -7284,6 +7284,14 @@ summary:focus {
   .hero-overlay {
     display: none !important;
   }
+  
+  /* 모바일 타일 비디오 톤다운 효과 - 글자와 구분 */
+  .video-tile .tile-video,
+  .video-mosaic-container .tile-video,
+  [data-tile] .tile-video,
+  video.tile-video {
+    filter: brightness(0.75) saturate(0.75) contrast(1.1) !important;
+  }
 }
 
 /* 가로 모드 모바일 최적화 */
