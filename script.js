@@ -900,12 +900,33 @@ class TileMosaicController {
       document.documentElement.style.setProperty('--grain-opacity-mobile', '0.08');
       document.documentElement.style.setProperty('--vignette-opacity-mobile', '0.55');
       
+      // 모바일 타일영상 톤다운 + 폭 확장 적용
+      this.applyMobileTileOptimizations();
+      
       // Reduce animation complexity on mobile
       this.animationConfigs.forEach(config => {
         config.patterns = config.patterns.filter((_, index) => index % 2 === 0); // Keep every other keyframe
         config.duration *= 1.2; // Slower animations
       });
     }
+  }
+
+  // 모바일 타일영상 전용 최적화 - 톤다운 + 폭 확장
+  applyMobileTileOptimizations() {
+    this.tiles.forEach((tile) => {
+      const video = tile.querySelector('.tile-video');
+      if (video) {
+        // 1. 톤다운 효과 적용 (brightness, saturate, contrast)
+        video.style.filter = 'brightness(0.7) saturate(0.7) contrast(1.1)';
+        
+        // 2. 타일 폭 확장 - 좌우 여백 최소화
+        tile.style.width = '100%';
+        tile.style.maxWidth = '100%';
+        tile.style.margin = '0';
+        tile.style.padding = '2px'; // 최소 간격만 유지
+      }
+    });
+    console.log('Mobile tile optimizations applied - tone-down filters and width expansion');
   }
 
   restartAnimationsWithDelay() {
