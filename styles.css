@@ -2331,39 +2331,39 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Mobile: 확실히 보이는 4개 타일 배치 - 강제 표시 */
+  /* Mobile: 화면 전체 폭 활용한 4개 타일 배치 */
   .video-tile[data-tile="tile-1"] {
-    left: 20px !important; 
-    top: 100px !important; 
-    width: 120px !important; 
-    height: 67px !important; /* 16:9 비율 고정 */
+    left: 5% !important; 
+    top: 80px !important; 
+    width: 40% !important; 
+    height: auto !important;
     z-index: 20 !important;
     opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-2"] {
-    right: 20px !important; 
-    top: 100px !important; 
-    width: 120px !important; 
-    height: 67px !important; /* 16:9 비율 고정 */
+    right: 5% !important; 
+    top: 80px !important; 
+    width: 40% !important; 
+    height: auto !important;
     z-index: 20 !important;
     opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-3"] {
-    left: 20px !important; 
-    top: 220px !important; 
-    width: 120px !important; 
-    height: 67px !important; /* 16:9 비율 고정 */
+    left: 5% !important; 
+    bottom: 120px !important; 
+    width: 40% !important; 
+    height: auto !important;
     z-index: 20 !important;
     opacity: 0.9 !important;
   }
   
   .video-tile[data-tile="tile-4"] {
-    right: 20px !important; 
-    top: 220px !important; 
-    width: 120px !important; 
-    height: 67px !important; /* 16:9 비율 고정 */
+    right: 5% !important; 
+    bottom: 120px !important; 
+    width: 40% !important; 
+    height: auto !important;
     z-index: 20 !important;
     opacity: 0.9 !important;
   }
