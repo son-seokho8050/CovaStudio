@@ -2669,13 +2669,13 @@ a:hover {
   transform: none !important;
 }
 
-/* JavaScript opacity 덮어쓰기 방지 - PC는 밝게, 모바일은 톤다운 */
+/* JavaScript opacity 덮어쓰기 방지 - 원상복구: 원본 그대로 */
 .video-tile .tile-video,
 .video-mosaic-container .tile-video,
 [data-tile] .tile-video,
 video.tile-video {
   opacity: 1.0 !important;
-  filter: brightness(1.2) saturate(1.0) contrast(1.1) !important; /* PC: 밝게 */
+  filter: none !important; /* 원상복구: 원본 그대로 */
 }
 
 /* Video tile specific styling with animated backgrounds for nagi-style cinematics */
