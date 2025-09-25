@@ -7151,12 +7151,28 @@ summary:focus {
   }
   
   
-  /* About COVA 섹션 기본 스타일 복구 */
-  .about-cova-description {
+  /* About COVA 섹션 - 수직 배치 (텍스트 위, 영상 아래) */
+  #kickoff div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  
+  #kickoff .about-cova-description {
+    flex: none !important;
+    width: 100% !important;
+    order: 1;
     color: rgba(255, 255, 255, 0.95);
   }
   
+  #kickoff .video-container {
+    flex: none !important;
+    width: 100% !important;
+    order: 2;
+  }
+  
   .about-cova-video {
+    width: 100% !important;
+    height: auto !important;
     border-radius: 12px;
     object-fit: cover;
   }
