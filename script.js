@@ -899,14 +899,24 @@ class TileMosaicController {
   }
 
   setupMobileOptimizations() {
-    // 더 정확한 모바일 감지: 실제 모바일 디바이스와 작은 화면 구분
-    const isMobile = window.innerWidth <= 768 && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isTouch = 'ontouchstart' in window && window.innerWidth <= 768;
+    // Replit 환경 감지: Replit Preview는 항상 데스크톱으로 처리
+    const isReplitPreview = window.location.hostname.includes('replit.dev') || window.location.hostname.includes('replit.app');
     
-    this.isMobile = isMobile || isTouch; // Store mobile state for later use
+    if (isReplitPreview) {
+      // Replit 환경에서는 항상 데스크톱 모드 (8개 타일 표시)
+      this.isMobile = false;
+      console.log(`Replit environment detected - Force Desktop mode for 8 tiles (screen: ${window.innerWidth}px)`);
+    } else {
+      // 일반 환경에서는 User Agent + 화면 크기로 판단
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+      const isSmallScreen = window.innerWidth <= 768;
+      this.isMobile = isMobileDevice && isSmallScreen;
+      console.log(`Standard environment - Mobile device: ${isMobileDevice}, Small screen: ${isSmallScreen}, Mobile mode: ${this.isMobile}`);
+    }
     
     if (this.isMobile) {
-      console.log('Mobile device detected - disabling JavaScript positioning, using CSS layout');
+      console.log('Mobile mode enabled - disabling JavaScript positioning, using CSS layout');
       
       // Adjust CSS custom properties for mobile
       document.documentElement.style.setProperty('--tile-opacity-mobile', '0.6');
