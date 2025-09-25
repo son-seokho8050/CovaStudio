@@ -7285,12 +7285,12 @@ summary:focus {
     display: none !important;
   }
   
-  /* 모바일 타일 비디오 강한 톤다운 효과 - 글자와 명확한 구분 */
+  /* 모바일 타일 비디오 은은한 톤다운 효과 - 밝기와 채도 자연스럽게 낮춤 */
   .video-tile .tile-video,
   .video-mosaic-container .tile-video,
   [data-tile] .tile-video,
   video.tile-video {
-    filter: brightness(0.6) saturate(0.6) contrast(1.15) !important;
+    filter: brightness(0.7) saturate(0.7) contrast(1.1) !important;
   }
 }
 
