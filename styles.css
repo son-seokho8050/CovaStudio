@@ -6965,7 +6965,7 @@ summary:focus {
   
   /* 3. Video Mosaic 중앙 배열 - 모바일 성능 최적화 */
   html body main section.hero .video-mosaic-container {
-    padding: 40px !important; /* PC와 동일한 패딩으로 복원 */
+    padding: 10px !important; /* 모바일에서 패딩 대폭 축소 - 좌우폭 최대 활용 */
     left: 50% !important; /* 중앙 정렬 */
     transform: translateX(-50%) !important; /* 중앙 정렬 완성 */
     width: 100% !important; /* 전체 너비 */
@@ -7214,7 +7214,7 @@ summary:focus {
   
   /* Video Mosaic - 태블릿 최적화 */
   .video-mosaic-container {
-    padding: 30px !important;
+    padding: 15px !important; /* 태블릿에서도 패딩 축소 - 좌우폭 활용 */
   }
   
   /* .video-tile opacity override 제거 - PC와 동일하게 */
