@@ -2662,6 +2662,23 @@ a:hover {
   filter: none !important;
 }
 
+/* 메인화면 타일영상 직접 수정 - 정확한 선택자 */
+.tile-video {
+  opacity: 1.0 !important;
+  filter: none !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* JavaScript opacity 덮어쓰기 방지 - 모든 가능한 선택자 */
+.video-tile .tile-video,
+.video-mosaic-container .tile-video,
+[data-tile] .tile-video,
+video.tile-video {
+  opacity: 1.0 !important;
+  filter: none !important;
+}
+
 /* Video tile specific styling with animated backgrounds for nagi-style cinematics */
 .video-tile video[data-video="video-1"] {
   background: linear-gradient(45deg, #667eea, #764ba2, #667eea) !important;
