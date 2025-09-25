@@ -2877,7 +2877,6 @@ a:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   aspect-ratio: 4 / 3;
   width: 100%;
-  max-width: 160px;
 }
 
 /* Video elements */
@@ -2908,7 +2907,6 @@ a:hover {
   .video-tile {
     opacity: 0.3;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-    max-width: 130px;
     aspect-ratio: 3 / 2;
   }
 }
@@ -2922,7 +2920,6 @@ a:hover {
   
   .video-tile {
     opacity: 0.25;
-    max-width: 100px;
     aspect-ratio: 1 / 1;
   }
 }
