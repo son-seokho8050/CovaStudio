@@ -501,7 +501,7 @@ class TileMosaicController {
         duration: 12000,
         delay: 0,
         patterns: [
-          { transform: 'scale(1.0) translateX(20px) translateY(20px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(50px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.1) translateX(30px) translateY(15px) rotate(-1deg)', opacity: 0.9, offset: 0.25 },
           { transform: 'scale(1.05) translateX(25px) translateY(25px) rotate(1deg)', opacity: 0.8, offset: 0.5 },
           { transform: 'scale(1.08) translateX(35px) translateY(10px) rotate(-0.5deg)', opacity: 0.9, offset: 0.75 },
@@ -514,7 +514,7 @@ class TileMosaicController {
         duration: 15000,
         delay: 2000,
         patterns: [
-          { transform: 'scale(1.0) translateX(200px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(250px) translateY(80px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(25px) translateY(-20px) rotate(2deg)', opacity: 0.7, offset: 0.3 },
           { transform: 'scale(1.4) translateX(-18px) translateY(12px) rotate(-2.5deg)', opacity: 1.0, offset: 0.6 },
           { transform: 'scale(1.1) translateX(8px) translateY(-5px) rotate(0.8deg)', opacity: 0.9, offset: 0.85 },
@@ -527,7 +527,7 @@ class TileMosaicController {
         duration: 10000,
         delay: 1000,
         patterns: [
-          { transform: 'scale(1.0) translateX(400px) translateY(80px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(150px) translateY(200px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.25) translateX(-12px) translateY(18px) rotate(-1.8deg)', opacity: 0.95, offset: 0.2 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.4 },
           { transform: 'scale(0.85) translateX(22px) translateY(-15px) rotate(2.2deg)', opacity: 0.75, offset: 0.7 },
@@ -540,7 +540,7 @@ class TileMosaicController {
         duration: 18000,
         delay: 3500,
         patterns: [
-          { transform: 'scale(1.0) translateX(600px) translateY(120px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(350px) translateY(250px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.35) translateX(30px) translateY(-25px) rotate(3deg)', opacity: 1.0, offset: 0.15 },
           { transform: 'scale(0.9) translateX(-25px) translateY(20px) rotate(-2.8deg)', opacity: 0.8, offset: 0.45 },
           { transform: 'scale(1.15) translateX(12px) translateY(-8px) rotate(1.2deg)', opacity: 0.9, offset: 0.75 },
@@ -553,7 +553,7 @@ class TileMosaicController {
         duration: 14000,
         delay: 1500,
         patterns: [
-          { transform: 'scale(1.0) translateX(100px) translateY(400px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(80px) translateY(320px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.82) translateX(-15px) translateY(-18px) rotate(-1.5deg)', opacity: 0.7, offset: 0.35 },
           { transform: 'scale(1.28) translateX(20px) translateY(15px) rotate(2.5deg)', opacity: 0.95, offset: 0.65 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
@@ -565,7 +565,7 @@ class TileMosaicController {
         duration: 16000,
         delay: 4000,
         patterns: [
-          { transform: 'scale(1.0) translateX(300px) translateY(450px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(280px) translateY(370px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.22) translateX(-28px) translateY(22px) rotate(-2.2deg)', opacity: 0.9, offset: 0.28 },
           { transform: 'scale(0.88) translateX(18px) translateY(-12px) rotate(1.8deg)', opacity: 0.75, offset: 0.55 },
           { transform: 'scale(1.4) translateX(-8px) translateY(5px) rotate(-0.8deg)', opacity: 1.0, offset: 0.82 },
@@ -578,7 +578,7 @@ class TileMosaicController {
         duration: 11000,
         delay: 800,
         patterns: [
-          { transform: 'scale(1.0) translateX(500px) translateY(400px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(180px) translateY(450px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.18) translateX(35px) translateY(-30px) rotate(2.8deg)', opacity: 0.95, offset: 0.22 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.44 },
           { transform: 'scale(0.85) translateX(-22px) translateY(18px) rotate(-2.5deg)', opacity: 0.7, offset: 0.66 },
@@ -592,7 +592,7 @@ class TileMosaicController {
         duration: 13000,
         delay: 2800,
         patterns: [
-          { transform: 'scale(1.0) translateX(700px) translateY(350px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(380px) translateY(420px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(-32px) translateY(-25px) rotate(-3deg)', opacity: 0.7, offset: 0.25 },
           { transform: 'scale(1.38) translateX(28px) translateY(20px) rotate(2.5deg)', opacity: 1.0, offset: 0.5 },
           { transform: 'scale(1.05) translateX(-12px) translateY(-8px) rotate(-1deg)', opacity: 0.9, offset: 0.75 },

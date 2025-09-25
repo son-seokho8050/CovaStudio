@@ -2864,6 +2864,9 @@ a:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(1px);
   transition: opacity 0.3s ease;
+  width: 180px;
+  height: 140px;
+  z-index: 2;
 }
 
 /* Video elements - 원래 스타일 복원 */
