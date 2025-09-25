@@ -2845,19 +2845,23 @@ a:hover {
    NEW 4-VIDEO TILE SYSTEM - Simple & Clean 
    ======================================== */
 
-/* Main video container - Responsive Inline Layout */
+/* Main video container - Background Positioned Layout */
 .video-mosaic-container {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  height: 100%;
   padding: 20px;
   pointer-events: none;
+  z-index: 1;
   
-  /* CSS Grid for 4 videos - mobile optimized */
+  /* CSS Grid for 4 videos - background positioned */
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr;
   gap: 15px;
   align-content: center;
   justify-content: center;
@@ -2868,12 +2872,12 @@ a:hover {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  opacity: 0.9;
+  opacity: 0.4;
   transition: all 0.6s ease;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   aspect-ratio: 4 / 3;
   width: 100%;
-  max-width: 200px;
+  max-width: 160px;
 }
 
 /* Video elements */
@@ -2897,16 +2901,14 @@ a:hover {
 /* Mobile optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    max-width: 100%;
     padding: 15px;
     gap: 10px;
-    margin: 20px auto;
   }
   
   .video-tile {
-    opacity: 0.85;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-    max-width: 150px;
+    opacity: 0.3;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    max-width: 130px;
     aspect-ratio: 3 / 2;
   }
 }
@@ -2916,11 +2918,11 @@ a:hover {
   .video-mosaic-container {
     padding: 10px;
     gap: 8px;
-    margin: 15px auto;
   }
   
   .video-tile {
-    max-width: 120px;
+    opacity: 0.25;
+    max-width: 100px;
     aspect-ratio: 1 / 1;
   }
 }
