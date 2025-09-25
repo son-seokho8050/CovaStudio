@@ -4839,7 +4839,7 @@ function applyMobileTileOptimizationsDirectly() {
           tile.style.transform = 'translateX(-15px)';
         }
         
-        const optimizationType = isCenterTile ? 'filter only (center tile)' : 'filter + width expansion';
+        const optimizationType = isCenterTile ? 'filter only (center tile) + CSS left shift' : 'filter + width expansion';
         console.log(`✅ Applied optimizations to tile ${index + 1}: ${optimizationType}`);
       } else {
         console.warn(`⚠️ No video found in tile ${index + 1}`);

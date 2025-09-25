@@ -7303,12 +7303,13 @@ summary:focus {
     gap: 16px !important; /* 모바일 최적화된 간격 더 증가 */
   }
   
-  /* 중앙 4개 타일 특별 간격 */
+  /* 중앙 4개 타일 특별 간격 + 좌측 이동 */
   .video-tile:nth-child(3),
   .video-tile:nth-child(4),
   .video-tile:nth-child(5), 
   .video-tile:nth-child(6) {
     margin: 12px !important; /* 중앙 타일 특별 간격 */
+    transform: translateX(-20px) !important; /* 좌측으로 이동 */
   }
 }
 
