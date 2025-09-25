@@ -4839,16 +4839,17 @@ function applyMobileTileOptimizationsDirectly() {
       }
     });
     
-    // 컨테이너도 확장
+    // 컨테이너도 확장 + 오른쪽 4cm 이동
     const container = document.querySelector('.video-mosaic-container');
     if (container) {
       container.style.width = '100vw';
       container.style.maxWidth = '100vw';  
       container.style.padding = '2px';
       container.style.margin = '0';
+      container.style.marginLeft = '151px'; /* 4cm 오른쪽 이동 */
       container.style.left = '0';
       container.style.transform = 'none';
-      console.log('✅ Container width expanded for mobile');
+      console.log('✅ Container width expanded for mobile + moved 4cm right');
     }
     
     console.log('🎯 Mobile tile optimizations completed!');
