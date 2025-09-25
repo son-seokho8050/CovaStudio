@@ -179,235 +179,23 @@
   color: var(--text-secondary);
 }
 
-/* ===================================
-   MODAL MOBILE RESPONSIVE - UNIFIED SYSTEM
-   =================================== */
-
-/* Tablet Responsive - 768px to 1024px */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .cova-modal2-dialog {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    height: min(90vh, 900px);
-    width: 90vw;
-    gap: 8px;
-  }
-  
-  .modal2-media-box {
-    aspect-ratio: 16 / 9;
-    max-height: 45vh;
-  }
-  
-  .modal2-panel {
-    max-height: 45vh;
-    padding: var(--space-5);
-  }
-  
-  .modal2-title {
-    font-size: var(--text-xl);
-  }
-  
-  .modal2-close {
-    width: 40px;
-    height: 40px;
-    font-size: var(--text-base);
-  }
-}
-
-/* Mobile Responsive - 768px and below */
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .cova-modal2-dialog {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 1fr auto;
     height: min(95vh, 800px);
     width: 95vw;
-    gap: 4px;
-    border-radius: 12px;
-  }
-  
-  /* Kickoff mobile overrides - Reset desktop-specific layout */
-  .cova-modal2.kickoff-layout .modal2-media {
-    display: flex !important;
-    flex-direction: column !important;
-    grid-template-rows: unset !important;
-    gap: 0 !important;
-    max-height: 40vh !important;
-  }
-  
-  .cova-modal2.kickoff-layout .modal2-video-section {
-    margin-top: 0 !important;
-    flex: 1;
-  }
-  
-  .cova-modal2.kickoff-layout .modal2-image-section {
-    padding: var(--space-2) !important;
-    max-height: 200px !important;
-    min-height: auto !important;
-    min-width: auto !important;
-    border-top: 1px solid var(--border) !important;
-  }
-  
-  .cova-modal2.kickoff-layout .modal2-thumbnails-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
-    gap: var(--space-1) !important;
-  }
-  
-  .cova-modal2.kickoff-layout .modal2-panel {
-    border-left: none !important;
-    border-top: 1px solid var(--border) !important;
-    max-height: 50vh !important;
-    min-width: auto !important;
-  }
-  
-  /* Override all desktop min-width constraints */
-  .modal-content,
-  .modal-content-enhanced,
-  .modal2-panel,
-  .modal-media-panel,
-  .modal-content-panel {
-    min-width: auto !important;
+    gap: 0;
   }
   
   .modal2-media-box {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 3 / 2;
+  }
+  
+  .modal2-panel {
     max-height: 40vh;
-  }
-  
-  .modal2-panel {
-    max-height: 50vh;
     padding: var(--space-4);
-    overflow-y: auto;
-  }
-  
-  .modal2-title {
-    font-size: var(--text-lg);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-3);
-  }
-  
-  .modal2-close {
-    width: 36px;
-    height: 36px;
-    font-size: var(--text-sm);
-    top: 8px;
-    right: 8px;
-  }
-  
-  .modal2-keymoments-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-2);
-  }
-  
-  .modal2-keymoment {
-    padding: var(--space-3);
-  }
-  
-  .modal2-keymoment-time,
-  .modal2-keymoment-title {
-    font-size: var(--text-xs);
-  }
-  
-  .modal2-keymoment-summary {
-    font-size: var(--text-2xs);
-    line-height: var(--leading-tight);
-  }
-}
-
-/* Small Mobile - 480px and below */
-@media (max-width: 480px) {
-  .cova-modal2-dialog {
-    height: 98vh;
-    width: 98vw;
-    border-radius: 8px;
-    gap: 2px;
-  }
-  
-  .modal2-media-box {
-    max-height: 35vh;
-  }
-  
-  .modal2-panel {
-    max-height: 55vh;
-    padding: var(--space-3);
-  }
-  
-  .modal2-title {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-2);
-  }
-  
-  .modal2-close {
-    width: 32px;
-    height: 32px;
-    font-size: var(--text-xs);
-    top: 6px;
-    right: 6px;
-  }
-  
-  .modal2-keymoment {
-    padding: var(--space-2);
-  }
-  
-  .modal2-keymoment-time,
-  .modal2-keymoment-title,
-  .modal2-keymoment-summary {
-    font-size: var(--text-2xs);
-  }
-  
-  /* Override large min-height values for small screens */
-  .modal-content,
-  .modal-content-enhanced {
-    min-height: 300px !important;
-  }
-  
-  /* Reduce section padding and typography */
-  .philosophy-section {
-    min-height: 50vh !important;
-    padding: 4rem 0 !important;
-  }
-  
-  /* Hero section typography scaling */
-  .hero-title {
-    font-size: clamp(1.8rem, 6vw, 2.5rem) !important;
-    line-height: 1.2 !important;
-  }
-  
-  .hero-subtitle {
-    font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
-  }
-  
-  /* Section typography scaling */
-  .section-title {
-    font-size: clamp(1.4rem, 5vw, 2rem) !important;
-  }
-  
-  .section-subtitle {
-    font-size: clamp(0.8rem, 2.5vw, 1rem) !important;
-  }
-  
-  /* Program cards smaller on tiny screens */
-  .carousel-item {
-    width: 220px !important;
-    min-height: 240px !important;
-  }
-  
-  /* Scale video mosaic for tiny screens */
-  
-  
-  /* Keep hero height compact */
-  .hero {
-    min-height: 45vh !important;
-  }
-  
-  /* Override all desktop min-width constraints for tiny screens */
-  .modal-content,
-  .modal-content-enhanced,
-  .modal2-panel,
-  .modal-media-panel,
-  .modal-content-panel,
-  .cova-modal2.kickoff-layout .modal2-image-section {
-    min-width: auto !important;
   }
 }
 
@@ -429,17 +217,15 @@ body.modal-open {
    6:4 ratio with left split (video/image)
    =================================== */
 
-/* Kickoff-specific modal layout - Desktop Only */
-@media (min-width: 769px) {
-  .cova-modal2.kickoff-layout .cova-modal2-dialog {
-    grid-template-columns: 3fr 2fr; /* 6:4 ratio */
-    grid-template-areas: 
-      "media panel"
-      "media panel";
-    gap: 0;
-    max-width: 1400px;
-    width: min(1400px, 96vw);
-  }
+/* Kickoff-specific modal layout */
+.cova-modal2.kickoff-layout .cova-modal2-dialog {
+  grid-template-columns: 3fr 2fr; /* 6:4 ratio */
+  grid-template-areas: 
+    "media panel"
+    "media panel";
+  gap: 0;
+  max-width: 1400px;
+  width: min(1400px, 96vw);
 }
 
 /* Left area - split into video (top) and image (bottom) - KICKOFF ONLY */
@@ -482,10 +268,14 @@ body.modal-open {
 }
 
 .cova-modal2.kickoff-layout .modal2-video {
-  width: 100%;
+  width: 100%; /* 오른쪽을 2cm 늘려서 원래 크기로 복원 */
+  height: 85% !important; /* 높이를 85%로 줄여서 썸네일과 겹치지 않도록 */
+  margin-left: 0.5cm; /* 중앙 정렬을 위해 여백 조정 */
+  margin-top: -5% !important; /* 영상을 더 위로 올려서 썸네일과 겹치지 않도록 */
   object-fit: cover;
   aspect-ratio: 3 / 2; /* Maintain 3:2 video ratio */
-  max-width: 100%;
+  max-height: 85% !important;
+  max-width: 100%; /* 최대 너비도 동일하게 조정 */
   pointer-events: none; /* Disable all mouse interactions */
   -webkit-touch-callout: none; /* Disable callout on iOS */
   -webkit-user-select: none; /* Disable text selection */
@@ -1502,7 +1292,35 @@ body.modal-open {
   border-bottom: none;
 }
 
-/* Kickoff mobile responsiveness - Now handled by unified mobile CSS */
+/* Kickoff mobile responsiveness */
+@media (max-width: 768px) {
+  .cova-modal2.kickoff-layout .cova-modal2-dialog {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+      "media"
+      "panel";
+    height: min(95vh, 900px);
+    gap: 0;
+  }
+  
+  .cova-modal2.kickoff-layout .modal2-media {
+    grid-template-rows: 1fr auto; /* Video takes more space, image compacts */
+    max-height: 60vh;
+  }
+  
+  .cova-modal2.kickoff-layout .modal2-image-section {
+    padding: var(--space-2);
+    max-height: 240px; /* Sufficient height for 2x3 mobile grid */
+  }
+  
+  .cova-modal2.kickoff-layout .modal2-panel {
+    max-height: 40vh;
+    padding: var(--space-4);
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
 
 /* ===================================
    CURRICULUM FONT SIZE UNIFICATION
@@ -2250,9 +2068,9 @@ body.modal-open {
 }
 
 .reduced-motion .video-tile {
-  animation: none;
-  transform: none;
-  opacity: 0.7;
+  animation: none !important;
+  transform: none !important;
+  opacity: 0.7 !important;
 }
 
 .performance-mode .video-tile {
@@ -2261,16 +2079,16 @@ body.modal-open {
 
 .performance-mode .video-mosaic-container::before,
 .performance-mode .video-mosaic-container::after {
-  opacity: 0.5;
+  opacity: 0.5 !important;
 }
 
 .video-fallback .video-mosaic-container {
-  opacity: 0.3;
+  opacity: 0.3 !important;
 }
 
 .video-fallback .video-tile {
-  animation: none;
-  opacity: 0.4;
+  animation: none !important;
+  opacity: 0.4 !important;
 }
 
 .video-fallback .hero::before {
@@ -2290,19 +2108,10 @@ body.modal-open {
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    --video-opacity-mobile: 0.7;
-    --grain-opacity-mobile: 0.05;
-    --vignette-opacity-mobile: 0.4;
+    --video-opacity-mobile: 0.6;
+    --grain-opacity-mobile: 0.08;
+    --vignette-opacity-mobile: 0.55;
   }
-  
-  /* Hide 4 tiles on mobile, keep only first 4 for better performance */
-  .video-tile[data-tile="tile-5"],
-  .video-tile[data-tile="tile-6"], 
-  .video-tile[data-tile="tile-7"],
-  .video-tile[data-tile="tile-8"] {
-    display: none !important;
-  }
-  
   
   .video-tile {
     opacity: var(--video-opacity-mobile) !important;
@@ -2806,83 +2615,139 @@ a:hover {
   background: var(--bg-secondary);
 }
 
-/* Hero Section - Base Styles */
+/* Hero Section */
 .hero {
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   background: var(--bg);
-  padding: var(--space-20) 0;
+  padding: var(--space-24) 0;
   position: relative;
   overflow: hidden;
 }
 
-/* Desktop hero height */
-@media (min-width: 769px) {
-  .hero {
-    min-height: 100vh;
-    padding: var(--space-24) 0;
-  }
-}
-
-/* Mobile hero height - more content-friendly */
-@media (max-width: 768px) {
-  .hero {
-    min-height: 50vh;
-    padding: var(--space-12) 0;
-  }
-}
-
-
-
-
-
-/* ========================================
-   SIMPLE 2x2 VIDEO GRID SYSTEM
-   ======================================== */
-
-/* Main video container - 심플한 2x2 그리드 */
+/* Dynamic Mosaic Video Gallery - Absolute Positioning System */
 .video-mosaic-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  padding: 8px;
-  gap: 8px;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  padding: 40px !important;
+  pointer-events: none !important;
 }
 
-/* 4개 타일만 표시 */
-.video-tile:nth-child(n+5) {
-  display: none;
-}
-
-/* Individual video tiles - 심플한 스타일 */
 .video-tile {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  opacity: 0.7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  opacity: 0.85 !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* Video elements */
+/* Explicit positioning for each tile */
+.video-tile[data-tile="tile-1"] {
+  left: 60px; top: 80px; width: 320px; height: 180px;
+}
+.video-tile[data-tile="tile-2"] {
+  right: 100px; top: 120px; width: 280px; height: 200px;
+}
+.video-tile[data-tile="tile-3"] {
+  left: 400px; top: 60px; width: 240px; height: 140px;
+}
+.video-tile[data-tile="tile-4"] {
+  left: 80px; bottom: 160px; width: 300px; height: 220px;
+}
+.video-tile[data-tile="tile-5"] {
+  right: 80px; bottom: 200px; width: 260px; height: 160px;
+}
+.video-tile[data-tile="tile-6"] {
+  left: 450px; bottom: 100px; width: 220px; height: 180px;
+}
+.video-tile[data-tile="tile-7"] {
+  left: 700px; top: 200px; width: 200px; height: 120px;
+}
+.video-tile[data-tile="tile-8"] {
+  right: 200px; top: 340px; width: 180px; height: 140px;
+}
+
+/* nagi-style cinematic video elements */
 .video-tile video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 8px;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 12px !important;
+  object-fit: cover !important;
+  transition: all 0.6s ease !important;
+  background: #1a1a1a !important;
 }
 
-/* Clean video styling - original PC mosaic restored */
+/* Video tile specific styling with animated backgrounds for nagi-style cinematics */
+.video-tile video[data-video="video-1"] {
+  background: linear-gradient(45deg, #667eea, #764ba2, #667eea) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift1 8s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-2"] {
+  background: linear-gradient(-45deg, #f093fb, #f5576c, #f093fb) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift2 12s ease-in-out infinite !important;
+}
+
+/* 특정 비디오의 위치 조정 - 남자 모습이 더 잘 보이도록 물리적으로 왼쪽 이동 */
+.video-tile[data-video="video-2"] > video {
+  position: relative !important;
+  width: 135% !important;
+  height: 100% !important;
+  left: -25% !important;
+  object-fit: cover !important;
+}
+
+/* 그림_그리는_여자를_보는_사람들 영상 - 사람들이 더 잘 보이도록 아래쪽 영역 표시 */
+.video-tile[data-video="video-3"] > video {
+  object-fit: cover !important;
+  transform: translateY(18%) scale(1.12) !important;
+  transform-origin: center center !important;
+}
+
+.video-tile video[data-video="video-3"] {
+  background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift3 10s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-4"] {
+  background: linear-gradient(225deg, #43e97b, #38f9d7, #43e97b) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift4 15s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-5"] {
+  background: linear-gradient(90deg, #fa709a, #fee140, #fa709a) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift5 9s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-6"] {
+  background: linear-gradient(180deg, #a8edea, #fed6e3, #a8edea) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift6 13s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-7"] {
+  background: linear-gradient(270deg, #ff9a9e, #fecfef, #ff9a9e) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift7 11s ease-in-out infinite !important;
+}
+
+.video-tile video[data-video="video-8"] {
+  background: linear-gradient(315deg, #a18cd1, #fbc2eb, #a18cd1) !important;
+  background-size: 400% 400% !important;
+  animation: gradientShift8 14s ease-in-out infinite !important;
+}
 
 /* nagi-style gradient animations for cinematic effect */
 @keyframes gradientShift1 {
@@ -2938,7 +2803,62 @@ a:hover {
   90% { background-position: 50% 100%; }
 }
 
+/* Mosaic positioning with CSS variables - logical grid layout */
+[data-tile="tile-1"] {
+  --x: 0;
+  --y: 0;
+  --w: calc((100% - 120px) * 0.5);
+  --h: calc((100vh - 160px) * 0.33);
+}
 
+[data-tile="tile-2"] {
+  --x: calc((100% - 120px) * 0.5 + 20px);
+  --y: 0;
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.66 + 20px);
+}
+
+[data-tile="tile-3"] {
+  --x: calc((100% - 120px) * 0.75 + 40px);
+  --y: 0;
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.33);
+}
+
+[data-tile="tile-4"] {
+  --x: 0;
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.67);
+}
+
+[data-tile="tile-5"] {
+  --x: calc((100% - 120px) * 0.25 + 20px);
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.33);
+}
+
+[data-tile="tile-6"] {
+  --x: calc((100% - 120px) * 0.75 + 40px);
+  --y: calc((100vh - 160px) * 0.33 + 20px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.67);
+}
+
+[data-tile="tile-7"] {
+  --x: calc((100% - 120px) * 0.25 + 20px);
+  --y: calc((100vh - 160px) * 0.66 + 40px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.34);
+}
+
+[data-tile="tile-8"] {
+  --x: calc((100% - 120px) * 0.5 + 20px);
+  --y: calc((100vh - 160px) * 0.66 + 40px);
+  --w: calc((100% - 120px) * 0.25);
+  --h: calc((100vh - 160px) * 0.34);
+}
 
 /* nagi Cinematic Film Effects System */
 
@@ -3017,6 +2937,55 @@ a:hover {
   ) !important;
   opacity: 0.8 !important;
   transform: translate3d(0, 0, 0) !important;
+}
+
+/* 3. Color Grading System - nagi cinematic color correction */
+.video-mosaic-container {
+  /* Enhanced positioning and z-index management */
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  padding: 40px !important;
+  pointer-events: none !important;
+  
+  /* nagi Cinematic Color Grading */
+  filter: 
+    contrast(1.08) 
+    saturate(0.92) 
+    hue-rotate(-3deg) 
+    brightness(0.96) 
+    sepia(0.03) !important;
+  
+  /* GPU acceleration for smooth performance */
+  transform: translate3d(0, 0, 0) !important;
+  will-change: filter !important;
+}
+
+/* 4. Enhanced Video Tiles with Cinematic Depth */
+.video-tile {
+  position: absolute !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  opacity: 0.88 !important;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  
+  /* CSS Variables for positioning and sizing */
+  left: var(--x, 0) !important;
+  top: var(--y, 0) !important;
+  width: var(--w, 100px) !important;
+  height: var(--h, 100px) !important;
+  
+  /* GPU acceleration */
+  transform: translate3d(0, 0, 0) !important;
+  will-change: transform, opacity !important;
 }
 
 /* Individual video enhancement for nagi style */
@@ -3236,7 +3205,7 @@ a:hover {
 
 .hero p {
   font-size: 1.125rem;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-12);
   max-width: 600px;
   line-height: 1.6;
 }
@@ -3261,7 +3230,6 @@ a:hover {
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  margin-top: -30px;
 }
 
 .btn::before {
@@ -3947,7 +3915,63 @@ a:hover {
   background: linear-gradient(90deg, transparent, var(--accent-sophisticated), transparent);
 }
 
-/* 제거됨 - 통합된 모바일 쿼리로 대체 */
+/* Responsive */
+@media (max-width: 768px) {
+  .site-header .container {
+    padding: 0 var(--space-4);
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-4);
+    box-shadow: var(--shadow-lg);
+    min-width: 200px;
+  }
+
+  .nav-list.open {
+    display: flex;
+  }
+
+  .hero {
+    min-height: 80vh;
+    padding: var(--space-20) 0;
+  }
+
+  .hero-content {
+    padding: 0 var(--space-4);
+  }
+
+  .section {
+    padding: var(--space-20) 0;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-16);
+  }
+
+  .card {
+    padding: var(--space-6);
+  }
+
+  .grid {
+    gap: var(--space-8);
+  }
+}
 
 /* Dynamic Text Movement Effects (inspired by ehyundai.com) */
 .text-reveal {
@@ -4202,11 +4226,6 @@ summary:focus {
   padding: 8rem 0;
 }
 
-#philosophy .container {
-  position: relative;
-  z-index: 10;
-}
-
 .philosophy-video-background {
   position: absolute;
   top: 0;
@@ -4221,6 +4240,8 @@ summary:focus {
   position: absolute;
   top: 50%;
   left: 50%;
+  min-width: calc(100% + 185px);
+  min-height: 100%;
   width: auto;
   height: auto;
   transform: translate(-50%, -50%);
@@ -4229,164 +4250,6 @@ summary:focus {
   opacity: 0.3;
   filter: blur(0.5px) brightness(1.1);
   z-index: 1;
-}
-
-/* ==========================================
-   PC/데스크톱 기본 설정 (769px 이상)
-   ========================================== */
-@media (min-width: 769px) {
-  /* Philosophy 영상 PC 기본 설정 복구 */
-  .philosophy-bg-video {
-    min-width: calc(100% + 185px);
-    min-height: 100%;
-    height: auto;
-    object-fit: cover;
-    opacity: 0.3;
-  }
-  
-  /* 네비게이션 PC 기본 설정 */
-  .nav-toggle {
-    display: none;
-  }
-  
-  .nav-list {
-    display: flex;
-    position: static;
-    background: none;
-    border: none;
-    flex-direction: row;
-    padding: 0;
-    gap: var(--space-6);
-  }
-  
-  /* 헤더 컨트롤 PC 기본 설정 */
-  .header-controls {
-    position: static;
-    transform: none;
-  }
-  
-  .site-header .container {
-    position: static;
-  }
-}
-
-/* =========================
-   통합 모바일 최적화 (768px 이하)
-   ========================= */
-@media (max-width: 768px) {
-  /* Site Header 모바일 최적화 */
-  .site-header {
-    padding: var(--space-3) 0;
-  }
-  
-  .site-header .container {
-    padding: 0 var(--space-4);
-    position: relative;
-  }
-  
-  .brand .logo {
-    font-size: var(--text-2xl);
-  }
-  
-  .brand .tagline {
-    font-size: var(--text-sm);
-  }
-  
-  /* 네비게이션 모바일 최적화 */
-  .nav-toggle {
-    display: block;
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: var(--space-2) var(--space-3);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    backdrop-filter: blur(10px);
-    z-index: 1001;
-  }
-  
-  .nav-list {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    flex-direction: column;
-    padding: var(--space-4);
-    gap: var(--space-3);
-  }
-  
-  .nav-list.active,
-  .nav-list.open {
-    display: flex;
-  }
-  
-  /* 헤더 컨트롤 모바일 배치 */
-  .header-controls {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1002;
-  }
-  
-  /* Philosophy 영상 모바일 최적화 */
-  .philosophy-bg-video {
-    height: 80%;
-    width: auto;
-    object-fit: contain;
-    opacity: 0.6;
-  }
-  
-  .philosophy-video-overlay {
-    background: rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Hero 모바일 최적화 */
-  .hero-content {
-    padding: 0 var(--space-4);
-    max-width: none;
-  }
-  
-  .hero-title-dynamic {
-    font-size: var(--text-5xl);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-  }
-  
-  .hero p {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-8);
-    line-height: var(--leading-relaxed);
-  }
-  
-  /* 일반 레이아웃 모바일 최적화 */
-  .section {
-    padding: var(--space-16) 0;
-  }
-  
-  .container {
-    padding: 0 var(--space-4);
-  }
-  
-  .section-header {
-    margin-bottom: var(--space-8);
-  }
-  
-  .card {
-    padding: var(--space-6);
-  }
-  
-  .grid {
-    gap: var(--space-8);
-  }
 }
 
 /* 풀스크린 모드에서 비디오 크롭핑 문제 해결 */
@@ -4899,8 +4762,10 @@ summary:focus {
 .modal-content-enhanced {
   width: 92vw;
   max-width: 1600px;
+  min-width: 1000px;
   height: 90vh;
   max-height: 90vh;
+  min-height: 600px;
   border-radius: 16px;
   overflow: hidden;
   background: var(--bg);
@@ -4913,14 +4778,6 @@ summary:focus {
   transform: scale(0.9) translateY(40px);
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Desktop-only large min-width for enhanced modal */
-@media (min-width: 769px) {
-  .modal-content-enhanced {
-    min-width: 1000px;
-    min-height: 600px;
-  }
 }
 
 .modal-enhanced.active .modal-content-enhanced {
@@ -5046,21 +4903,14 @@ summary:focus {
   }
 }
 
-/* Laptop/Tablet Landscape - Maintain Split View - Desktop Only */
+/* Laptop/Tablet Landscape - Maintain Split View */
 @media (min-width: 900px) and (max-width: 1199px) {
   .modal-content,
   .modal-content-enhanced {
     width: 95vw;
     max-width: 1200px;
-    height: 85vh;
-  }
-}
-
-/* Desktop-only min-width constraints for laptop/tablet landscape */
-@media (min-width: 900px) and (max-width: 1199px) and (min-width: 769px) {
-  .modal-content,
-  .modal-content-enhanced {
     min-width: 900px;
+    height: 85vh;
     min-height: 500px;
   }
   
@@ -6938,7 +6788,7 @@ summary:focus {
   top: 0 !important;
   object-fit: cover !important;
   transform-origin: center;
-  transform: translate(-1%, 0) scale(0.9, 0.9);
+  transform: translate(-1%, 0) scale(1.15, 1.15);
 }
 
 /* GRADE2: CSS-only video sizing to match thumbnail width */
@@ -7058,325 +6908,4 @@ summary:focus {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-/* ============================================
-   PROGRAM CARDS MOBILE RESPONSIVE
-   ============================================ */
-
-/* Tablet Responsive - Program Cards */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .carousel-item {
-    width: 380px;
-  }
-  
-  .program-card {
-    width: 380px !important;
-    max-width: 380px !important;
-  }
-  
-  .carousel-item .program-card {
-    width: 380px !important;
-    max-width: 380px !important;
-  }
-  
-  .program-image {
-    height: 190px;
-  }
-  
-  .program-info h3 {
-    font-size: 1.3rem;
-  }
-  
-  .program-info p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-}
-
-/* Mobile Responsive - Program Cards */
-@media (max-width: 768px) {
-  .carousel-item {
-    width: 280px;
-  }
-  
-  .program-card {
-    width: 280px !important;
-    max-width: 280px !important;
-  }
-  
-  .carousel-item .program-card {
-    width: 280px !important;
-    max-width: 280px !important;
-  }
-  
-  .program-image {
-    height: 140px;
-  }
-  
-  .program-info {
-    padding: 16px;
-  }
-  
-  .program-info h3 {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-  }
-  
-  .program-meta {
-    font-size: 0.75rem;
-    margin-bottom: 8px;
-  }
-  
-  .program-info p {
-    font-size: 0.8rem;
-    line-height: 1.3;
-  }
-  
-  .program-badge {
-    padding: 4px 8px;
-    font-size: 0.7rem;
-  }
-  
-  /* Carousel navigation adjustments */
-  .carousel-nav {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .carousel-nav svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-/* Small Mobile - Program Cards */
-@media (max-width: 480px) {
-  .carousel-item {
-    width: 240px;
-  }
-  
-  .program-card {
-    width: 240px !important;
-    max-width: 240px !important;
-  }
-  
-  .carousel-item .program-card {
-    width: 240px !important;
-    max-width: 240px !important;
-  }
-  
-  .program-image {
-    height: 120px;
-  }
-  
-  .program-info {
-    padding: 12px;
-  }
-  
-  .program-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
-  }
-  
-  .program-meta {
-    font-size: 0.7rem;
-    margin-bottom: 6px;
-  }
-  
-  .program-info p {
-    font-size: 0.75rem;
-    line-height: 1.25;
-  }
-  
-  .program-badge {
-    padding: 3px 6px;
-    font-size: 0.65rem;
-  }
-  
-  /* Hide carousel navigation on very small screens */
-  .carousel-nav {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .carousel-nav svg {
-    width: 16px;
-    height: 16px;
-  }
-  
-  /* Carousel indicators adjustments */
-  .carousel-indicators {
-    gap: 6px;
-  }
-  
-  .indicator {
-    width: 8px;
-    height: 8px;
-  }
-}
-
-/* ============================================
-   GENERAL LAYOUT MOBILE RESPONSIVE
-   ============================================ */
-
-/* Tablet Responsive - General Layout */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .site-header .container {
-    padding: 0 var(--space-5);
-  }
-  
-  /* Hero height handled by unified responsive rules */
-  
-  .hero-content {
-    padding: 0 var(--space-5);
-    max-width: 700px;
-  }
-  
-  .hero-title-dynamic {
-    font-size: var(--text-7xl);
-  }
-  
-  .section {
-    padding: var(--space-24) 0;
-  }
-  
-  .container {
-    padding: 0 var(--space-5);
-  }
-  
-  .section-title-dynamic {
-    font-size: var(--text-3xl);
-  }
-}
-
-/* Mobile 768px 미디어 쿼리 추가 */
-@media (max-width: 768px) {
-  .section-number {
-    font-size: var(--text-lg);
-  }
-  
-  .grid.two {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-  }
-  
-  .card {
-    padding: var(--space-5);
-  }
-  
-  .card h3 {
-    font-size: var(--text-lg);
-  }
-  
-  .about-cova-description {
-    flex: 1 !important;
-    margin-bottom: var(--space-6) !important;
-    font-size: 0.85em !important;
-  }
-  
-  .video-container {
-    flex: 1 !important;
-  }
-  
-  /* Stack about COVA content vertically */
-  .about-cova-container {
-    flex-direction: column !important;
-    gap: var(--space-6) !important;
-  }
-}
-
-/* Small Mobile - General Layout */
-@media (max-width: 480px) {
-  .site-header {
-    padding: var(--space-2) 0;
-  }
-  
-  .site-header .container {
-    padding: 0 var(--space-3);
-  }
-  
-  .brand .logo {
-    font-size: var(--text-xl);
-  }
-  
-  .brand .tagline {
-    font-size: var(--text-xs);
-  }
-  
-  .header-controls {
-    gap: var(--space-2);
-  }
-  
-  .performance-toggle {
-    padding: var(--space-1) var(--space-2);
-    font-size: var(--text-xs);
-  }
-  
-  .nav-list {
-    padding: var(--space-3);
-    gap: var(--space-2);
-  }
-  
-  /* Hero height handled by unified responsive rules */
-  
-  .hero-content {
-    padding: 0 var(--space-3);
-  }
-  
-  .hero-title-dynamic {
-    font-size: var(--text-4xl);
-    margin-bottom: var(--space-4);
-  }
-  
-  .hero p {
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-6);
-  }
-  
-  .btn {
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--text-sm);
-  }
-  
-  .section {
-    padding: var(--space-12) 0;
-  }
-  
-  .container {
-    padding: 0 var(--space-3);
-  }
-  
-  .section-header {
-    margin-bottom: var(--space-6);
-  }
-  
-  .section-title-dynamic {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-3);
-  }
-  
-  .section-number {
-    font-size: var(--text-base);
-  }
-  
-  .card {
-    padding: var(--space-4);
-  }
-  
-  .card h3 {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-3);
-  }
-  
-  .about-cova-description {
-    font-size: 0.8em !important;
-    padding: 1.5rem !important;
-  }
-  
-  /* Simplify glass effects on small screens */
-  .about-cova-description {
-    background: rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(10px) !important;
-  }
 }

@@ -494,18 +494,18 @@ class TileMosaicController {
     this.performanceObserver = null;
     this.memoryUsage = { used: 0, total: 0 };
     
-    // nagi animation patterns configuration - 각 타일마다 다른 초기 위치 설정
+    // nagi animation patterns configuration
     this.animationConfigs = [
       {
         id: 'tile-1',
         duration: 12000,
         delay: 0,
         patterns: [
-          { transform: 'scale(1.0) translateX(50px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
-          { transform: 'scale(1.1) translateX(30px) translateY(15px) rotate(-1deg)', opacity: 0.9, offset: 0.25 },
-          { transform: 'scale(1.05) translateX(25px) translateY(25px) rotate(1deg)', opacity: 0.8, offset: 0.5 },
-          { transform: 'scale(1.08) translateX(35px) translateY(10px) rotate(-0.5deg)', opacity: 0.9, offset: 0.75 },
-          { transform: 'scale(1.0) translateX(20px) translateY(20px) rotate(0deg)', opacity: 0.85, offset: 1 }
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.3) translateX(-20px) translateY(-15px) rotate(-1deg)', opacity: 0.95, offset: 0.25 },
+          { transform: 'scale(0.9) translateX(15px) translateY(10px) rotate(1.5deg)', opacity: 0.75, offset: 0.5 },
+          { transform: 'scale(1.2) translateX(-10px) translateY(-8px) rotate(-0.5deg)', opacity: 0.9, offset: 0.75 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
         ],
         easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
       },
@@ -514,7 +514,7 @@ class TileMosaicController {
         duration: 15000,
         delay: 2000,
         patterns: [
-          { transform: 'scale(1.0) translateX(250px) translateY(80px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(25px) translateY(-20px) rotate(2deg)', opacity: 0.7, offset: 0.3 },
           { transform: 'scale(1.4) translateX(-18px) translateY(12px) rotate(-2.5deg)', opacity: 1.0, offset: 0.6 },
           { transform: 'scale(1.1) translateX(8px) translateY(-5px) rotate(0.8deg)', opacity: 0.9, offset: 0.85 },
@@ -527,7 +527,7 @@ class TileMosaicController {
         duration: 10000,
         delay: 1000,
         patterns: [
-          { transform: 'scale(1.0) translateX(150px) translateY(200px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.25) translateX(-12px) translateY(18px) rotate(-1.8deg)', opacity: 0.95, offset: 0.2 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.4 },
           { transform: 'scale(0.85) translateX(22px) translateY(-15px) rotate(2.2deg)', opacity: 0.75, offset: 0.7 },
@@ -540,7 +540,7 @@ class TileMosaicController {
         duration: 18000,
         delay: 3500,
         patterns: [
-          { transform: 'scale(1.0) translateX(350px) translateY(250px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.35) translateX(30px) translateY(-25px) rotate(3deg)', opacity: 1.0, offset: 0.15 },
           { transform: 'scale(0.9) translateX(-25px) translateY(20px) rotate(-2.8deg)', opacity: 0.8, offset: 0.45 },
           { transform: 'scale(1.15) translateX(12px) translateY(-8px) rotate(1.2deg)', opacity: 0.9, offset: 0.75 },
@@ -553,7 +553,7 @@ class TileMosaicController {
         duration: 14000,
         delay: 1500,
         patterns: [
-          { transform: 'scale(1.0) translateX(80px) translateY(320px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.82) translateX(-15px) translateY(-18px) rotate(-1.5deg)', opacity: 0.7, offset: 0.35 },
           { transform: 'scale(1.28) translateX(20px) translateY(15px) rotate(2.5deg)', opacity: 0.95, offset: 0.65 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
@@ -565,7 +565,7 @@ class TileMosaicController {
         duration: 16000,
         delay: 4000,
         patterns: [
-          { transform: 'scale(1.0) translateX(280px) translateY(370px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.22) translateX(-28px) translateY(22px) rotate(-2.2deg)', opacity: 0.9, offset: 0.28 },
           { transform: 'scale(0.88) translateX(18px) translateY(-12px) rotate(1.8deg)', opacity: 0.75, offset: 0.55 },
           { transform: 'scale(1.4) translateX(-8px) translateY(5px) rotate(-0.8deg)', opacity: 1.0, offset: 0.82 },
@@ -578,7 +578,7 @@ class TileMosaicController {
         duration: 11000,
         delay: 800,
         patterns: [
-          { transform: 'scale(1.0) translateX(180px) translateY(450px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.18) translateX(35px) translateY(-30px) rotate(2.8deg)', opacity: 0.95, offset: 0.22 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.44 },
           { transform: 'scale(0.85) translateX(-22px) translateY(18px) rotate(-2.5deg)', opacity: 0.7, offset: 0.66 },
@@ -592,7 +592,7 @@ class TileMosaicController {
         duration: 13000,
         delay: 2800,
         patterns: [
-          { transform: 'scale(1.0) translateX(380px) translateY(420px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(-32px) translateY(-25px) rotate(-3deg)', opacity: 0.7, offset: 0.25 },
           { transform: 'scale(1.38) translateX(28px) translateY(20px) rotate(2.5deg)', opacity: 1.0, offset: 0.5 },
           { transform: 'scale(1.05) translateX(-12px) translateY(-8px) rotate(-1deg)', opacity: 0.9, offset: 0.75 },
@@ -619,14 +619,14 @@ class TileMosaicController {
 
     console.log(`TileMosaicController initialized with ${this.tiles.length} tiles`);
     
-    // Initialize all subsystems (CRITICAL: Mobile optimization FIRST)
+    // Initialize all subsystems
     this.checkReducedMotionPreference();
     this.checkPerformanceMode();
-    this.setupMobileOptimizations(); // MOVED: Must be before IntersectionObserver
     this.setupIntersectionObserver();
     this.setupPageVisibilityAPI();
     this.setupPerformanceMonitoring();
     this.setupErrorHandling();
+    this.setupMobileOptimizations();
     this.resetTilesToInitialState();
   }
 
@@ -667,18 +667,8 @@ class TileMosaicController {
     // SimpleVideoController를 사용한 단순한 비디오 관리
     const allTileVideos = document.querySelectorAll('.tile-video');
     
-    // CRITICAL: 모바일에서는 처음 4개만 로드, 나머지는 완전히 스킵
-    const maxVideos = this.isMobile ? 4 : 8;
-    console.log(`${this.isMobile ? 'Mobile' : 'Desktop'}: Loading ${maxVideos} tile videos (screen: ${window.innerWidth}px)`);
-    
-    // 스마트 로딩: 모바일은 4개, 데스크톱은 8개
+    // 스마트 로딩: 처음 4개 먼저, 나머지 4개는 나중에 천천히
     allTileVideos.forEach((video, index) => {
-      // 모바일에서 4개 이후는 완전히 스킵
-      if (this.isMobile && index >= 4) {
-        console.log(`Mobile: Skipping tile video ${index + 1} (not needed)`);
-        return;
-      }
-      
       // <source> 태그에서 비디오 경로 가져오기
       const sourceElement = video.querySelector('source');
       if (sourceElement && sourceElement.src) {
@@ -899,32 +889,16 @@ class TileMosaicController {
   }
 
   setupMobileOptimizations() {
-    // Replit 환경 감지: Replit Preview는 항상 데스크톱으로 처리
-    const isReplitPreview = window.location.hostname.includes('replit.dev') || window.location.hostname.includes('replit.app');
+    const isMobile = window.innerWidth <= 768;
+    const isTouch = 'ontouchstart' in window;
     
-    if (isReplitPreview) {
-      // Replit 환경에서는 항상 데스크톱 모드 (8개 타일 표시)
-      this.isMobile = false;
-      console.log(`Replit environment detected - Force Desktop mode for 8 tiles (screen: ${window.innerWidth}px)`);
-    } else {
-      // 일반 환경에서는 User Agent + 화면 크기로 판단
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-      const isSmallScreen = window.innerWidth <= 768;
-      this.isMobile = isMobileDevice && isSmallScreen;
-      console.log(`Standard environment - Mobile device: ${isMobileDevice}, Small screen: ${isSmallScreen}, Mobile mode: ${this.isMobile}`);
-    }
-    
-    if (this.isMobile) {
-      console.log('Mobile mode enabled - disabling JavaScript positioning, using CSS layout');
+    if (isMobile || isTouch) {
+      console.log('Mobile device detected - applying optimizations');
       
       // Adjust CSS custom properties for mobile
       document.documentElement.style.setProperty('--tile-opacity-mobile', '0.6');
       document.documentElement.style.setProperty('--grain-opacity-mobile', '0.08');
       document.documentElement.style.setProperty('--vignette-opacity-mobile', '0.55');
-      
-      // CRITICAL: On mobile, don't apply animation transforms - let CSS handle positioning
-      console.log('Mobile: JavaScript animations disabled - CSS controls tile layout');
       
       // Reduce animation complexity on mobile
       this.animationConfigs.forEach(config => {
@@ -974,22 +948,11 @@ class TileMosaicController {
     this.tiles.forEach((tile, index) => {
       const config = this.animationConfigs[index];
       if (config) {
-        // CRITICAL FIX: On mobile, don't apply JavaScript transforms - let CSS handle positioning
-        if (this.isMobile) {
-          console.log(`Mobile: Skipping JavaScript positioning for tile ${index + 1} - CSS controls layout`);
-          // CRITICAL FIX: 모바일에서는 opacity도 CSS가 제어하도록 함
-          // tile.style.opacity = config.patterns[0].opacity; // ← 이 라인 제거!
-          tile.style.transformOrigin = 'center center';
-          tile.style.willChange = 'transform, opacity';
-          // Don't set transform OR opacity - CSS media queries will handle everything
-        } else {
-          // Desktop: Use JavaScript positioning as before
-          const initialState = config.patterns[0];
-          tile.style.transform = initialState.transform;
-          tile.style.opacity = initialState.opacity;
-          tile.style.transformOrigin = 'center center';
-          tile.style.willChange = 'transform, opacity';
-        }
+        const initialState = config.patterns[0];
+        tile.style.transform = initialState.transform;
+        tile.style.opacity = initialState.opacity;
+        tile.style.transformOrigin = 'center center';
+        tile.style.willChange = 'transform, opacity';
       }
     });
   }
@@ -1014,12 +977,6 @@ class TileMosaicController {
 
   startAnimations() {
     if (this.isPaused) return;
-    
-    // CRITICAL: Don't start animations on mobile - CSS handles positioning
-    if (this.isMobile) {
-      console.log('Mobile: Skipping JavaScript animations - CSS controls tile layout');
-      return;
-    }
 
     this.stopAnimations(); // Clear any existing animations
 
@@ -1209,15 +1166,49 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initMomentumAnimations();
     initCarousel();
     
-    // Simple video tiles - no complex animations
-    console.log('Simple 2x2 video grid initialized');
+    // Initialize WAAPI Tile Mosaic Controller
+    window.tileMosaicController = new TileMosaicController();
+    window.tileMosaicController.init();
+    console.log('TileMosaicController initialized and ready');
     
-    // No performance toggle needed for simple grid
+    // Set up performance toggle event listener
+    const performanceToggle = document.getElementById('performance-toggle');
+    if (performanceToggle) {
+      performanceToggle.addEventListener('click', () => {
+        if (window.tileMosaicController) {
+          window.tileMosaicController.togglePerformanceMode();
+          
+          // Provide user feedback
+          const status = window.tileMosaicController.getStatus();
+          console.log('Performance mode toggled:', status.isPerformanceMode ? 'ON' : 'OFF');
+        }
+      });
+      
+      // Initial UI update
+      if (window.tileMosaicController) {
+        window.tileMosaicController.updatePerformanceToggleUI();
+      }
+    }
     
   }, 100);
   
-  // Simple cleanup
-  console.log('Simple video grid loaded');
+  // Cleanup on page unload for memory management
+  window.addEventListener('beforeunload', () => {
+    if (window.tileMosaicController) {
+      console.log('Page unloading - cleaning up TileMosaicController');
+      window.tileMosaicController.destroy();
+    }
+  });
+  
+  // Handle page visibility changes globally
+  document.addEventListener('visibilitychange', () => {
+    if (window.tileMosaicController) {
+      const status = window.tileMosaicController.getStatus();
+      console.log('Page visibility changed:', document.hidden ? 'HIDDEN' : 'VISIBLE', 
+                  '- Performance mode:', status.isPerformanceMode, 
+                  '- Reduced motion:', status.isReducedMotion);
+    }
+  });
 });
 
 // Carousel functionality for program cards
