@@ -7151,31 +7151,6 @@ summary:focus {
   }
   
   
-  /* About COVA 섹션 - 수직 배치 (텍스트 위, 영상 아래) */
-  #kickoff div[style*="display: flex"] {
-    flex-direction: column !important;
-    gap: 1.5rem !important;
-  }
-  
-  #kickoff .about-cova-description {
-    flex: none !important;
-    width: 100% !important;
-    order: 1;
-    color: rgba(255, 255, 255, 0.95);
-  }
-  
-  #kickoff .video-container {
-    flex: none !important;
-    width: 100% !important;
-    order: 2;
-  }
-  
-  .about-cova-video {
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 12px;
-    object-fit: cover;
-  }
   
   /* 타일 비디오 모바일 최적화 - 검은 화면 문제 해결 */
   html body .tile-video.loaded,
@@ -7190,6 +7165,32 @@ summary:focus {
     opacity: 1.0 !important; /* 로딩 중에도 완전 불투명 */
     background: linear-gradient(45deg, #333, #555, #333) !important; /* 더 밝은 배경 */
     filter: none !important; /* 로딩 중에도 blur 완전 제거 */
+  }
+  
+  /* About COVA 섹션 - 모바일 전용 수직 배치 (텍스트 위, 영상 아래) */
+  html body main section#kickoff div[style*="display: flex"] {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  
+  html body main section#kickoff .about-cova-description {
+    flex: none !important;
+    width: 100% !important;
+    order: 1;
+    margin-bottom: 1rem !important;
+  }
+  
+  html body main section#kickoff .video-container {
+    flex: none !important;
+    width: 100% !important;
+    order: 2;
+  }
+  
+  html body main section#kickoff .about-cova-video {
+    width: 100% !important;
+    height: auto !important;
+    border-radius: 12px !important;
+    object-fit: cover !important;
   }
   
   /* 모바일에서 PC와 동일한 설정 유지 - override 제거 */
