@@ -2108,13 +2108,13 @@ body.modal-open {
 /* Mobile Performance Optimizations */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    --video-opacity-mobile: 0.6;
+    --video-opacity-mobile: 1.0; /* PC와 동일하게 변경 */
     --grain-opacity-mobile: 0.08;
     --vignette-opacity-mobile: 0.55;
   }
   
   .video-tile {
-    opacity: var(--video-opacity-mobile) !important;
+    opacity: var(--video-opacity-mobile) !important; /* 이제 1.0이 됨 */
   }
   
   .performance-toggle .toggle-text {
