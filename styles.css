@@ -2854,15 +2854,15 @@ a:hover {
   bottom: 0;
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 5px;
   pointer-events: none;
   z-index: 1;
   
-  /* CSS Grid for 4 videos - responsive size */
+  /* CSS Grid for 4 videos - maximized size */
   display: grid;
-  grid-template-columns: 200px 200px;
-  grid-template-rows: 150px 150px;
-  gap: 15px;
+  grid-template-columns: 240px 240px;
+  grid-template-rows: 180px 180px;
+  gap: 8px;
   align-content: center;
   justify-content: center;
 }
@@ -2897,13 +2897,13 @@ a:hover {
   display: none;
 }
 
-/* Mobile optimizations - 화면 비율에 맞게 크게 확대 */
+/* Mobile optimizations - 최대 확대 (좌우 0.5cm 여백만) */
 @media (max-width: 768px) {
   .video-mosaic-container {
-    grid-template-columns: 35vw 35vw;
-    grid-template-rows: 26vw 26vw;
-    padding: 3vw;
-    gap: 3vw;
+    grid-template-columns: 47vw 47vw;
+    grid-template-rows: 35vw 35vw;
+    padding: 1.5vw;
+    gap: 1vw;
   }
   
   .video-tile {
@@ -2912,13 +2912,13 @@ a:hover {
   }
 }
 
-/* Small mobile optimizations - 더 큰 크기로 화면 활용 */
+/* Small mobile optimizations - 화면 꽉 차게 최대 활용 */
 @media (max-width: 480px) {
   .video-mosaic-container {
-    grid-template-columns: 38vw 38vw;
-    grid-template-rows: 28vw 28vw;
-    padding: 2vw;
-    gap: 2vw;
+    grid-template-columns: 48vw 48vw;
+    grid-template-rows: 36vw 36vw;
+    padding: 1vw;
+    gap: 1vw;
   }
   
   .video-tile {
