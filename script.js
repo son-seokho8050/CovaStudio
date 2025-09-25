@@ -4834,6 +4834,9 @@ function applyMobileTileOptimizationsDirectly() {
           tile.style.maxWidth = '100%'; 
           tile.style.margin = '0';
           tile.style.padding = '1px'; // 최소 간격만 유지
+        } else {
+          // 중앙 4개 타일을 좌측으로 조금 이동
+          tile.style.transform = 'translateX(-15px)';
         }
         
         const optimizationType = isCenterTile ? 'filter only (center tile)' : 'filter + width expansion';
