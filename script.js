@@ -889,10 +889,15 @@ class TileMosaicController {
   }
 
   setupMobileOptimizations() {
-    const isMobile = window.innerWidth <= 768;
-    const isTouch = 'ontouchstart' in window;
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const isMobile = screenWidth <= 768 || screenHeight <= 1024 || window.innerWidth < window.innerHeight;
+    const isTouch = 'ontouchstart' in window || 'onmsgesturechange' in window;
+    const isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    if (isMobile || isTouch) {
+    console.log(`Screen: ${screenWidth}x${screenHeight}, Mobile: ${isMobile}, Touch: ${isTouch}, UA: ${isMobileUA}`);
+    
+    if (isMobile || isTouch || isMobileUA) {
       console.log('Mobile device detected - applying optimizations');
       
       // Adjust CSS custom properties for mobile
@@ -908,6 +913,13 @@ class TileMosaicController {
         config.patterns = config.patterns.filter((_, index) => index % 2 === 0); // Keep every other keyframe
         config.duration *= 1.2; // Slower animations
       });
+    } else {
+      console.log('Desktop device detected - skipping mobile optimizations');
+      // 하지만 강제로 한 번만 테스트 적용
+      if (screenWidth <= 1024) {
+        console.log('Small desktop - applying mobile optimizations anyway');
+        this.applyMobileTileOptimizations();
+      }
     }
   }
 
