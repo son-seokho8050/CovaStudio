@@ -2250,9 +2250,9 @@ body.modal-open {
 }
 
 .reduced-motion .video-tile {
-  animation: none !important;
-  transform: none !important;
-  opacity: 0.7 !important;
+  animation: none;
+  transform: none;
+  opacity: 0.7;
 }
 
 .performance-mode .video-tile {
@@ -2261,16 +2261,16 @@ body.modal-open {
 
 .performance-mode .video-mosaic-container::before,
 .performance-mode .video-mosaic-container::after {
-  opacity: 0.5 !important;
+  opacity: 0.5;
 }
 
 .video-fallback .video-mosaic-container {
-  opacity: 0.3 !important;
+  opacity: 0.3;
 }
 
 .video-fallback .video-tile {
-  animation: none !important;
-  opacity: 0.4 !important;
+  animation: none;
+  opacity: 0.4;
 }
 
 .video-fallback .hero::before {
@@ -2838,174 +2838,65 @@ a:hover {
 
 
 /* ========================================
-   NEW 4-VIDEO TILE SYSTEM - Simple & Clean 
+   ORIGINAL PC VIDEO MOSAIC SYSTEM - RESTORED
    ======================================== */
 
-/* Main video container - JavaScript Animation Layout (PC) */
+/* Main video container - 화면 전체 모자이크 레이아웃 */
 .video-mosaic-container {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
-  padding: 5px;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 1;
-  
-  /* PC: JavaScript가 자유롭게 타일 배치 - NO CSS GRID */
+  overflow: hidden;
 }
 
-/* Individual video tiles - PC: JavaScript 제어, Mobile: CSS 제어 */
+/* Individual video tiles - 원래 PC 모자이크 스타일 */
 .video-tile {
   position: absolute;
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
-  opacity: 0.85;
-  /* PC: NO CSS transitions - JavaScript animations 사용 */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 240px;
-  height: 180px;
-  backdrop-filter: blur(2px);
-  
-  /* JavaScript가 완전히 제어 - CSS 배치 제거 */
-  top: 0;
-  left: 0;
-  /* transform은 JavaScript가 설정 */
+  opacity: 0.8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(1px);
+  transition: opacity 0.3s ease;
 }
 
-/* Video elements - 통일된 크기와 세련된 스타일 */
+/* Video elements - 원래 스타일 복원 */
 .video-tile video {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
   object-fit: cover;
   object-position: center;
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border-radius: 8px;
 }
 
-/* PC: 8개 타일 모두 표시, Mobile: 4개만 표시 */
-
-/* Mobile optimizations - CSS Grid 레이아웃 */
+/* Mobile version - 간단한 2x2 그리드 */
 @media (max-width: 768px) {
-  /* 모바일에서만 CSS Grid 사용 (JavaScript 애니메이션 비활성화) */
   .video-mosaic-container {
     display: grid;
-    grid-template-columns: 47vw 47vw;
-    grid-template-rows: 35vw 35vw;
-    padding: 1.5vw;
-    gap: 1.5vw;
-    align-content: center;
-    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    padding: 8px;
+    gap: 8px;
   }
   
-  /* 모바일에서는 타일 5-8 숨기기 */
-  .video-tile[data-tile="tile-5"],
-  .video-tile[data-tile="tile-6"],
-  .video-tile[data-tile="tile-7"],
-  .video-tile[data-tile="tile-8"] {
+  .video-tile:nth-child(n+5) {
     display: none;
   }
   
   .video-tile {
-    position: relative; /* 모바일에서는 CSS Grid 사용 */
-    opacity: 0.3;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1), 0 3px 8px rgba(0, 0, 0, 0.06);
-    backdrop-filter: blur(1px);
-    width: 100%;
-    height: 100%;
-    top: auto;
-    left: auto;
-    transform: none;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .video-tile video {
-    border-radius: 12px !important;
+    position: relative;
+    opacity: 0.6;
+    border-radius: 8px;
   }
 }
 
-/* Small mobile optimizations - 최적화된 작은 화면 디자인 */
-@media (max-width: 480px) {
-  .video-mosaic-container {
-    grid-template-columns: 48vw 48vw;
-    grid-template-rows: 36vw 36vw;
-    padding: 1vw;
-    gap: 1.2vw;
-  }
-  
-  .video-tile {
-    opacity: 0.25;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
-  }
-  
-  .video-tile video {
-    border-radius: 10px !important;
-  }
-}
-
-/* Video tile specific styling with animated backgrounds for nagi-style cinematics */
-.video-tile video[data-video="video-1"] {
-  background: linear-gradient(45deg, #667eea, #764ba2, #667eea) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift1 8s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-2"] {
-  background: linear-gradient(-45deg, #f093fb, #f5576c, #f093fb) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift2 12s ease-in-out infinite !important;
-}
-
-/* 완전 통일된 비디오 스타일링 - 모든 차이점 제거 */
-.video-tile[data-video="video-2"] > video,
-.video-tile[data-video="video-3"] > video {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.video-tile video[data-video="video-3"] {
-  background: linear-gradient(135deg, #4facfe, #00f2fe, #4facfe) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift3 10s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-4"] {
-  background: linear-gradient(225deg, #43e97b, #38f9d7, #43e97b) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift4 15s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-5"] {
-  background: linear-gradient(90deg, #fa709a, #fee140, #fa709a) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift5 9s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-6"] {
-  background: linear-gradient(180deg, #a8edea, #fed6e3, #a8edea) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift6 13s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-7"] {
-  background: linear-gradient(270deg, #ff9a9e, #fecfef, #ff9a9e) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift7 11s ease-in-out infinite !important;
-}
-
-.video-tile video[data-video="video-8"] {
-  background: linear-gradient(315deg, #a18cd1, #fbc2eb, #a18cd1) !important;
-  background-size: 400% 400% !important;
-  animation: gradientShift8 14s ease-in-out infinite !important;
-}
+/* Clean video styling - original PC mosaic restored */
 
 /* nagi-style gradient animations for cinematic effect */
 @keyframes gradientShift1 {
