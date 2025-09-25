@@ -966,11 +966,11 @@ class TileMosaicController {
         // CRITICAL FIX: On mobile, don't apply JavaScript transforms - let CSS handle positioning
         if (this.isMobile) {
           console.log(`Mobile: Skipping JavaScript positioning for tile ${index + 1} - CSS controls layout`);
-          // Only set basic properties, no transform
-          tile.style.opacity = config.patterns[0].opacity;
+          // CRITICAL FIX: 모바일에서는 opacity도 CSS가 제어하도록 함
+          // tile.style.opacity = config.patterns[0].opacity; // ← 이 라인 제거!
           tile.style.transformOrigin = 'center center';
           tile.style.willChange = 'transform, opacity';
-          // Don't set transform - CSS media queries will handle positioning
+          // Don't set transform OR opacity - CSS media queries will handle everything
         } else {
           // Desktop: Use JavaScript positioning as before
           const initialState = config.patterns[0];
