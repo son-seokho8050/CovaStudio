@@ -2665,7 +2665,6 @@ a:hover {
 /* 메인화면 타일영상 직접 수정 - 정확한 선택자 */
 .tile-video {
   opacity: 1.0 !important;
-  filter: none !important;
   visibility: visible !important;
   transform: none !important;
 }
@@ -7186,7 +7185,6 @@ summary:focus {
   html body .tile-video.loaded,
   html body .hero-tile-video {
     opacity: 1 !important; /* 완전 불투명으로 변경 */
-    filter: brightness(1.1) contrast(1.05) saturate(1.1) !important; /* 더 밝게 */
     mix-blend-mode: normal !important; /* 블렌드 모드 제거 */
     background: none !important; /* 어두운 배경 완전 제거 */
   }
