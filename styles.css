@@ -2978,16 +2978,16 @@ a:hover {
 /* Mobile Responsive - 768px and below */
 @media (max-width: 768px) {
   .video-tile[data-tile="tile-1"] {
-    left: 20px; top: 40px; width: 160px; height: 90px;
+    left: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-2"] {
-    right: 30px; top: 50px; width: 140px; height: 100px;
+    right: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-3"] {
-    left: 180px; top: 30px; width: 120px; height: 70px;
+    left: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-4"] {
-    left: 25px; bottom: 80px; width: 150px; height: 110px;
+    right: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
   }
   .video-tile[data-tile="tile-5"] {
     right: 25px; bottom: 100px; width: 130px; height: 80px;
