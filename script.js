@@ -4867,7 +4867,10 @@ function applyMobileTileOptimizationsDirectly() {
     // 📱 모바일 전용: 복잡한 텍스트를 순수한 선명한 텍스트로 교체
     replaceMobileTextElements();
   } else {
-    console.log('🖥️ Desktop detected - no mobile optimizations needed');
+    console.log('🖥️ Desktop detected - applying clean text for better clarity');
+    // 🖥️ 데스크탑에서도 텍스트 선명도 개선 적용
+    replaceMobileTextElements();
+    
     // PC에서 이전에 적용된 톤다운 필터 제거
     if (tiles && tiles.length > 0) {
       tiles.forEach((tile, index) => {
@@ -4881,7 +4884,7 @@ function applyMobileTileOptimizationsDirectly() {
   }
 }
 
-// 📱 모바일 전용: 흐린 텍스트를 선명한 텍스트로 완전 교체
+// 📱🖥️ 흐린 텍스트를 선명한 텍스트로 완전 교체 - 모바일/데스크탑 공용
 function replaceMobileTextElements() {
   const textRevealElement = document.querySelector('.hero-content .text-reveal');
   
