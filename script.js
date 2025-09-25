@@ -891,7 +891,7 @@ class TileMosaicController {
   setupMobileOptimizations() {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const isMobile = screenWidth <= 768 || screenHeight <= 1024 || window.innerWidth < window.innerHeight;
+    const isMobile = screenWidth <= 768 || window.innerWidth < window.innerHeight;
     const isTouch = 'ontouchstart' in window || 'onmsgesturechange' in window;
     const isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
@@ -4802,7 +4802,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function applyMobileTileOptimizationsDirectly() {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
-  const isMobile = screenWidth <= 768 || screenHeight <= 1024 || window.innerWidth < window.innerHeight;
+  const isMobile = screenWidth <= 768 || window.innerWidth < window.innerHeight;
   const isTouch = 'ontouchstart' in window || 'onmsgesturechange' in window;
   const isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   
