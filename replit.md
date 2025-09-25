@@ -91,6 +91,38 @@ Preferred communication style: Simple, everyday language.
 - **Integrated Solutions**: Address multiple root causes in single comprehensive fix rather than piecemeal approaches
 - **Real-time Verification**: Use DevTools computed styles to verify actual application before declaring completion
 
+#### Systematic CSS Analysis Protocol
+**MANDATORY**: Before attempting any CSS/JavaScript style modifications, follow this protocol:
+
+1. **Complete CSS Rule Collection**: Search ALL CSS files for target selector patterns
+   - Use `grep -n "selector" styles.css` to find all matching rules
+   - Include partial matches, parent selectors, and nested rules
+   - Document line numbers and file locations
+
+2. **CSS Specificity Hierarchy Analysis**: 
+   - Calculate specificity score for each rule (inline: 1000, ID: 100, class: 10, element: 1)
+   - Rank rules by specificity (highest first)
+   - Identify `!important` declarations (always win regardless of specificity)
+   - Map inheritance chain and cascade order
+
+3. **JavaScript Override Capability Assessment**:
+   - Check if CSS rules use `!important` (JavaScript cannot override)
+   - Verify selector specificity vs inline styles (inline = 1000 points)
+   - Test alternative CSS properties that can bypass `!important` (e.g., `transform` vs `position`)
+
+4. **Root Cause Documentation**: Before proposing solutions, explicitly state:
+   - Which CSS rule is preventing the change
+   - Why JavaScript cannot override it (specificity/!important)
+   - The exact CSS selector and declaration causing conflict
+
+5. **Solution Validation**: Propose solutions that work within CSS cascade rules:
+   - Higher specificity selectors
+   - Alternative CSS properties that aren't !important blocked  
+   - Transform-based positioning instead of margin/position when blocked
+   - CSS custom properties for dynamic value changes
+
+**Example Failure**: Attempting `element.style.left = '151px'` when CSS has `selector { left: 0 !important; }` will always fail because `!important` overrides inline styles.
+
 ### Technical Problem-Solving Approach
 1. **Comprehensive Initial Analysis**: Consider all potential causes (CSS conflicts, caching, JS interference, browser rendering)
 2. **Root Cause Identification**: Diagnose fundamental issues rather than treating symptoms
