@@ -501,7 +501,7 @@ class TileMosaicController {
         duration: 12000,
         delay: 0,
         patterns: [
-          { transform: 'scale(1.0) translateX(-300px) translateY(-200px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(-150px) translateY(-100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.3) translateX(-20px) translateY(-15px) rotate(-1deg)', opacity: 0.95, offset: 0.25 },
           { transform: 'scale(0.9) translateX(15px) translateY(10px) rotate(1.5deg)', opacity: 0.75, offset: 0.5 },
           { transform: 'scale(1.2) translateX(-10px) translateY(-8px) rotate(-0.5deg)', opacity: 0.9, offset: 0.75 },
@@ -514,7 +514,7 @@ class TileMosaicController {
         duration: 15000,
         delay: 2000,
         patterns: [
-          { transform: 'scale(1.0) translateX(-100px) translateY(-200px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(-50px) translateY(-100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(25px) translateY(-20px) rotate(2deg)', opacity: 0.7, offset: 0.3 },
           { transform: 'scale(1.4) translateX(-18px) translateY(12px) rotate(-2.5deg)', opacity: 1.0, offset: 0.6 },
           { transform: 'scale(1.1) translateX(8px) translateY(-5px) rotate(0.8deg)', opacity: 0.9, offset: 0.85 },
@@ -527,7 +527,7 @@ class TileMosaicController {
         duration: 10000,
         delay: 1000,
         patterns: [
-          { transform: 'scale(1.0) translateX(100px) translateY(-200px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(50px) translateY(-100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.25) translateX(-12px) translateY(18px) rotate(-1.8deg)', opacity: 0.95, offset: 0.2 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.4 },
           { transform: 'scale(0.85) translateX(22px) translateY(-15px) rotate(2.2deg)', opacity: 0.75, offset: 0.7 },
@@ -540,7 +540,7 @@ class TileMosaicController {
         duration: 18000,
         delay: 3500,
         patterns: [
-          { transform: 'scale(1.0) translateX(300px) translateY(-200px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(150px) translateY(-100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.35) translateX(30px) translateY(-25px) rotate(3deg)', opacity: 1.0, offset: 0.15 },
           { transform: 'scale(0.9) translateX(-25px) translateY(20px) rotate(-2.8deg)', opacity: 0.8, offset: 0.45 },
           { transform: 'scale(1.15) translateX(12px) translateY(-8px) rotate(1.2deg)', opacity: 0.9, offset: 0.75 },
@@ -553,7 +553,7 @@ class TileMosaicController {
         duration: 14000,
         delay: 1500,
         patterns: [
-          { transform: 'scale(1.0) translateX(-300px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(-150px) translateY(100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.82) translateX(-15px) translateY(-18px) rotate(-1.5deg)', opacity: 0.7, offset: 0.35 },
           { transform: 'scale(1.28) translateX(20px) translateY(15px) rotate(2.5deg)', opacity: 0.95, offset: 0.65 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 1 }
@@ -565,7 +565,7 @@ class TileMosaicController {
         duration: 16000,
         delay: 4000,
         patterns: [
-          { transform: 'scale(1.0) translateX(-100px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(-50px) translateY(100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.22) translateX(-28px) translateY(22px) rotate(-2.2deg)', opacity: 0.9, offset: 0.28 },
           { transform: 'scale(0.88) translateX(18px) translateY(-12px) rotate(1.8deg)', opacity: 0.75, offset: 0.55 },
           { transform: 'scale(1.4) translateX(-8px) translateY(5px) rotate(-0.8deg)', opacity: 1.0, offset: 0.82 },
@@ -578,7 +578,7 @@ class TileMosaicController {
         duration: 11000,
         delay: 800,
         patterns: [
-          { transform: 'scale(1.0) translateX(100px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(50px) translateY(100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(1.18) translateX(35px) translateY(-30px) rotate(2.8deg)', opacity: 0.95, offset: 0.22 },
           { transform: 'scale(1.0) translateX(0px) translateY(0px) rotate(0deg)', opacity: 0.85, offset: 0.44 },
           { transform: 'scale(0.85) translateX(-22px) translateY(18px) rotate(-2.5deg)', opacity: 0.7, offset: 0.66 },
@@ -592,7 +592,7 @@ class TileMosaicController {
         duration: 13000,
         delay: 2800,
         patterns: [
-          { transform: 'scale(1.0) translateX(300px) translateY(50px) rotate(0deg)', opacity: 0.85, offset: 0 },
+          { transform: 'scale(1.0) translateX(150px) translateY(100px) rotate(0deg)', opacity: 0.85, offset: 0 },
           { transform: 'scale(0.8) translateX(-32px) translateY(-25px) rotate(-3deg)', opacity: 0.7, offset: 0.25 },
           { transform: 'scale(1.38) translateX(28px) translateY(20px) rotate(2.5deg)', opacity: 1.0, offset: 0.5 },
           { transform: 'scale(1.05) translateX(-12px) translateY(-8px) rotate(-1deg)', opacity: 0.9, offset: 0.75 },
@@ -1210,9 +1210,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
     initCarousel();
     
     // Initialize WAAPI Tile Mosaic Controller
-    window.tileMosaicController = new TileMosaicController();
-    window.tileMosaicController.init();
-    console.log('TileMosaicController initialized and ready');
+    try {
+      console.log('DEBUG: Creating TileMosaicController...');
+      window.tileMosaicController = new TileMosaicController();
+      console.log('DEBUG: Controller created, calling init()...');
+      window.tileMosaicController.init();
+      console.log('TileMosaicController initialized and ready');
+    } catch (error) {
+      console.error('ERROR: TileMosaicController initialization failed:', error);
+    }
     
     // Set up performance toggle event listener
     const performanceToggle = document.getElementById('performance-toggle');
