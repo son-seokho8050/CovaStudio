@@ -7303,13 +7303,23 @@ summary:focus {
     gap: 16px !important; /* 모바일 최적화된 간격 더 증가 */
   }
   
-  /* 중앙 4개 타일 특별 간격 + 좌측 이동 */
-  .video-tile:nth-child(3),
-  .video-tile:nth-child(4),
-  .video-tile:nth-child(5), 
-  .video-tile:nth-child(6) {
+  /* 중앙 4개 타일 강제 좌측 이동 - reduced-motion 무시 */
+  .video-mosaic-tiles .video-tile:nth-child(3),
+  .video-mosaic-tiles .video-tile:nth-child(4),
+  .video-mosaic-tiles .video-tile:nth-child(5), 
+  .video-mosaic-tiles .video-tile:nth-child(6) {
     margin: 12px !important; /* 중앙 타일 특별 간격 */
-    transform: translateX(-20px) !important; /* 좌측으로 이동 */
+    position: relative !important; /* transform 적용을 위한 position */
+    left: -30px !important; /* 좌측 이동 - transform 대신 left 사용 */
+    z-index: 10 !important; /* 다른 요소 위에 표시 */
+  }
+  
+  /* reduced-motion에서도 중앙 타일 이동 강제 적용 */
+  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(3),
+  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(4), 
+  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(5),
+  .reduced-motion .video-mosaic-tiles .video-tile:nth-child(6) {
+    left: -30px !important; /* reduced-motion 상태에서도 좌측 이동 */
   }
 }
 
