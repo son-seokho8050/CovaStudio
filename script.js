@@ -4854,5 +4854,15 @@ function applyMobileTileOptimizationsDirectly() {
     console.log('🎯 Mobile tile optimizations completed!');
   } else {
     console.log('🖥️ Desktop detected - no mobile optimizations needed');
+    // PC에서 이전에 적용된 톤다운 필터 제거
+    if (tiles && tiles.length > 0) {
+      tiles.forEach((tile, index) => {
+        const video = tile.querySelector('.tile-video');
+        if (video && video.style.filter) {
+          video.style.filter = '';
+          console.log(`🔧 Removed tone-down filter from PC tile ${index + 1}`);
+        }
+      });
+    }
   }
 }
