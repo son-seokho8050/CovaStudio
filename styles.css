@@ -393,30 +393,7 @@
   }
   
   /* Scale video mosaic for tiny screens */
-  .video-mosaic-container {
-    padding: 15px !important;
-  }
   
-  /* Keep 4 tiles but make them smaller on tiny screens */
-  .video-tile[data-tile="tile-1"] {
-    width: 100px !important; 
-    height: 60px !important;
-  }
-  
-  .video-tile[data-tile="tile-2"] {
-    width: 90px !important; 
-    height: 55px !important;
-  }
-  
-  .video-tile[data-tile="tile-3"] {
-    width: 95px !important; 
-    height: 58px !important;
-  }
-  
-  .video-tile[data-tile="tile-4"] {
-    width: 85px !important; 
-    height: 50px !important;
-  }
   
   /* Keep hero height compact */
   .hero {
@@ -2320,7 +2297,6 @@ body.modal-open {
     --video-opacity-mobile: 0.7;
     --grain-opacity-mobile: 0.05;
     --vignette-opacity-mobile: 0.4;
-    padding: 20px !important;
   }
   
   /* Hide 4 tiles on mobile, keep only first 4 for better performance */
@@ -2331,42 +2307,6 @@ body.modal-open {
     display: none !important;
   }
   
-  /* Mobile: 화면 전체 폭 활용한 4개 타일 배치 */
-  .video-tile[data-tile="tile-1"] {
-    left: 5% !important; 
-    top: 80px !important; 
-    width: 40% !important; 
-    height: auto !important;
-    z-index: 20 !important;
-    opacity: 0.9 !important;
-  }
-  
-  .video-tile[data-tile="tile-2"] {
-    right: 5% !important; 
-    top: 80px !important; 
-    width: 40% !important; 
-    height: auto !important;
-    z-index: 20 !important;
-    opacity: 0.9 !important;
-  }
-  
-  .video-tile[data-tile="tile-3"] {
-    left: 5% !important; 
-    bottom: 120px !important; 
-    width: 40% !important; 
-    height: auto !important;
-    z-index: 20 !important;
-    opacity: 0.9 !important;
-  }
-  
-  .video-tile[data-tile="tile-4"] {
-    right: 5% !important; 
-    bottom: 120px !important; 
-    width: 40% !important; 
-    height: auto !important;
-    z-index: 20 !important;
-    opacity: 0.9 !important;
-  }
   
   .video-tile {
     opacity: var(--video-opacity-mobile) !important;
@@ -3096,62 +3036,7 @@ a:hover {
   90% { background-position: 50% 100%; }
 }
 
-/* Mosaic positioning with CSS variables - logical grid layout */
-[data-tile="tile-1"] {
-  --x: 0;
-  --y: 0;
-  --w: calc((100% - 120px) * 0.5);
-  --h: calc((100vh - 160px) * 0.33);
-}
 
-[data-tile="tile-2"] {
-  --x: calc((100% - 120px) * 0.5 + 20px);
-  --y: 0;
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.66 + 20px);
-}
-
-[data-tile="tile-3"] {
-  --x: calc((100% - 120px) * 0.75 + 40px);
-  --y: 0;
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.33);
-}
-
-[data-tile="tile-4"] {
-  --x: 0;
-  --y: calc((100vh - 160px) * 0.33 + 20px);
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.67);
-}
-
-[data-tile="tile-5"] {
-  --x: calc((100% - 120px) * 0.25 + 20px);
-  --y: calc((100vh - 160px) * 0.33 + 20px);
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.33);
-}
-
-[data-tile="tile-6"] {
-  --x: calc((100% - 120px) * 0.75 + 40px);
-  --y: calc((100vh - 160px) * 0.33 + 20px);
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.67);
-}
-
-[data-tile="tile-7"] {
-  --x: calc((100% - 120px) * 0.25 + 20px);
-  --y: calc((100vh - 160px) * 0.66 + 40px);
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.34);
-}
-
-[data-tile="tile-8"] {
-  --x: calc((100% - 120px) * 0.5 + 20px);
-  --y: calc((100vh - 160px) * 0.66 + 40px);
-  --w: calc((100% - 120px) * 0.25);
-  --h: calc((100vh - 160px) * 0.34);
-}
 
 /* nagi Cinematic Film Effects System */
 
