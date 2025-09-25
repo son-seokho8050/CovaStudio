@@ -180,6 +180,60 @@
 }
 
 /* Mobile Responsive */
+/* 텍스트 사이 은은한 톤다운 필터 효과 */
+.hero-content .text-reveal span,
+.hero-content .hero-title-dynamic,
+.hero-content .text-highlight,
+.hero-content .btn,
+.tagline {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content .text-reveal span::before,
+.hero-content .hero-title-dynamic::before,
+.hero-content .text-highlight::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -12px;
+  right: -12px;
+  bottom: -8px;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(1px);
+  border-radius: 6px;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.tagline::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -8px;
+  right: -8px;
+  bottom: -4px;
+  background: rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(0.5px);
+  border-radius: 4px;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* FOLLOW 버튼 주변 톤다운 */
+.hero-content .btn::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  right: -15px;
+  bottom: -10px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2) 0%, transparent 70%);
+  border-radius: 12px;
+  z-index: -2;
+  opacity: 0.5;
+}
+
 @media (max-width: 768px) {
   .cova-modal2-dialog {
     grid-template-columns: 1fr;
