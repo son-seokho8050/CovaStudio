@@ -2897,144 +2897,84 @@ a:hover {
   }
 }
 
-/* Dynamic Mosaic Video Gallery - Absolute Positioning System */
+
+
+
+
+/* ========================================
+   NEW 4-VIDEO TILE SYSTEM - Simple & Clean 
+   ======================================== */
+
+/* Main video container - CSS Grid layout */
 .video-mosaic-container {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 10 !important; /* FIXED: 높은 z-index로 다른 요소 위에 표시 */
-  overflow: hidden !important;
-  padding: 40px !important;
-  pointer-events: none !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  overflow: hidden;
+  padding: 20px;
+  pointer-events: none;
+  
+  /* CSS Grid for 4 videos */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+  align-content: center;
+  justify-content: center;
 }
 
+/* Individual video tiles */
 .video-tile {
-  position: absolute !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  opacity: 0.85 !important;
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
-  aspect-ratio: 16 / 9 !important;
-  z-index: 15 !important; /* FIXED: 영상 타일이 최상위에 표시 */
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0.9;
+  transition: all 0.6s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 16 / 9;
+  z-index: 15;
 }
 
-/* Explicit positioning for each tile - PC Desktop */
-.video-tile[data-tile="tile-1"] {
-  left: 60px; top: 80px; width: 320px; height: 180px;
-}
-.video-tile[data-tile="tile-2"] {
-  right: 100px; top: 120px; width: 280px; height: 200px;
-}
-.video-tile[data-tile="tile-3"] {
-  left: 400px; top: 60px; width: 240px; height: 140px;
-}
-.video-tile[data-tile="tile-4"] {
-  left: 80px; bottom: 160px; width: 300px; height: 220px;
-}
-.video-tile[data-tile="tile-5"] {
-  right: 80px; bottom: 200px; width: 260px; height: 160px;
-}
-.video-tile[data-tile="tile-6"] {
-  left: 450px; bottom: 100px; width: 220px; height: 180px;
-}
-.video-tile[data-tile="tile-7"] {
-  left: 700px; top: 200px; width: 200px; height: 120px;
-}
-.video-tile[data-tile="tile-8"] {
-  right: 200px; top: 340px; width: 180px; height: 140px;
-}
-
-/* Tablet Responsive - 768px to 1024px */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .video-tile[data-tile="tile-1"] {
-    left: 40px; top: 60px; width: 240px; height: 135px;
-  }
-  .video-tile[data-tile="tile-2"] {
-    right: 60px; top: 80px; width: 210px; height: 150px;
-  }
-  .video-tile[data-tile="tile-3"] {
-    left: 280px; top: 40px; width: 180px; height: 105px;
-  }
-  .video-tile[data-tile="tile-4"] {
-    left: 50px; bottom: 120px; width: 225px; height: 165px;
-  }
-  .video-tile[data-tile="tile-5"] {
-    right: 50px; bottom: 150px; width: 195px; height: 120px;
-  }
-  .video-tile[data-tile="tile-6"] {
-    left: 320px; bottom: 80px; width: 165px; height: 135px;
-  }
-  .video-tile[data-tile="tile-7"] {
-    left: 500px; top: 160px; width: 150px; height: 90px;
-  }
-  .video-tile[data-tile="tile-8"] {
-    right: 140px; top: 240px; width: 135px; height: 105px;
-  }
-}
-
-/* Mobile Responsive - 768px and below */
-@media (max-width: 768px) {
-  .video-tile[data-tile="tile-1"] {
-    left: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-2"] {
-    right: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-3"] {
-    left: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-4"] {
-    right: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-5"] {
-    right: 25px; bottom: 100px; width: 130px; height: 80px;
-  }
-  .video-tile[data-tile="tile-6"] {
-    left: 200px; bottom: 60px; width: 110px; height: 90px;
-  }
-  /* Hide smaller tiles on mobile to reduce clutter */
-  .video-tile[data-tile="tile-7"],
-  .video-tile[data-tile="tile-8"] {
-    display: none;
-  }
-}
-
-/* Small Mobile - 480px and below */
-@media (max-width: 480px) {
-  .video-tile[data-tile="tile-1"] {
-    left: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-2"] {
-    right: 5% !important; top: 80px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-3"] {
-    left: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-4"] {
-    right: 5% !important; bottom: 120px !important; width: 40% !important; height: auto !important;
-  }
-  .video-tile[data-tile="tile-5"] {
-    right: 20px; bottom: 75px; width: 100px; height: 60px;
-  }
-  /* Hide even more tiles on small mobile */
-  .video-tile[data-tile="tile-6"],
-  .video-tile[data-tile="tile-7"],
-  .video-tile[data-tile="tile-8"] {
-    display: none;
-  }
-}
-
-/* nagi-style cinematic video elements */
+/* Video elements */
 .video-tile video {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 12px !important;
-  object-fit: cover !important;
-  transition: all 0.6s ease !important;
-  background: #1a1a1a !important;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: all 0.6s ease;
+  background: #1a1a1a;
+}
+
+/* Hide tiles 5-8 (only show first 4) */
+.video-tile[data-tile="tile-5"],
+.video-tile[data-tile="tile-6"],
+.video-tile[data-tile="tile-7"],
+.video-tile[data-tile="tile-8"] {
+  display: none;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .video-mosaic-container {
+    padding: 15px;
+    gap: 10px;
+  }
+  
+  .video-tile {
+    opacity: 0.85;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Small mobile optimizations */
+@media (max-width: 480px) {
+  .video-mosaic-container {
+    padding: 10px;
+    gap: 8px;
+  }
 }
 
 /* Video tile specific styling with animated backgrounds for nagi-style cinematics */
@@ -3290,55 +3230,6 @@ a:hover {
   ) !important;
   opacity: 0.8 !important;
   transform: translate3d(0, 0, 0) !important;
-}
-
-/* 3. Color Grading System - nagi cinematic color correction */
-.video-mosaic-container {
-  /* Enhanced positioning and z-index management */
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 20 !important; /* FIXED: 높은 z-index로 다른 요소들 위에 확실히 표시 */
-  overflow: hidden !important;
-  padding: 40px !important;
-  pointer-events: none !important;
-  
-  /* nagi Cinematic Color Grading */
-  filter: 
-    contrast(1.08) 
-    saturate(0.92) 
-    hue-rotate(-3deg) 
-    brightness(0.96) 
-    sepia(0.03) !important;
-  
-  /* GPU acceleration for smooth performance */
-  transform: translate3d(0, 0, 0) !important;
-  will-change: filter !important;
-}
-
-/* 4. Enhanced Video Tiles with Cinematic Depth */
-.video-tile {
-  position: absolute !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  opacity: 0.88 !important;
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  box-shadow: 
-    0 15px 35px rgba(0, 0, 0, 0.5),
-    0 5px 15px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-  
-  /* CSS Variables for positioning and sizing */
-  left: var(--x, 0) !important;
-  top: var(--y, 0) !important;
-  width: var(--w, 100px) !important;
-  height: var(--h, 100px) !important;
-  
-  /* GPU acceleration */
-  transform: translate3d(0, 0, 0) !important;
-  will-change: transform, opacity !important;
 }
 
 /* Individual video enhancement for nagi style */
