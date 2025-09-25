@@ -2651,7 +2651,7 @@ a:hover {
 .nav-toggle {
   display: block;
   position: absolute;
-  right: 20px;
+  right: 120px;
   top: 50%;
   transform: translateY(-50%);
   background: rgba(255, 255, 255, 0.1);
@@ -2753,6 +2753,11 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1002;
 }
 
 .performance-toggle {
