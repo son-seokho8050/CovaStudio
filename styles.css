@@ -4342,14 +4342,42 @@ summary:focus {
   z-index: 1;
 }
 
-/* Desktop-only background video sizing */
+/* ==========================================
+   PC/데스크톱 기본 설정 (769px 이상)
+   ========================================== */
 @media (min-width: 769px) {
+  /* Philosophy 영상 PC 기본 설정 복구 */
   .philosophy-bg-video {
     min-width: calc(100% + 185px);
     min-height: 100%;
     height: auto;
     object-fit: cover;
     opacity: 0.3;
+  }
+  
+  /* 네비게이션 PC 기본 설정 */
+  .nav-toggle {
+    display: none;
+  }
+  
+  .nav-list {
+    display: flex;
+    position: static;
+    background: none;
+    border: none;
+    flex-direction: row;
+    padding: 0;
+    gap: var(--space-6);
+  }
+  
+  /* 헤더 컨트롤 PC 기본 설정 */
+  .header-controls {
+    position: static;
+    transform: none;
+  }
+  
+  .site-header .container {
+    position: static;
   }
 }
 
@@ -7333,11 +7361,8 @@ summary:focus {
   }
 }
 
-  .section-title-dynamic {
-    font-size: var(--text-2xl);
-    margin-bottom: var(--space-4);
-  }
-  
+/* Mobile 768px 미디어 쿼리 추가 */
+@media (max-width: 768px) {
   .section-number {
     font-size: var(--text-lg);
   }
