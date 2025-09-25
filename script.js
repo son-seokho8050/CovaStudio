@@ -669,7 +669,7 @@ class TileMosaicController {
     
     // CRITICAL: 모바일에서는 처음 4개만 로드, 나머지는 완전히 스킵
     const maxVideos = this.isMobile ? 4 : 8;
-    console.log(`${this.isMobile ? 'Mobile' : 'Desktop'}: Loading ${maxVideos} tile videos`);
+    console.log(`${this.isMobile ? 'Mobile' : 'Desktop'}: Loading ${maxVideos} tile videos (screen: ${window.innerWidth}px)`);
     
     // 스마트 로딩: 모바일은 4개, 데스크톱은 8개
     allTileVideos.forEach((video, index) => {
@@ -899,8 +899,9 @@ class TileMosaicController {
   }
 
   setupMobileOptimizations() {
-    const isMobile = window.innerWidth <= 768;
-    const isTouch = 'ontouchstart' in window;
+    // 더 정확한 모바일 감지: 실제 모바일 디바이스와 작은 화면 구분
+    const isMobile = window.innerWidth <= 768 && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTouch = 'ontouchstart' in window && window.innerWidth <= 768;
     
     this.isMobile = isMobile || isTouch; // Store mobile state for later use
     
