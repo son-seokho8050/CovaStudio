@@ -7275,9 +7275,9 @@ summary:focus {
     animation-timing-function: ease-in-out !important;
   }
   
-  /* 블러 효과 축소 - 성능 향상 */
+  /* 블러 효과 완전 제거 - 타일 비디오 선명도 확보 */
   .film-vignette {
-    backdrop-filter: blur(5px) !important;
+    backdrop-filter: none !important;
   }
   
   /* 모바일에서 hero-overlay 제거 */
