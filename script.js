@@ -4866,6 +4866,9 @@ function applyMobileTileOptimizationsDirectly() {
     
     // 📱 모바일 전용: 복잡한 텍스트를 순수한 선명한 텍스트로 교체
     replaceMobileTextElements();
+    
+    // 📱 모바일 FOLLOW 버튼 텍스트 보호
+    fixMobileFollowButtons();
   } else {
     console.log('🖥️ Desktop detected - applying clean text for better clarity');
     // 🖥️ 데스크탑에서도 텍스트 선명도 개선 적용
@@ -4925,4 +4928,75 @@ function replaceMobileTextElements() {
   textRevealElement.parentNode.insertBefore(cleanTextElement, textRevealElement.nextSibling);
   
   console.log('✅ Mobile clean text replacement completed - crystal clear rendering');
+}
+
+// 📱 모바일에서 FOLLOW 버튼 텍스트가 사라지는 문제 수정
+function fixMobileFollowButtons() {
+  // 모든 FOLLOW 텍스트 요소 찾기
+  const followElements = document.querySelectorAll('[class*="follow" i], [class*="btn"], button, .tagline');
+  
+  followElements.forEach((element, index) => {
+    if (element.textContent && element.textContent.includes('FOLLOW')) {
+      // FOLLOW 텍스트가 있는 요소들의 스타일 보호
+      element.style.cssText += `
+        color: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
+        font-weight: 600 !important;
+        text-rendering: geometricPrecision !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        z-index: 9999 !important;
+        position: relative !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+        padding: 8px 16px !important;
+        border-radius: 4px !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      `;
+      
+      console.log(`✅ Fixed FOLLOW button ${index + 1}: "${element.textContent.trim()}"`);
+    }
+  });
+  
+  // 특별히 타일 내부의 버튼들 찾기
+  const tiles = document.querySelectorAll('.video-tile');
+  tiles.forEach((tile, tileIndex) => {
+    const buttons = tile.querySelectorAll('button, .btn, [class*="follow" i], [data-follow], [aria-label*="follow" i]');
+    
+    buttons.forEach((btn, btnIndex) => {
+      btn.style.cssText += `
+        color: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-block !important;
+        font-weight: 700 !important;
+        text-rendering: geometricPrecision !important;
+        -webkit-font-smoothing: antialiased !important;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        z-index: 10000 !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        padding: 12px 20px !important;
+        border-radius: 6px !important;
+        border: 2px solid rgba(255, 255, 255, 0.5) !important;
+        font-size: 14px !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+      `;
+      
+      // 텍스트가 없다면 FOLLOW 추가
+      if (!btn.textContent.trim()) {
+        btn.textContent = 'FOLLOW';
+      }
+      
+      console.log(`✅ Enhanced tile ${tileIndex + 1} button ${btnIndex + 1}: Enhanced visibility and styling`);
+    });
+  });
+  
+  console.log('🎯 Mobile FOLLOW button protection completed!');
 }
