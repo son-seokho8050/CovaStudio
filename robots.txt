@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cova-studio-magmaart2238050.replit.app/sitemap.xml

@@ -4921,6 +4921,7 @@ function replaceMobileTextElements() {
       <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 0.5rem;">비교와 연결을 통한 탐구</span>
       <span style="font-size: 1.2em; font-weight: 600; display: block; margin-bottom: 1rem; color: #70e1b8;">코코의 핵심 교육철학을 바탕으로</span>
       <span style="font-size: 1rem; font-weight: 400; color: rgba(255, 255, 255, 0.85);">중등, 고1/2 미대입시 기초소양 학습 루프를 제공합니다.</span>
+      <span style="font-size: 0.85rem; font-weight: 400; display: block; margin-top: 0.6rem; color: rgba(255, 255, 255, 0.6);">COVA는 마산·김해 코코미술학원이 운영하는 중등·고1·고2 대상 기초소양 교육과정입니다.</span>
     </p>
   `;
   

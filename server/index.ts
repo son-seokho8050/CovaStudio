@@ -3,6 +3,13 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+app.disable("x-powered-by");
+// 보안 헤더 (2026-09-01 SEO·보안 진단: MIME 스니핑·클릭재킹 방어)
+app.use((_req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

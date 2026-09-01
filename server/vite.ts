@@ -76,10 +76,14 @@ export function serveStatic(app: Express) {
     );
   }
 
+  // 실서비스 실물은 저장소 루트의 정적 사이트(index.html·script.js·cova-data.js·attached_assets)다.
+  // React 빌드(dist/public)는 미완 개편본이므로 서빙하지 않는다 (2026-09-01 진단: 배포본과 저장소 불일치 해소).
+  const rootDir = path.resolve(import.meta.dirname, "..");
+  app.use(express.static(rootDir, { index: "index.html" }));
   app.use(express.static(distPath));
 
-  // fall through to index.html if the file doesn't exist
+  // 원페이지 사이트: 위 정적 서빙에 없는 경로는 404 (소프트 404 차단)
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+    res.status(404).sendFile(path.resolve(rootDir, "index.html"));
   });
 }

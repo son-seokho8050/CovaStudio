@@ -10,6 +10,38 @@
   <meta name="keywords" content="코코미술학원, COVA, 미대입시, 미술학원, 기초소양, 미술교육, 고등미술, 입시미술, 탐구미술, 실기력강화" />
   <meta name="author" content="코코미술학원" />
   <meta name="robots" content="index, follow" />
+  <meta name="naver-site-verification" content="c5197ab440f66812949d6c0ae738f2ffba83f57b" />
+
+  <!-- FAQ 구조화 데이터 — 본문 #faqList의 가시 문답과 글자까지 동일하게 유지할 것 (2026-09-01) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "dateModified": "2026-09-01",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "변화하는 미대입시",
+        "acceptedAnswer": { "@type": "Answer", "text": "마산 김해 미대입시 전문 미술학원 코코는 수년간 축척된 객관적 데이터와 최적화된 커리큘럼으로, 변화하는 미대입시 구조와 실기과목에 완벽하게 대응, 발전하는 커리큘럼으로 지도합니다." }
+      },
+      {
+        "@type": "Question",
+        "name": "사고력, 창의력 학습 시스템",
+        "acceptedAnswer": { "@type": "Answer", "text": "코코의 사고력, 창의력 학습 COVA는 [FOLLOW-ALL IN ONE] 시스템을 통해 시작부터 마무리까지, 전 과정을 경험할 수 있도록 설계되어 있습니다." }
+      },
+      {
+        "@type": "Question",
+        "name": "대상",
+        "acceptedAnswer": { "@type": "Answer", "text": "미술진로/ 미대진학을 목표로 하는 중등, 고등1, 고등2 학년" }
+      }
+    ]
+  }
+  </script>
+
+  <!-- 파비콘 (COCODIO 스마일 — 본원과 동일 세트, 2026-09-01) -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#000000" />
 
   <!-- canonical URL -->
@@ -245,7 +277,8 @@ window.addEventListener('DOMContentLoaded', function() {
         <span style="font-size: 1.2em; font-weight: 600;">개념을 언어화하는 능력</span><br>
         <span style="font-size: 1.2em; font-weight: 600;">비교와 연결을 통한 탐구</span><br>
         <span class="text-highlight">코코의 핵심 교육철학을 바탕으로</span><br>
-        중등, 고1/2 미대입시 기초소양 학습 루프를 제공합니다.
+        중등, 고1/2 미대입시 기초소양 학습 루프를 제공합니다.<br>
+        <span class="muted" style="font-size: 0.85em;">COVA는 마산·김해 코코미술학원이 운영하는 중등·고1·고2 대상 기초소양 교육과정입니다.</span>
       </p>
       <a href="#philosophy" class="btn text-scale-in">FOLLOW</a>
     </div>
@@ -466,7 +499,12 @@ window.addEventListener('DOMContentLoaded', function() {
         <h2 class="section-title-dynamic">CONTACT · SUPPORT</h2>
         <div class="section-progress"><span class="progress-bar"></span></div>
       </div>
-      <div id="faqList" class="accordion"></div>
+      <!-- 아래 정적 문답은 크롤러용 선채움 — 로딩 후 script.js가 같은 내용(cova-data.js faq)으로 덮어쓴다. 수정 시 cova-data.js와 반드시 동일 유지 -->
+      <div id="faqList" class="accordion">
+        <details><summary>변화하는 미대입시</summary><div class="muted" style="margin-top:8px">마산 김해 미대입시 전문 미술학원 코코는 수년간 축척된 객관적 데이터와 최적화된 커리큘럼으로, 변화하는 미대입시 구조와 실기과목에 완벽하게 대응, 발전하는 커리큘럼으로 지도합니다.</div></details>
+        <details><summary>사고력, 창의력 학습 시스템</summary><div class="muted" style="margin-top:8px">코코의 사고력, 창의력 학습 COVA는 [FOLLOW-ALL IN ONE] 시스템을 통해 시작부터 마무리까지, 전 과정을 경험할 수 있도록 설계되어 있습니다.</div></details>
+        <details><summary>대상</summary><div class="muted" style="margin-top:8px">미술진로/ 미대진학을 목표로 하는 중등, 고등1, 고등2 학년</div></details>
+      </div>
       <div class="text-center">
         <p class="muted">재능의 출발점, COCODIO</p>
       </div>
